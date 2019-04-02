@@ -11,4 +11,10 @@ after_success:
   - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r target/site/jacoco/jacoco.xml
 
 script: 
-  cd desapp-grupoi-backend && mvn clean test && mvn clean verify
+  cd desapp-grupoi-backend && mvn clean verify
+
+deploy:
+  provider: heroku
+  api-key:
+    secure: $HEROKU_API_KEY
+  app: desapp-grupoi-012019
