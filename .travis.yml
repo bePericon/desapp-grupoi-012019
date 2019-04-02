@@ -12,9 +12,3 @@ after_success:
 
 script: 
   cd desapp-grupoi-backend && mvn clean verify
-
-deploy:
-  provider: heroku
-  api-key:
-    secure: $HEROKU_API_KEY
-  app: desapp-grupoi-012019
