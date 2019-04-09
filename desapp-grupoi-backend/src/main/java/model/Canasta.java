@@ -11,11 +11,18 @@ public class Canasta extends Modalidad {
 	}
 
 
-	/*	hayque ver si pasamos la lista solo de items y luego los asistentes van viendo cual agarran
+	/*	hay que ver si pasamos la lista solo de items y luego los asistentes van viendo cual agarran
 	 * o si a la lista se le van agregando items
 	 * 
 	 * Ver si hacemos dos listas que se correspondan posicionalmente (items y usuarios)
 	 * o si hacemos una lista de tuplas, pero muchos de los camposde usuario va a arrancar vacios
+	 * 
+	 * 
+	 * 
+	 * prestar atencion si un usuario puede llevar mas de un item
+	 * 
+	 * - diccionario de usuarios con una lista de items 
+	 * 
 	 */
 	
 	

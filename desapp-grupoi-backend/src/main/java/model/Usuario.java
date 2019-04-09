@@ -8,6 +8,8 @@ public class Usuario {
 	private String apellido;
 	private String email;
 	private Date fechaNac;
+	private TarjetaCredito tarjCredito;
+	private SituacionDeuda situacionDeuda;
 //	contrasenia
 	
 	public Usuario(String nombre, String apellido, String email, Date fechaNac) {
@@ -16,6 +18,7 @@ public class Usuario {
 		this.apellido = apellido;
 		this.email = email;
 		this.fechaNac = fechaNac;
+		this.situacionDeuda = new SituacionNormal();
 	}
 	
 	public String getNombre() {
@@ -43,6 +46,6 @@ public class Usuario {
 		this.fechaNac = fechaNac;
 	}
 	
-	
+	//cambiar estado
 	
 }
