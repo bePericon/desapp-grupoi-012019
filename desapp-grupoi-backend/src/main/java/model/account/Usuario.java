@@ -1,4 +1,8 @@
-package model;
+package model.account;
+
+import model.event.SituacionDeuda;
+import model.event.SituacionNormal;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 
@@ -7,12 +11,11 @@ public class Usuario {
 	private String nombre;
 	private String apellido;
 	private String email;
-	private Date fechaNac;
-	private TarjetaCredito tarjCredito;
-	private SituacionDeuda situacionDeuda;
-//	contrasenia
-	
-	public Usuario(String nombre, String apellido, String email, Date fechaNac) {
+	private DateTime fechaNac;
+	private String contrasenia;
+	private SituacionDeuda situacionDeuda; //TODO: analizar si tiene que ir en Cuenta.
+
+	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -20,7 +23,7 @@ public class Usuario {
 		this.fechaNac = fechaNac;
 		this.situacionDeuda = new SituacionNormal();
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -39,10 +42,10 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getFechaNac() {
+	public DateTime getFechaNac() {
 		return fechaNac;
 	}
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(DateTime fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 	

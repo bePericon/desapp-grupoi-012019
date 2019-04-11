@@ -37,12 +37,18 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Dependecy for JUnit -->
+        <!-- Dependency for JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <!-- Dependency for JodaTime -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.10.1</version>
         </dependency>
 
     </dependencies>

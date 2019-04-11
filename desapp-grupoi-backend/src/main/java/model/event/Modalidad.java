@@ -1,4 +1,6 @@
-package model;
+package model.event;
+
+import model.account.Usuario;
 
 import java.util.List;
 
