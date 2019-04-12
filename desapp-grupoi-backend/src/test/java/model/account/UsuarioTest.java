@@ -16,7 +16,7 @@ public class UsuarioTest {
         assertFalse(usuario.getNombre().isEmpty());
         assertFalse(usuario.getApellido().isEmpty());
         assertFalse(usuario.getEmail().isEmpty());
-        assertTrue(usuario.getFechaNac().isEqual(this.cumpleaños()));
+        assertTrue(usuario.getFechaNac().isEqual(new DateTime(1992,11,27,0,0)));
     }
 
     // Metodos auxliares
