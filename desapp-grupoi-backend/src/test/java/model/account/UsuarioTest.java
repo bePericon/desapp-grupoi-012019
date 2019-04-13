@@ -1,9 +1,7 @@
 package model.account;
 
 import org.joda.time.DateTime;
-import org.junit.Test;
-
-import java.util.Date;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 

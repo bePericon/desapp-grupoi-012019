@@ -4,8 +4,6 @@ import model.event.SituacionDeuda;
 import model.event.SituacionNormal;
 import org.joda.time.DateTime;
 
-import java.util.Date;
-
 public class Usuario {
 
 	private String nombre;
@@ -13,7 +11,7 @@ public class Usuario {
 	private String email;
 	private DateTime fechaNac;
 	private String contrasenia;
-	private SituacionDeuda situacionDeuda; //TODO: analizar si tiene que ir en Cuenta.
+	private SituacionDeuda situacionDeuda;
 
 	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
 		super();
