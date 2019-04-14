@@ -1,46 +1,35 @@
 package model.event;
 
+import java.util.List;
+
 import model.account.Usuario;
 
 public class BaquitaCompraPrevia extends Baquita {
 
+	/*
+		Baquita: En este caso se determina el evento a realizar y sus gastos (comida, alquiler de
+		salon, etc) y a partir de la cantidad de asistentes la aplicación determina cuánto debe pagar
+		cada uno de ellos.
+		La baquita puede tener dos modalidades. En la primera, una o más personas realizan las
+		compras, informan lo gastado y luego se divide con los demás asistentes al evento. 
+		
+*/
+	private List<Usuario> compradores;
 	
-	private int costoEstimado;
-	private int dineroDepositado;
 	
-	
-	public BaquitaCompraPrevia(Usuario organizador) {
+	public BaquitaCompraPrevia(Usuario organizador, List<Usuario> compradores) {
 		super(organizador);
-		this.dineroDepositado = 0;
+		this.compradores= compradores;
+
 	}
 
-
-	public void calcularCostoEstimado() {
-		
-		//hace un calculo loco y mira un estmado del precio
-//		this.costoEstimado = costoLoco;
-		
+	public List<Usuario> getCompradores() {
+		return compradores;
 	}
+
 	
-	public void depositar(int deposito) {
-		this.dineroDepositado += deposito;
-	}
-	
-	public int getCostoEstimado() {
-		return costoEstimado;
-	}
+//iniciar con compradores o hacer funcion comprar, con usuario y cosas compradas?
 
-	public void setCostoEstimado(int costoEstimado) {
-		this.costoEstimado = costoEstimado;
-	}
-
-	public int getDineroDepositado() {
-		return dineroDepositado;
-	}
-
-	public void setDineroDepositado(int dineroDepositado) {
-		this.dineroDepositado = dineroDepositado;
-	}
 
 	
 	
