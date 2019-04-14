@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Cuenta {
 
-    private Usuario usuario;
+    private Usuario usuario; 
     private List<Movimiento> movimientos = new ArrayList<Movimiento>();
     private List<Credito> creditos = new ArrayList<Credito>();
     private TarjetaCredito tarjetaCredito;
@@ -43,6 +43,16 @@ public class Cuenta {
         this.creditos.add(credito);
     }
 
+    
+    public void crearTemplate() {
+    	
+    }
+    
+    
+    
+    
+    
+    
     // Getters and Setters
 
     public BigDecimal getSaldo() {

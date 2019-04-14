@@ -10,8 +10,9 @@ public class Usuario {
 	private String apellido;
 	private String email;
 	private DateTime fechaNac;
-	private String contrasenia;
+	private String contrasenia;// TODO: ver si corresponde modelar aca
 	private SituacionDeuda situacionDeuda;
+	private Cuenta cuenta;
 
 	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
 		super();
@@ -20,8 +21,28 @@ public class Usuario {
 		this.email = email;
 		this.fechaNac = fechaNac;
 		this.situacionDeuda = new SituacionNormal();
+		this.cuenta = new Cuenta();
 	}
 
+	
+	public void crearTemplate() {
+		
+	}
+	
+	public void crearEvento() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	GETTERS Y SETTERS
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -46,6 +67,10 @@ public class Usuario {
 	public void setFechaNac(DateTime fechaNac) {
 		this.fechaNac = fechaNac;
 	}
+	
+	
+	
+	
 	
 	//cambiar estado
 	

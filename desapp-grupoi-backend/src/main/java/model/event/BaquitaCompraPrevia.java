@@ -2,14 +2,14 @@ package model.event;
 
 import model.account.Usuario;
 
-public class CompraPrevia extends Baquita {
+public class BaquitaCompraPrevia extends Baquita {
 
 	
 	private int costoEstimado;
 	private int dineroDepositado;
 	
 	
-	public CompraPrevia(Usuario organizador) {
+	public BaquitaCompraPrevia(Usuario organizador) {
 		super(organizador);
 		this.dineroDepositado = 0;
 	}

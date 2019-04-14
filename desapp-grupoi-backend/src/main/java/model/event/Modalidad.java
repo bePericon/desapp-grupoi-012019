@@ -6,17 +6,31 @@ import java.util.List;
 
 public abstract class Modalidad {
 
-	private Usuario organizador;
-	private List<Usuario> invitados;
 	
-	//para que clases que heredan usen esto
+	protected List<Usuario> invitados;
+	protected List<Item> items;
+	
+
 	public Modalidad(Usuario organizador) {
-		super();
-		this.organizador = organizador;
+		super();		
+	}
+
+	
+	protected void agregarInvitado(Usuario invitado) {
+		this.invitados.add(invitado);
 	}
 	
-	//agregar invitado
-	//agregar invitados
+	
+//	Getters y setters
+	public List<Item> getItems() {
+		return items;
+	}
+	public List<Usuario> getInvitados() {
+		return invitados;
+	}
+	public void setInvitados(List<Usuario> invitados) {
+		this.invitados = invitados;
+	}
 	
 	
 }
