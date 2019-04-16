@@ -21,6 +21,8 @@ public abstract class Modalidad {
 	}
 	
 	
+	
+	
 //	Getters y setters
 	public List<Item> getItems() {
 		return items;

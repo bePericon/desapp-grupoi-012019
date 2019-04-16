@@ -17,16 +17,45 @@ public class BaquitaCompraPrevia extends Baquita {
 	private List<Usuario> compradores;
 	
 	
-	public BaquitaCompraPrevia(Usuario organizador, List<Usuario> compradores) {
+	public BaquitaCompraPrevia(Usuario organizador) {
 		super(organizador);
-		this.compradores= compradores;
+//		this.compradores= compradores;
 
 	}
 
-	public List<Usuario> getCompradores() {
-		return compradores;
-	}
-
+	
+//	aniadir comprador (Usuario user, Item compra) { aca puedo a;arir varios items
+//		se aniade a la lista esta tupla
+//	}
+//	
+//	agregousuario nuevo() {
+//		agrega uusuario
+////		calcula de vuelta
+//	}
+//	
+//	
+//	
+//	retornaria el gasto por persona 
+//	dividirGastos(){ 
+//		
+//		
+//		recorremos la lista y vamos sumando los gastos de cada usuario
+//		compradores = usurios, gastos
+//		que haga una lsita con la personay la plata que gasto y que quede guardada, despues vemos que hacemos
+//		
+//		sumamos todos los gastos  dividimos por invitados
+//		despues hacemos la magia o guardamos de aguna manera los gastos que le corresponde a cada uno (gastos= lo que le tienen que dar los demas)
+//		
+//	}
+	
+	
+	
+//	hay que retribuir la plata a cada persona que hizo el gasto
+	
+	
+	
+	
+	
 	
 //iniciar con compradores o hacer funcion comprar, con usuario y cosas compradas?
 

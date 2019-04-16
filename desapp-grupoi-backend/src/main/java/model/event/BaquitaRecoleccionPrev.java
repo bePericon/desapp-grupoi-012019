@@ -38,6 +38,13 @@ public class BaquitaRecoleccionPrev extends Baquita {
 		
 	}
 	
+	
+	no vamos 
+	
+	
+	
+	
+	
 	public void recibirDeposito(int deposito) {
 		this.dineroDepositado += deposito;
 		
