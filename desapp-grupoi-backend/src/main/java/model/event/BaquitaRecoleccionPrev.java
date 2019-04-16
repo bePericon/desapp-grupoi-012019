@@ -37,13 +37,7 @@ public class BaquitaRecoleccionPrev extends Baquita {
 //		this.costoEstimado = costoLoco;
 		
 	}
-	
-	
-	no vamos 
-	
-	
-	
-	
+		
 	
 	public void recibirDeposito(int deposito) {
 		this.dineroDepositado += deposito;
