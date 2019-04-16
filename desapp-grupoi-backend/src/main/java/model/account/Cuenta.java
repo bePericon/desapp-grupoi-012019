@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.account.EnumEstados.*;
+
 public class Cuenta {
 
     private Usuario usuario; 
@@ -35,24 +37,39 @@ public class Cuenta {
         return Dinero.mayorACero(this.saldo);
     }
 
+    public void solicitarCredito() {
+        this.agregarCredito(new Credito("1000", 6));
+    }
+
     public void agregarMovimiento(EnumTipos.TipoMovimiento depositar, DateTime fecha, BigDecimal monto) {
         this.movimientos.add(new Movimiento(depositar, fecha, monto));
     }
 
-    public void agregarCredito(Credito credito) {
-        this.creditos.add(credito);
+    private void agregarCredito(Credito credito) {
+        if(! this.hayCreditoEnCurso() && this.esUsuarioCumplidor()){
+            this.creditos.add(credito);
+            this.agregarMovimiento(EnumTipos.TipoMovimiento.DEPOSITAR, DateTime.now(), credito.getMontoTotal());
+        }
     }
 
-    
-    public void crearTemplate() {
-    	
+    public boolean esUsuarioCumplidor() {
+        return this.getUsuario().getSituacion().esCumplidor();
     }
-    
-    
-    
-    
-    
-    
+
+    public boolean hayCreditoEnCurso() {
+        return (this.getCreditos().size() > 0) && (this.estadoUltimoCredito().equals(EstadoCredito.ENCURSO));
+    }
+
+    private EstadoCredito estadoUltimoCredito() {
+        return this.getUltimoCredito().getEstado();
+    }
+
+
+    public void crearTemplate() {
+
+    }
+
+
     // Getters and Setters
 
     public BigDecimal getSaldo() {
@@ -81,5 +98,13 @@ public class Cuenta {
 
     public Credito getUltimoCredito() {
         return this.creditos.get(this.creditos.size()-1);
+    }
+
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
