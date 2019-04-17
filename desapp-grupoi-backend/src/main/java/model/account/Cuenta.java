@@ -1,8 +1,6 @@
 package model.account;
 
 import org.joda.time.DateTime;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,46 +12,49 @@ public class Cuenta {
     private List<Movimiento> movimientos = new ArrayList<Movimiento>();
     private List<Credito> creditos = new ArrayList<Credito>();
     private TarjetaCredito tarjetaCredito;
-    private BigDecimal saldo;
+    private Dinero saldo;
+    private EstadoSituacionDeuda situacionDeuda;
 
     public Cuenta(){
-        this.saldo = Dinero.getMonto(0);
+        this.saldo = new Dinero(0);
+        this.situacionDeuda = EstadoSituacionDeuda.NORMAL;
     }
 
-    public void depositarDinero(BigDecimal monto) {
-        this.saldo = Dinero.sumar(this.saldo, monto);
+    public void depositarDinero(Dinero monto) {
+        this.saldo.sumar(monto);
         this.agregarMovimiento(EnumTipos.TipoMovimiento.DEPOSITAR, DateTime.now(), monto);
     }
 
-    public void retirarDinero(BigDecimal monto) {
-        if(this.haySaldoSuficiente()) {
-            this.saldo = Dinero.restar(this.saldo, monto);
+    public void retirarDinero(Dinero monto) {
+        if(this.haySaldoSuficiente(monto)) {
+            this.saldo.restar(monto);
             this.agregarMovimiento(EnumTipos.TipoMovimiento.RETIRAR, DateTime.now(), monto);
         }
         //TODO: manejo de excepciones
     }
 
-    public boolean haySaldoSuficiente() {
-        return Dinero.mayorACero(this.saldo);
+    public boolean haySaldoSuficiente(Dinero monto) {
+        return this.saldo.mayorACero() && this.saldo.mayorA(monto);
     }
 
     public void solicitarCredito() {
-        this.agregarCredito(new Credito("1000", 6));
+        this.agregarCredito(new Credito(new Dinero(1000), new Dinero(1200), 6));
     }
 
-    public void agregarMovimiento(EnumTipos.TipoMovimiento depositar, DateTime fecha, BigDecimal monto) {
+    public void agregarMovimiento(EnumTipos.TipoMovimiento depositar, DateTime fecha, Dinero monto) {
         this.movimientos.add(new Movimiento(depositar, fecha, monto));
     }
 
     private void agregarCredito(Credito credito) {
         if(! this.hayCreditoEnCurso() && this.esUsuarioCumplidor()){
             this.creditos.add(credito);
+            this.saldo.sumar(credito.getMontoTotal());
             this.agregarMovimiento(EnumTipos.TipoMovimiento.DEPOSITAR, DateTime.now(), credito.getMontoTotal());
         }
     }
 
     public boolean esUsuarioCumplidor() {
-        return this.getUsuario().getSituacion().esCumplidor();
+        return this.situacionDeuda.esCumplidor();
     }
 
     public boolean hayCreditoEnCurso() {
@@ -64,16 +65,25 @@ public class Cuenta {
         return this.getUltimoCredito().getEstado();
     }
 
+    public void debitarCuotaCredito() {
+        Dinero cuota = this.getUltimoCredito().getMontoCuota();
+        if(this.haySaldoSuficiente(cuota)){
+            this.saldo.restar(cuota);
+            this.getUltimoCredito().saldarMonto(cuota);
+        }else {
+            this.setSituacionDeuda(EstadoSituacionDeuda.MOROSO);
+        }
+    }
 
     public void crearTemplate() {
 
     }
 
 
-    // Getters and Setters
 
-    public BigDecimal getSaldo() {
-        return saldo;
+    // Getters and Setters
+    public Dinero getSaldo() {
+        return this.saldo;
     }
 
     public Movimiento getUltimoMovimiento() {
@@ -106,5 +116,11 @@ public class Cuenta {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public EstadoSituacionDeuda getSituacion() { return this.situacionDeuda; }
+
+    public void setSituacionDeuda(EstadoSituacionDeuda situacion) {
+        this.situacionDeuda = situacion;
     }
 }

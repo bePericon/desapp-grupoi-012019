@@ -3,11 +3,8 @@ package model.account;
 import static org.junit.Assert.*;
 
 import org.junit.*;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class CuentaTest {
@@ -27,21 +24,21 @@ public class CuentaTest {
 
     @Test
     public void testSaldoActual_cuentaSaldoEnCero() {
-        BigDecimal saldo = this.cuentaTest.getSaldo();
+        Dinero saldo = this.cuentaTest.getSaldo();
 
-        assertEquals(Dinero.getMonto(0), saldo);
+        assertEquals(0, saldo.getMonto(), 0.0);
     }
 
     @Test
     public void testDepositarDinero_cuentaSaldoEnMil() {
-        this.cuentaTest.depositarDinero(Dinero.getMonto(1000));
+        this.cuentaTest.depositarDinero(new Dinero(1000));
 
-        assertEquals(Dinero.getMonto(1000), this.cuentaTest.getSaldo());
+        assertEquals(1000, this.cuentaTest.getSaldo().getMonto(), 0.0);
     }
 
     @Test
     public void testDepositarDinero_ceAgregaUnMovimiento() {
-        this.cuentaTest.depositarDinero(Dinero.getMonto(100));
+        this.cuentaTest.depositarDinero(new Dinero(100));
         List<Movimiento> movimientos = this.cuentaTest.getMovimientos();
 
         assertEquals(1, movimientos.size());
@@ -49,7 +46,7 @@ public class CuentaTest {
 
     @Test
     public void testDepositarDinero_seAgregaUnMovimientoTipoDepositar() {
-        this.cuentaTest.depositarDinero(Dinero.getMonto(100));
+        this.cuentaTest.depositarDinero(new Dinero(100));
         Movimiento movimiento = this.cuentaTest.getUltimoMovimiento();
 
         assertEquals(EnumTipos.TipoMovimiento.DEPOSITAR, movimiento.getTipoMovimiento());
@@ -57,16 +54,16 @@ public class CuentaTest {
 
     @Test
     public void testRetirarDinero_cuentaSaldoEnQuinientos() {
-        this.cuentaTest.depositarDinero(Dinero.getMonto(1000));
-        this.cuentaTest.retirarDinero(Dinero.getMonto(500));
+        this.cuentaTest.depositarDinero(new Dinero(1000));
+        this.cuentaTest.retirarDinero(new Dinero(500));
 
-        assertEquals(Dinero.getMonto(500), this.cuentaTest.getSaldo());
+        assertEquals(500, this.cuentaTest.getSaldo().getMonto(), 0.0);
     }
 
     @Test
     public void testRetirarDinero_seAgregaUnMovimientoTipoRetirar() {
-        this.cuentaTest.depositarDinero(Dinero.getMonto(1000));
-        this.cuentaTest.retirarDinero(Dinero.getMonto(100));
+        this.cuentaTest.depositarDinero(new Dinero(1000));
+        this.cuentaTest.retirarDinero(new Dinero(100));
         Movimiento movimiento = this.cuentaTest.getUltimoMovimiento();
 
         assertEquals(EnumTipos.TipoMovimiento.RETIRAR, movimiento.getTipoMovimiento());
@@ -82,14 +79,39 @@ public class CuentaTest {
     }
 
     @Test
+    public void testEstadoSituacionDeuda_usuarioSituacionNormal() {
+        this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.NORMAL);
+
+        assertTrue(this.cuentaTest.getSituacion().esNormal());
+    }
+    @Test
+    public void testEstadoSituacionDeuda_usuarioSituacionCumplidor() {
+        this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
+
+        assertTrue(this.cuentaTest.getSituacion().esCumplidor());
+    }
+    @Test
+    public void testEstadoSituacionDeuda_usuarioSituacionMoroso() {
+        this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.MOROSO);
+
+        assertTrue(this.cuentaTest.getSituacion().esMoroso());
+    }
+
+    @Test
     public void testSolicitarCredito_esPosibleAgregarUnCredito() {
-        Usuario mockUsuario = Mockito.mock(Usuario.class);
-        Mockito.when(mockUsuario.getSituacion()).thenReturn(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
-        this.cuentaTest.setUsuario(mockUsuario);
-
+        this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
         this.cuentaTest.solicitarCredito();
-        List<Credito> creditos = this.cuentaTest.getCreditos();
 
-        assertEquals(1, creditos.size());
+        assertEquals(1, this.cuentaTest.getCreditos().size());
+    }
+
+    @Test
+    public void testDebitarCuotaCredito_esPosibleDebitarLaPrimerCuota() {
+        this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
+        this.cuentaTest.solicitarCredito();
+        this.cuentaTest.debitarCuotaCredito();
+        Dinero saldoDespues = this.cuentaTest.getSaldo();
+
+        assertEquals(800, saldoDespues.getMonto(),0.0);
     }
 }

@@ -1,7 +1,6 @@
 package model.account;
 
 import org.joda.time.DateTime;
-import model.account.EnumEstados.EstadoSituacionDeuda;
 
 public class Usuario {
 
@@ -10,7 +9,6 @@ public class Usuario {
 	private String email;
 	private DateTime fechaNac;
 	private String contrasenia;// TODO: ver si corresponde modelar aca
-	private EstadoSituacionDeuda situacionDeuda;
 	private Cuenta cuenta;
 
 	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
@@ -19,7 +17,6 @@ public class Usuario {
 		this.apellido = apellido;
 		this.email = email;
 		this.fechaNac = fechaNac;
-		this.situacionDeuda = EstadoSituacionDeuda.NORMAL;
 		this.cuenta = new Cuenta();
 	}
 
@@ -58,7 +55,6 @@ public class Usuario {
 	public void setFechaNac(DateTime fechaNac) {
 		this.fechaNac = fechaNac;
 	}
-    public EstadoSituacionDeuda getSituacion() { return this.situacionDeuda; }
 
 
     //cambiar estado

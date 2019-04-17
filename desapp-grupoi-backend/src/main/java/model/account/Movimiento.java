@@ -1,16 +1,15 @@
 package model.account;
 
 import org.joda.time.DateTime;
-import java.math.BigDecimal;
 import model.account.EnumTipos.TipoMovimiento;
 
 public class Movimiento {
 
     private TipoMovimiento tipoMovimiento;
     private DateTime fecha;
-    private BigDecimal monto;
+    private Dinero monto;
 
-    public Movimiento(TipoMovimiento tipo, DateTime fecha, BigDecimal monto) {
+    public Movimiento(TipoMovimiento tipo, DateTime fecha, Dinero monto) {
         this.tipoMovimiento = tipo;
         this.fecha = fecha;
         this.monto = monto;
