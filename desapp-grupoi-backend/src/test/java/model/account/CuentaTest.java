@@ -23,6 +23,16 @@ public class CuentaTest {
     }
 
     @Test
+    public void testCrearCuenta_cuentaNuevaDatosObligatorios() {
+        Usuario usuario = new Usuario();
+        Cuenta cuenta = new Cuenta(usuario);
+
+        assertNotNull(cuenta.getUsuario());
+        assertEquals(EnumEstados.EstadoSituacionDeuda.NORMAL, cuenta.getSituacion());
+        assertEquals(0, cuenta.getSaldo().getMonto(), 0.0);
+    }
+
+    @Test
     public void testSaldoActual_cuentaSaldoEnCero() {
         Dinero saldo = this.cuentaTest.getSaldo();
 
@@ -99,19 +109,39 @@ public class CuentaTest {
 
     @Test
     public void testSolicitarCredito_esPosibleAgregarUnCredito() {
-        this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
-        this.cuentaTest.solicitarCredito();
+        this.cuentaTestConCredito();
 
         assertEquals(1, this.cuentaTest.getCreditos().size());
     }
 
     @Test
     public void testDebitarCuotaCredito_esPosibleDebitarLaPrimerCuota() {
-        this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
-        this.cuentaTest.solicitarCredito();
+        this.cuentaTestConCredito();
         this.cuentaTest.debitarCuotaCredito();
         Dinero saldoDespues = this.cuentaTest.getSaldo();
 
         assertEquals(800, saldoDespues.getMonto(),0.0);
+    }
+
+    @Test
+    public void testDebitarCuotaCredito_noEsPosibleDebitarLaCuotaNoHaySaldoUsuarioMoroso() {
+        this.cuentaTestConCredito();
+        this.cuentaTestSinSaldo();
+        this.cuentaTest.debitarCuotaCredito();
+
+        assertEquals(0, this.cuentaTest.getSaldo().getMonto(), 0.0);
+        assertTrue(this.cuentaTest.getSituacion().esMoroso());
+    }
+
+    // Methods aux
+
+    private void cuentaTestConCredito() {
+        this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
+        this.cuentaTest.solicitarCredito();
+    }
+
+    private void cuentaTestSinSaldo() {
+        Dinero saldo = this.cuentaTest.getSaldo();
+        this.cuentaTest.retirarDinero(saldo);
     }
 }

@@ -2,13 +2,13 @@ package model.event;
 
 import model.account.Usuario;
 
-public class InvitadoSinConfirmar {
+public class Invitacion {
 
 	private String email;
 	private Fiesta fiesta;
 
 
-	public InvitadoSinConfirmar(String email, Fiesta fiesta) {
+	public Invitacion(String email, Fiesta fiesta) {
 		this.email = email;
 		this.fiesta = fiesta;
 	}

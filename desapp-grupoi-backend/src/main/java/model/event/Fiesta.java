@@ -17,14 +17,14 @@ public class Fiesta extends Modalidad {
 	confirmaciones.
 */
 	
-	private List<InvitadoSinConfirmar> invitadosSinConfirmar;
+	private List<Invitacion> invitadosSinConfirmar;
 	private Date fechaLimite;
 
 	//costoevento
 	//items?
 
 
-	public Fiesta(Usuario organizador, Date fechaLimite, List<InvitadoSinConfirmar> invitados) {
+	public Fiesta(Usuario organizador, Date fechaLimite, List<Invitacion> invitados) {
 		super(organizador);
 		this.fechaLimite = fechaLimite;
 		this.invitadosSinConfirmar = invitados;

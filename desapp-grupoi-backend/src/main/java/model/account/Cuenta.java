@@ -1,5 +1,8 @@
 package model.account;
 
+import model.event.Evento;
+import model.event.Invitacion;
+import model.event.Template;
 import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +17,18 @@ public class Cuenta {
     private TarjetaCredito tarjetaCredito;
     private Dinero saldo;
     private EstadoSituacionDeuda situacionDeuda;
+    private List<Invitacion> invitaciones = new ArrayList<Invitacion>();
+    private List<Evento> eventos = new ArrayList<Evento>();
+    private List<Template> templates = new ArrayList<Template>();
 
     public Cuenta(){
         this.saldo = new Dinero(0);
         this.situacionDeuda = EstadoSituacionDeuda.NORMAL;
+    }
+
+    public Cuenta(Usuario usuario){
+        this();
+        this.usuario = usuario;
     }
 
     public void depositarDinero(Dinero monto) {
@@ -34,7 +45,7 @@ public class Cuenta {
     }
 
     public boolean haySaldoSuficiente(Dinero monto) {
-        return this.saldo.mayorACero() && this.saldo.mayorA(monto);
+        return this.saldo.mayorACero() && this.saldo.mayorIgualA(monto);
     }
 
     public void solicitarCredito() {
@@ -46,15 +57,11 @@ public class Cuenta {
     }
 
     private void agregarCredito(Credito credito) {
-        if(! this.hayCreditoEnCurso() && this.esUsuarioCumplidor()){
+        if(! this.hayCreditoEnCurso() && this.getSituacion().esCumplidor()){
             this.creditos.add(credito);
             this.saldo.sumar(credito.getMontoTotal());
-            this.agregarMovimiento(EnumTipos.TipoMovimiento.DEPOSITAR, DateTime.now(), credito.getMontoTotal());
+            this.agregarMovimiento(EnumTipos.TipoMovimiento.CREDITO, DateTime.now(), credito.getMontoTotal());
         }
-    }
-
-    public boolean esUsuarioCumplidor() {
-        return this.situacionDeuda.esCumplidor();
     }
 
     public boolean hayCreditoEnCurso() {
@@ -69,16 +76,24 @@ public class Cuenta {
         Dinero cuota = this.getUltimoCredito().getMontoCuota();
         if(this.haySaldoSuficiente(cuota)){
             this.saldo.restar(cuota);
+            this.agregarMovimiento(EnumTipos.TipoMovimiento.PAGARCUOTA, DateTime.now(), cuota);
             this.getUltimoCredito().saldarMonto(cuota);
         }else {
             this.setSituacionDeuda(EstadoSituacionDeuda.MOROSO);
         }
     }
 
-    public void crearTemplate() {
-
+    public void agregarInvitacion(Invitacion invitacion) {
+        this.invitaciones.add(invitacion);
     }
 
+    public void agregarEvento(Evento evento) {
+        this.eventos.add(evento);
+    }
+
+    public void agregarTemplate(Template template) {
+        this.templates.add(template);
+    }
 
 
     // Getters and Setters
@@ -123,4 +138,5 @@ public class Cuenta {
     public void setSituacionDeuda(EstadoSituacionDeuda situacion) {
         this.situacionDeuda = situacion;
     }
+
 }

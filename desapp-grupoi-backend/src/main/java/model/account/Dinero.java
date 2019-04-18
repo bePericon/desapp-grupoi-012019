@@ -24,7 +24,7 @@ public class Dinero {
         return this.monto -= monto.getMonto();
     }
 
-    public boolean mayorA(Dinero monto) {
-        return this.monto > monto.getMonto();
+    public boolean mayorIgualA(Dinero monto) {
+        return this.monto >= monto.getMonto();
     }
 }

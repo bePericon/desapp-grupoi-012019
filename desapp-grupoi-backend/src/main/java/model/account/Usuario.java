@@ -11,6 +11,10 @@ public class Usuario {
 	private String contrasenia;// TODO: ver si corresponde modelar aca
 	private Cuenta cuenta;
 
+	public Usuario() {
+
+	}
+
 	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
 		super();
 		this.nombre = nombre;
@@ -20,8 +24,8 @@ public class Usuario {
 		this.cuenta = new Cuenta();
 	}
 
-	
-	public void crearTemplate() {
+
+    public void crearTemplate() {
 		
 	}
 	
