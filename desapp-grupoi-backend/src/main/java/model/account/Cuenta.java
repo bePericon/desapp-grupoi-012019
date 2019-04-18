@@ -58,6 +58,7 @@ public class Cuenta {
 
     private void agregarCredito(Credito credito) {
         if(! this.hayCreditoEnCurso() && this.getSituacion().esCumplidor()){
+            credito.setUsuarioSolicitante(this.getUsuario());
             this.creditos.add(credito);
             this.saldo.sumar(credito.getMonto());
             this.agregarMovimiento(EnumTipos.TipoMovimiento.CREDITO, DateTime.now(), credito.getMonto());

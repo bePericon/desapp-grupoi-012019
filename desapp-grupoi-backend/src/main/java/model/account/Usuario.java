@@ -21,20 +21,13 @@ public class Usuario {
 		this.apellido = apellido;
 		this.email = email;
 		this.fechaNac = fechaNac;
-		this.cuenta = new Cuenta();
 	}
 
+	public boolean esContraseniaCorrecta(String contra) {
+		return this.contrasenia.equals(contra);
+	}
 
-    public void crearTemplate() {
-		
-	}
-	
-	public void crearEvento() {
-		
-	}
-	
 //	GETTERS Y SETTERS
-	
 	public String getNombre() {
 		return nombre;
 	}
@@ -59,8 +52,13 @@ public class Usuario {
 	public void setFechaNac(DateTime fechaNac) {
 		this.fechaNac = fechaNac;
 	}
+	public void setCuenta(Cuenta cuenta) { this.cuenta = cuenta; }
+	public Cuenta getCuenta() { return this.cuenta; }
+	public void setContrasenia(String contrasenia) { this.contrasenia = contrasenia; }
+
+	public String getContrasenia(){ return this.contrasenia; }
 
 
-    //cambiar estado
+	//cambiar estado
 	
 }

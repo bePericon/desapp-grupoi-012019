@@ -3,18 +3,19 @@ package model.account;
 import org.joda.time.DateTime;
 import org.junit.*;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.*;
 
 public class UsuarioTest {
 
-    @Mock
-    Usuario mockUsuario;
+    private Usuario usuarioTest;
 
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
+        this.usuarioTest = new Usuario();
     }
 
     @After
@@ -22,20 +23,30 @@ public class UsuarioTest {
         // Lo que se quiera ejecutar despues de cada test. Ej: limpieza de datos.
     }
 
-    /// Metodos auxliares ///
+    @Test
+    public void testCreacionUsuarioCompleto_datosCorrectos() {
+       this.usuarioTest = new Usuario("Emmanuel", "Pericon", "epericon@gmail.com", this.cumpleaños());
+       this.usuarioTest.setCuenta(Mockito.mock(Cuenta.class));
+
+        assertNotNull(this.usuarioTest.getCuenta());
+        assertFalse(this.usuarioTest.getNombre().isEmpty());
+        assertFalse(this.usuarioTest.getApellido().isEmpty());
+        assertFalse(this.usuarioTest.getEmail().isEmpty());
+        assertTrue(this.usuarioTest.getFechaNac().isEqual(new DateTime(1992,11,27,0,0)));
+    }
+
+    @Test
+    public void testEsContraseñaCorrecta_contraseñaCorrecta() {
+        this.usuarioTest.setContrasenia("12345678");
+
+        assertTrue(this.usuarioTest.esContraseniaCorrecta("12345678"));
+    }
+
+    /// Methods aux ///
+
     private DateTime cumpleaños() {
         return new DateTime(1992,11,27,0,0);
     }
 
     ////////////////////////
-
-    @Test
-    public void creacionUsuarioCompleto() {
-        Usuario usuario = new Usuario("Emmanuel", "Pericon", "epericon@gmail.com", this.cumpleaños());
-
-        assertFalse(usuario.getNombre().isEmpty());
-        assertFalse(usuario.getApellido().isEmpty());
-        assertFalse(usuario.getEmail().isEmpty());
-        assertTrue(usuario.getFechaNac().isEqual(new DateTime(1992,11,27,0,0)));
-    }
 }

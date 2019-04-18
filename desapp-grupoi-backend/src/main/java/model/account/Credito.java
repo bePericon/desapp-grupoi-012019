@@ -4,6 +4,7 @@ import model.account.EnumEstados.EstadoCredito;
 
 public class Credito {
 
+    private Usuario usuarioSolicitante;
     private Dinero monto;
     private int cuotas;
     private Dinero montoRestante;
@@ -48,5 +49,9 @@ public class Credito {
 
     public Dinero getMontoRestante() {
         return this.montoRestante;
+    }
+
+    public void setUsuarioSolicitante(Usuario usuario) {
+        this.usuarioSolicitante = usuario;
     }
 }
