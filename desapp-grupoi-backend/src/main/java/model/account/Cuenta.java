@@ -59,8 +59,8 @@ public class Cuenta {
     private void agregarCredito(Credito credito) {
         if(! this.hayCreditoEnCurso() && this.getSituacion().esCumplidor()){
             this.creditos.add(credito);
-            this.saldo.sumar(credito.getMontoTotal());
-            this.agregarMovimiento(EnumTipos.TipoMovimiento.CREDITO, DateTime.now(), credito.getMontoTotal());
+            this.saldo.sumar(credito.getMonto());
+            this.agregarMovimiento(EnumTipos.TipoMovimiento.CREDITO, DateTime.now(), credito.getMonto());
         }
     }
 
@@ -129,14 +129,21 @@ public class Cuenta {
         return this.usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     public EstadoSituacionDeuda getSituacion() { return this.situacionDeuda; }
 
     public void setSituacionDeuda(EstadoSituacionDeuda situacion) {
         this.situacionDeuda = situacion;
     }
 
+    public List<Invitacion> getInvitaciones() {
+        return this.invitaciones;
+    }
+
+    public List<Evento> getEventos() {
+        return this.eventos;
+    }
+
+    public List<Template> getTemplates() {
+        return this.templates;
+    }
 }

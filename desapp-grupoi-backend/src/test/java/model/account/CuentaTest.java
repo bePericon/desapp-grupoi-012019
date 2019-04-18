@@ -2,7 +2,12 @@ package model.account;
 
 import static org.junit.Assert.*;
 
+import model.event.Evento;
+import model.event.Invitacion;
+import model.event.Template;
 import org.junit.*;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
@@ -24,8 +29,7 @@ public class CuentaTest {
 
     @Test
     public void testCrearCuenta_cuentaNuevaDatosObligatorios() {
-        Usuario usuario = new Usuario();
-        Cuenta cuenta = new Cuenta(usuario);
+        Cuenta cuenta = new Cuenta(Mockito.mock(Usuario.class));
 
         assertNotNull(cuenta.getUsuario());
         assertEquals(EnumEstados.EstadoSituacionDeuda.NORMAL, cuenta.getSituacion());
@@ -47,7 +51,7 @@ public class CuentaTest {
     }
 
     @Test
-    public void testDepositarDinero_ceAgregaUnMovimiento() {
+    public void testDepositarDinero_seAgregaUnMovimiento() {
         this.cuentaTest.depositarDinero(new Dinero(100));
         List<Movimiento> movimientos = this.cuentaTest.getMovimientos();
 
@@ -131,6 +135,27 @@ public class CuentaTest {
 
         assertEquals(0, this.cuentaTest.getSaldo().getMonto(), 0.0);
         assertTrue(this.cuentaTest.getSituacion().esMoroso());
+    }
+
+    @Test
+    public void testAgregarInvitacion_seAgregaUnaInvitacion() {
+        this.cuentaTest.agregarInvitacion(Mockito.mock(Invitacion.class));
+
+        assertEquals(1, this.cuentaTest.getInvitaciones().size());
+    }
+
+    @Test
+    public void testAgregarEvento_seAgregaUnEvento() {
+        this.cuentaTest.agregarEvento(Mockito.mock(Evento.class));
+
+        assertEquals(1, this.cuentaTest.getEventos().size());
+    }
+
+    @Test
+    public void testAgregarTemplate_seAgregaUnTemplate() {
+        this.cuentaTest.agregarTemplate(Mockito.mock(Template.class));
+
+        assertEquals(1, this.cuentaTest.getTemplates().size());
     }
 
     // Methods aux
