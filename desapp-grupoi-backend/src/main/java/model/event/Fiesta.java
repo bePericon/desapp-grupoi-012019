@@ -2,6 +2,7 @@ package model.event;
 
 import model.account.Usuario;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,40 +18,47 @@ public class Fiesta extends Modalidad {
 	confirmaciones.
 */
 	
-	private List<Invitacion> invitadosSinConfirmar;
 	private Date fechaLimite;
-
-	//costoevento
-	//items?
+	private List<Item> variedad; //Elegis que variedad de items te gustaria para la fiesta
 
 
-	public Fiesta(Usuario organizador, Date fechaLimite, List<Invitacion> invitados) {
+
+	public Fiesta(Usuario organizador, Date fechaLimite) {
 		super(organizador);
 		this.fechaLimite = fechaLimite;
-		this.invitadosSinConfirmar = invitados;
+		
 	}
 
+//	Se ejecuta cada vez que hay un confirmado
 	public void calcularCompras() {
-//		TODO: ver como hacemos el calculo
+		int cantAsistentes = this.asistentes.size();
+		
+		for (Item i : this.itemsAComprar) {
+			ItemUsuario agregar = new ItemUsuario(i, this.organizador);
+			int cantItems = cantAsistentes / i.getPersonasPorUnidad();//se fija la cantidad de cada uno y los agrega
+
+			while(cantItems>0) {
+				this.itemsComprados.add(agregar);
+				cantItems--;
+			}
+			
+			if (cantAsistentes % i.getPersonasPorUnidad() > 0)// si no era un numero justo, agrega uno mas para no quedarse corto
+				this.itemsComprados.add(agregar);
+		}
+
 	}
 	
 	
-	public void setItemsPorPersona() {
-//		TODO: ver si seteamos asi configurable o que
+	public Date getHoy() {
+		Date date = new Date();
+
+		return  date;
 	}
-	
-	
-	public void seRegistroInvitado(Usuario recienRegistrado) {
-		this.agregarInvitado(recienRegistrado);
-		this.calcularCompras();
-	}
-	
+
+
 	public Date getDeadline() {
 		return fechaLimite;
 	}
 
-	
 
-	
-	
 }

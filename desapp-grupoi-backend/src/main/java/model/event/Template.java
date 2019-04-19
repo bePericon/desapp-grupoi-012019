@@ -43,7 +43,7 @@ public class Template {
 		this.descripcion = descripcion;
 	}
 	public List<Item> getItems() {
-		return modalidad.getItems();
+		return modalidad.getItemsAComprar();
 	}
 
 	public Modalidad getModalidad() {

@@ -22,8 +22,6 @@ public class BaquitaRecoleccionPrev extends Baquita {
 	private boolean listoParaComprarTodo;
 	
 	
-	//TODO: lista de asistentes?
-	
 	public BaquitaRecoleccionPrev(Usuario organizador) {
 		super(organizador);
 		this.dineroDepositado = 0;

@@ -2,37 +2,43 @@ package model.event;
 
 import model.account.Usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Modalidad {
 
 	
-	protected List<Usuario> invitados;
-	protected List<Item> items;
-	
+
+	protected List<Item> itemsAComprar;
+	protected List<ItemUsuario> itemsComprados;
+	protected List<Usuario> asistentes;
+	protected int costoTotal;
+	protected Usuario organizador;
 
 	public Modalidad(Usuario organizador) {
-		super();		
+		super();
+		this.organizador = organizador;
+		this.itemsComprados = new ArrayList<ItemUsuario>();
+		this.itemsAComprar = new ArrayList<Item>();
 	}
 
 	
-	protected void agregarInvitado(Usuario invitado) {
-		this.invitados.add(invitado);
+	
+
+	public void calcularCostos() {
+		for (ItemUsuario i : itemsComprados)
+			this.costoTotal+= i.getItem().getCosto();
 	}
 	
 	
-	
-	
+
 //	Getters y setters
-	public List<Item> getItems() {
-		return items;
+	public List<Item> getItemsAComprar() {
+		return itemsAComprar;
 	}
-	public List<Usuario> getInvitados() {
-		return invitados;
+
+	public List<ItemUsuario> getItemsComprados() {
+		return itemsComprados;
 	}
-	public void setInvitados(List<Usuario> invitados) {
-		this.invitados = invitados;
-	}
-	
 	
 }
