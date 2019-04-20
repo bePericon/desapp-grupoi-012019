@@ -1,10 +1,7 @@
 package model.event;
 
 import model.account.Usuario;
-
-
 import java.util.Date;
-import java.util.List;
 
 
 
@@ -19,8 +16,6 @@ public class Fiesta extends Modalidad {
 */
 	
 	private Date fechaLimite;
-	private List<Item> variedad; //Elegis que variedad de items te gustaria para la fiesta
-
 
 
 	public Fiesta(Usuario organizador, Date fechaLimite) {
