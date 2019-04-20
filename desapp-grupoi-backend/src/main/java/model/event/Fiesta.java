@@ -18,8 +18,8 @@ public class Fiesta extends Modalidad {
 	private Date fechaLimite;
 
 
-	public Fiesta(Usuario organizador, Date fechaLimite) {
-		super(organizador);
+	public Fiesta( Date fechaLimite) {
+//		super(organizador);
 		this.fechaLimite = fechaLimite;
 		
 	}

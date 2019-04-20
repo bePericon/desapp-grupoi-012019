@@ -13,8 +13,8 @@ public class BaquitaCompraPrevia extends Baquita {
 		compras, informan lo gastado y luego se divide con los demás asistentes al evento. 
 */
 
-	public BaquitaCompraPrevia(Usuario organizador) {
-		super(organizador);
+	public BaquitaCompraPrevia( ) {
+//		super();
 	}
 
 

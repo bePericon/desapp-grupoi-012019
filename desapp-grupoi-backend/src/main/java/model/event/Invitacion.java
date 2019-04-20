@@ -16,10 +16,15 @@ public class Invitacion {
 	
 	//si no es usuario se registra y ahi confirma
 	public void confirmar(Usuario recienConfirmado) {
-		this.evento.confirmarAsistente(recienConfirmado);
+		this.evento.confirmarAsistencia(recienConfirmado);
 	}
 	
 
+	public String getNombreEventoInvitacion() {
+		return this.evento.getNombre();
+	}
+	
+	
 	public String getEmail() {
 		return email;
 	}

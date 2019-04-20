@@ -1,6 +1,11 @@
 package model.account;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joda.time.DateTime;
+
+import model.event.Invitacion;
 
 public class Usuario {
 
@@ -10,7 +15,9 @@ public class Usuario {
 	private DateTime fechaNac;
 	private String contrasenia;// TODO: ver si corresponde modelar aca
 	private Cuenta cuenta;
-
+	private List<Invitacion> invitaciones;
+	
+	
 	public Usuario() {
 
 	}
@@ -22,8 +29,19 @@ public class Usuario {
 		this.email = email;
 		this.fechaNac = fechaNac;
 		this.cuenta = new Cuenta();
+		this.invitaciones = new ArrayList<Invitacion>();
 	}
 
+	
+	
+	public void addInvitacion (Invitacion inv) {
+		this.invitaciones.add(inv);
+	}
+	
+	public void aceptarInvitacion(Invitacion invitacion) {
+		invitacion.confirmar(this);
+	}
+	
 
     public void crearTemplate() {
 		
@@ -32,6 +50,12 @@ public class Usuario {
 	public void crearEvento() {
 		
 	}
+	
+	
+	
+	
+	
+	
 	
 //	GETTERS Y SETTERS
 	
@@ -59,8 +83,14 @@ public class Usuario {
 	public void setFechaNac(DateTime fechaNac) {
 		this.fechaNac = fechaNac;
 	}
+	public List<Invitacion> getInvitaciones() {
+		return invitaciones;
+	}
+	public void setInvitaciones(List<Invitacion> invitaciones) {
+		this.invitaciones = invitaciones;
+	}
 
-
+	
     //cambiar estado
 	
 }

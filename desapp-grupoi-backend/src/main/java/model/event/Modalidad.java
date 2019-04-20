@@ -15,9 +15,9 @@ public abstract class Modalidad {
 	protected int costoTotal;
 	protected Usuario organizador;
 
-	public Modalidad(Usuario organizador) {
+	public Modalidad() {
 		super();
-		this.organizador = organizador;
+//		this.organizador = organizador;
 		this.itemsComprados = new ArrayList<ItemUsuario>();
 		this.itemsAComprar = new ArrayList<Item>();
 	}
@@ -40,5 +40,10 @@ public abstract class Modalidad {
 	public List<ItemUsuario> getItemsComprados() {
 		return itemsComprados;
 	}
+	
+	public void setOrganizador(Usuario user) {
+		this.organizador = user;
+	}
+	
 	
 }

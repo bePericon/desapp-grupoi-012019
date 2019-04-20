@@ -7,43 +7,42 @@ import model.account.Usuario;
 public class Evento {
 
 	private String nombre;
-	private Modalidad modalidad;
+	private Modalidad modalidad;		//necesita invitados?
 	private Usuario organizador;
-	private List<Usuario> asistentes; //los asistentes son los usuarios que confirmaron
+	private List<Usuario> asistentes;   //los asistentes son los usuarios que confirmaron
 	private List<Invitacion> invitados;
+	private PanelDeControl pControl;	//un @autowired de PanelDeControl, la idea es tener una instancia
 	
 
-	public Evento(Usuario organizador, String nombreEvento, Modalidad modalidad, List<String> listaInvitados) {
+	public Evento(Usuario organizador, String nombreEvento, Modalidad modalidad) {
 		this.organizador = organizador;
 		this.nombre = nombreEvento;
 		this.modalidad = modalidad;
-		this.invitarPorLista(listaInvitados);
-		
+		this.modalidad.setOrganizador(organizador);
 	}
 
 	
-	
-	public void enviarInvitacionA(String mail) {
-		//TODO:implementar envio de invitaciones
-		
-		
+	public void setPanelDeControl(PanelDeControl pControl) {
+		this.pControl = pControl;
 	}
+	
+	
+	public void enviarInvitacion(String mail) {
+
+		Invitacion invitacion = new Invitacion(mail, this);
+		this.pControl.registrarInvitacion(mail, invitacion);
+	}
+	
 	
 	public void invitarPorLista(List<String> listaInvitados) {
-		
-		  for (String inv : listaInvitados) {
-			  this.enviarInvitacionA(inv);
-	      }
+		  for (String inv : listaInvitados) 
+			  this.enviarInvitacion(inv);
 	}
 	
 
-	public void confirmarAsistente(Usuario recienConfirmado) {
-		
-		this.asistentes.add(recienConfirmado);
-		
-		//this.modalidad.setAsistentes(this.asistentes);
-		//this.modalidad.calcularCostos();
-		
+	public void confirmarAsistencia(Usuario confirmado) {
+		//ya sea recien registrado o no
+		this.asistentes.add(confirmado);
 	}
 	
 	

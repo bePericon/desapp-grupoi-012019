@@ -1,6 +1,5 @@
 package model.event;
 
-import model.account.Usuario;
 
 public abstract class Baquita extends Modalidad {
 /*
@@ -15,8 +14,8 @@ public abstract class Baquita extends Modalidad {
 			mismos para las compras.
 	*/
 	
-	public Baquita(Usuario organizador) {
-		super(organizador);
+	public Baquita( ) {
+//		super();
 	}
 	
 }

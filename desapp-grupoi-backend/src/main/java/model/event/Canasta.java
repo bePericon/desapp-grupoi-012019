@@ -13,8 +13,8 @@ public class Canasta extends Modalidad {
 //	private List<ItemUsuario> itemsElegidos;
 //	private List<Item> copiaDeItems;
 	
-	public Canasta(Usuario organizador) {
-		super(organizador);
+	public Canasta( ) {
+	
 		
 	}
 

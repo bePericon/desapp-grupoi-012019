@@ -22,8 +22,8 @@ public class BaquitaRecoleccionPrev extends Baquita {
 	private boolean listoParaComprarTodo;
 	
 	
-	public BaquitaRecoleccionPrev(Usuario organizador) {
-		super(organizador);
+	public BaquitaRecoleccionPrev( ) {
+//		super();
 		this.dineroDepositado = 0;
 		this.listoParaComprarTodo = false;
 		//calculo de costo total?
