@@ -1,5 +1,6 @@
 package model.event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.account.Usuario;
@@ -19,6 +20,7 @@ public class Evento {
 		this.nombre = nombreEvento;
 		this.modalidad = modalidad;
 		this.modalidad.setOrganizador(organizador);
+		this.asistentes = new ArrayList<Usuario>();
 	}
 
 	
@@ -74,6 +76,21 @@ public class Evento {
 
 	public void setModalidad(Modalidad modalidad) {
 		this.modalidad = modalidad;
+	}
+
+
+	public List<Usuario> getAsistentes() {
+		return asistentes;
+	}
+
+
+	public void setAsistentes(List<Usuario> asistentes) {
+		this.asistentes = asistentes;
+	}
+
+
+	public void setpControl(PanelDeControl pControl) {
+		this.pControl = pControl;
 	}
 
 
