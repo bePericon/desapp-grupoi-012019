@@ -30,9 +30,9 @@ public class Evento {
 	
 	
 	public void enviarInvitacion(String mail) {
-
 		Invitacion invitacion = new Invitacion(mail, this);
-		this.pControl.registrarInvitacion(mail, invitacion);
+		this.modalidad.addInvitado(invitacion);//sumar contador
+		this.pControl.registrarInvitacion(mail, invitacion); //registra en el sistema
 	}
 	
 	
@@ -43,52 +43,49 @@ public class Evento {
 	
 
 	public void confirmarAsistencia(Usuario confirmado) {
-		//ya sea recien registrado o no
-		this.asistentes.add(confirmado);
+		if (this.modalidad.puedeConfirmar(confirmado)) 	{
+			this.asistentes.add(confirmado);
+			this.modalidad.addAsistente(confirmado);
+		}
+			
 	}
 	
+	public void cambiarModalidad(Modalidad modalidad) {
+		
+		this.setModalidad(modalidad);
+		modalidad.calcularCostos();
+		
+	}
 	
 	
 //	Getters y setters
 	public List<Invitacion> getInvitados() {
 		return invitados;
 	}
-
 	public void setInvitados(List<Invitacion> invitados) {
 		this.invitados = invitados;
 	}
-
 	public String getNombre() {
 		return nombre;
 	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 	public Modalidad getModalidad() {
 		return modalidad;
 	}
-
 	public Usuario getOrganizador() {
 		return organizador;
 	}
-
-	public void setModalidad(Modalidad modalidad) {
+	private void setModalidad(Modalidad modalidad) {
 		this.modalidad = modalidad;
 	}
-
-
 	public List<Usuario> getAsistentes() {
 		return asistentes;
 	}
-
-
 	public void setAsistentes(List<Usuario> asistentes) {
 		this.asistentes = asistentes;
 	}
-
-
 	public void setpControl(PanelDeControl pControl) {
 		this.pControl = pControl;
 	}
