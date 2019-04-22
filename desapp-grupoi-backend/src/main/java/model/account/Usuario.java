@@ -2,13 +2,26 @@ package model.account;
 
 import org.joda.time.DateTime;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "usuario")
 public class Usuario {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idUsuario;
+
 
 	private String nombre;
 	private String apellido;
 	private String email;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "FECHANAC")
 	private DateTime fechaNac;
-	private String contrasenia;// TODO: ver si corresponde modelar aca
+
+	private String contrasenia;
 	private Cuenta cuenta;
 
 	public Usuario() {
@@ -27,7 +40,7 @@ public class Usuario {
 		return this.contrasenia.equals(contra);
 	}
 
-//	GETTERS Y SETTERS
+	// GETTERS Y SETTERS
 	public String getNombre() {
 		return nombre;
 	}
@@ -55,10 +68,6 @@ public class Usuario {
 	public void setCuenta(Cuenta cuenta) { this.cuenta = cuenta; }
 	public Cuenta getCuenta() { return this.cuenta; }
 	public void setContrasenia(String contrasenia) { this.contrasenia = contrasenia; }
-
 	public String getContrasenia(){ return this.contrasenia; }
 
-
-	//cambiar estado
-	
 }
