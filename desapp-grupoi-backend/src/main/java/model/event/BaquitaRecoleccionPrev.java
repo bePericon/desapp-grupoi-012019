@@ -17,44 +17,37 @@ public class BaquitaRecoleccionPrev extends Baquita {
 		mismos para las compras.
 */
 	
-	private int costoEstimado;
+
 	private int dineroDepositado;
 	private boolean listoParaComprarTodo;
 	
 	
-	//TODO: lista de asistentes?
-	
-	public BaquitaRecoleccionPrev(Usuario organizador) {
-		super(organizador);
+	public BaquitaRecoleccionPrev( ) {
+//		super();
 		this.dineroDepositado = 0;
 		this.listoParaComprarTodo = false;
-	}
-
-
-	public void calcularCostoEstimado() {
-		
-		//TODO: como hace el calculo?
-//		this.costoEstimado = costoLoco;
-		
+		//calculo de costo total?
 	}
 		
-	
 	public void recibirDeposito(int deposito) {
 		this.dineroDepositado += deposito;
 		
-		if (this.costoEstimado >= this.dineroDepositado ) {
+		if (this.costoTotal >= this.dineroDepositado ) {
 			this.listoParaComprarTodo = true;
 		}
 	}
+
 	
-	public int getCostoEstimado() {
-		return costoEstimado;
+//	calculo de costoTotal tras cada deposito?
+	
+	
+	public void comprar() {
+		
+		//el organizador compra todo, ver si compra todo asi 
+		
 	}
-
-	public void setCostoEstimado(int costoEstimado) {
-		this.costoEstimado = costoEstimado;
-	}
-
+	
+	
 	public int getDineroDepositado() {
 		return dineroDepositado;
 	}

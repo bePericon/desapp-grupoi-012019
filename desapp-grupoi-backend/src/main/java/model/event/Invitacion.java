@@ -5,21 +5,26 @@ import model.account.Usuario;
 public class Invitacion {
 
 	private String email;
-	private Fiesta fiesta;
+	private Evento evento;
 
 
-	public Invitacion(String email, Fiesta fiesta) {
+	public Invitacion(String email, Evento evento) {
 		this.email = email;
-		this.fiesta = fiesta;
+		this.evento = evento;
 	}
 
 	
-//	al manejar el registro de un usuario, llamar a esta funcion
-	public void confirmar(Usuario recienRegistrado) {
-		fiesta.seRegistroInvitado(recienRegistrado);
+	//si no es usuario se registra y ahi confirma
+	public void confirmar(Usuario recienConfirmado) {
+		this.evento.confirmarAsistencia(recienConfirmado);
 	}
 	
 
+	public String getNombreEventoInvitacion() {
+		return this.evento.getNombre();
+	}
+	
+	
 	public String getEmail() {
 		return email;
 	}

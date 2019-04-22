@@ -1,14 +1,12 @@
 package model.event;
 
-import model.account.Usuario;
-
 import java.util.Date;
-import java.util.List;
 
+import model.account.Usuario;
 
 
 public class Fiesta extends Modalidad {
-	/*
+/*
 	Fiesta: En este caso se envían invitaciones a través de la aplicación y por cada confirmación
 	de asistencia, la aplicación va calculando la cantidad de mercaderías a comprar. En este tipo
 	de eventos no se distribuyen los gastos del mismo sino que corren por cuenta del
@@ -17,40 +15,52 @@ public class Fiesta extends Modalidad {
 	confirmaciones.
 */
 	
-	private List<Invitacion> invitadosSinConfirmar;
 	private Date fechaLimite;
 
-	//costoevento
-	//items?
 
-
-	public Fiesta(Usuario organizador, Date fechaLimite, List<Invitacion> invitados) {
-		super(organizador);
+	public Fiesta( Date fechaLimite) {
 		this.fechaLimite = fechaLimite;
-		this.invitadosSinConfirmar = invitados;
 	}
 
+//	Se ejecutaria cada vez que hay un confirmado
 	public void calcularCompras() {
-//		TODO: ver como hacemos el calculo
+		int cantAsistentes = this.asistentes.size();
+		
+		for (Item i : this.itemsAComprar) {
+			ItemUsuario agregar = new ItemUsuario(i, this.organizador);
+			int cantItems = cantAsistentes / i.getPersonasPorUnidad(); //se fija la cantidad de cada uno y los agrega
+
+			while(cantItems>0) {
+				this.itemsComprados.add(agregar);
+				cantItems--;
+			}
+			
+			if (cantAsistentes % i.getPersonasPorUnidad() > 0) //si no era un numero justo, agrega uno mas para no quedarse corto
+				this.itemsComprados.add(agregar);
+		}
+
 	}
 	
 	
-	public void setItemsPorPersona() {
-//		TODO: ver si seteamos asi configurable o que
+
+
+	@Override
+	public boolean puedeConfirmar(Usuario usuario) {		
+		if(getHoy().before(this.fechaLimite)) {
+			return estaInvitado(usuario.getEmail());
+		}
+		return false;
 	}
 	
-	
-	public void seRegistroInvitado(Usuario recienRegistrado) {
-		this.agregarInvitado(recienRegistrado);
-		this.calcularCompras();
+	public Date getHoy() {
+		Date date = new Date();
+
+		return  date;
 	}
 	
 	public Date getDeadline() {
 		return fechaLimite;
 	}
 
-	
 
-	
-	
 }

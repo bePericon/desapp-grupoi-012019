@@ -1,6 +1,11 @@
 package model.account;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joda.time.DateTime;
+
+import model.event.Invitacion;
 
 public class Usuario {
 
@@ -10,7 +15,9 @@ public class Usuario {
 	private DateTime fechaNac;
 	private String contrasenia;// TODO: ver si corresponde modelar aca
 	private Cuenta cuenta;
-
+	private List<Invitacion> invitaciones;
+	
+	
 	public Usuario() {
 
 	}
@@ -21,11 +28,22 @@ public class Usuario {
 		this.apellido = apellido;
 		this.email = email;
 		this.fechaNac = fechaNac;
+		this.cuenta = new Cuenta();
+		this.invitaciones = new ArrayList<Invitacion>();
 	}
 
 	public boolean esContraseniaCorrecta(String contra) {
 		return this.contrasenia.equals(contra);
 	}
+
+	public void addInvitacion (Invitacion inv) {
+		this.invitaciones.add(inv);
+	}
+	
+	public void aceptarInvitacion(Invitacion invitacion) {
+		invitacion.confirmar(this);
+	}
+
 
 //	GETTERS Y SETTERS
 	public String getNombre() {
@@ -58,7 +76,12 @@ public class Usuario {
 
 	public String getContrasenia(){ return this.contrasenia; }
 
+	public List<Invitacion> getInvitaciones() {
+		return invitaciones;
+	}
+	public void setInvitaciones(List<Invitacion> invitaciones) {
+		this.invitaciones = invitaciones;
+	}
 
-	//cambiar estado
 	
 }
