@@ -13,33 +13,30 @@ public class BaquitaCompraPrevia extends Baquita {
 		compras, informan lo gastado y luego se divide con los demás asistentes al evento. 
 */
 
-	public BaquitaCompraPrevia( ) {
+	public BaquitaCompraPrevia() {
 //		super();
 	}
 
 
-	public void comprar(Usuario usuario, int indexItem) {
-		ItemUsuario compra = new ItemUsuario(this.itemsAComprar.get(indexItem), usuario);
-		
-		this.itemsComprados.add(compra);
-	}
+//	public void comprar(Usuario usuario, int indexItem) {
+//		ItemUsuario compra = new ItemUsuario(this.itemsAComprar.get(indexItem), usuario);
+//
+//		this.itemsComprados.add(compra);
+//	}
 
 
 	@Override
-	public void calcularCostos(){ 
-		
+	public void calcularCostos() {
+
 		//DIVIDIR LOS GASTOS
 //		recorremos la lista y vamos sumando los gastos de cada usuario
-		for (ItemUsuario i: this.itemsComprados) {
-			
+		for (ItemUsuario i : this.itemsComprados) {
+
 			//crea una lista con cada persona que compró algo con el monto total que gastó
 //			al margen ve el monto total dividido por la cantidad de personas
 		}
-			
 
-		
+
 	}
 
-	
-	
 }

@@ -1,5 +1,6 @@
 package model.event;
 
+import model.account.Dinero;
 import model.account.Usuario;
 
 import java.util.ArrayList;
@@ -7,17 +8,18 @@ import java.util.List;
 
 public abstract class Modalidad {
 
-	protected List<Item> itemsAComprar;
+	protected List<ItemUsuario> itemsAComprar;
 	protected List<ItemUsuario> itemsComprados;
 	protected List<Invitacion> invitados;
-	protected List<Usuario> asistentes; //ver si se necesitan los asistentes o solo un contador de asistentes
-	protected int costoTotal;
-	protected Usuario organizador;
+	protected Dinero costoTotal;
+	protected int asistentes;
+	protected Usuario organizador; //para mi no va
 
 	public Modalidad() {
 		super();
 		this.itemsComprados = new ArrayList<ItemUsuario>();
-		this.itemsAComprar = new ArrayList<Item>();
+		this.itemsAComprar = new ArrayList<ItemUsuario>();
+		this.asistentes = 0;
 	}
 
 	
@@ -30,7 +32,7 @@ public abstract class Modalidad {
 	
 	public void calcularCostos() {
 		for (ItemUsuario i : itemsComprados)
-			this.costoTotal+= i.getItem().getCosto();
+			this.costoTotal.sumar(i.getItem().getCosto());
 	}
 	
 	
@@ -42,16 +44,10 @@ public abstract class Modalidad {
 		}
 		return ret;
 	}
-	
-	
-	public void addAsistente(Usuario usuario) {
-		this.asistentes.add(usuario);
-	}
 
 	
-	
 //	Getters y setters
-	public List<Item> getItemsAComprar() {
+	public List<ItemUsuario> getItemsAComprar() {
 		return itemsAComprar;
 	}
 
@@ -67,6 +63,16 @@ public abstract class Modalidad {
 	public void addInvitado(Invitacion invitado) {
 		this.invitados.add( invitado);
 	}
-	
-	
+
+	public void addUsuarioItem(Usuario usuario, Item item){
+		this.itemsAComprar.add(new ItemUsuario(item, usuario));
+	}
+
+	public int getTotalCompradores(){
+		return this.itemsAComprar.stream().map(i -> i.getUsuario()).distinct().toArray().length;
+	}
+
+	public void addAsistente(){
+		this.asistentes += 1;
+	}
 }

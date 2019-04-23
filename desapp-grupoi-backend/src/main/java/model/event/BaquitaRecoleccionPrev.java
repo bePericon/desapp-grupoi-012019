@@ -1,5 +1,6 @@
 package model.event;
 
+import model.account.Dinero;
 import model.account.Usuario;
 
 import java.util.List;
@@ -18,23 +19,20 @@ public class BaquitaRecoleccionPrev extends Baquita {
 */
 	
 
-	private int dineroDepositado;
+	private Dinero dineroDepositado;
 	private boolean listoParaComprarTodo;
 	
 	
 	public BaquitaRecoleccionPrev( ) {
 //		super();
-		this.dineroDepositado = 0;
+		this.dineroDepositado = new Dinero(0);
 		this.listoParaComprarTodo = false;
 		//calculo de costo total?
 	}
 		
-	public void recibirDeposito(int deposito) {
-		this.dineroDepositado += deposito;
-		
-		if (this.costoTotal >= this.dineroDepositado ) {
-			this.listoParaComprarTodo = true;
-		}
+	public void recibirDeposito(Dinero deposito) {
+		this.dineroDepositado.sumar(deposito);
+		this.listoParaComprarTodo = this.costoTotal.mayorIgualA(this.dineroDepositado);
 	}
 
 	
@@ -48,11 +46,11 @@ public class BaquitaRecoleccionPrev extends Baquita {
 	}
 	
 	
-	public int getDineroDepositado() {
+	public Dinero getDineroDepositado() {
 		return dineroDepositado;
 	}
 
-	public void setDineroDepositado(int dineroDepositado) {
+	public void setDineroDepositado(Dinero dineroDepositado) {
 		this.dineroDepositado = dineroDepositado;
 	}
 	

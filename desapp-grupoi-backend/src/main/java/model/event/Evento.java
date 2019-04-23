@@ -8,21 +8,17 @@ import model.account.Usuario;
 public class Evento {
 
 	private String nombre;
-	private Modalidad modalidad;		//necesita invitados?
 	private Usuario organizador;
+	private Template template;
 	private List<Usuario> asistentes;   //los asistentes son los usuarios que confirmaron
-	private List<Invitacion> invitados;
 	private PanelDeControl pControl;	//un @autowired de PanelDeControl, la idea es tener una instancia
-	
 
-	public Evento(Usuario organizador, String nombreEvento, Modalidad modalidad) {
+
+	public Evento(Usuario organizador, String nombreEvento) {
 		this.organizador = organizador;
 		this.nombre = nombreEvento;
-		this.modalidad = modalidad;
-		this.modalidad.setOrganizador(organizador);
 		this.asistentes = new ArrayList<Usuario>();
 	}
-
 	
 	public void setPanelDeControl(PanelDeControl pControl) {
 		this.pControl = pControl;
@@ -31,7 +27,7 @@ public class Evento {
 	
 	public void enviarInvitacion(String mail) {
 		Invitacion invitacion = new Invitacion(mail, this);
-		this.modalidad.addInvitado(invitacion);//sumar contador
+		this.template.getModalidad().addInvitado(invitacion);//sumar contador
 		this.pControl.registrarInvitacion(mail, invitacion); //registra en el sistema
 	}
 	
@@ -43,45 +39,31 @@ public class Evento {
 	
 
 	public void confirmarAsistencia(Usuario confirmado) {
-		if (this.modalidad.puedeConfirmar(confirmado)) 	{
+		if (this.template.getModalidad().puedeConfirmar(confirmado)) 	{
 			this.asistentes.add(confirmado);
-			this.modalidad.addAsistente(confirmado);
+			this.template.getModalidad().addAsistente();
 		}
 			
 	}
 	
 	public void cambiarModalidad(Modalidad modalidad) {
-		
-		this.setModalidad(modalidad);
+		this.template.setModalidad(modalidad);
 		modalidad.calcularCostos();
-		
 	}
 	
 	
 //	Getters y setters
-	public List<Invitacion> getInvitados() {
-		return invitados;
-	}
-	public void setInvitados(List<Invitacion> invitados) {
-		this.invitados = invitados;
-	}
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Modalidad getModalidad() {
-		return modalidad;
-	}
+	public List<Usuario> getAsistentes() {
+	return asistentes;
+}
 	public Usuario getOrganizador() {
 		return organizador;
-	}
-	private void setModalidad(Modalidad modalidad) {
-		this.modalidad = modalidad;
-	}
-	public List<Usuario> getAsistentes() {
-		return asistentes;
 	}
 	public void setAsistentes(List<Usuario> asistentes) {
 		this.asistentes = asistentes;
@@ -91,8 +73,27 @@ public class Evento {
 	}
 
 
+	public void setTemplate(Template tem) {
+		this.template = tem;
+	}
 
-	
-	
-	
+	public Template getTemplate() {
+		return this.template;
+	}
+
+	public void agregarAsistente(Usuario asistente) {
+		this.asistentes.add(asistente);
+	}
+
+	public int getTotalAsistentes() {
+		return this.asistentes.size();
+	}
+
+	public void elegirCompradorItem(int posComprador, int posItem) {
+		this.template.setCompradorItem(this.asistentes.get(posComprador), posItem);
+	}
+
+	public int getTotalCompradores() {
+		return this.template.getModalidad().getTotalCompradores();
+	}
 }

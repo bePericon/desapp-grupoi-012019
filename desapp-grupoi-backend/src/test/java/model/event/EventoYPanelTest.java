@@ -1,4 +1,4 @@
-package events;
+package model.event;
 
 import static org.junit.Assert.*;
 
@@ -41,8 +41,11 @@ public class EventoYPanelTest {
         pControl.addUser(user2);
         
         mod = new Canasta();
-        
-        evento = new Evento(user,"Evento de Prueba", mod);
+        Template tem = new Template("nombre", "descripcion");
+        tem.setModalidad(mod);
+
+        evento = new Evento(user,"Evento de Prueba");
+        evento.setTemplate(tem);
         evento.setPanelDeControl(pControl);
     }
 

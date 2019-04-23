@@ -1,4 +1,4 @@
-package events;
+package model.event;
 
 import static org.junit.Assert.*;
 
@@ -47,8 +47,12 @@ public class FiestaTest {
         maniana = c.getTime();
         
         fiesta = new Fiesta(maniana);
+        Template tem = new Template("nombre", "descripcion");
+        tem.setModalidad(fiesta);
         
-        evento = new Evento(user,"Festichulli", fiesta);
+        evento = new Evento(user,"Festichulli");
+        evento.setTemplate(tem);
+
         evento.setPanelDeControl(pControl);
     }
 

@@ -1,6 +1,12 @@
 package model.event;
 
 
+import model.account.Usuario;
+
+import javax.swing.*;
+import java.util.List;
+import java.util.Queue;
+
 public abstract class Baquita extends Modalidad {
 /*
 		Baquita: En este caso se determina el evento a realizar y sus gastos (comida, alquiler de
@@ -13,9 +19,9 @@ public abstract class Baquita extends Modalidad {
 			girar su parte los asistentes y una vez reunido el dinero, el organizador puede disponer de los
 			mismos para las compras.
 	*/
-	
+
 	public Baquita( ) {
 //		super();
 	}
-	
+
 }

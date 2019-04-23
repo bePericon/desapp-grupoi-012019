@@ -1,13 +1,15 @@
 package model.event;
 
+import model.account.Dinero;
+
 public class Item {
 
-	private int costo;
+	private Dinero costo;
 	private String nombreItem;
 	private int personasPorUnidad;
 	
 	
-	public Item(int costo, String nombreItem, int personasPorUnidad) {
+	public Item(Dinero costo, String nombreItem, int personasPorUnidad) {
 		this.costo = costo;
 		this.nombreItem = nombreItem;
 		this.personasPorUnidad = personasPorUnidad; //lo que rinde cada item por persona
@@ -16,11 +18,11 @@ public class Item {
 
 	
 
-	public int getCosto() {
+	public Dinero getCosto() {
 		return costo;
 	}
 
-	public void setCosto(int costo) {
+	public void setCosto(Dinero costo) {
 		this.costo = costo;
 	}
 

@@ -22,6 +22,12 @@ public class Usuario {
 
 	}
 
+	public Usuario(String nombre, String apellido) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
+
 	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
 		super();
 		this.nombre = nombre;

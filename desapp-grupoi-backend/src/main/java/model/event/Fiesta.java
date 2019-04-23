@@ -1,6 +1,7 @@
 package model.event;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import model.account.Usuario;
 
@@ -24,9 +25,9 @@ public class Fiesta extends Modalidad {
 
 //	Se ejecutaria cada vez que hay un confirmado
 	public void calcularCompras() {
-		int cantAsistentes = this.asistentes.size();
+		int cantAsistentes = this.asistentes;
 		
-		for (Item i : this.itemsAComprar) {
+		for (Item i : this.itemsAComprar.stream().map(iu -> iu.getItem()).collect(Collectors.toList())) {
 			ItemUsuario agregar = new ItemUsuario(i, this.organizador);
 			int cantItems = cantAsistentes / i.getPersonasPorUnidad(); //se fija la cantidad de cada uno y los agrega
 

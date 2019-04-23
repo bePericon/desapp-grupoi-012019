@@ -20,11 +20,11 @@ public class Canasta extends Modalidad {
 
 	//El indice debe ser valido
 	public void elegirItemEnParticular(Usuario user, int index) {
-		if (hayItemsLibres()) {
-			ItemUsuario elegido = new ItemUsuario(this.itemsAComprar.get(index), user);
-			this.itemsComprados.add(elegido);
-			this.itemsAComprar.remove(index);
-		}
+//		if (hayItemsLibres()) {
+//			ItemUsuario elegido = new ItemUsuario(this.itemsAComprar.get(index), user);
+//			this.itemsComprados.add(elegido);
+//			this.itemsAComprar.remove(index);
+//		}
 		//TODO: exception
 	}
 	
@@ -38,9 +38,9 @@ public class Canasta extends Modalidad {
 		//TODO: else exception
 	}
 
-	public List<Item> getItemsLibres(){
-		return this.itemsAComprar;
-	}
+//	public List<Item> getItemsLibres(){
+//		return this.itemsAComprar;
+//	}
 
 	public boolean hayItemsLibres() {
 		return this.itemsAComprar.size()>0;
