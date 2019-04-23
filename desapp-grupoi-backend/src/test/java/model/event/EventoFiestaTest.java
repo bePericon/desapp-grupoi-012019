@@ -90,16 +90,20 @@ public class EventoFiestaTest {
     
 	@Test
 	public void testFiestaAgregoMasVariedadDeItemsYCalculaMercaderiaParaDosPersonas() {
+		 
+		/// FIXTURE
 		 birra = new Item(50,"preciosa",1);
 		 galletitas = new Item(25,"don satur",1);
 	
 		 fiesta.addItemsAComprar(birra);
 		 fiesta.addItemsAComprar(galletitas);
 		 
+		 //ESTIMULET
 		((Fiesta) fiesta).calcularCompras(); //Solo si la casteo
     	
     	fiesta.calcularCostos(); // TODO: esto deberia ejecutarse al confirmar, a hacemos con AOP?
     	
+    	//ASSERT
     	 assertEquals(500, fiesta.costoTotal.getMonto(), 0.0);
 	}
     
