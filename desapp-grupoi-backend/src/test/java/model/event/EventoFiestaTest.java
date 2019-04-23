@@ -1,6 +1,7 @@
 package model.event;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,7 +47,6 @@ public class EventoFiestaTest {
         c.setTime(maniana); 
         c.add(Calendar.DATE, 1); //Se suma un dia
         maniana = c.getTime();
-        
 
         
         asado = new Item(150,"asado por kilo",6);
@@ -70,6 +70,7 @@ public class EventoFiestaTest {
     	listaInvitados.add("mail2@gmail.com");
     	
     	evento.invitarPorLista(listaInvitados);
+    	
     	evento.confirmarAsistencia(user1);
     	evento.confirmarAsistencia(user2);
     	
@@ -80,10 +81,7 @@ public class EventoFiestaTest {
     @Test
     public void testFiesta_calculaMercaderiaParaDosPersonas() {
 
-//    	fiesta.calcularCompras();// POR QUE CARAJO NO ME TOMA ESTA FUNCION?
-//    	evento.getModalidad(). calcularCompras(); // tampoco me la toma asi
-
-    	((Fiesta) fiesta).calcularCompras(); //Solo si la casteo
+    	((Fiesta) fiesta).calcularCompras(); 
     	
     	fiesta.calcularCostos(); // TODO: esto deberia ejecutarse al confirmar, a hacemos con AOP
     	
@@ -144,61 +142,32 @@ public class EventoFiestaTest {
 //    	
 //    }
     
-//    @Test
-//    public void testFiestaNoSeSumaNadieLuegoDeLaFechaLimite() {
-//    	
-//        Date ayer = new Date(); 
-//        Calendar c1 = Calendar.getInstance(); 
-//        c1.setTime(ayer); 
-//        c1.add(Calendar.DATE, -1); //Se resta un dia
-//        ayer = c1.getTime();
-//    	
-//    	Usuario user3 = new Usuario("invitado3", "apellido3", "mail3@gmail.com", new DateTime().minus(5));
-//    	pControl.addUser(user3);
-//    	
-//        Modalidad fiesta2 = new Fiesta(ayer);
-//        fiesta2.setItemsAComprar(listaItems);
-//        
-//        evento = new Evento(user, "Festichulli", fiesta);
-//        evento.setPanelDeControl(pControl);
-//      
-//        List<String> listaInvitados = new ArrayList<String>();
-//    	listaInvitados.add("mail1@gmail.com");
-//    	listaInvitados.add("mail2@gmail.com");
-//    	
-//    	evento.invitarPorLista(listaInvitados);
-//    	evento.confirmarAsistencia(user1);
-//    	evento.confirmarAsistencia(user2);
-//    	
-//    	fiesta.setOrganizador(user);
-//    	
-//    	
-//    }
-//    
-//    @Test
-//    public void testFiestaNoRecalculaSiConfirmanLuegoDeFechaLimite() {
-//    	
-//    	
-//    }
-//    
-//    @Test
-//    public void testFiestaSeSumanLosGastosAlOrganizador() {
-//    	
-//    	
-//    	
-//    }
-//    
-//    @Test
-//    public void testFiestaSeSumanLosGastosRecalculadosAlOrganizador() {
-//    	
-//    	
-//    }
-//    
-//    @Test
-//    public void testFiestaNoSeSumanLosGastosAlOrganizadorSiConfirmanDespuesDeFechaLimite() {
-//    	
-//    	
-//    	
-//    }
+    @Test
+    public void testFiestaNoSeSumaNadieLuegoDeLaFechaLimite() {
+    	
+        Date ayer = new Date(); 
+        Calendar c1 = Calendar.getInstance(); 
+        c1.setTime(ayer); 
+        c1.add(Calendar.DATE, -1); //Se resta un dia
+        ayer = c1.getTime();
+    	
+        Modalidad fiesta2 = new Fiesta(ayer);
+        fiesta2.setItemsAComprar(listaItems);
+        
+        evento = new Evento(user, "fiesta dos");
+        evento.setPanelDeControl(pControl);
+        evento.setModalidad(fiesta2);
+        
+        fiesta.setOrganizador(user);
+
+    	evento.enviarInvitacion("mail1@gmail.com");
+    	
+    	evento.confirmarAsistencia(user1);
+    	
+    	
+    	assertTrue(evento.getAsistentes().isEmpty());
+    }
+    
+
     
 }
