@@ -2,6 +2,9 @@ package model.event;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.account.Usuario;
 import model.event.Canasta;
 import model.event.Evento;
@@ -11,12 +14,7 @@ import model.event.PanelDeControl;
 
 import org.joda.time.DateTime;
 import org.junit.*;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class EventoYPanelTest {
 
@@ -29,7 +27,6 @@ public class EventoYPanelTest {
 
     @Before
     public void init(){
-        MockitoAnnotations.initMocks(this);
         pControl = new PanelDeControl();
         
         user = new Usuario("Alejandro", "Rossi", "ale.h90@gmail.com", new DateTime().minus(20));
@@ -41,48 +38,43 @@ public class EventoYPanelTest {
         pControl.addUser(user2);
         
         mod = new Canasta();
-        Template tem = new Template("nombre", "descripcion");
-        tem.setModalidad(mod);
-
-        evento = new Evento(user,"Evento de Prueba");
-        evento.setTemplate(tem);
+        
+        evento = new Evento(user,"Evento de Prueba", mod);
         evento.setPanelDeControl(pControl);
     }
 
-//    @After
-//    public void end(){
-//    }
+
 
     @Test
     public void testEvento_aniadirUnInvitado() {
-//    	
-//    	evento.enviarInvitacion("mail1@gmail.com");
-//    	
-//        assertEquals(user1.getInvitaciones().get(0).getNombreEventoInvitacion(), "Evento de Prueba" );
+    	
+    	evento.enviarInvitacion("mail1@gmail.com");
+    	
+        assertEquals(user1.getInvitaciones().get(0).getNombreEventoInvitacion(), "Evento de Prueba" );
     }
  
 
-//    @Test
-//    public void testEvento_invitarPorLista() {
+    @Test
+    public void testEvento_invitarPorLista() {
     	
-//    	List<String> listaInvitados = new ArrayList<String>();
-//    	listaInvitados.add("mail1@gmail.com");
-//    	listaInvitados.add("mail2@gmail.com");
-//    	evento.invitarPorLista(listaInvitados);
-//    	
-//        assertEquals(user1.getInvitaciones().get(0).getNombreEventoInvitacion(), "Evento de Prueba" );
-//        assertEquals(user2.getInvitaciones().get(0).getNombreEventoInvitacion(), "Evento de Prueba" );
-//    }
+    	List<String> listaInvitados = new ArrayList<String>();
+    	listaInvitados.add("mail1@gmail.com");
+    	listaInvitados.add("mail2@gmail.com");
+    	evento.invitarPorLista(listaInvitados);
+    	
+        assertEquals(user1.getInvitaciones().get(0).getNombreEventoInvitacion(), "Evento de Prueba" );
+        assertEquals(user2.getInvitaciones().get(0).getNombreEventoInvitacion(), "Evento de Prueba" );
+    }
     
-//    @Test
-//    public void testEvento_puedeConfirmarUnInvitado() {
-//
-//    	evento.enviarInvitacion("mail1@gmail.com");
-//    	
-//    	evento.confirmarAsistencia(user1);
-//    	
-//    	assertTrue(evento.getAsistentes().size()>0);
-//    }
+    @Test
+    public void testEvento_puedeConfirmarUnInvitado() {
+
+    	evento.enviarInvitacion("mail1@gmail.com");
+    	
+    	evento.confirmarAsistencia(user1);
+    	
+    	assertTrue(!evento.getAsistentes().isEmpty());
+    }
    
     @Test
     public void testPanel_reconoceUsuarioRegistrado() {
@@ -99,14 +91,14 @@ public class EventoYPanelTest {
     }
     
 
-//    @Test
-//    public void testPanel_guardaInvitacionParaNoResgistrado() {
+    @Test
+    public void testPanel_guardaInvitacionParaNoResgistrado() {
 
-//    	evento.enviarInvitacion("noRegistrado@gmail.com");
-//    	
-//    	assertTrue(pControl.invitacionesPendientes.size() >0);
+    	evento.enviarInvitacion("noRegistrado@gmail.com");
     	
-//    }
+    	assertTrue(pControl.invitacionesPendientes.size() >0);
+    	
+    }
     
     
     

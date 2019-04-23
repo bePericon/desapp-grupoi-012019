@@ -49,6 +49,10 @@ public class PanelDeControl {
 		
 	}
 	
+	//TODO:Implementar
+	public Template crearTemplate() {
+		return new Template();
+	}
 	
 
 }

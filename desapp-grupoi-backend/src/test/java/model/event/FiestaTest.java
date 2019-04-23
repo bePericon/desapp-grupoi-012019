@@ -40,19 +40,15 @@ public class FiestaTest {
         pControl.addUser(user2);
         
         
-        Date maniana = new Date(); //hoy
+        Date maniana = new Date(); 
         Calendar c = Calendar.getInstance(); 
         c.setTime(maniana); 
         c.add(Calendar.DATE, 1); //Se suma un dia
         maniana = c.getTime();
         
         fiesta = new Fiesta(maniana);
-        Template tem = new Template("nombre", "descripcion");
-        tem.setModalidad(fiesta);
         
-        evento = new Evento(user,"Festichulli");
-        evento.setTemplate(tem);
-
+        evento = new Evento(user, "Festichulli", fiesta);
         evento.setPanelDeControl(pControl);
     }
 

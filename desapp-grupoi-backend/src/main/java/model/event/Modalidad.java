@@ -10,7 +10,7 @@ public abstract class Modalidad {
 
 	protected List<ItemUsuario> itemsAComprar;
 	protected List<ItemUsuario> itemsComprados;
-	protected List<Invitacion> invitados;
+	protected List<Invitacion> invitaciones;
 	protected Dinero costoTotal;
 	protected int asistentes;
 	protected Usuario organizador; //para mi no va
@@ -19,6 +19,7 @@ public abstract class Modalidad {
 		super();
 		this.itemsComprados = new ArrayList<ItemUsuario>();
 		this.itemsAComprar = new ArrayList<ItemUsuario>();
+		this.invitaciones = new  ArrayList<Invitacion>();
 		this.asistentes = 0;
 	}
 
@@ -27,19 +28,16 @@ public abstract class Modalidad {
 	public boolean puedeConfirmar(Usuario usuario) {		
 		return estaInvitado(usuario.getEmail());
 	}
-
-	
 	
 	public void calcularCostos() {
 		for (ItemUsuario i : itemsComprados)
 			this.costoTotal.sumar(i.getItem().getCosto());
 	}
 	
-	
 	public boolean estaInvitado(String mail) {
 		boolean ret = false;
-		for(Invitacion user : invitados) {
-			if (user.getEmail().equals(mail))
+		for(Invitacion inv : invitaciones) {
+			if (inv.getEmail().equals(mail))
 				return true;
 		}
 		return ret;
@@ -60,8 +58,8 @@ public abstract class Modalidad {
 	}
 
 
-	public void addInvitado(Invitacion invitado) {
-		this.invitados.add( invitado);
+	public void addInvitacion(Invitacion invitacion) {
+		this.invitaciones.add( invitacion);
 	}
 
 	public void addUsuarioItem(Usuario usuario, Item item){
