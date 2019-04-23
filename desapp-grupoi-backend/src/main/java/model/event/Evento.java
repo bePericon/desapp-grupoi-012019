@@ -72,10 +72,10 @@ public class Evento {
 	public void setpControl(PanelDeControl pControl) {
 		this.pControl = pControl;
 	}
-	private void setModalidad(Modalidad modalidad) {
+	public void setModalidad(Modalidad modalidad) {
 		this.modalidad = modalidad;
 	}
-	private Modalidad getModalidad() {
+	public Modalidad getModalidad() {
 		return this.modalidad;
 	}
 	public void agregarAsistente(Usuario asistente) {
@@ -90,7 +90,7 @@ public class Evento {
 //		this.setCompradorItem(this.asistentes.get(posicionComprador), posItem);
 //	}
 
-	public int getTotalCompradores() {
-		return this.getModalidad().getTotalCompradores();
-	}
+//	public int getTotalCompradores() {
+//		return this.getModalidad().getTotalCompradores();
+//	}
 }

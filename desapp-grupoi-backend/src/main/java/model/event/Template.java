@@ -71,7 +71,7 @@ public class Template {
 		return visibilidad;
 	}
 
-	public void setCompradorItem(Usuario usuario, int posItem) {
-		this.modalidad.addUsuarioItem(usuario, this.items.get(posItem));
-	}
+//	public void setCompradorItem(Usuario usuario, int posItem) {
+//		this.modalidad.addUsuarioItem(usuario, this.items.get(posItem));
+//	}
 }
