@@ -13,8 +13,7 @@ public abstract class Modalidad {
 	protected List<Invitacion> invitaciones;
 	protected Dinero costoTotal;
 	protected int asistentes;
-	protected Usuario organizador; //ncontre que lo necesita fiesta al calcular costos, rayos
-//	protected double costoT; //para hacer una prueba TODO: borrar
+	protected Usuario organizador; 	//se usa
 
 	public Modalidad() {
 		super();
@@ -24,7 +23,6 @@ public abstract class Modalidad {
 		this.invitaciones = new  ArrayList<Invitacion>();
 		this.asistentes = 0;
 		this.costoTotal = new Dinero(0);
-//		this.costoT = 0;
 	}
 
 	

@@ -9,16 +9,16 @@ public class Evento {
 
 	private String nombre;
 	private Usuario organizador;
-	private Modalidad modalidad;
-	private List<Usuario> asistentes;   //usuarios confirmados
+	private Template template;
+	private List<Usuario> asistentes;   //los asistentes son los usuarios que confirmaron
 	private PanelDeControl pControl;	//un @autowired de PanelDeControl, la idea es tener una instancia
 
 
-	public Evento(Usuario organizador, String nombreEvento, Modalidad modalidad) {
+	public Evento(Usuario organizador, String nombreEvento) {
 		this.organizador = organizador;
 		this.nombre = nombreEvento;
-		this.modalidad = modalidad;
 		this.asistentes = new ArrayList<Usuario>();
+		this.template = new Template();
 	}
 	
 	public void setPanelDeControl(PanelDeControl pControl) {
@@ -28,7 +28,7 @@ public class Evento {
 	
 	public void enviarInvitacion(String mail) {
 		Invitacion invitacion = new Invitacion(mail, this);
-		this.modalidad.addInvitacion(invitacion);
+		this.template.getModalidad().addInvitacion(invitacion);
 		this.pControl.registrarInvitacion(mail, invitacion); //registra en el sistema
 	}
 	
@@ -39,9 +39,9 @@ public class Evento {
 	
 
 	public void confirmarAsistencia(Usuario confirmado) {
-		if (this.modalidad.puedeConfirmar(confirmado)) 	{
+		if (this.template.getModalidad().puedeConfirmar(confirmado)){
 			this.asistentes.add(confirmado);
-			this.modalidad.addAsistente();
+			this.template.getModalidad().addAsistente();
 		}
 		//TODO: si no puede confirmar que lance una advertencia, eception o algo
 			
@@ -73,16 +73,26 @@ public class Evento {
 		this.pControl = pControl;
 	}
 	public void setModalidad(Modalidad modalidad) {
-		this.modalidad = modalidad;
+		this.template.setModalidad(modalidad);
 	}
 	public Modalidad getModalidad() {
-		return this.modalidad;
+		return this.template.getModalidad();
 	}
-	public void agregarAsistente(Usuario asistente) {
-		this.asistentes.add(asistente);
-	}
+	
+	//los asistentes no se gregan, se confirman
+//	public void agregarAsistente(Usuario asistente) {
+//		this.asistentes.add(asistente);
+//	}
 	public int getTotalAsistentes() {
 		return this.asistentes.size();
+	}
+	
+	public void setTemplate(Template tem) {
+		this.template = tem;
+	}
+
+	public Template getTemplate() {
+		return this.template;
 	}
 	
 	//TODO:¿va en evento?, porque no parece ser una funcion comun a todos los eventos

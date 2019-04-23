@@ -34,6 +34,7 @@ public class Fiesta extends Modalidad {
 	
 	public void calcularCompras() {
 		int cantAsistentes = this.asistentes;
+		this.itemsComprados.clear();
 		
 		for (Item i : this.itemsAComprar) {
 			ItemUsuario agregar = new ItemUsuario(i, this.organizador);
