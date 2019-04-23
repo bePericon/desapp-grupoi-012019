@@ -3,7 +3,6 @@ package model.event;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.account.Usuario;
 import model.event.TipoVisibilidad.Visibilidad;
 
 public class Template {

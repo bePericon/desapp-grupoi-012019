@@ -1,23 +1,17 @@
 package model.event;
 
-import static org.junit.Assert.*;
-
-import model.account.Usuario;
-import model.event.Evento;
-import model.event.Fiesta;
-import model.event.Modalidad;
-import model.event.PanelDeControl;
-
-import org.joda.time.DateTime;
-import org.junit.*;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
+import org.junit.Before;
+import org.junit.Test;
+
+import model.account.Usuario;
 
 public class EventoFiestaTest {
 
@@ -36,7 +30,7 @@ public class EventoFiestaTest {
 
     @Before
     public void init(){
-//        MockitoAnnotations.initMocks(this);
+
         pControl = new PanelDeControl();
         
         user = new Usuario("Alejandro", "Rossi", "ale.h90@gmail.com", new DateTime().minus(20));
@@ -97,7 +91,7 @@ public class EventoFiestaTest {
     }
     
 	@Test
-	public void testFiesta_agregoMasVariedadDeItemsYCalculaMercaderiaParaDosPersonas() {
+	public void testFiestaAgregoMasVariedadDeItemsYCalculaMercaderiaParaDosPersonas() {
 		 birra = new Item(50,"preciosa",1);
 		 galletitas = new Item(25,"don satur",1);
 	
@@ -112,7 +106,7 @@ public class EventoFiestaTest {
 	}
     
     @Test
-    public void testFiesta_calculaMercaderiaParaCincoPersonas() {
+    public void testFiestaCalculaMercaderiaParaCincoPersonas() {
     	
     	 birra = new Item(50,"preciosa",1);
 		 galletitas = new Item(25,"don satur",1);
@@ -145,13 +139,13 @@ public class EventoFiestaTest {
     }
     
 //    @Test
-//    public void testFiesta_recalculaAlConfirmarUnaPersonaMas() {
+//    public void testFiestaRecalculaAlConfirmarUnaPersonaMas() {
 //    	
 //    	
 //    }
     
 //    @Test
-//    public void testFiesta_noSeSumaNadieLuegoDeLaFechaLimite() {
+//    public void testFiestaNoSeSumaNadieLuegoDeLaFechaLimite() {
 //    	
 //        Date ayer = new Date(); 
 //        Calendar c1 = Calendar.getInstance(); 
@@ -182,26 +176,26 @@ public class EventoFiestaTest {
 //    }
 //    
 //    @Test
-//    public void testFiesta_noRecalculaSiConfirmanLuegoDeFechaLimite() {
+//    public void testFiestaNoRecalculaSiConfirmanLuegoDeFechaLimite() {
 //    	
 //    	
 //    }
 //    
 //    @Test
-//    public void testFiesta_seSumanLosGastosAlOrganizador() {
+//    public void testFiestaSeSumanLosGastosAlOrganizador() {
 //    	
 //    	
 //    	
 //    }
 //    
 //    @Test
-//    public void testFiesta_seSumanLosGastosRecalculadosAlOrganizador() {
+//    public void testFiestaSeSumanLosGastosRecalculadosAlOrganizador() {
 //    	
 //    	
 //    }
 //    
 //    @Test
-//    public void testFiesta_noSeSumanLosGastosAlOrganizadorSiConfirmanDespuesDeFechaLimite() {
+//    public void testFiestaNoSeSumanLosGastosAlOrganizadorSiConfirmanDespuesDeFechaLimite() {
 //    	
 //    	
 //    	

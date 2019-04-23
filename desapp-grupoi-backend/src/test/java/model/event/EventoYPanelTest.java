@@ -19,14 +19,16 @@ import org.junit.*;
 public class EventoYPanelTest {
 
     private Evento evento;
-    private PanelDeControl pControl;
-    private Modalidad mod;
+    PanelDeControl pControl;
+    
     private Usuario user;
     private Usuario user1;
     private Usuario user2;
 
     @Before
     public void init(){
+    	
+        Modalidad mod;
         pControl = new PanelDeControl();
         
         user = new Usuario("Alejandro", "Rossi", "ale.h90@gmail.com", new DateTime().minus(20));
@@ -51,7 +53,7 @@ public class EventoYPanelTest {
 
 
     @Test
-    public void testEvento_aniadirUnInvitado() {
+    public void testEventoAniadirUnInvitado() {
     	
     	evento.enviarInvitacion("mail1@gmail.com");
     	
@@ -60,7 +62,7 @@ public class EventoYPanelTest {
  
 
     @Test
-    public void testEvento_invitarPorLista() {
+    public void testEventoInvitarPorLista() {
     	
     	List<String> listaInvitados = new ArrayList<String>();
     	listaInvitados.add("mail1@gmail.com");
@@ -72,24 +74,24 @@ public class EventoYPanelTest {
     }
     
     @Test
-    public void testEvento_puedeConfirmarUnInvitado() {
+    public void testEventoPuedeConfirmarUnInvitado() {
 
     	evento.enviarInvitacion("mail1@gmail.com");
     	
     	evento.confirmarAsistencia(user1);
     	
-    	assertTrue(!evento.getAsistentes().isEmpty());
+    	assertFalse(evento.getAsistentes().isEmpty());
     }
    
     @Test
-    public void testPanel_reconoceUsuarioRegistrado() {
+    public void testPanelReconoceUsuarioRegistrado() {
     	boolean ret;
     	ret = pControl.existeUsuarioRegistrado("ale.h90@gmail.com");
     	assertTrue(ret);
     }
 
     @Test
-    public void testPanel_noReconoceUsuarioSinRegistrar() {
+    public void testPanelNoReconoceUsuarioSinRegistrar() {
     	boolean ret;
     	ret = pControl.existeUsuarioRegistrado("sarasasasa@sasasa.com");
     	assertFalse(ret);
@@ -97,7 +99,7 @@ public class EventoYPanelTest {
     
 
     @Test
-    public void testPanel_guardaInvitacionParaNoResgistrado() {
+    public void testPanelGuardaInvitacionParaNoResgistrado() {
 
     	evento.enviarInvitacion("noRegistrado@gmail.com");
     	
