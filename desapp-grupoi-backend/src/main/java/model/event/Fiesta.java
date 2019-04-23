@@ -18,16 +18,25 @@ public class Fiesta extends Modalidad {
 	
 	private Date fechaLimite;
 
-
+/*
+ * Fiesta tiene una lista de items que son los que quieren para la fiesta
+ * 
+ * 
+ * */
+	
+	
 	public Fiesta( Date fechaLimite) {
+		super();
 		this.fechaLimite = fechaLimite;
 	}
 
-//	Se ejecutaria cada vez que hay un confirmado
+
+	
 	public void calcularCompras() {
 		int cantAsistentes = this.asistentes;
+		this.itemsComprados.clear();
 		
-		for (Item i : this.itemsAComprar.stream().map(iu -> iu.getItem()).collect(Collectors.toList())) {
+		for (Item i : this.itemsAComprar) {
 			ItemUsuario agregar = new ItemUsuario(i, this.organizador);
 			int cantItems = cantAsistentes / i.getPersonasPorUnidad(); //se fija la cantidad de cada uno y los agrega
 
@@ -42,9 +51,6 @@ public class Fiesta extends Modalidad {
 
 	}
 	
-	
-
-
 	@Override
 	public boolean puedeConfirmar(Usuario usuario) {		
 		if(getHoy().before(this.fechaLimite)) {

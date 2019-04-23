@@ -9,14 +9,12 @@ public class Item {
 	private int personasPorUnidad;
 	
 	
-	public Item(Dinero costo, String nombreItem, int personasPorUnidad) {
-		this.costo = costo;
+	public Item(double costo, String nombreItem, int personasPorUnidad) {
+		this.costo = new Dinero(costo);
 		this.nombreItem = nombreItem;
 		this.personasPorUnidad = personasPorUnidad; //lo que rinde cada item por persona
 		
 	}
-
-	
 
 	public Dinero getCosto() {
 		return costo;
