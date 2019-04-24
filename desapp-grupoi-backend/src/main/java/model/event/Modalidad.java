@@ -25,9 +25,7 @@ public abstract class Modalidad {
 		this.costoTotal = new Dinero(0);
 	}
 
-	
-	
-	
+
 	//es la que se sobreescribe en Fiesta
 	public boolean puedeConfirmar(Usuario usuario) {		
 		return estaInvitado(usuario.getEmail());
@@ -47,6 +45,11 @@ public abstract class Modalidad {
 		return ret;
 	}
 
+	public boolean estaConfirmado(Evento evento, Usuario user) {
+		return evento.getAsistentes().contains(user);
+	}
+	
+	
 	
 //	Getters y setters
 	public List<Item> getItemsAComprar() {

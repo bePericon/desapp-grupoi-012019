@@ -40,7 +40,7 @@ public class Evento {
 
 	public void confirmarAsistencia(Usuario confirmado) {
 		if (this.template.getModalidad().puedeConfirmar(confirmado)){
-			this.asistentes.add(confirmado);
+			this.asistentes.add(confirmado);//capaz se tenga que enviar a modalidad
 			this.template.getModalidad().addAsistente();
 		}
 		//TODO: si no puede confirmar que lance una advertencia, eception o algo
