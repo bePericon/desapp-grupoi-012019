@@ -23,26 +23,27 @@ public class Usuario {
 	}
 
 	public Usuario(String nombre, String apellido) {
-		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.cuenta = new Cuenta();
+		this.invitaciones = new ArrayList<Invitacion>();
+	}
+
+	public Usuario(String nombre, String apellido, String email) {
+		this(nombre, apellido);
+		this.email = email;
 	}
 
 	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
-		super();
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
+		this(nombre, apellido, email);
 		this.fechaNac = fechaNac;
-		this.cuenta = new Cuenta();
-		this.invitaciones = new ArrayList<Invitacion>();
 	}
 
 	public boolean esContraseniaCorrecta(String contra) {
 		return this.contrasenia.equals(contra);
 	}
 
-	public void addInvitacion (Invitacion inv) {
+	public void agregarInvitacion(Invitacion inv) {
 		this.invitaciones.add(inv);
 	}
 	
@@ -89,5 +90,4 @@ public class Usuario {
 		this.invitaciones = invitaciones;
 	}
 
-	
 }

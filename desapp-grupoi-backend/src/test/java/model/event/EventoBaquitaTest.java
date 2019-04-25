@@ -13,6 +13,9 @@ public class EventoBaquitaTest {
 
     private Evento evento;
     private Template template;
+    private Usuario organizador;
+    private Usuario usuarioUno;
+    private Usuario usuarioDos;
 
     @Before
     public void init(){
@@ -23,22 +26,23 @@ public class EventoBaquitaTest {
     public void end(){
         this.evento = null;
         this.template = null;
+        this.organizador = null;
+        this.usuarioUno = null;
+        this.usuarioDos = null;
     }
 
-//    @Test
-//    public void testSetTemplate() {
-//        this.setEventoBaquitaParaCuatro();
-//
-//        assertNotNull(this.evento.getTemplate());
-//    }
+    @Test
+    public void testSetTemplate() {
+        // FIXTURE
+        this.setTemplateBaquitaCompraPreviaAsadoCuatroItems();
+        this.evento = this.getEvento();
 
-//    @Test
-//    public void testSetAsistentes_CantidadAsistentesCuatro() {
-//        this.setEventoBaquitaParaCuatro();
-//        this.setCuatroAsistentesAlEvento();
-//
-//        assertEquals(4, this.evento.getTotalAsistentes());
-//    }
+        // STIMULUS
+        this.evento.setTemplate(this.template);
+
+        // ASSERT
+        assertNotNull(this.evento.getTemplate());
+    }
 
 //    @Test
 //    public void testElegirCompradores_CantidadCantidadCompradoresDos() {
@@ -54,41 +58,47 @@ public class EventoBaquitaTest {
 //    }
 
 
-//    // Methods aux
-//    private void setEventoBaquitaParaCuatro(){
-//        this.setTemplateBaquitaCompraPreviaAsadoCuatroItems();
-//        this.evento = getEvento();
-//        this.evento.setTemplate(this.template);
-//    }
-//
-//    private Evento getEvento() {
-//        Usuario mockUsuario = Mockito.mock(Usuario.class);
-//        return new Evento(mockUsuario, "Asado");
-//    }
-//
-//    private void setTemplateBaquitaCompraPreviaAsadoCuatroItems() {
-//        Modalidad modBaquita = new BaquitaCompraPrevia();
-//        this.template = new Template("Asado para cuatro", "Descripcion");
-//        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
-//        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
-//        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
-//        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
-//        this.template.setModalidad(modBaquita);
-//    }
-//
-//    private void setCuatroAsistentesAlEvento() {
-//        Usuario usuarioUno = new Usuario("UsuarioUno", "ApellidoUno" );
-//        Usuario UsuarioDos = new Usuario("UsuarioDos", "ApellidoDos" );
-//        Usuario mockUsuarioTres = Mockito.mock(Usuario.class);
-//        Usuario mockUsuarioCuatro = Mockito.mock(Usuario.class);
-//
-//        this.evento.agregarAsistente(usuarioUno);
-//        this.evento.agregarAsistente(UsuarioDos);
-//        this.evento.agregarAsistente(mockUsuarioTres);
-//        this.evento.agregarAsistente(mockUsuarioCuatro);
-//    }
-//
-//    private Dinero getCosto(int costo){
-//        return new Dinero(costo);
-//    }
+    // Methods aux
+    private void setTemplateBaquitaCompraPreviaAsadoCuatroItems() {
+        Modalidad modBaquita = new BaquitaCompraPrevia();
+        this.template = new Template("Asado para cuatro", "Descripcion", this.organizador);
+        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
+        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
+        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
+        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
+        this.template.setModalidad(modBaquita);
+    }
+
+    private void setEventoBaquitaParaCuatro(){
+        this.setTemplateBaquitaCompraPreviaAsadoCuatroItems();
+        this.evento = this.getEvento();
+        this.evento.setTemplate(this.template);
+    }
+
+    private Evento getEvento() {
+        Usuario mockUsuario = Mockito.mock(Usuario.class);
+        return new Evento(mockUsuario, "Asado");
+    }
+
+    private void setUsuarios() {
+        this.organizador = new Usuario("Orga", "Nizador", "organizador@email.com");
+        this.usuarioUno = new Usuario("Usuario", "Uno", "invitado-uno@email.com");
+        this.usuarioDos = new Usuario("Usuario", "Dos", "invitado-dos@email.com");
+    }
+
+    private void setCuatroAsistentesAlEvento() {
+        Usuario usuarioUno = new Usuario("UsuarioUno", "ApellidoUno" );
+        Usuario UsuarioDos = new Usuario("UsuarioDos", "ApellidoDos" );
+        Usuario mockUsuarioTres = Mockito.mock(Usuario.class);
+        Usuario mockUsuarioCuatro = Mockito.mock(Usuario.class);
+
+        this.evento.agregarAsistente(usuarioUno);
+        this.evento.agregarAsistente(UsuarioDos);
+        this.evento.agregarAsistente(mockUsuarioTres);
+        this.evento.agregarAsistente(mockUsuarioCuatro);
+    }
+
+    private Dinero getCosto(int costo){
+        return new Dinero(costo);
+    }
 }

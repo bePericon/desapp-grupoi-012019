@@ -21,7 +21,7 @@ public class BaquitaCompraPrevia extends Baquita {
 		neceitamos una funcion comprar() que guarde al que compro el item en esa lista, y que saque el item de la otra lista
 	
 	*necesitamos una fucion que recorre toda la lista y:
-		1- saca el monto total de lo que costo todo, (necesita devolverlo)
+		1- saca el monto total de lo que costaron todos los items (necesita devolverlo)
 		2- usa el costo total y lo divide por asistentes y tenes el precio promedio por cabeza (necesita devolverlo)
 		3- arma una lista de hashes de cada persona y lo que gasto en total cada (necesita devolverlo)
 	
@@ -37,7 +37,7 @@ public class BaquitaCompraPrevia extends Baquita {
 
 
 	@Override
-	public void calcularCostos() {
+	public void calcularCostos(int cantidadAsistentes) {
 
 		//DIVIDIR LOS GASTOS
 //		recorremos la lista y vamos sumando los gastos de cada usuario

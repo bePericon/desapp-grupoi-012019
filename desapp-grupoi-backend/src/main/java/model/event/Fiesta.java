@@ -2,7 +2,9 @@ package model.event;
 
 import java.util.Date;
 
+import model.account.Dinero;
 import model.account.Usuario;
+import org.joda.time.DateTime;
 
 
 public class Fiesta extends Modalidad {
@@ -15,56 +17,52 @@ public class Fiesta extends Modalidad {
 	confirmaciones.
 */
 	
-	private Date fechaLimite;
+	private DateTime fechaLimite;
 
-/*
- * Fiesta tiene una lista de items que son los que quieren para la fiesta
- * 
- * 
- * */
-	
-	
-	public Fiesta( Date fechaLimite) {
+	public Fiesta(DateTime fechaLimite) {
 		super();
 		this.fechaLimite = fechaLimite;
 	}
 
+	@Override
+	public boolean fechaVigente(DateTime fecha){
+		return this.fechaLimite.isAfter(fecha);
+	}
 
-	
-	public void calcularCompras() {
-		int cantAsistentes = this.asistentes;
+	@Override
+	public void calcularCostos(int cantidadAsistentes) {
+		int cantAsistentes = cantidadAsistentes;
 		this.itemsComprados.clear();
+		this.costoTotal = new Dinero(0);
 		
 		for (Item i : this.itemsAComprar) {
-			ItemUsuario agregar = new ItemUsuario(i, this.organizador);
+			Item item = i;
+			ItemUsuario itemUsuario = new ItemUsuario(i, this.organizador);
 			int cantItems = cantAsistentes / i.getPersonasPorUnidad(); //se fija la cantidad de cada uno y los agrega
 
-			while(cantItems>0) {
-				this.itemsComprados.add(agregar);
+			while(cantItems > 0) {
+				this.agregarItemUsuario(itemUsuario);
 				cantItems--;
 			}
 			
-			if (cantAsistentes % i.getPersonasPorUnidad() > 0) //si no era un numero justo, agrega uno mas para no quedarse corto
-				this.itemsComprados.add(agregar);
+			if (cantAsistentes % item.getPersonasPorUnidad() > 0) //si no era un numero justo, agrega uno mas para no quedarse corto
+				this.agregarItemUsuario(itemUsuario);
 		}
-
 	}
 	
-	@Override
-	public boolean puedeConfirmar(Usuario usuario) {		
-		if(getHoy().before(this.fechaLimite)) {
-			return estaInvitado(usuario.getEmail());
-		}
-		return false;
+//	@Override
+//	public boolean puedeConfirmar(Usuario usuario) {
+//		if(getHoy().before(this.fechaLimite)) {
+//			return estaInvitado(usuario.getEmail());
+//		}
+//		return false;
+//	}
+	
+	public DateTime getHoy() {
+		return DateTime.now();
 	}
 	
-	public Date getHoy() {
-		Date date = new Date();
-
-		return  date;
-	}
-	
-	public Date getDeadline() {
+	public DateTime getFechaLimite() {
 		return fechaLimite;
 	}
 

@@ -6,7 +6,6 @@ import model.event.Evento;
 import model.event.Invitacion;
 import model.event.Template;
 import org.junit.*;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 

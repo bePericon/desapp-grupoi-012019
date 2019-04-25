@@ -25,50 +25,50 @@ public class CanastaTest {
     private Item gaseosa;
     private Item picada;
 
-    @Before
-    public void init(){
-
-        pControl = new PanelDeControl();
-        registrarTresUsuariosAlSistema();
-    
-        canasta = new Canasta();
-        
-        evento = new Evento(user, "Canastita");
-        evento.setModalidad(canasta);
-        evento.setPanelDeControl(pControl);
-      
-        invitarYconfirmarAsistenciaUsuarioUnoYDos();
-    	
-    	canasta.setOrganizador(user);
-    }
- 
-
-
-	@Test
-	public void usuarioDosPuedeElegirUnaGaseosaParaComprar() {
-		
-		//FIXTURE
-		cargarAsadoGaseosaYPicadaACanasta();
-
-		//STIMULET
-		canasta.elegirItemEnParticularPorIndice(user, 1);
-    	
-    	//ASSERT
-    	 assertFalse( canasta.getItemsComprados().isEmpty());
-	}
-	
-	@Test
-	public void usuario2CompraUnItemCualquieraYEsAsado() {
-		 
-		// FIXTURE
-		cargarAsadoGaseosaYPicadaACanasta();
-
-		//STIMULET
-		canasta.elegirCuaquierItem(user2);
-
-    	//ASSERT
-    	 assertTrue(canasta.getItemsComprados().get(0).getItem().getNombreItem().equals("asado por kilo"));
-	}
+//    @Before
+//    public void init(){
+//
+//        pControl = new PanelDeControl();
+//        registrarTresUsuariosAlSistema();
+//
+//        canasta = new Canasta();
+//
+//        evento = new Evento(user, "Canastita");
+//        evento.setModalidad(canasta);
+//        evento.setPanelDeControl(pControl);
+//
+//        invitarYconfirmarAsistenciaUsuarioUnoYDos();
+//
+//    	canasta.setOrganizador(user);
+//    }
+//
+//
+//
+//	@Test
+//	public void usuarioDosPuedeElegirUnaGaseosaParaComprar() {
+//
+//		//FIXTURE
+//		cargarAsadoGaseosaYPicadaACanasta();
+//
+//		//STIMULET
+//		canasta.elegirItemEnParticularPorIndice(user, 1);
+//
+//    	//ASSERT
+//    	 assertFalse( canasta.getItemsComprados().isEmpty());
+//	}
+//
+//	@Test
+//	public void usuario2CompraUnItemCualquieraYEsAsado() {
+//
+//		// FIXTURE
+//		cargarAsadoGaseosaYPicadaACanasta();
+//
+//		//STIMULET
+//		canasta.elegirCuaquierItem(user2);
+//
+//    	//ASSERT
+//    	 assertTrue(canasta.getItemsComprados().get(0).getItem().getNombreItem().equals("asado por kilo"));
+//	}
 	
 //	@Test
 //	public void usuariosNoInvitadosNoPuedenComprar() {
@@ -118,45 +118,45 @@ public class CanastaTest {
 	
 //	Metodos Auxiliares
 	
-	private void cargarAsadoGaseosaYPicadaACanasta() {
-		List<Item> listaItems = crearListaDeItemsConAsadoGaseosaYPicada();
-		canasta.setItemsAComprar(listaItems);
-	}
-	
-	
-	private List<Item> crearListaDeItemsConAsadoGaseosaYPicada() {
-		  asado = new Item(150,"asado por kilo",6);
-	      gaseosa = new Item(100,"cocacola 3L", 4);
-	      picada = new Item(100,"picadita de queso", 4);
-	        
-	      List<Item> listaItems = new ArrayList<Item>();
-	      listaItems.add(asado);
-	      listaItems.add(gaseosa);
-	      listaItems.add(picada);
-		
-	      return listaItems;
-	}
-	
-	public void registrarTresUsuariosAlSistema() {
-        user = new Usuario("Alejandro", "Rossi", "ale.h90@gmail.com", new DateTime().minus(20));
-        user1 = new Usuario("invitado1", "apellido1", "mail1@gmail.com", new DateTime().minus(25));
-        user2 = new Usuario("invitado2", "apellido2", "mail2@gmail.com", new DateTime().minus(27));
-        
-        pControl.addUser(user);
-        pControl.addUser(user1);
-        pControl.addUser(user2);
-	}
-	
-	public void invitarYconfirmarAsistenciaUsuarioUnoYDos() {
-		 List<String> listaInvitados = new ArrayList<String>();
-	     listaInvitados.add("mail1@gmail.com");
-	     listaInvitados.add("mail2@gmail.com");
-	    	
-	     evento.invitarPorLista(listaInvitados);
-	     evento.confirmarAsistencia(user1);
-	     evento.confirmarAsistencia(user2);
-	     
-	}
+//	private void cargarAsadoGaseosaYPicadaACanasta() {
+//		List<Item> listaItems = crearListaDeItemsConAsadoGaseosaYPicada();
+//		canasta.setItemsAComprar(listaItems);
+//	}
+//
+//
+//	private List<Item> crearListaDeItemsConAsadoGaseosaYPicada() {
+//		  asado = new Item(150,"asado por kilo",6);
+//	      gaseosa = new Item(100,"cocacola 3L", 4);
+//	      picada = new Item(100,"picadita de queso", 4);
+//
+//	      List<Item> listaItems = new ArrayList<Item>();
+//	      listaItems.add(asado);
+//	      listaItems.add(gaseosa);
+//	      listaItems.add(picada);
+//
+//	      return listaItems;
+//	}
+//
+//	public void registrarTresUsuariosAlSistema() {
+//        user = new Usuario("Alejandro", "Rossi", "ale.h90@gmail.com", new DateTime().minus(20));
+//        user1 = new Usuario("invitado1", "apellido1", "mail1@gmail.com", new DateTime().minus(25));
+//        user2 = new Usuario("invitado2", "apellido2", "mail2@gmail.com", new DateTime().minus(27));
+//
+//        pControl.addUser(user);
+//        pControl.addUser(user1);
+//        pControl.addUser(user2);
+//	}
+//
+//	public void invitarYconfirmarAsistenciaUsuarioUnoYDos() {
+//		 List<String> listaInvitados = new ArrayList<String>();
+//	     listaInvitados.add("mail1@gmail.com");
+//	     listaInvitados.add("mail2@gmail.com");
+//
+//	     evento.invitarPorLista(listaInvitados);
+//	     evento.confirmarAsistencia(user1);
+//	     evento.confirmarAsistencia(user2);
+//
+//	}
 	
 	
 }

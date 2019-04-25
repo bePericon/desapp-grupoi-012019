@@ -3,44 +3,43 @@ package model.event;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.account.Dinero;
+import model.account.Usuario;
 import model.event.TipoVisibilidad.Visibilidad;
+import org.joda.time.DateTime;
 
 public class Template {
 
 	private String nombre;
 	private String descripcion;
+	private Usuario organizador;
 	private List<Item> items;
 	private Modalidad modalidad; 
 	private Visibilidad visibilidad;
 
 	public Template(){
-		this.items = new ArrayList<Item>();
-	}
-	
-	public Template(String nombreTemplate, String descripcionTemplate, Modalidad modalidad) {
-		this.nombre = nombreTemplate;
-		this.descripcion = descripcionTemplate;
-		this.modalidad = modalidad;
-		this.visibilidad = TipoVisibilidad.Visibilidad.PRIVADA;
 	}
 
-	public Template(String nombre, String descripcion) {
-		this();
+	public Template(String nombre, String descripcion, Usuario organizador) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.organizador = organizador;
+		this.items = new ArrayList<Item>();
+		this.visibilidad = Visibilidad.PRIVADA;
 	}
 
+	public Template(String nombre, String descripcion, Usuario organizador, Modalidad modalidad) {
+		this(nombre,descripcion, organizador);
+		this.modalidad = modalidad;
+	}
 
 	public void hacerPublica() {
 		this.visibilidad = TipoVisibilidad.Visibilidad.PUBLICA;
 	}
 
-
 	public void agregarItem(Item item) {
 		this.items.add(item);
 	}
-
-
 
 	//	GETTERS Y SETTERS
 	public String getNombre() {
@@ -59,15 +58,43 @@ public class Template {
 	public List<Item> getItems() {
 		return this.items;
 	}
+
 	public void setModalidad(Modalidad modalidad) {
 		this.modalidad = modalidad;
+		this.modalidad.setItemsAComprar(this.items);
+		this.modalidad.setOrganizador(this.organizador);
 	}
+
 	public Modalidad getModalidad() {
 		return modalidad;
 	}
 
 	public Visibilidad getVisibilidad() {
 		return visibilidad;
+	}
+
+	public int geCantidadItems() {
+		return this.items.size();
+	}
+
+	public void calcularCostos(int cantidadAsistentes) {
+		if(this.modalidad != null)
+			this.modalidad.calcularCostos(cantidadAsistentes);
+	}
+
+	public Dinero getCostoTotal() {
+		if(this.modalidad == null)
+			return new Dinero(0);
+
+		return this.modalidad.getCostoTotal();
+	}
+
+	public boolean fechaVigente(DateTime fecha) {
+		return this.modalidad.fechaVigente(fecha);
+	}
+
+	public void setOrganizador(Usuario usuario){
+		this.organizador = usuario;
 	}
 
 //	public void setCompradorItem(Usuario usuario, int posItem) {

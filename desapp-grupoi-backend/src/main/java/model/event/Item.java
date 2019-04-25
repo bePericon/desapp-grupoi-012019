@@ -9,8 +9,8 @@ public class Item {
 	private int personasPorUnidad;
 	
 	
-	public Item(double costo, String nombreItem, int personasPorUnidad) {
-		this.costo = new Dinero(costo);
+	public Item(Dinero costo, String nombreItem, int personasPorUnidad) {
+		this.costo = costo;
 		this.nombreItem = nombreItem;
 		this.personasPorUnidad = personasPorUnidad; //lo que rinde cada item por persona
 		
@@ -39,9 +39,5 @@ public class Item {
 	public void setPersonasPorUnidad(int personasPorUnidad) {
 		this.personasPorUnidad = personasPorUnidad;
 	}
-	
-	
-	
-	
-	
+
 }

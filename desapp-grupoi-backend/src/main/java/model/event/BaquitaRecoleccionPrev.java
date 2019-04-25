@@ -29,7 +29,7 @@ public class BaquitaRecoleccionPrev extends Baquita {
 		this.listoParaComprarTodo = false;
 		//calculo de costo total?
 	}
-		
+
 	public void recibirDeposito(Dinero deposito) {
 		this.dineroDepositado.sumar(deposito);
 		this.listoParaComprarTodo = this.costoTotal.mayorIgualA(this.dineroDepositado);
