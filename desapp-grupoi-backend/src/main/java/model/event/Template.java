@@ -90,6 +90,9 @@ public class Template {
 	}
 
 	public boolean fechaVigente(DateTime fecha) {
+		if(this.modalidad == null)
+			return true;
+
 		return this.modalidad.fechaVigente(fecha);
 	}
 
