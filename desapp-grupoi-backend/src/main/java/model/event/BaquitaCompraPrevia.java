@@ -27,27 +27,5 @@ public class BaquitaCompraPrevia extends Baquita {
 	
 	
 	*/
-	
-
-//	public void comprar(Usuario usuario, int indexItem) {
-//		ItemUsuario compra = new ItemUsuario(this.itemsAComprar.get(indexItem), usuario);
-//
-//		this.itemsComprados.add(compra);
-//	}
-
-
-	@Override
-	public void calcularCostos(int cantidadAsistentes) {
-
-		//DIVIDIR LOS GASTOS
-//		recorremos la lista y vamos sumando los gastos de cada usuario
-		for (ItemUsuario i : this.itemsComprados) {
-
-			//crea una lista con cada persona que compró algo con el monto total que gastó
-//			al margen ve el monto total dividido por la cantidad de personas
-		}
-
-
-	}
 
 }

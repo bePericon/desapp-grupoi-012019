@@ -36,7 +36,6 @@ public class Fiesta extends Modalidad {
 		this.costoTotal = new Dinero(0);
 		
 		for (Item i : this.itemsAComprar) {
-			Item item = i;
 			ItemUsuario itemUsuario = new ItemUsuario(i, this.organizador);
 			int cantItems = cantAsistentes / i.getPersonasPorUnidad(); //se fija la cantidad de cada uno y los agrega
 
@@ -45,18 +44,10 @@ public class Fiesta extends Modalidad {
 				cantItems--;
 			}
 			
-			if (cantAsistentes % item.getPersonasPorUnidad() > 0) //si no era un numero justo, agrega uno mas para no quedarse corto
+			if (cantAsistentes % i.getPersonasPorUnidad() > 0) //si no era un numero justo, agrega uno mas para no quedarse corto
 				this.agregarItemUsuario(itemUsuario);
 		}
 	}
-	
-//	@Override
-//	public boolean puedeConfirmar(Usuario usuario) {
-//		if(getHoy().before(this.fechaLimite)) {
-//			return estaInvitado(usuario.getEmail());
-//		}
-//		return false;
-//	}
 	
 	public DateTime getHoy() {
 		return DateTime.now();

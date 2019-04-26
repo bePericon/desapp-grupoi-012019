@@ -100,7 +100,23 @@ public class Template {
 		this.organizador = usuario;
 	}
 
-//	public void setCompradorItem(Usuario usuario, int posItem) {
-//		this.modalidad.addUsuarioItem(usuario, this.items.get(posItem));
-//	}
+	public void elegirItemPorIndice(Usuario usuario, int i) {
+		this.modalidad.agregarItemUsuario(this.items.get(i), usuario);
+	}
+
+	public int getCantidadItemsComprados() {
+		return this.modalidad.getCantidadItemsComprados();
+	}
+
+	public List<ItemUsuario> getItemsComprados() {
+		return this.modalidad.getItemsComprados();
+	}
+
+	public Dinero getCostoUsuario(Usuario usuario) {
+		return this.modalidad.getCostoUsuario(usuario);
+	}
+
+	public Dinero getCostoUsuario() {
+		return this.modalidad.getCostoUsuario();
+	}
 }

@@ -1,11 +1,7 @@
 package model.event;
 
 
-import model.account.Usuario;
-
-import javax.swing.*;
-import java.util.List;
-import java.util.Queue;
+import model.account.Dinero;
 
 public abstract class Baquita extends Modalidad {
 /*
@@ -20,8 +16,23 @@ public abstract class Baquita extends Modalidad {
 			mismos para las compras.
 	*/
 
+	private Dinero costoUsuario;
+
 	public Baquita( ) {
-//		super();
+		super();
+	}
+
+	@Override
+	public void calcularCostos(int cantidadAsistentes) {
+		this.costoTotal = new Dinero(0);
+		for (Item i : this.itemsAComprar)
+			this.costoTotal.sumar(i.getCosto());
+		this.costoUsuario = this.costoTotal.dividir(cantidadAsistentes);
+	}
+
+	@Override
+	public Dinero getCostoUsuario(){
+		return this.costoUsuario;
 	}
 
 }

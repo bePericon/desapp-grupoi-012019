@@ -18,13 +18,8 @@ public class UsuarioTest {
         this.usuarioTest = new Usuario();
     }
 
-    @After
-    public void end(){
-        // Lo que se quiera ejecutar despues de cada test. Ej: limpieza de datos.
-    }
-
     @Test
-    public void testCreacionUsuarioCompleto_datosCorrectos() {
+    public void testCreacionUsuarioCompletoDatosCorrectos() {
        this.usuarioTest = new Usuario("Emmanuel", "Pericon", "epericon@gmail.com", this.cumpleaños());
        this.usuarioTest.setCuenta(Mockito.mock(Cuenta.class));
 
@@ -36,17 +31,15 @@ public class UsuarioTest {
     }
 
     @Test
-    public void testEsContraseñaCorrecta_contraseñaCorrecta() {
+    public void testEsContraseñaCorrectaSontraseñaCorrecta() {
         this.usuarioTest.setContrasenia("12345678");
 
         assertTrue(this.usuarioTest.esContraseniaCorrecta("12345678"));
     }
 
-    /// Methods aux ///
-
+    // Methods aux
     private DateTime cumpleaños() {
         return new DateTime(1992,11,27,0,0);
     }
 
-    ////////////////////////
 }

@@ -11,43 +11,22 @@ public abstract class Modalidad {
 
 	protected List<Item> itemsAComprar;
 	protected List<ItemUsuario> itemsComprados;
-//	protected List<Invitacion> invitaciones;
 	protected Dinero costoTotal;
-	protected Usuario organizador; 	//se usa
+	protected Usuario organizador;
 
 	public Modalidad() {
-		this.itemsAComprar = new ArrayList<Item>(); //esta es una declaracion SOLO de items
-		this.itemsComprados = new ArrayList<ItemUsuario>();// una vez que son comrpados si tienen una correlacion con usuarios
-//		this.invitaciones = new  ArrayList<Invitacion>();
+		this.itemsAComprar = new ArrayList<Item>();
+		this.itemsComprados = new ArrayList<ItemUsuario>();
 		this.costoTotal = new Dinero(0);
 	}
 
-
-	//es la que se sobreescribe en Fiesta
-//	public boolean puedeConfirmar(Usuario usuario) {
-//		return estaInvitado(usuario.getEmail());
-//	}
 	
 	public void calcularCostos(int cantidadAsistentes) {
+		this.costoTotal = new Dinero(0);
 		for (ItemUsuario i : itemsComprados)
 			this.costoTotal.sumar(i.getItem().getCosto()); 
 	}
-	
-//	public boolean estaInvitado(String mail) {
-//		boolean ret = false;
-//		for(Invitacion inv : invitaciones) {
-//			if (inv.getEmail().equals(mail))
-//				return true;
-//		}
-//		return ret;
-//	}
 
-	public boolean estaConfirmado(Evento evento, Usuario user) {
-		return evento.getAsistentes().contains(user);
-	}
-	
-	
-	
 //	Getters y setters
 	public List<Item> getItemsAComprar() {
 		return itemsAComprar;
@@ -61,23 +40,10 @@ public abstract class Modalidad {
 		this.organizador = user;
 	}
 
-
-//	public void addInvitacion(Invitacion invitacion) {
-//		this.invitaciones.add( invitacion);
-//	}
-
-//	public void addUsuarioItem(Usuario usuario, Item item){
-//		this.itemsAComprar.add(new ItemUsuario(item, usuario));
-//	}
-
-//	public int getTotalCompradores(){
-//		return this.itemsAComprar.stream().map(i -> i.getUsuario()).distinct().toArray().length;
-//	}
-
 	public void setItemsAComprar(List<Item> listaItems) {
 		this.itemsAComprar = listaItems;
 	}
-	
+
 	public void addItemsAComprar(Item item) {
 		this.itemsAComprar.add(item);
 	}
@@ -93,5 +59,21 @@ public abstract class Modalidad {
 	public void agregarItemUsuario(ItemUsuario itemUsuario) {
 		this.itemsComprados.add(itemUsuario);
 		this.costoTotal.sumar(itemUsuario.getItem().getCosto());
+	}
+
+	public void agregarItemUsuario(Item item, Usuario usuario){
+		this.agregarItemUsuario(new ItemUsuario(item, usuario));
+	}
+
+	public int getCantidadItemsComprados(){
+		return this.itemsComprados.size();
+	}
+
+	public Dinero getCostoUsuario(Usuario usuario){
+		return this.getCostoUsuario();
+	}
+
+	public Dinero getCostoUsuario(){
+		return new Dinero(0);
 	}
 }

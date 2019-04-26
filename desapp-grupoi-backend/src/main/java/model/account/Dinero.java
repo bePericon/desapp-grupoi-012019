@@ -27,4 +27,8 @@ public class Dinero {
     public boolean mayorIgualA(Dinero monto) {
         return this.monto >= monto.getMonto();
     }
+
+    public Dinero dividir(int divisor) {
+        return new Dinero(this.monto / divisor);
+    }
 }

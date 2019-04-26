@@ -12,10 +12,8 @@ public class Evento {
 	private String nombre;
 	private Usuario organizador;
 	private Template template;
-	private List<Usuario> asistentes;   //los asistentes son los usuarios que confirmaron
+	private List<Usuario> asistentes;
 	private List<Invitacion> invitados;
-
-//	private PanelDeControl pControl;	//un @autowired de PanelDeControl, la idea es tener una instancia
 
 	public Evento(Usuario organizador, String nombreEvento) {
 		this.organizador = organizador;
@@ -24,33 +22,7 @@ public class Evento {
 		this.template = new Template(nombre, "", this.organizador);
 		this.invitados = new ArrayList<Invitacion>();
 	}
-	
-//	public void setPanelDeControl(PanelDeControl pControl) {
-//		this.pControl = pControl;
-//	}
-//
-//
-//	public void enviarInvitacion(String mail) {
-//		Invitacion invitacion = new Invitacion(mail, this);
-//		this.template.getModalidad().addInvitacion(invitacion);
-//		this.pControl.registrarInvitacion(mail, invitacion); //registra en el sistema
-//	}
-	
-//	public void invitarPorLista(List<String> listaInvitados) {
-//		  for (String mailInvitado : listaInvitados)
-//			  this.enviarInvitacion(mailInvitado);
-//	}
-//
-//
-//	public void confirmarAsistencia(Usuario confirmado) {
-//		if (this.template.getModalidad().puedeConfirmar(confirmado)){
-//			this.asistentes.add(confirmado);//capaz se tenga que enviar a modalidad
-//			this.template.getModalidad().addAsistente();
-//		}
-//		//TODO: si no puede confirmar que lance una advertencia, eception o algo
-//
-//	}
-	
+
 	public void cambiarModalidad(Modalidad modalidad) {
 		this.setModalidad(modalidad);
 		this.template.calcularCostos(this.getCantidadAsistentes());
@@ -73,10 +45,6 @@ public class Evento {
 	public void setAsistentes(List<Usuario> asistentes) {
 		this.asistentes = asistentes;
 	}
-
-//	public void setpControl(PanelDeControl pControl) {
-//		this.pControl = pControl;
-//	}
 
 	public void setModalidad(Modalidad modalidad) {
 		this.template.setModalidad(modalidad);
@@ -150,12 +118,24 @@ public class Evento {
 		return this.template.getCostoTotal();
 	}
 
-	//TODO:¿va en evento?, porque no parece ser una funcion comun a todos los eventos
-//	public void elegirCompradorItem(int posicionComprador, int posItem) {
-//		this.setCompradorItem(this.asistentes.get(posicionComprador), posItem);
-//	}
+    public void elegirItemPorIndice(Usuario usuario, int i) {
+		this.template.elegirItemPorIndice(usuario, i);
+    }
 
-//	public int getTotalCompradores() {
-//		return this.getModalidad().getTotalCompradores();
-//	}
+	public int getCantidadItemsComprados() {
+		return this.template.getCantidadItemsComprados();
+	}
+
+	public List<ItemUsuario> getItemsComprados() {
+		return this.template.getItemsComprados();
+	}
+
+	public Dinero getCostoUsuario(Usuario usuario) {
+		return this.template.getCostoUsuario(usuario);
+	}
+
+	public Dinero getCostoUsuario() {
+		this.calcularCostos(this.getCantidadAsistentes());
+		return this.template.getCostoUsuario();
+	}
 }

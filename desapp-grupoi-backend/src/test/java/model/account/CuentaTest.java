@@ -27,7 +27,7 @@ public class CuentaTest {
     }
 
     @Test
-    public void testCrearCuenta_cuentaNuevaDatosObligatorios() {
+    public void testCrearCuentaNuevaDatosObligatorios() {
         Cuenta cuenta = new Cuenta(Mockito.mock(Usuario.class));
 
         assertNotNull(cuenta.getUsuario());
@@ -36,21 +36,21 @@ public class CuentaTest {
     }
 
     @Test
-    public void testSaldoActual_cuentaSaldoEnCero() {
+    public void testSaldoActualCuentaSaldoEnCero() {
         Dinero saldo = this.cuentaTest.getSaldo();
 
         assertEquals(0, saldo.getMonto(), 0.0);
     }
 
     @Test
-    public void testDepositarDinero_cuentaSaldoEnMil() {
+    public void testDepositarDineroCuentaSaldoEnMil() {
         this.cuentaTest.depositarDinero(new Dinero(1000));
 
         assertEquals(1000, this.cuentaTest.getSaldo().getMonto(), 0.0);
     }
 
     @Test
-    public void testDepositarDinero_seAgregaUnMovimiento() {
+    public void testDepositarDineroSeAgregaUnMovimiento() {
         this.cuentaTest.depositarDinero(new Dinero(100));
         List<Movimiento> movimientos = this.cuentaTest.getMovimientos();
 
@@ -58,7 +58,7 @@ public class CuentaTest {
     }
 
     @Test
-    public void testDepositarDinero_seAgregaUnMovimientoTipoDepositar() {
+    public void testDepositarDineroSeAgregaUnMovimientoTipoDepositar() {
         this.cuentaTest.depositarDinero(new Dinero(100));
         Movimiento movimiento = this.cuentaTest.getUltimoMovimiento();
 
@@ -66,7 +66,7 @@ public class CuentaTest {
     }
 
     @Test
-    public void testRetirarDinero_cuentaSaldoEnQuinientos() {
+    public void testRetirarDineroCuentaSaldoEnQuinientos() {
         this.cuentaTest.depositarDinero(new Dinero(1000));
         this.cuentaTest.retirarDinero(new Dinero(500));
 
@@ -74,7 +74,7 @@ public class CuentaTest {
     }
 
     @Test
-    public void testRetirarDinero_seAgregaUnMovimientoTipoRetirar() {
+    public void testRetirarDineroSeAgregaUnMovimientoTipoRetirar() {
         this.cuentaTest.depositarDinero(new Dinero(1000));
         this.cuentaTest.retirarDinero(new Dinero(100));
         Movimiento movimiento = this.cuentaTest.getUltimoMovimiento();
@@ -83,7 +83,7 @@ public class CuentaTest {
     }
 
     @Test
-    public void testSetTarjetaCredito_datosCorrectos() {
+    public void testSetTarjetaCreditoDatosCorrectos() {
         this.cuentaTest.setTarjetaCredito("1111222233334444", 123);
         TarjetaCredito tarjeta = this.cuentaTest.getTarjetaCredito();
 
@@ -92,33 +92,33 @@ public class CuentaTest {
     }
 
     @Test
-    public void testEstadoSituacionDeuda_usuarioSituacionNormal() {
+    public void testEstadoSituacionDeudaUsuarioSituacionNormal() {
         this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.NORMAL);
 
         assertTrue(this.cuentaTest.getSituacion().esNormal());
     }
     @Test
-    public void testEstadoSituacionDeuda_usuarioSituacionCumplidor() {
+    public void testEstadoSituacionDeudaUsuarioSituacionCumplidor() {
         this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
 
         assertTrue(this.cuentaTest.getSituacion().esCumplidor());
     }
     @Test
-    public void testEstadoSituacionDeuda_usuarioSituacionMoroso() {
+    public void testEstadoSituacionDeudaUsuarioSituacionMoroso() {
         this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.MOROSO);
 
         assertTrue(this.cuentaTest.getSituacion().esMoroso());
     }
 
     @Test
-    public void testSolicitarCredito_esPosibleAgregarUnCredito() {
+    public void testSolicitarCreditoEsPosibleAgregarUnCredito() {
         this.cuentaTestConCredito();
 
         assertEquals(1, this.cuentaTest.getCreditos().size());
     }
 
     @Test
-    public void testDebitarCuotaCredito_esPosibleDebitarLaPrimerCuota() {
+    public void testDebitarCuotaCreditoEsPosibleDebitarLaPrimerCuota() {
         this.cuentaTestConCredito();
         this.cuentaTest.debitarCuotaCredito();
         Dinero saldoDespues = this.cuentaTest.getSaldo();
@@ -127,7 +127,7 @@ public class CuentaTest {
     }
 
     @Test
-    public void testDebitarCuotaCredito_noEsPosibleDebitarLaCuotaNoHaySaldoUsuarioMoroso() {
+    public void testDebitarCuotaCreditoNoEsPosibleDebitarLaCuotaNoHaySaldoUsuarioMoroso() {
         this.cuentaTestConCredito();
         this.cuentaTestSinSaldo();
         this.cuentaTest.debitarCuotaCredito();
@@ -137,28 +137,27 @@ public class CuentaTest {
     }
 
     @Test
-    public void testAgregarInvitacion_seAgregaUnaInvitacion() {
+    public void testAgregarInvitacionSeAgregaUnaInvitacion() {
         this.cuentaTest.agregarInvitacion(Mockito.mock(Invitacion.class));
 
         assertEquals(1, this.cuentaTest.getInvitaciones().size());
     }
 
     @Test
-    public void testAgregarEvento_seAgregaUnEvento() {
+    public void testAgregarEventoSeAgregaUnEvento() {
         this.cuentaTest.agregarEvento(Mockito.mock(Evento.class));
 
         assertEquals(1, this.cuentaTest.getEventos().size());
     }
 
     @Test
-    public void testAgregarTemplate_seAgregaUnTemplate() {
+    public void testAgregarTemplateSeAgregaUnTemplate() {
         this.cuentaTest.agregarTemplate(Mockito.mock(Template.class));
 
         assertEquals(1, this.cuentaTest.getTemplates().size());
     }
 
     // Methods aux
-
     private void cuentaTestConCredito() {
         this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
         this.cuentaTest.solicitarCredito();
