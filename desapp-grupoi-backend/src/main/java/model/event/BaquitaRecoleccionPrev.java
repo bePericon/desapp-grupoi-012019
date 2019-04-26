@@ -1,5 +1,6 @@
 package model.event;
 
+import model.account.Dinero;
 import model.account.Usuario;
 
 import java.util.List;
@@ -17,49 +18,39 @@ public class BaquitaRecoleccionPrev extends Baquita {
 		mismos para las compras.
 */
 	
-	private int costoEstimado;
-	private int dineroDepositado;
+
+	private Dinero dineroDepositado;
 	private boolean listoParaComprarTodo;
 	
 	
-	//TODO: lista de asistentes?
-	
-	public BaquitaRecoleccionPrev(Usuario organizador) {
-		super(organizador);
-		this.dineroDepositado = 0;
+	public BaquitaRecoleccionPrev( ) {
+//		super();
+		this.dineroDepositado = new Dinero(0);
 		this.listoParaComprarTodo = false;
+		//calculo de costo total?
 	}
 
-
-	public void calcularCostoEstimado() {
-		
-		//TODO: como hace el calculo?
-//		this.costoEstimado = costoLoco;
-		
+	public void recibirDeposito(Dinero deposito) {
+		this.dineroDepositado.sumar(deposito);
+		this.listoParaComprarTodo = this.costoTotal.mayorIgualA(this.dineroDepositado);
 	}
-		
+
 	
-	public void recibirDeposito(int deposito) {
-		this.dineroDepositado += deposito;
+//	calculo de costoTotal tras cada deposito?
+	
+	
+	public void comprar() {
 		
-		if (this.costoEstimado >= this.dineroDepositado ) {
-			this.listoParaComprarTodo = true;
-		}
+		//el organizador compra todo, ver si compra todo asi 
+		
 	}
 	
-	public int getCostoEstimado() {
-		return costoEstimado;
-	}
-
-	public void setCostoEstimado(int costoEstimado) {
-		this.costoEstimado = costoEstimado;
-	}
-
-	public int getDineroDepositado() {
+	
+	public Dinero getDineroDepositado() {
 		return dineroDepositado;
 	}
 
-	public void setDineroDepositado(int dineroDepositado) {
+	public void setDineroDepositado(Dinero dineroDepositado) {
 		this.dineroDepositado = dineroDepositado;
 	}
 	

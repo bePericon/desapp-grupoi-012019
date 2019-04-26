@@ -1,8 +1,10 @@
 package model.account;
 
+import model.event.Invitacion;
 import org.joda.time.DateTime;
-
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -23,16 +25,27 @@ public class Usuario {
 
 	private String contrasenia;
 	private Cuenta cuenta;
-
+	private List<Invitacion> invitaciones;
+	
+	
 	public Usuario() {
 
 	}
 
-	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
-		super();
+	public Usuario(String nombre, String apellido) {
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.cuenta = new Cuenta();
+		this.invitaciones = new ArrayList<Invitacion>();
+	}
+
+	public Usuario(String nombre, String apellido, String email) {
+		this(nombre, apellido);
 		this.email = email;
+	}
+
+	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
+		this(nombre, apellido, email);
 		this.fechaNac = fechaNac;
 	}
 
@@ -40,7 +53,11 @@ public class Usuario {
 		return this.contrasenia.equals(contra);
 	}
 
-	// GETTERS Y SETTERS
+	public void agregarInvitacion(Invitacion inv) {
+		this.invitaciones.add(inv);
+	}
+
+//	GETTERS Y SETTERS
 	public String getNombre() {
 		return nombre;
 	}
@@ -70,4 +87,7 @@ public class Usuario {
 	public void setContrasenia(String contrasenia) { this.contrasenia = contrasenia; }
 	public String getContrasenia(){ return this.contrasenia; }
 
+	public List<Invitacion> getInvitaciones() {
+		return invitaciones;
+	}
 }

@@ -1,6 +1,7 @@
 package model.event;
 
-import model.account.Usuario;
+
+import model.account.Dinero;
 
 public abstract class Baquita extends Modalidad {
 /*
@@ -14,9 +15,24 @@ public abstract class Baquita extends Modalidad {
 			girar su parte los asistentes y una vez reunido el dinero, el organizador puede disponer de los
 			mismos para las compras.
 	*/
-	
-	public Baquita(Usuario organizador) {
-		super(organizador);
+
+	private Dinero costoUsuario;
+
+	public Baquita( ) {
+		super();
 	}
-	
+
+	@Override
+	public void calcularCostos(int cantidadAsistentes) {
+		this.costoTotal = new Dinero(0);
+		for (Item i : this.itemsAComprar)
+			this.costoTotal.sumar(i.getCosto());
+		this.costoUsuario = this.costoTotal.dividir(cantidadAsistentes);
+	}
+
+	@Override
+	public Dinero getCostoUsuario(){
+		return this.costoUsuario;
+	}
+
 }

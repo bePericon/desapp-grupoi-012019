@@ -24,26 +24,26 @@ public class CreditoTest {
     }
 
     @Test
-    public void testCrearCredito_creditoGuardado() {
+    public void testCrearCreditoCreditoGuardado() {
         assertEquals(EnumEstados.EstadoCredito.GUARDADO, this.creditoTest.getEstado());
     }
 
     @Test
-    public void testMontoCuota_elMontoCuotaDebeSerDoscientos() {
+    public void testMontoCuotaElMontoCuotaDebeSerDoscientos() {
         this.setNuevoCredito(1000,1200,6);
 
         assertEquals(200, this.creditoTest.getMontoCuota().getMonto(), 0.0);
     }
 
     @Test
-    public void testMontoCuota_elMontoCuotaDebeSerCientoochentaYTresComaPeriodicoDosDecimales() {
+    public void testMontoCuotaElMontoCuotaDebeSerCientoochentaYTresComaPeriodicoDosDecimales() {
         this.setNuevoCredito(1000,1100,6);
 
         assertEquals(183.33, this.creditoTest.getMontoCuota().getMonto(), 0.009);
     }
 
     @Test
-    public void testSaldarMonto_sePagaPrimerCuotaEstadoEnCurso() {
+    public void testSaldarMontoSePagaPrimerCuotaEstadoEnCurso() {
         this.setNuevoCredito(1000,1200,6);
         Dinero cuota = this.creditoTest.getMontoCuota();
         this.creditoTest.saldarMonto(cuota);
@@ -53,7 +53,7 @@ public class CreditoTest {
     }
 
     @Test
-    public void testSaldarMonto_sePaganTodasLasCuotasEstadoFinalizado() {
+    public void testSaldarMontoSePaganTodasLasCuotasEstadoFinalizado() {
         this.setNuevoCredito(1000,1200,2);
         Dinero cuota = this.creditoTest.getMontoCuota();
         this.creditoTest.saldarMonto(cuota);
@@ -64,8 +64,8 @@ public class CreditoTest {
     }
 
     // Methods aux
-
     private void setNuevoCredito(double monto, double montoDevolver, int cuotas){
-        this.creditoTest = new Credito(new Dinero(monto), new Dinero(montoDevolver), cuotas);
+        Usuario mockUsuario = Mockito.mock(Usuario.class);
+        this.creditoTest = new Credito(new Dinero(monto), new Dinero(montoDevolver), cuotas, mockUsuario);
     }
 }
