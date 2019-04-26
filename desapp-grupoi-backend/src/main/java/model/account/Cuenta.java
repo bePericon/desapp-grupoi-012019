@@ -49,7 +49,7 @@ public class Cuenta {
     }
 
     public void solicitarCredito() {
-        this.agregarCredito(new Credito(new Dinero(1000), new Dinero(1200), 6));
+        this.agregarCredito(new Credito(new Dinero(1000), new Dinero(1200), 6, this.usuario));
     }
 
     public void agregarMovimiento(EnumTipos.TipoMovimiento depositar, DateTime fecha, Dinero monto) {

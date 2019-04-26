@@ -15,12 +15,13 @@ public class Credito {
         this.estado = EstadoCredito.GUARDADO;
     }
 
-    public Credito(Dinero monto, Dinero montoADevolver, int cuotas) {
+    public Credito(Dinero monto, Dinero montoADevolver, int cuotas, Usuario usuario) {
         this();
         this.monto = monto;
         this.cuotas = cuotas;
         this.montoRestante = montoADevolver;
         this.cuotasRestantes = cuotas;
+        this.usuarioSolicitante = usuario;
     }
 
     public Dinero getMontoCuota() {

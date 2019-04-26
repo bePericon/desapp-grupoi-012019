@@ -65,6 +65,7 @@ public class CreditoTest {
 
     // Methods aux
     private void setNuevoCredito(double monto, double montoDevolver, int cuotas){
-        this.creditoTest = new Credito(new Dinero(monto), new Dinero(montoDevolver), cuotas);
+        Usuario mockUsuario = Mockito.mock(Usuario.class);
+        this.creditoTest = new Credito(new Dinero(monto), new Dinero(montoDevolver), cuotas, mockUsuario);
     }
 }
