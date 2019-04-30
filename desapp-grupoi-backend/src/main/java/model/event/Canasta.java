@@ -7,7 +7,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class Canasta extends Modalidad {
+public class Canasta extends Baquita {
 	/*
 		Canasta: se presenta la lista de gastos a realizar y cada asistente elige un ítem del cual hacerse cargo.
 	 */
@@ -27,5 +27,4 @@ public class Canasta extends Modalidad {
 		}
 		return d;
 	}
-	
 }

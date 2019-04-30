@@ -1,27 +1,37 @@
 package model.account;
 
+import java.lang.management.MemoryType;
+
 public class Dinero {
 
     private double monto;
+    private double aux;
 
     public Dinero(double monto) {
-        this.monto = monto;
+        this.monto = (double)Math.round(monto * 100d) / 100d;
     }
 
     public double getMonto() {
-        return monto;
+        return (double)Math.round(this.monto * 100d) / 100d;
     }
 
     public boolean mayorACero() {
-        return this.monto > 0;
+        return this.monto > 0.01;
     }
 
-    public double sumar(Dinero monto) {
-        return this.monto += monto.getMonto();
+    public boolean menorACero() {
+        return this.monto < 0;
     }
 
-    public double restar(Dinero monto) {
-        return this.monto -= monto.getMonto();
+    public Dinero sumar(Dinero monto) {
+        this.monto += monto.getMonto();
+        return new Dinero(this.monto);
+    }
+
+    public Dinero restar(Dinero monto) {
+        this.aux = this.monto - monto.getMonto();
+        this.monto = new Dinero(this.aux).getMonto();
+        return new Dinero(this.monto);
     }
 
     public boolean mayorIgualA(Dinero monto) {
@@ -29,6 +39,15 @@ public class Dinero {
     }
 
     public Dinero dividir(int divisor) {
-        return new Dinero(this.monto / divisor);
+        double ret = (double)Math.round((this.monto / divisor) * 100d) / 100d;
+        return new Dinero(ret);
+    }
+
+    public boolean esCero() {
+        return this.monto == 0 || this.monto == 0.01 || this.monto == (-0.01);
+    }
+
+    public void abs() {
+        this.monto = Math.abs(this.monto);
     }
 }

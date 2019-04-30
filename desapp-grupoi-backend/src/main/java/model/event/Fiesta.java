@@ -1,6 +1,7 @@
 package model.event;
 
 import java.util.Date;
+import java.util.List;
 
 import model.account.Dinero;
 import model.account.Usuario;
@@ -30,8 +31,8 @@ public class Fiesta extends Modalidad {
 	}
 
 	@Override
-	public void calcularCostos(int cantidadAsistentes) {
-		int cantAsistentes = cantidadAsistentes;
+	public void calcularCostos(List<Usuario> asistentes) {
+		int cantAsistentes = asistentes.size();
 		this.itemsComprados.clear();
 		this.costoTotal = new Dinero(0);
 		

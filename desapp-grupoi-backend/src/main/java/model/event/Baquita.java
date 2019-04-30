@@ -2,6 +2,12 @@ package model.event;
 
 
 import model.account.Dinero;
+import model.account.Usuario;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 public abstract class Baquita extends Modalidad {
 /*
@@ -16,18 +22,24 @@ public abstract class Baquita extends Modalidad {
 			mismos para las compras.
 	*/
 
-	private Dinero costoUsuario;
+	protected Dinero costoUsuario;
+
+	protected List<Deuda> deudas;
 
 	public Baquita( ) {
 		super();
+		this.costoUsuario = new Dinero(0);
+		this.deudas = new ArrayList<Deuda>();
 	}
 
 	@Override
-	public void calcularCostos(int cantidadAsistentes) {
+	public void calcularCostos(List<Usuario> asistentes) {
 		this.costoTotal = new Dinero(0);
 		for (Item i : this.itemsAComprar)
 			this.costoTotal.sumar(i.getCosto());
-		this.costoUsuario = this.costoTotal.dividir(cantidadAsistentes);
+
+		if(this.costoTotal.mayorACero())
+			this.costoUsuario = this.costoTotal.dividir(asistentes.size());
 	}
 
 	@Override
@@ -35,4 +47,11 @@ public abstract class Baquita extends Modalidad {
 		return this.costoUsuario;
 	}
 
+	public int getCantidadDeudas(){
+		return this.deudas.size();
+	}
+
+	public List<Deuda> getDeudas() {
+		return deudas;
+	}
 }

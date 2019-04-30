@@ -37,14 +37,12 @@ public class EventoBaquitaTest {
     }
 
     @Test
-    public void testBaquita_CostoPorAsistente() {
+    public void testBaquitaCostoPorAsistente() {
         // FIXTURE
         this.setUsuarios();
         this.setNuevoEvento("Asado");
-        this.setTemplateModalidadBaquitaCompraPreviaConDosItems();
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
-        this.evento.agregarInvitado("invitado-tres@email.com");
+        this.setTemplateModalidadBaquitaCompraPreviaConTresItems();
+        this.agregarInvitados();
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
         this.todosAceptanLasInvitaciones();
@@ -53,9 +51,117 @@ public class EventoBaquitaTest {
         Dinero dinero = this.evento.getCostoUsuario();
 
         // ASSERT
-        assertEquals(126.66, dinero.getMonto(), 0.09);
+        assertEquals(160, dinero.getMonto(), 0.0);
     }
 
+    @Test
+    public void testBaquitaCompraPreviaUnCompradorDosDeudas() {
+        // FIXTURE
+        this.setUsuarios();
+        this.setNuevoEvento("Asado");
+        this.setTemplateModalidadBaquitaCompraPreviaConTresItems();
+        this.agregarInvitados();
+        this.seEnvianInvitaciones();
+        this.evento.setTemplate(this.template);
+        this.todosAceptanLasInvitaciones();
+        this.evento.elegirItemPorIndice(this.usuarioDos, 0); // Carne
+        this.evento.elegirItemPorIndice(this.usuarioDos, 1); // Coca
+        this.evento.elegirItemPorIndice(this.usuarioDos, 2); // Papas
+
+        // STIMULUS
+        Dinero costoTotal = this.evento.getCostoTotal();
+        Baquita mod = (BaquitaCompraPrevia)this.evento.getModalidad();
+
+
+        // ASSERT
+        assertEquals(2, mod.getCantidadDeudas());
+    }
+
+    @Test
+    public void testBaquitaCompraPreviaDosCompradores() {
+        // FIXTURE
+        this.setUsuarios();
+        this.setNuevoEvento("Asado");
+        this.setTemplateModalidadBaquitaCompraPreviaConTresItems();
+        this.agregarInvitados();
+        this.seEnvianInvitaciones();
+        this.evento.setTemplate(this.template);
+        this.todosAceptanLasInvitaciones();
+        this.evento.elegirItemPorIndice(this.usuarioDos, 0); // Carne
+        this.evento.elegirItemPorIndice(this.usuarioDos, 1); // Coca
+        this.evento.elegirItemPorIndice(this.usuarioUno, 2); // Papas
+
+        // STIMULUS
+        Dinero costoTotal = this.evento.getCostoTotal();
+        Baquita mod = (BaquitaCompraPrevia)this.evento.getModalidad();
+
+
+        // ASSERT
+        assertEquals(2, mod.getCantidadDeudas());
+        assertEquals(60, mod.getDeudas().get(0).getMonto().getMonto(), 0.0);
+        assertEquals(160, mod.getDeudas().get(1).getMonto().getMonto(), 0.0);
+    }
+
+    @Test
+    public void testBaquitaRecoleccionPreviaCostoTotal() {
+        // FIXTURE
+        this.setUsuarios();
+        this.setNuevoEvento("Asado");
+        this.setTemplateModalidadBaquitaRecoleccionPreviaConTresItems();
+        this.agregarInvitados();
+        this.seEnvianInvitaciones();
+        this.evento.setTemplate(this.template);
+        this.todosAceptanLasInvitaciones();
+
+        // STIMULUS
+        Dinero costoTotal = this.evento.getCostoTotal();
+
+        // ASSERT
+        assertEquals(480, costoTotal.getMonto(), 0.0);
+    }
+
+    @Test
+    public void testBaquitaRecoleccionPreviaPagarDeuda() {
+        // FIXTURE
+        this.setUsuarios();
+        this.setNuevoEvento("Asado");
+        this.setTemplateModalidadBaquitaRecoleccionPreviaConTresItems();
+        this.agregarInvitados();
+        this.seEnvianInvitaciones();
+        this.evento.setTemplate(this.template);
+        this.todosAceptanLasInvitaciones();
+
+        // STIMULUS
+        Dinero costoTotal = this.evento.getCostoTotal();
+        BaquitaRecoleccionPrevia mod = (BaquitaRecoleccionPrevia)this.evento.getModalidad();
+        mod.pagarDeuda(this.usuarioUno, this.evento.getCostoUsuario());
+
+        // ASSERT
+        assertEquals(1, mod.getDeudas().size(), 0.0);
+        assertEquals(160, mod.getDeudas().get(0).getMonto().getMonto(), 0.0);
+    }
+
+    @Test
+    public void testBaquitaRecoleccionPreviaDeudasPagadas() {
+        // FIXTURE
+        this.setUsuarios();
+        this.setNuevoEvento("Asado");
+        this.setTemplateModalidadBaquitaRecoleccionPreviaConTresItems();
+        this.agregarInvitados();
+        this.seEnvianInvitaciones();
+        this.evento.setTemplate(this.template);
+        this.todosAceptanLasInvitaciones();
+
+        // STIMULUS
+        Dinero costoTotal = this.evento.getCostoTotal();
+        BaquitaRecoleccionPrevia mod = (BaquitaRecoleccionPrevia)this.evento.getModalidad();
+        mod.pagarDeuda(this.usuarioUno, this.evento.getCostoUsuario());
+        mod.pagarDeuda(this.usuarioDos, this.evento.getCostoUsuario());
+        mod.pagarDeuda(this.usuarioTres, this.evento.getCostoUsuario());
+
+        // ASSERT
+        assertTrue(mod.estanDeudasPagadas());
+    }
 
     // Methods aux
 
@@ -63,11 +169,22 @@ public class EventoBaquitaTest {
         Usuario mockUsuario = Mockito.mock(Usuario.class);
         this.evento = new Evento(mockUsuario, nombre);
     }
-    private void setTemplateModalidadBaquitaCompraPreviaConDosItems() {
+    private void setTemplateModalidadBaquitaCompraPreviaConTresItems() {
         this.modalidad = new BaquitaCompraPrevia();
+        this.agregarTresItemsEnTemplate();
+        this.template.setModalidad(this.modalidad);
+    }
+
+    private void agregarTresItemsEnTemplate() {
         this.template = new Template("Nuevo template", "Descripcion", this.organizador);
         this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
         this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
+        this.template.agregarItem(new Item(this.getCosto(100), "Papas", 2));
+    }
+
+    private void setTemplateModalidadBaquitaRecoleccionPreviaConTresItems() {
+        this.modalidad = new BaquitaRecoleccionPrevia();
+        this.agregarTresItemsEnTemplate();
         this.template.setModalidad(this.modalidad);
     }
 
@@ -82,6 +199,12 @@ public class EventoBaquitaTest {
         this.usuarioTres = new Usuario("Usuario", "Tres", "invitado-tres@email.com");
     }
 
+    private void agregarInvitados() {
+        this.evento.agregarInvitado("invitado-uno@email.com");
+        this.evento.agregarInvitado("invitado-dos@email.com");
+        this.evento.agregarInvitado("invitado-tres@email.com");
+    }
+
     private void seEnvianInvitaciones() {
         this.usuarioUno.agregarInvitacion(this.evento.getInvitados().get(0));
         this.usuarioDos.agregarInvitacion(this.evento.getInvitados().get(1));
@@ -92,13 +215,5 @@ public class EventoBaquitaTest {
         this.usuarioUno.getInvitaciones().get(0).confirmar(this.usuarioUno);
         this.usuarioDos.getInvitaciones().get(0).confirmar(this.usuarioDos);
         this.usuarioTres.getInvitaciones().get(0).confirmar(this.usuarioTres);
-    }
-
-    private void setMasItemsEnEvento() {
-        Item iuno = new Item(this.getCosto(50), "Cerveza", 1);
-        Item idos = new Item(this.getCosto(25), "Biscochos", 4);
-
-        this.evento.agregarItem(iuno);
-        this.evento.agregarItem(idos);
     }
 }

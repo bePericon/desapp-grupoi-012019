@@ -77,9 +77,9 @@ public class Template {
 		return this.items.size();
 	}
 
-	public void calcularCostos(int cantidadAsistentes) {
+	public void calcularCostos(List<Usuario> asistentes) {
 		if(this.modalidad != null)
-			this.modalidad.calcularCostos(cantidadAsistentes);
+			this.modalidad.calcularCostos(asistentes);
 	}
 
 	public Dinero getCostoTotal() {

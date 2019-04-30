@@ -20,37 +20,12 @@ public abstract class Modalidad {
 		this.costoTotal = new Dinero(0);
 	}
 
-	
-	public void calcularCostos(int cantidadAsistentes) {
+
+	public void calcularCostos(List<Usuario> asistentes) {
 		this.costoTotal = new Dinero(0);
 		for (ItemUsuario i : itemsComprados)
-			this.costoTotal.sumar(i.getItem().getCosto()); 
+			this.costoTotal.sumar(i.getItem().getCosto());
 	}
-
-//	Getters y setters
-	public List<Item> getItemsAComprar() {
-		return itemsAComprar;
-	}
-
-	public List<ItemUsuario> getItemsComprados() {
-		return itemsComprados;
-	}
-	
-	public void setOrganizador(Usuario user) {
-		this.organizador = user;
-	}
-
-	public void setItemsAComprar(List<Item> listaItems) {
-		this.itemsAComprar = listaItems;
-	}
-
-	public void addItemsAComprar(Item item) {
-		this.itemsAComprar.add(item);
-	}
-
-	public Dinero getCostoTotal(){
-		return this.costoTotal;
-	};
 
 	public boolean fechaVigente(DateTime fecha){
 		return true;
@@ -76,4 +51,30 @@ public abstract class Modalidad {
 	public Dinero getCostoUsuario(){
 		return new Dinero(0);
 	}
+
+//	Getters y setters
+
+	public List<Item> getItemsAComprar() {
+		return itemsAComprar;
+	}
+
+	public List<ItemUsuario> getItemsComprados() {
+		return itemsComprados;
+	}
+
+	public void setOrganizador(Usuario user) {
+		this.organizador = user;
+	}
+
+	public void setItemsAComprar(List<Item> listaItems) {
+		this.itemsAComprar = listaItems;
+	}
+
+	public void addItemsAComprar(Item item) {
+		this.itemsAComprar.add(item);
+	}
+	public Dinero getCostoTotal(){
+		return this.costoTotal;
+
+	};
 }
