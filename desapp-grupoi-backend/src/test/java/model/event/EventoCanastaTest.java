@@ -1,16 +1,12 @@
 package model.event;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import model.account.Dinero;
-import org.joda.time.DateTime;
+import app.model.account.Dinero;
+import app.model.account.Usuario;
+import app.model.event.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import model.account.Usuario;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 

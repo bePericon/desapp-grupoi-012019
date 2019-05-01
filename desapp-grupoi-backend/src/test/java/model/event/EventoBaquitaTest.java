@@ -1,8 +1,8 @@
 package model.event;
 
-import model.account.Dinero;
-import model.account.Usuario;
-import org.joda.time.DateTime;
+import app.model.account.Dinero;
+import app.model.account.Usuario;
+import app.model.event.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

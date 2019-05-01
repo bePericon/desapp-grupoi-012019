@@ -1,7 +1,10 @@
 package model.event;
 
-import model.account.Dinero;
-import model.account.Usuario;
+import app.model.account.Dinero;
+import app.model.account.Usuario;
+import app.model.event.Evento;
+import app.model.event.Item;
+import app.model.event.Template;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

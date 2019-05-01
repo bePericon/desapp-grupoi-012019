@@ -1,5 +1,9 @@
 package model.account;
 
+import app.model.account.Credito;
+import app.model.account.Dinero;
+import app.model.account.EnumEstados;
+import app.model.account.Usuario;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

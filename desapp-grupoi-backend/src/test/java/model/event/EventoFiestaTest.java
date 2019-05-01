@@ -3,18 +3,13 @@ package model.event;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import model.account.Dinero;
+import app.model.account.Dinero;
+import app.model.account.Usuario;
+import app.model.event.*;
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import model.account.Usuario;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 

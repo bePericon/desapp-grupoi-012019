@@ -2,9 +2,10 @@ package model.account;
 
 import static org.junit.Assert.*;
 
-import model.event.Evento;
-import model.event.Invitacion;
-import model.event.Template;
+import app.model.account.*;
+import app.model.event.Evento;
+import app.model.event.Invitacion;
+import app.model.event.Template;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
