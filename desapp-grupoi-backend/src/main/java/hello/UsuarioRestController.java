@@ -1,12 +1,15 @@
-package webservice.account;
+package hello;
 
 import model.account.Usuario;
+import model.account.UsuarioPrueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import service.account.IUsuarioService;
+import service.account.UsuarioService;
+
 import java.util.List;
 
 @RestController
@@ -18,9 +21,14 @@ public class UsuarioRestController {
 
     //private static final Logger logger = LoggerFactory.getLogger(ApiRequestController.class);
 
+    @RequestMapping("/hello")
+    public String hello() {
+        return "HELLO!, It's running all right!";
+    }
+
     @RequestMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getHome() {
-        List<Usuario> all = this.usuarioService.getAll();
+        List<UsuarioPrueba> all = this.usuarioService.getAll();
 
         StringBuilder sb = new StringBuilder();
 

@@ -1,5 +1,6 @@
 
-CREATE TABLE Usario(
+/*
+CREATE TABLE Usuario(
     IDUSUARIO INTEGER not null,
     NOMBRE VARCHAR(50),
     APELLIDO VARCHAR(50),
@@ -7,10 +8,10 @@ CREATE TABLE Usario(
     FECHANAC DATE,
 	CONTRASENIA VARCHAR(8),
 	PRIMARY KEY (IDUSUARIO)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO Usuario
 VALUES ('Emmanuel','Pericon','epericon@email.com','1992-11-27','12345678');
 
 INSERT INTO Usuario
-VALUES ('Alejandro','Rossi','arossi@email.com','1992-01-20','12345678');
+VALUES ('Alejandro','Rossi','arossi@email.com','1992-01-20','12345678');*/

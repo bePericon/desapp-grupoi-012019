@@ -26,7 +26,7 @@ public class Usuario {
 	private String contrasenia;
 	private Cuenta cuenta;
 	private List<Invitacion> invitaciones;
-	
+
 	
 	public Usuario() {
 
