@@ -30,7 +30,7 @@ public class AppRestController {
     @RequestMapping(value = "/usuario/{id}", method = RequestMethod.GET)
     public String get(@PathVariable String id) {
         try {
-            UsuarioPrueba usuarioPrueba = usuarioService.get(Long.parseLong(id));
+            UsuarioPrueba usuarioPrueba = usuarioService.getById(Long.parseLong(id));
             return "Usuario: " + usuarioPrueba.getNombre() +" "+usuarioPrueba.getApellido();
         } catch (Exception e) {
             return e.getMessage();
