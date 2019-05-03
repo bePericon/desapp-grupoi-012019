@@ -43,7 +43,7 @@ public class Evento {
 
 	public void cambiarModalidad(Modalidad modalidad) {
 		this.setModalidad(modalidad);
-		this.template.calcularCostos(this.getCantidadAsistentes());
+		this.template.calcularCostos(this.asistentes);
 	}
 	
 	
@@ -103,7 +103,7 @@ public class Evento {
 	public boolean agregarAsistente(Usuario asistente) {
 		if(this.puedeAsistir(asistente) && !this.esAsistente(asistente)){
 			this.asistentes.add(asistente);
-			this.calcularCostos(this.getCantidadAsistentes());
+			this.calcularCostos(this.asistentes);
 		}
 
 		return this.esAsistente(asistente);
@@ -120,8 +120,8 @@ public class Evento {
 		return esfechaVigente && estaInvitado;
 	}
 
-	private void calcularCostos(int cantidadAsistentes) {
-		this.template.calcularCostos(cantidadAsistentes);
+	private void calcularCostos(List<Usuario> asistentes) {
+		this.template.calcularCostos(asistentes);
 	}
 
 	public int getCantidadAsistentes() {
@@ -133,6 +133,7 @@ public class Evento {
 	}
 
 	public Dinero getCostoTotal() {
+		this.template.calcularCostos(this.asistentes);
 		return this.template.getCostoTotal();
 	}
 
@@ -153,7 +154,7 @@ public class Evento {
 	}
 
 	public Dinero getCostoUsuario() {
-		this.calcularCostos(this.getCantidadAsistentes());
+		this.calcularCostos(this.asistentes);
 		return this.template.getCostoUsuario();
 	}
 

@@ -1,13 +1,14 @@
 package app.model.event;
 
 import app.model.account.Dinero;
-import org.joda.time.DateTime;
+import app.model.account.Usuario;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Fiesta extends Modalidad {
@@ -38,8 +39,8 @@ public class Fiesta extends Modalidad {
 	}
 
 	@Override
-	public void calcularCostos(int cantidadAsistentes) {
-		int cantAsistentes = cantidadAsistentes;
+	public void calcularCostos(List<Usuario> asistentes) {
+		int cantAsistentes = asistentes.size();
 		this.itemsComprados.clear();
 		this.costoTotal = new Dinero(0);
 		

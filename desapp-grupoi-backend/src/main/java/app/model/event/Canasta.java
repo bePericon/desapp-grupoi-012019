@@ -14,8 +14,6 @@ public class Canasta extends Modalidad {
 		Canasta: se presenta la lista de gastos a realizar y cada asistente elige un ítem del cual hacerse cargo.
 	 */
 
-
-
 	public Canasta() {
 		super();
 	}
@@ -31,5 +29,4 @@ public class Canasta extends Modalidad {
 		}
 		return d;
 	}
-	
 }

@@ -1,9 +1,13 @@
 package app.model.event;
 
 
+
 import app.model.account.Dinero;
+import app.model.account.Usuario;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
@@ -21,18 +25,25 @@ public abstract class Baquita extends Modalidad {
 	*/
 
 	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
-	private Dinero costoUsuario;
+	protected Dinero costoUsuario;
+
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	protected List<Deuda> deudas;
 
 	public Baquita( ) {
 		super();
+		this.costoUsuario = new Dinero(0);
+		this.deudas = new ArrayList<Deuda>();
 	}
 
 	@Override
-	public void calcularCostos(int cantidadAsistentes) {
+	public void calcularCostos(List<Usuario> asistentes) {
 		this.costoTotal = new Dinero(0);
 		for (Item i : this.itemsAComprar)
 			this.costoTotal.sumar(i.getCosto());
-		this.costoUsuario = this.costoTotal.dividir(cantidadAsistentes);
+
+		if(this.costoTotal.mayorACero())
+			this.costoUsuario = this.costoTotal.dividir(asistentes.size());
 	}
 
 	@Override
@@ -40,4 +51,11 @@ public abstract class Baquita extends Modalidad {
 		return this.costoUsuario;
 	}
 
+	public int getCantidadDeudas(){
+		return this.deudas.size();
+	}
+
+	public List<Deuda> getDeudas() {
+		return deudas;
+	}
 }

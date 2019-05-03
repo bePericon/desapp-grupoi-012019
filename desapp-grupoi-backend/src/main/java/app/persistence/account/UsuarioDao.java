@@ -1,6 +1,6 @@
 package app.persistence.account;
 
-import app.model.account.UsuarioPrueba;
+import app.model.account.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +31,10 @@ public class UsuarioDao implements IUsuarioDao {
 //    }
 
     @Override
-    public UsuarioPrueba getById(long id) {
+    public Usuario getById(long id) {
         Session session = this.sessionFactory.openSession();
         session.beginTransaction();
-        UsuarioPrueba u = session.get(UsuarioPrueba.class, id);
+        Usuario u = session.get(Usuario.class, id);
         session.getTransaction().commit();
         return u;
     }
