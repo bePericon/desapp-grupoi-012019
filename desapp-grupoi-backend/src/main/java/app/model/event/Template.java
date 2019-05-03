@@ -1,21 +1,37 @@
 package app.model.event;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
-import app.model.event.TipoVisibilidad.Visibilidad;
-import org.joda.time.DateTime;
+import app.model.event.EnumTipos.*;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "template")
 public class Template {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
 
 	private String nombre;
 	private String descripcion;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private Usuario organizador;
+
+	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
 	private List<Item> items;
-	private Modalidad modalidad; 
-	private Visibilidad visibilidad;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	private Modalidad modalidad;
+
+	@Enumerated(EnumType.STRING)
+	private TipoVisibilidad visibilidad;
 
 	public Template(){
 	}
@@ -25,7 +41,7 @@ public class Template {
 		this.descripcion = descripcion;
 		this.organizador = organizador;
 		this.items = new ArrayList<Item>();
-		this.visibilidad = Visibilidad.PRIVADA;
+		this.visibilidad = TipoVisibilidad.PRIVADA;
 	}
 
 	public Template(String nombre, String descripcion, Usuario organizador, Modalidad modalidad) {
@@ -34,7 +50,7 @@ public class Template {
 	}
 
 	public void hacerPublica() {
-		this.visibilidad = TipoVisibilidad.Visibilidad.PUBLICA;
+		this.visibilidad = TipoVisibilidad.PUBLICA;
 	}
 
 	public void agregarItem(Item item) {
@@ -69,7 +85,7 @@ public class Template {
 		return modalidad;
 	}
 
-	public Visibilidad getVisibilidad() {
+	public TipoVisibilidad getVisibilidad() {
 		return visibilidad;
 	}
 
@@ -89,7 +105,7 @@ public class Template {
 		return this.modalidad.getCostoTotal();
 	}
 
-	public boolean fechaVigente(DateTime fecha) {
+	public boolean fechaVigente(Date fecha) {
 		if(this.modalidad == null)
 			return true;
 

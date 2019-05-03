@@ -6,12 +6,13 @@ import static org.junit.Assert.assertTrue;
 import app.model.account.Dinero;
 import app.model.account.Usuario;
 import app.model.event.*;
-import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Date;
 
 public class EventoFiestaTest {
 
@@ -120,7 +121,7 @@ public class EventoFiestaTest {
     }
 
     private void setTemplateModalidadFiestaConDosItems() {
-        this.modalidad = new Fiesta(new DateTime(2019,11,27,10,10,00));
+        this.modalidad = new Fiesta(new Date(2019,11,27,10,10,00));
         this.template = new Template("Nuevo template", "Descripcion", this.organizador);
         this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
         this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
@@ -150,7 +151,7 @@ public class EventoFiestaTest {
     }
 
     private void setTemplateModalidadFiestaConDosItemsFechaNoVigente() {
-        this.modalidad = new Fiesta(DateTime.now().minus(2));
+        this.modalidad = new Fiesta(new Date(System.currentTimeMillis()-1000));
         this.template = new Template("Nuevo template", "Descripcion", this.organizador);
         this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
         this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));

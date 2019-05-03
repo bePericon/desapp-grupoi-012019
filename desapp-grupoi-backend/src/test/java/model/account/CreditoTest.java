@@ -19,7 +19,9 @@ public class CreditoTest {
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
-        this.creditoTest = new Credito();
+        Dinero mockMonto = Mockito.mock(Dinero.class);
+        Usuario mockUsuario = Mockito.mock(Usuario.class);
+        this.creditoTest = new Credito(mockMonto, mockMonto, 0, mockUsuario);
     }
 
     @After

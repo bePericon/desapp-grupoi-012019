@@ -3,6 +3,10 @@ package app.model.event;
 
 import app.model.account.Dinero;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public abstract class Baquita extends Modalidad {
 /*
 		Baquita: En este caso se determina el evento a realizar y sus gastos (comida, alquiler de
@@ -16,6 +20,7 @@ public abstract class Baquita extends Modalidad {
 			mismos para las compras.
 	*/
 
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private Dinero costoUsuario;
 
 	public Baquita( ) {

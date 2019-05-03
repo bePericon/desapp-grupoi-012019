@@ -1,8 +1,19 @@
 package app.model.account;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "dinero")
 public class Dinero {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
+
     private double monto;
+
+    public Dinero() {
+    }
 
     public Dinero(double monto) {
         this.monto = monto;

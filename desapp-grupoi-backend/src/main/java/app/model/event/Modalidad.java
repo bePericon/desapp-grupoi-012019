@@ -2,16 +2,31 @@ package app.model.event;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
-import org.joda.time.DateTime;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public abstract class Modalidad {
+@Entity
+@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
+public abstract class Modalidad implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.TABLE)
+	private long id;
+
+	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
 	protected List<Item> itemsAComprar;
+
+	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
 	protected List<ItemUsuario> itemsComprados;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	protected Dinero costoTotal;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	protected Usuario organizador;
 
 	public Modalidad() {
@@ -52,7 +67,7 @@ public abstract class Modalidad {
 		return this.costoTotal;
 	};
 
-	public boolean fechaVigente(DateTime fecha){
+	public boolean fechaVigente(Date fecha){
 		return true;
 	}
 

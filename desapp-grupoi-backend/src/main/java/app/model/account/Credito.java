@@ -2,17 +2,33 @@ package app.model.account;
 
 import app.model.account.EnumEstados.EstadoCredito;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "credito")
 public class Credito {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
+
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     private Usuario usuarioSolicitante;
+
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     private Dinero monto;
+
     private int cuotas;
+
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     private Dinero montoRestante;
+
     private int cuotasRestantes;
+
+    @Enumerated(EnumType.STRING)
     private EstadoCredito estado;
 
-    public Credito() {
-        this.estado = EstadoCredito.GUARDADO;
+    public Credito(){
     }
 
     public Credito(Dinero monto, Dinero montoADevolver, int cuotas, Usuario usuario) {
@@ -22,6 +38,7 @@ public class Credito {
         this.montoRestante = montoADevolver;
         this.cuotasRestantes = cuotas;
         this.usuarioSolicitante = usuario;
+        this.estado = EstadoCredito.GUARDADO;
     }
 
     public Dinero getMontoCuota() {

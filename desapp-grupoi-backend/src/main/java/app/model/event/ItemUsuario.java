@@ -2,11 +2,25 @@ package app.model.event;
 
 import app.model.account.Usuario;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "itemusuario")
 public class ItemUsuario {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private Item item;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private Usuario usuario;
-	
+
+	public ItemUsuario() {
+	}
+
 	public ItemUsuario(Item item, Usuario user) {
 		super();
 		this.item = item;

@@ -7,6 +7,8 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 public class UsuarioTest {
@@ -28,7 +30,7 @@ public class UsuarioTest {
         assertFalse(this.usuarioTest.getNombre().isEmpty());
         assertFalse(this.usuarioTest.getApellido().isEmpty());
         assertFalse(this.usuarioTest.getEmail().isEmpty());
-        assertTrue(this.usuarioTest.getFechaNac().isEqual(new DateTime(1992,11,27,0,0)));
+        assertTrue(this.usuarioTest.getFechaNac().equals(new Date(1992,11,27,0,0)));
     }
 
     @Test
@@ -39,8 +41,8 @@ public class UsuarioTest {
     }
 
     // Methods aux
-    private DateTime cumpleaños() {
-        return new DateTime(1992,11,27,0,0);
+    private Date cumpleaños() {
+        return new Date(1992,11,27,0,0);
     }
 
 }

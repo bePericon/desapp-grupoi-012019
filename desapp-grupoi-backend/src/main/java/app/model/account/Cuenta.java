@@ -3,43 +3,67 @@ package app.model.account;
 import app.model.event.Evento;
 import app.model.event.Invitacion;
 import app.model.event.Template;
-import org.joda.time.DateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import app.model.account.EnumEstados.*;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "cuenta")
 public class Cuenta {
 
-    private Usuario usuario; 
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
+
+    @OneToOne(cascade={CascadeType.PERSIST,CascadeType.REMOVE})
+    private Usuario usuario;
+
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Movimiento> movimientos = new ArrayList<Movimiento>();
+
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Credito> creditos = new ArrayList<Credito>();
+
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     private TarjetaCredito tarjetaCredito;
+
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     private Dinero saldo;
+
+    @Enumerated(EnumType.STRING)
     private EstadoSituacionDeuda situacionDeuda;
+
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Invitacion> invitaciones = new ArrayList<Invitacion>();
+
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Evento> eventos = new ArrayList<Evento>();
-    private List<Template> templates = new ArrayList<Template>();
+
+//    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//    private List<Template> templates = new ArrayList<Template>();
 
     public Cuenta(){
+    }
+
+    public Cuenta(Usuario usuario){
+        this.usuario = usuario;
         this.saldo = new Dinero(0);
         this.situacionDeuda = EstadoSituacionDeuda.NORMAL;
     }
 
-    public Cuenta(Usuario usuario){
-        this();
-        this.usuario = usuario;
-    }
-
     public void depositarDinero(Dinero monto) {
         this.saldo.sumar(monto);
-        this.agregarMovimiento(EnumTipos.TipoMovimiento.DEPOSITAR, DateTime.now(), monto);
+        this.agregarMovimiento(EnumTipos.TipoMovimiento.DEPOSITAR, new Date(), monto);
     }
 
     public void retirarDinero(Dinero monto) {
         if(this.haySaldoSuficiente(monto)) {
             this.saldo.restar(monto);
-            this.agregarMovimiento(EnumTipos.TipoMovimiento.RETIRAR, DateTime.now(), monto);
+            this.agregarMovimiento(EnumTipos.TipoMovimiento.RETIRAR, new Date(), monto);
         }
         //TODO: manejo de excepciones
     }
@@ -52,7 +76,7 @@ public class Cuenta {
         this.agregarCredito(new Credito(new Dinero(1000), new Dinero(1200), 6, this.usuario));
     }
 
-    public void agregarMovimiento(EnumTipos.TipoMovimiento depositar, DateTime fecha, Dinero monto) {
+    public void agregarMovimiento(EnumTipos.TipoMovimiento depositar, Date fecha, Dinero monto) {
         this.movimientos.add(new Movimiento(depositar, fecha, monto));
     }
 
@@ -61,7 +85,7 @@ public class Cuenta {
             credito.setUsuarioSolicitante(this.getUsuario());
             this.creditos.add(credito);
             this.saldo.sumar(credito.getMonto());
-            this.agregarMovimiento(EnumTipos.TipoMovimiento.CREDITO, DateTime.now(), credito.getMonto());
+            this.agregarMovimiento(EnumTipos.TipoMovimiento.CREDITO, new Date(), credito.getMonto());
         }
     }
 
@@ -77,7 +101,7 @@ public class Cuenta {
         Dinero cuota = this.getUltimoCredito().getMontoCuota();
         if(this.haySaldoSuficiente(cuota)){
             this.saldo.restar(cuota);
-            this.agregarMovimiento(EnumTipos.TipoMovimiento.PAGARCUOTA, DateTime.now(), cuota);
+            this.agregarMovimiento(EnumTipos.TipoMovimiento.PAGARCUOTA, new Date(), cuota);
             this.getUltimoCredito().saldarMonto(cuota);
         }else {
             this.setSituacionDeuda(EstadoSituacionDeuda.MOROSO);
@@ -92,12 +116,18 @@ public class Cuenta {
         this.eventos.add(evento);
     }
 
-    public void agregarTemplate(Template template) {
-        this.templates.add(template);
-    }
+//    public void agregarTemplate(Template template) {
+//        this.templates.add(template);
+//    }
 
 
     // Getters and Setters
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
     public Dinero getSaldo() {
         return this.saldo;
     }
@@ -144,7 +174,7 @@ public class Cuenta {
         return this.eventos;
     }
 
-    public List<Template> getTemplates() {
-        return this.templates;
-    }
+//    public List<Template> getTemplates() {
+//        return this.templates;
+//    }
 }

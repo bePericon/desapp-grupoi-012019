@@ -2,13 +2,22 @@ package app.model.event;
 
 import app.model.account.Dinero;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "item")
 public class Item {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private Dinero costo;
+
 	private String nombreItem;
 	private int personasPorUnidad;
-	
-	
+
 	public Item(Dinero costo, String nombreItem, int personasPorUnidad) {
 		this.costo = costo;
 		this.nombreItem = nombreItem;

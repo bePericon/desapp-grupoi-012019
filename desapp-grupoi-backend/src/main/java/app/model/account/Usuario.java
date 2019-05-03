@@ -1,32 +1,40 @@
 package app.model.account;
 
 import app.model.event.Invitacion;
-import org.joda.time.DateTime;
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-//@Entity
-//@Table(name = "usuario")
+@Entity
+@Table(name = "usuario")
 public class Usuario {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUsuario;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
-
+	@Column(name="nombre")
 	private String nombre;
+
+	@Column(name="apellido")
 	private String apellido;
+
+	@Column(name="email")
 	private String email;
 
-//	@Temporal(TemporalType.DATE)
-//	@Column(name = "FECHANAC")
-	private DateTime fechaNac;
+	@Column(name = "fechaNac")
+	@Temporal(TemporalType.DATE)
+	private Date fechaNac;
 
+	@Column(name="contraseña")
 	private String contrasenia;
-	private Cuenta cuenta;
-	private List<Invitacion> invitaciones;
 
+	@OneToOne
+	private Cuenta cuenta;
+
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<Invitacion> invitaciones;
 	
 	public Usuario() {
 
@@ -44,7 +52,7 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Usuario(String nombre, String apellido, String email, DateTime fechaNac) {
+	public Usuario(String nombre, String apellido, String email, Date fechaNac) {
 		this(nombre, apellido, email);
 		this.fechaNac = fechaNac;
 	}
@@ -58,6 +66,12 @@ public class Usuario {
 	}
 
 //	GETTERS Y SETTERS
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -76,17 +90,16 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public DateTime getFechaNac() {
+	public Date getFechaNac() {
 		return fechaNac;
 	}
-	public void setFechaNac(DateTime fechaNac) {
+	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 	public void setCuenta(Cuenta cuenta) { this.cuenta = cuenta; }
 	public Cuenta getCuenta() { return this.cuenta; }
 	public void setContrasenia(String contrasenia) { this.contrasenia = contrasenia; }
 	public String getContrasenia(){ return this.contrasenia; }
-
 	public List<Invitacion> getInvitaciones() {
 		return invitaciones;
 	}

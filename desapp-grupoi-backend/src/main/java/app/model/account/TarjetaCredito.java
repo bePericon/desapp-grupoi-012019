@@ -1,6 +1,14 @@
 package app.model.account;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tarjetacredito")
 public class TarjetaCredito {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
 
     private String numeroTarjeta;
     private int codigoSeguridad;

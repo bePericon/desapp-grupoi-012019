@@ -2,6 +2,11 @@ package app.model.event;
 
 import app.model.account.Dinero;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
 public class BaquitaRecoleccionPrev extends Baquita {
 
 	/*
@@ -14,9 +19,10 @@ public class BaquitaRecoleccionPrev extends Baquita {
 		girar su parte los asistentes y una vez reunido el dinero, el organizador puede disponer de los
 		mismos para las compras.
 */
-	
 
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private Dinero dineroDepositado;
+
 	private boolean listoParaComprarTodo;
 	
 	

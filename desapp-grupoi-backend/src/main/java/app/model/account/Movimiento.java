@@ -1,15 +1,32 @@
 package app.model.account;
 
-import org.joda.time.DateTime;
 import app.model.account.EnumTipos.TipoMovimiento;
 
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@Table(name = "movimiento")
 public class Movimiento {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
+
+    @Enumerated(EnumType.STRING)
     private TipoMovimiento tipoMovimiento;
-    private DateTime fecha;
+
+    @Column(name = "fechaNac")
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     private Dinero monto;
 
-    public Movimiento(TipoMovimiento tipo, DateTime fecha, Dinero monto) {
+    public Movimiento() {
+    }
+
+    public Movimiento(TipoMovimiento tipo, Date fecha, Dinero monto) {
         this.tipoMovimiento = tipo;
         this.fecha = fecha;
         this.monto = monto;

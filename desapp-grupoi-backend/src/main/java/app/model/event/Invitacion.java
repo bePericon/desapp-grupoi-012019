@@ -2,12 +2,21 @@ package app.model.event;
 
 import app.model.account.Usuario;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "invitacion")
 public class Invitacion {
 
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private long id;
+
 	private String email;
-	private Evento evento;
 	private boolean confirmada;
 
+	@ManyToOne
+	private Evento evento;
 
 	public Invitacion(String email, Evento evento) {
 		this.email = email;

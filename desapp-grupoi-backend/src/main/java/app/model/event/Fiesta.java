@@ -3,7 +3,13 @@ package app.model.event;
 import app.model.account.Dinero;
 import org.joda.time.DateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
+@Entity
 public class Fiesta extends Modalidad {
 /*
 	Fiesta: En este caso se envían invitaciones a través de la aplicación y por cada confirmación
@@ -13,17 +19,22 @@ public class Fiesta extends Modalidad {
 	usuarios a los cuales invitar y también hasta cuanto tiempo antes se admiten
 	confirmaciones.
 */
-	
-	private DateTime fechaLimite;
 
-	public Fiesta(DateTime fechaLimite) {
+	public Fiesta() {
+	}
+
+	public Fiesta(Date fechaLimite) {
 		super();
 		this.fechaLimite = fechaLimite;
 	}
 
+	@Column(name = "fechalimite")
+	@Temporal(TemporalType.DATE)
+	private Date fechaLimite;
+
 	@Override
-	public boolean fechaVigente(DateTime fecha){
-		return this.fechaLimite.isAfter(fecha);
+	public boolean fechaVigente(Date fecha){
+		return this.fechaLimite.after(fecha);
 	}
 
 	@Override
@@ -46,11 +57,11 @@ public class Fiesta extends Modalidad {
 		}
 	}
 	
-	public DateTime getHoy() {
-		return DateTime.now();
+	public Date getHoy() {
+		return new Date();
 	}
 	
-	public DateTime getFechaLimite() {
+	public Date getFechaLimite() {
 		return fechaLimite;
 	}
 

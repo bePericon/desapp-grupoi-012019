@@ -1,18 +1,36 @@
 package app.model.event;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
-import org.joda.time.DateTime;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "evento")
 public class Evento {
 
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private long id;
+
 	private String nombre;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private Usuario organizador;
+
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private Template template;
+
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<Usuario> asistentes;
+
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="evento")
 	private List<Invitacion> invitados;
 
 	public Evento(Usuario organizador, String nombreEvento) {
@@ -96,7 +114,7 @@ public class Evento {
 	}
 
 	private boolean puedeAsistir(Usuario asistente) {
-		boolean esfechaVigente = this.template.fechaVigente(DateTime.now());
+		boolean esfechaVigente = this.template.fechaVigente(this.hoy());
 		boolean estaInvitado = this.invitados.stream().anyMatch(i -> i.getEmail().equals(asistente.getEmail()));
 
 		return esfechaVigente && estaInvitado;
@@ -137,5 +155,9 @@ public class Evento {
 	public Dinero getCostoUsuario() {
 		this.calcularCostos(this.getCantidadAsistentes());
 		return this.template.getCostoUsuario();
+	}
+
+	private Date hoy(){
+		return new Date(System.currentTimeMillis());
 	}
 }

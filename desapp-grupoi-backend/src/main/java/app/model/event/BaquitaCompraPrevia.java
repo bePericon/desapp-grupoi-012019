@@ -1,6 +1,8 @@
 package app.model.event;
 
+import javax.persistence.Entity;
 
+@Entity
 public class BaquitaCompraPrevia extends Baquita {
 	/*
 		Baquita: En este caso se determina el evento a realizar y sus gastos 
