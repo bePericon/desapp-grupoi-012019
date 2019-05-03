@@ -1,25 +1,19 @@
 package app.service.account;
 
-import app.model.account.Usuario;
+import app.persistence.GenericDao;
+import app.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import app.persistence.account.IUsuarioDao;
+
+import javax.persistence.EntityManagerFactory;
 
 @Service
 @Transactional
-public class UsuarioService implements IUsuarioService {
+public class UsuarioService extends GenericService {
 
     @Autowired
-    private IUsuarioDao usuarioDao;
-
-    @Override
-    public void create(Usuario usuarioPrueba) {
-//        usuarioDao.create(usuarioPrueba);
-    }
-
-    @Override
-    public Usuario getById(Long id) {
-        return usuarioDao.getById(id);
+    public UsuarioService(EntityManagerFactory factory, GenericDao usuarioDao) {
+        super(factory, usuarioDao);
     }
 }

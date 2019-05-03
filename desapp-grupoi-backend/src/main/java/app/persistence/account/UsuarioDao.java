@@ -1,49 +1,15 @@
 package app.persistence.account;
 
 import app.model.account.Usuario;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import app.persistence.GenericDao;
+import app.persistence.IGenericDao;
 import org.springframework.stereotype.Repository;
-import javax.persistence.EntityManagerFactory;
 
 @Repository
-public class UsuarioDao implements IUsuarioDao {
-
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public UsuarioDao(EntityManagerFactory factory) {
-        if(factory.unwrap(SessionFactory.class) == null){
-            throw new NullPointerException("factory is not a hibernate factory");
-        }
-        this.sessionFactory = factory.unwrap(SessionFactory.class);
-    }
-
-//    @Override
-//    public void create(UsuarioPrueba employee) {
-//        entityManager.persist(employee);
-//    }
-//
-//    @Override
-//    public void update(UsuarioPrueba employee) {
-//        entityManager.merge(employee);
-//    }
+public class UsuarioDao extends GenericDao<Usuario> implements IGenericDao<Usuario> {
 
     @Override
-    public Usuario getById(long id) {
-        Session session = this.sessionFactory.openSession();
-        session.beginTransaction();
-        Usuario u = session.get(Usuario.class, id);
-        session.getTransaction().commit();
-        return u;
+    protected Class getDomainClass() {
+        return Usuario.class;
     }
-
-//    @Override
-//    public void delete(long id) {
-//        UsuarioPrueba employee = getEmployeeById(id);
-//        if (employee != null) {
-//            entityManager.remove(employee);
-//        }
-//    }
 }

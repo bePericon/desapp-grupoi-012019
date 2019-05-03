@@ -1,7 +1,7 @@
 package app;
 
 import app.model.account.Usuario;
-import app.service.account.IUsuarioService;
+import app.service.account.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppRestController {
 
     @Autowired
-    private IUsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
     @RequestMapping("/hello")
     public String hello() {
@@ -30,7 +30,7 @@ public class AppRestController {
     @RequestMapping(value = "/usuario/{id}", method = RequestMethod.GET)
     public String get(@PathVariable String id) {
         try {
-            Usuario usuarioPrueba = usuarioService.getById(Long.parseLong(id));
+            Usuario usuarioPrueba = (Usuario) usuarioService.getById(Long.parseLong(id));
             return "Usuario: " + usuarioPrueba.getNombre() +" "+usuarioPrueba.getApellido();
         } catch (Exception e) {
             return e.getMessage();
