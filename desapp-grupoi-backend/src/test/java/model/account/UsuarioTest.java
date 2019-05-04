@@ -2,7 +2,6 @@ package model.account;
 
 import app.model.account.Cuenta;
 import app.model.account.Usuario;
-import org.joda.time.DateTime;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;

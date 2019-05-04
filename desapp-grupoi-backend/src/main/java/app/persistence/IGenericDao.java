@@ -14,8 +14,6 @@ public interface IGenericDao<T> {
 
     void delete(T entity);
 
-    void update(T entity);
-
     T getById(Serializable id);
 
     List<T> getAll();

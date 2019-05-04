@@ -36,7 +36,7 @@ public class EventoTest {
     }
 
     @Test
-    public void testEvento_crearUnEventoSinInvitados() {
+    public void testEventoCrearUnEventoSinInvitados() {
         // FIXTURE
         Usuario mockUsuario = Mockito.mock(Usuario.class);
 
@@ -48,7 +48,7 @@ public class EventoTest {
     }
 
     @Test
-    public void testEvento_crearUnEventoConDosInvitados() {
+    public void testEventoCrearUnEventoConDosInvitados() {
         // FIXTURE
         this.setNuevoEvento("Asado");
 
@@ -61,7 +61,7 @@ public class EventoTest {
     }
 
     @Test
-    public void testEvento_losInvitadosConfirmarAsistenciaEventoConDosAsistentes() {
+    public void testEventoLosInvitadosConfirmarAsistenciaEventoConDosAsistentes() {
         // FIXTURE
         this.setUsuarios();
         this.setNuevoEvento("Asado");
@@ -78,7 +78,7 @@ public class EventoTest {
     }
 
     @Test
-    public void testEvento_cargarUnTemplateConItems() {
+    public void testEventoCargarUnTemplateConItems() {
         // FIXTURE
         this.setNuevoEvento("Asado");
         this.setTemplateSinModalidadConDosItems();
@@ -91,7 +91,7 @@ public class EventoTest {
     }
 
     @Test
-    public void testEvento_cargarItemsSinTemplates() {
+    public void testEventoCargarItemsSinTemplates() {
         // FIXTURE
         this.setNuevoEvento("Asado");
         Item iuno = Mockito.mock(Item.class);

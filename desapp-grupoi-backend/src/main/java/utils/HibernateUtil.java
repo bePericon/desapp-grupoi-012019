@@ -1,11 +1,16 @@
 package utils;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import javax.persistence.EntityManagerFactory;
 
 public class HibernateUtil
 {
+    private Session session = null;
+    private Transaction tsn = null;
+
     private SessionFactory sessionFactory;
 
     public HibernateUtil(EntityManagerFactory factory) {
@@ -36,12 +41,34 @@ public class HibernateUtil
 //      }
 //   }
 //
-   public SessionFactory getSessionFactory(){
+    public SessionFactory getSessionFactory(){
       return sessionFactory;
-   }
-//
-//   public void shutdown()
-//   {
-//      getSessionFactory().close();
-//   }
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public Transaction getTransaction() {
+        return tsn;
+    }
+
+    public void openSessionBeginTransaction(){
+       this.session = this.getSessionFactory().openSession();
+       this.tsn = session.beginTransaction();
+    }
+
+    public void transactionCommit(){
+        this.tsn.commit();
+    }
+
+    public void transactionRollback(){
+        this.tsn.rollback();
+    }
+
+    public void sessionClose()    {
+      this.session.close();
+      this.session = null;
+      this.tsn = null;
+    }
 }

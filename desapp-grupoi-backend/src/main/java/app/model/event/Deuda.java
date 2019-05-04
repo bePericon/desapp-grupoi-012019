@@ -13,13 +13,13 @@ public class Deuda {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
     private Usuario deudor;
 
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
     private Dinero monto;
 
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
     private Usuario cobrador;
 
     public Deuda(Usuario deudor, Dinero monto) {

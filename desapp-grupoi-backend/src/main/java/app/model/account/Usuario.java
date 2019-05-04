@@ -30,7 +30,7 @@ public class Usuario {
 	@Column(name="contraseña")
 	private String contrasenia;
 
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
 	private Cuenta cuenta;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -43,7 +43,7 @@ public class Usuario {
 	public Usuario(String nombre, String apellido) {
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.cuenta = new Cuenta();
+		this.cuenta = new Cuenta(this);
 		this.invitaciones = new ArrayList<Invitacion>();
 	}
 

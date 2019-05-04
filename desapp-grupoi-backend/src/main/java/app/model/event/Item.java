@@ -12,7 +12,7 @@ public class Item {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
 	private Dinero costo;
 
 	private String nombreItem;

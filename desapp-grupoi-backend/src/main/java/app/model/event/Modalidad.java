@@ -23,10 +23,10 @@ public abstract class Modalidad implements Serializable {
 	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
 	protected List<ItemUsuario> itemsComprados;
 
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
 	protected Dinero costoTotal;
 
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
 	protected Usuario organizador;
 
 	public Modalidad() {

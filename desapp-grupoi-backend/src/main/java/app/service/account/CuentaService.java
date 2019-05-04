@@ -1,6 +1,8 @@
 package app.service.account;
 
-import app.persistence.account.UsuarioDao;
+import app.model.account.Cuenta;
+import app.persistence.GenericDao;
+import app.persistence.account.CuentaDao;
 import app.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +12,10 @@ import javax.persistence.EntityManagerFactory;
 
 @Service
 @Transactional
-public class UsuarioService extends GenericService {
+public class CuentaService extends GenericService {
 
     @Autowired
-    public UsuarioService(EntityManagerFactory factory, UsuarioDao usuarioDao) {
-        super(factory, usuarioDao);
+    public CuentaService(EntityManagerFactory factory, CuentaDao cuentaDao) {
+        super(factory, cuentaDao);
     }
 }

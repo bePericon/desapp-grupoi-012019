@@ -12,10 +12,10 @@ public class ItemUsuario {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
 	private Item item;
 
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
 	private Usuario usuario;
 
 	public ItemUsuario() {

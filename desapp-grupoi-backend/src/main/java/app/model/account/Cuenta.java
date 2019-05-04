@@ -19,7 +19,7 @@ public class Cuenta {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade={CascadeType.PERSIST,CascadeType.REMOVE})
+    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
     private Usuario usuario;
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -28,10 +28,10 @@ public class Cuenta {
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Credito> creditos = new ArrayList<Credito>();
 
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
     private TarjetaCredito tarjetaCredito;
 
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
     private Dinero saldo;
 
     @Enumerated(EnumType.STRING)
@@ -43,14 +43,15 @@ public class Cuenta {
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Evento> eventos = new ArrayList<Evento>();
 
-//    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-//    private List<Template> templates = new ArrayList<Template>();
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private List<Template> templates = new ArrayList<Template>();
 
     public Cuenta(){
     }
 
     public Cuenta(Usuario usuario){
         this.usuario = usuario;
+        this.usuario.setCuenta(this);
         this.saldo = new Dinero(0);
         this.situacionDeuda = EstadoSituacionDeuda.NORMAL;
     }
@@ -116,9 +117,9 @@ public class Cuenta {
         this.eventos.add(evento);
     }
 
-//    public void agregarTemplate(Template template) {
-//        this.templates.add(template);
-//    }
+    public void agregarTemplate(Template template) {
+        this.templates.add(template);
+    }
 
 
     // Getters and Setters
@@ -174,7 +175,7 @@ public class Cuenta {
         return this.eventos;
     }
 
-//    public List<Template> getTemplates() {
-//        return this.templates;
-//    }
+    public List<Template> getTemplates() {
+        return this.templates;
+    }
 }

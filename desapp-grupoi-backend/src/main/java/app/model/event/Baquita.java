@@ -24,7 +24,7 @@ public abstract class Baquita extends Modalidad {
 			mismos para las compras.
 	*/
 
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
 	protected Dinero costoUsuario;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)

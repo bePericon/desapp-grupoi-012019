@@ -21,10 +21,10 @@ public class Evento {
 
 	private String nombre;
 
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
 	private Usuario organizador;
 
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
 	private Template template;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)

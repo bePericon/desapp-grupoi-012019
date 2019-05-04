@@ -20,24 +20,31 @@ public abstract class GenericDao<T> implements IGenericDao<T>, Serializable {
     protected Class<T> persistentClass = this.getDomainClass();
     protected abstract Class<T> getDomainClass();
 
+    public void save(T entity){
+        this.session.saveOrUpdate(entity);
+    }
 
-    public void save(T entity){}
+    public void delete(T entity) {
+        this.session.delete(entity);
+    }
 
-    public void delete(T entity){}
-
-    public void update(T entity){}
+    public void deleteById(Serializable id){
+        T obj = this.getById(id);
+        this.delete(obj);
+    }
 
     public T getById(final Serializable id) {
         return this.session.get(this.persistentClass, id);
     }
 
     public List<T> getAll(){
-        return new ArrayList<>();
+        List<T> objs = this.session.createQuery("from "+this.persistentClass.getName()+" o").list();
+        return objs;
     }
 
-    public void deleteById(Serializable id){}
-
     public int count(){
-        return 0;
+        List<Long> list = this.session.createQuery("select count(*) from " + this.persistentClass.getName() + " o").list();
+        Long count = list.get(0);
+        return count.intValue();
     }
 }

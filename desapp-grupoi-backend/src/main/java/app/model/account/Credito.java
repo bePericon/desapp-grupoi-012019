@@ -12,15 +12,15 @@ public class Credito {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
     private Usuario usuarioSolicitante;
 
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
     private Dinero monto;
 
     private int cuotas;
 
-    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
     private Dinero montoRestante;
 
     private int cuotasRestantes;

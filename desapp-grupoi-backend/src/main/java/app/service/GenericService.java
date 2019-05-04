@@ -8,10 +8,14 @@ import utils.HibernateUtil;
 
 import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
+import java.util.List;
 
 public class GenericService<T> extends HibernateUtil {
 
     private GenericDao<T> dao;
+
+    T obj = null;
+    List<T> listObjs = null;
 
     @Autowired
     public GenericService(EntityManagerFactory factory, GenericDao dao) {
@@ -19,25 +23,73 @@ public class GenericService<T> extends HibernateUtil {
         this.dao = dao;
     }
 
-    public T getById(final Serializable id) {
-        T t = null;
-        Session session = null;
-        Transaction tsn = null;
+    public List<T> getAll() {
         try{
-            session = this.getSessionFactory().openSession();
-            session.beginTransaction();
+            this.openSessionBeginTransaction();
 
-            this.dao.setSession(session);
-            t = dao.getById(id);
+            this.dao.setSession(this.getSession());
+            this.listObjs = this.dao.getAll();
 
-            session.getTransaction().commit();
+            this.transactionCommit();
         }catch (Exception ex) {
             ex.printStackTrace();
-            tsn.rollback();
+            this.transactionCommit();
         }
         finally {
-            session.close();
-            return t;
+            this.sessionClose();
+            return this.listObjs;
+        }
+    }
+
+    public T getById(final Serializable id) {
+        try{
+            this.openSessionBeginTransaction();
+
+            this.dao.setSession(this.getSession());
+            this.obj = dao.getById(id);
+
+            this.transactionCommit();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            this.transactionRollback();
+        }
+        finally {
+            this.sessionClose();
+            return this.obj;
+        }
+    }
+
+    public void save(final T object) {
+        try{
+            this.openSessionBeginTransaction();
+
+            this.dao.setSession(this.getSession());
+            this.dao.save(object);
+
+            this.transactionCommit();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            this.transactionCommit();
+        }
+        finally {
+            this.sessionClose();
+        }
+    }
+
+    public void delete(final T object) {
+        try{
+            this.openSessionBeginTransaction();
+
+            this.dao.setSession(this.getSession());
+            this.dao.delete(object);
+
+            this.transactionCommit();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            this.transactionCommit();
+        }
+        finally {
+            this.sessionClose();
         }
     }
 }
