@@ -1,4 +1,4 @@
-package app;
+package app.controller;
 
 import app.model.account.Cuenta;
 import app.model.account.Usuario;
@@ -6,17 +6,15 @@ import app.service.account.CuentaService;
 import app.service.account.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
+@RequestMapping(value = {"/usuario"})
 @EnableAutoConfiguration
-public class AppRestController {
+public class UsuarioRestController {
 
     private String nuevalinea = "</br>";
 
@@ -26,19 +24,7 @@ public class AppRestController {
     @Autowired
     private CuentaService cuentaService;
 
-    @RequestMapping("/")
-    public String hello() {
-        return "Hola! todo esta corriendo perfectamente!";
-    }
-
-    @RequestMapping("/app")
-    public String app() {
-        return "ESTA ES LA APP!" + this.nuevalinea +
-                "Para consultar un usuario: http://localhost:8080/usuario/id" + this. nuevalinea +
-                "Para todos los usuarios: http://localhost:8080/usuario/all";
-    }
-
-    @RequestMapping(value = "/usuario/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String get(@PathVariable String id) {
         try {
             Usuario usuario = (Usuario) usuarioService.getById(Long.parseLong(id));
@@ -48,7 +34,7 @@ public class AppRestController {
         }
     }
 
-    @RequestMapping(value = "/usuario/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getAllUsuarios() {
         try {
             List<Usuario> usuarios = (List<Usuario>) usuarioService.getAll();
@@ -62,7 +48,7 @@ public class AppRestController {
         }
     }
 
-    @RequestMapping(value = "/cuenta/generarcuentas", method = RequestMethod.GET)
+    @RequestMapping(value = "/generarcuentas", method = RequestMethod.GET)
     public String setCuentas() {
         try {
             List<Usuario> usuarios = (List<Usuario>) usuarioService.getAll();
