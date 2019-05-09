@@ -83,11 +83,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
+                <!--<configuration>
                     <jvmArguments>
-                        --add-modules java.xml.bind
+                        &#45;&#45;add-modules java.xml.bind
                     </jvmArguments>
-                </configuration>
+                </configuration>-->
             </plugin>
 
 			<!-- Plugin to creating report for code coverage -->
