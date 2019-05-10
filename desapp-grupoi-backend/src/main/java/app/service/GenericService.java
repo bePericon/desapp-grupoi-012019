@@ -1,10 +1,8 @@
 package app.service;
 
 import app.persistence.GenericDao;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import utils.HibernateUtil;
+import util.HibernateUtil;
 
 import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
@@ -33,7 +31,7 @@ public class GenericService<T> extends HibernateUtil {
             this.transactionCommit();
         }catch (Exception ex) {
             ex.printStackTrace();
-            this.transactionCommit();
+            this.transactionRollback();
         }
         finally {
             this.sessionClose();
@@ -69,7 +67,7 @@ public class GenericService<T> extends HibernateUtil {
             this.transactionCommit();
         }catch (Exception ex) {
             ex.printStackTrace();
-            this.transactionCommit();
+            this.transactionRollback();
         }
         finally {
             this.sessionClose();
@@ -86,10 +84,28 @@ public class GenericService<T> extends HibernateUtil {
             this.transactionCommit();
         }catch (Exception ex) {
             ex.printStackTrace();
-            this.transactionCommit();
+            this.transactionRollback();
         }
         finally {
             this.sessionClose();
+        }
+    }
+
+    protected List<T> executeQueryList(String queryString, String column, String value) {
+        try{
+            this.openSessionBeginTransaction();
+
+            this.dao.setSession(this.getSession());
+            this.listObjs = this.dao.executeQueryList(queryString, column, value);
+
+            this.transactionCommit();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            this.transactionRollback();
+        }
+        finally {
+            this.sessionClose();
+            return this.listObjs;
         }
     }
 }

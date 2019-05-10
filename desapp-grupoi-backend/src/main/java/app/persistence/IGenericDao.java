@@ -21,4 +21,6 @@ public interface IGenericDao<T> {
     void deleteById(Serializable id);
 
     int count();
+
+    List<T> executeQueryList(String s, String column, String value);
 }

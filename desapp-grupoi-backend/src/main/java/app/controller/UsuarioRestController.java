@@ -1,18 +1,19 @@
 package app.controller;
 
-import app.model.account.Cuenta;
 import app.model.account.Usuario;
-import app.service.account.CuentaService;
 import app.service.account.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import util.CustomErrorType;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping(value = {"/usuario"})
+@RequestMapping(value = {"app"})
 @EnableAutoConfiguration
 public class UsuarioRestController {
 
@@ -21,10 +22,8 @@ public class UsuarioRestController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @Autowired
-    private CuentaService cuentaService;
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/usuarios/{id}", method = RequestMethod.GET)
+    @GetMapping("/usuarios/{id}")
     public String get(@PathVariable String id) {
         try {
             Usuario usuario = (Usuario) usuarioService.getById(Long.parseLong(id));
@@ -34,7 +33,8 @@ public class UsuarioRestController {
         }
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+//    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping("/usuarios")
     public String getAllUsuarios() {
         try {
             List<Usuario> usuarios = (List<Usuario>) usuarioService.getAll();
@@ -48,17 +48,18 @@ public class UsuarioRestController {
         }
     }
 
-    @RequestMapping(value = "/generarcuentas", method = RequestMethod.GET)
-    public String setCuentas() {
-        try {
-            List<Usuario> usuarios = (List<Usuario>) usuarioService.getAll();
-            for (Usuario u: usuarios) {
-                Cuenta cuenta = new Cuenta(u);
-                this.cuentaService.save(cuenta);
-            }
-            return "Las cuentas se generaron bien!";
-        } catch (Exception e) {
-            return e.getMessage();
+    @PostMapping("/usuarios")
+    public ResponseEntity<String> nuevoUsuario(@RequestBody Usuario nuevoUsuario) {
+        if(this.usuarioService.yaExiste(nuevoUsuario)){
+            CustomErrorType error = new CustomErrorType("Ya existe un usuario con email: " +nuevoUsuario.getEmail());
+            return new ResponseEntity(error ,HttpStatus.CONFLICT);
         }
+
+        if(this.usuarioService.esValido(nuevoUsuario)){
+            this.usuarioService.save(Usuario.build(nuevoUsuario));
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
     }
 }

@@ -2,6 +2,7 @@ package app.persistence;
 
 import org.hibernate.Session;
 
+import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +47,11 @@ public abstract class GenericDao<T> implements IGenericDao<T>, Serializable {
         List<Long> list = this.session.createQuery("select count(*) from " + this.persistentClass.getName() + " o").list();
         Long count = list.get(0);
         return count.intValue();
+    }
+
+    public List<T> executeQueryList(String queryString, String column, String value) {
+        Query query = session.createQuery(queryString);
+        query.setParameter(column, value);
+        return query.getResultList();
     }
 }
