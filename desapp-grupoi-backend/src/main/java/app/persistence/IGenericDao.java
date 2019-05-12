@@ -1,6 +1,7 @@
 package app.persistence;
 
 import java.io.Serializable;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -21,4 +22,6 @@ public interface IGenericDao<T> {
     void deleteById(Serializable id);
 
     int count();
+
+    List<T> executeQueryList(String s, Hashtable<String, String> hashtable);
 }

@@ -2,8 +2,9 @@ package app.persistence;
 
 import org.hibernate.Session;
 
+import javax.persistence.Query;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public abstract class GenericDao<T> implements IGenericDao<T>, Serializable {
@@ -30,7 +31,8 @@ public abstract class GenericDao<T> implements IGenericDao<T>, Serializable {
 
     public void deleteById(Serializable id){
         T obj = this.getById(id);
-        this.delete(obj);
+        this.session.merge(obj);
+        this.session.delete(obj);
     }
 
     public T getById(final Serializable id) {
@@ -46,5 +48,11 @@ public abstract class GenericDao<T> implements IGenericDao<T>, Serializable {
         List<Long> list = this.session.createQuery("select count(*) from " + this.persistentClass.getName() + " o").list();
         Long count = list.get(0);
         return count.intValue();
+    }
+
+    public List<T> executeQueryList(String queryString, Hashtable<String,String> hashtable) {
+        Query query = session.createQuery(queryString);
+        hashtable.forEach((column, value) -> query.setParameter(column, value));
+        return query.getResultList();
     }
 }

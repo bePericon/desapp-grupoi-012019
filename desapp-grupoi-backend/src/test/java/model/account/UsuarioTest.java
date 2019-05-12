@@ -1,9 +1,7 @@
 package model.account;
 
-import app.model.account.Cuenta;
 import app.model.account.Usuario;
 import org.junit.*;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Date;
@@ -23,9 +21,7 @@ public class UsuarioTest {
     @Test
     public void testCreacionUsuarioCompletoDatosCorrectos() {
        this.usuarioTest = new Usuario("Emmanuel", "Pericon", "epericon@gmail.com", this.cumpleaños());
-       this.usuarioTest.setCuenta(Mockito.mock(Cuenta.class));
 
-        assertNotNull(this.usuarioTest.getCuenta());
         assertFalse(this.usuarioTest.getNombre().isEmpty());
         assertFalse(this.usuarioTest.getApellido().isEmpty());
         assertFalse(this.usuarioTest.getEmail().isEmpty());

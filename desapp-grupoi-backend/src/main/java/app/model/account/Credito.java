@@ -1,9 +1,11 @@
 package app.model.account;
 
 import app.model.account.EnumEstados.EstadoCredito;
+import lombok.Data;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "credito")
 public class Credito {
@@ -52,24 +54,5 @@ public class Credito {
             this.estado = EstadoCredito.FINALIZADO;
         else
             this.estado = EstadoCredito.ENCURSO;
-    }
-
-
-    // Getters and Setters
-
-    public Dinero getMonto() {
-        return this.monto;
-    }
-
-    public EstadoCredito getEstado() {
-        return this.estado;
-    }
-
-    public Dinero getMontoRestante() {
-        return this.montoRestante;
-    }
-
-    public void setUsuarioSolicitante(Usuario usuario) {
-        this.usuarioSolicitante = usuario;
     }
 }

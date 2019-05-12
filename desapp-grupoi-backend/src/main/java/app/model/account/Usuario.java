@@ -1,11 +1,14 @@
 package app.model.account;
 
 import app.model.event.Invitacion;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -27,13 +30,13 @@ public class Usuario {
 	@Temporal(TemporalType.DATE)
 	private Date fechaNac;
 
-	@Column(name="contraseña")
+	@Column(name="contrasenia")
 	private String contrasenia;
 
-	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
-	private Cuenta cuenta;
+//	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+//	private Cuenta cuenta;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Invitacion> invitaciones;
 	
 	public Usuario() {
@@ -43,7 +46,7 @@ public class Usuario {
 	public Usuario(String nombre, String apellido) {
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.cuenta = new Cuenta(this);
+//		this.cuenta = new Cuenta(this);
 		this.invitaciones = new ArrayList<Invitacion>();
 	}
 
@@ -57,6 +60,18 @@ public class Usuario {
 		this.fechaNac = fechaNac;
 	}
 
+	public Usuario(String nombre, String apellido, String email, String contrasenia) {
+		this(nombre, apellido, email);
+		this.contrasenia = contrasenia;
+	}
+
+	// Metodo de clase usado para creacion de usuario desde un responseBody
+	public static Usuario build(Usuario u){
+		Usuario usuario = new Usuario(u.nombre,u.apellido,u.email,u.fechaNac);
+		usuario.contrasenia = u.getContrasenia();
+		return usuario;
+	}
+
 	public boolean esContraseniaCorrecta(String contra) {
 		return this.contrasenia.equals(contra);
 	}
@@ -65,42 +80,11 @@ public class Usuario {
 		this.invitaciones.add(inv);
 	}
 
-//	GETTERS Y SETTERS
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getApellido() {
-		return apellido;
-	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public Date getFechaNac() {
-		return fechaNac;
-	}
-	public void setFechaNac(Date fechaNac) {
-		this.fechaNac = fechaNac;
-	}
-	public void setCuenta(Cuenta cuenta) { this.cuenta = cuenta; }
-	public Cuenta getCuenta() { return this.cuenta; }
-	public void setContrasenia(String contrasenia) { this.contrasenia = contrasenia; }
-	public String getContrasenia(){ return this.contrasenia; }
-	public List<Invitacion> getInvitaciones() {
-		return invitaciones;
+	public void actualizar(Usuario usuario) {
+		this.nombre = usuario.getNombre();
+		this.apellido = usuario.getApellido();
+		this.email = usuario.getEmail();
+		this.fechaNac = usuario.getFechaNac();
+		this.contrasenia = usuario.getContrasenia();
 	}
 }
