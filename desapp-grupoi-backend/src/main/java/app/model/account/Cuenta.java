@@ -51,7 +51,7 @@ public class Cuenta {
 
     public Cuenta(Usuario usuario){
         this.usuario = usuario;
-        this.usuario.setCuenta(this);
+//        this.usuario.setCuenta(this);
         this.saldo = new Dinero(0);
         this.situacionDeuda = EstadoSituacionDeuda.NORMAL;
     }

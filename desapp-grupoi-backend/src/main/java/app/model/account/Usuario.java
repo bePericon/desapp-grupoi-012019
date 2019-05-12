@@ -33,10 +33,10 @@ public class Usuario {
 	@Column(name="contrasenia")
 	private String contrasenia;
 
-	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
-	private Cuenta cuenta;
+//	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+//	private Cuenta cuenta;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Invitacion> invitaciones;
 	
 	public Usuario() {
@@ -46,7 +46,7 @@ public class Usuario {
 	public Usuario(String nombre, String apellido) {
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.cuenta = new Cuenta(this);
+//		this.cuenta = new Cuenta(this);
 		this.invitaciones = new ArrayList<Invitacion>();
 	}
 
@@ -78,5 +78,13 @@ public class Usuario {
 
 	public void agregarInvitacion(Invitacion inv) {
 		this.invitaciones.add(inv);
+	}
+
+	public void actualizar(Usuario usuario) {
+		this.nombre = usuario.getNombre();
+		this.apellido = usuario.getApellido();
+		this.email = usuario.getEmail();
+		this.fechaNac = usuario.getFechaNac();
+		this.contrasenia = usuario.getContrasenia();
 	}
 }

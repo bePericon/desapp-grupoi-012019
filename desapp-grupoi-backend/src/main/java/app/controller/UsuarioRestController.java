@@ -1,6 +1,8 @@
 package app.controller;
 
+import app.model.account.Cuenta;
 import app.model.account.Usuario;
+import app.service.account.CuentaService;
 import app.service.account.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,38 +19,34 @@ import java.util.List;
 @EnableAutoConfiguration
 public class UsuarioRestController {
 
-    private String nuevalinea = "</br>";
-
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private CuentaService cuentaService;
+
 //    @RequestMapping(value = "/usuarios/{id}", method = RequestMethod.GET)
-    @GetMapping("/usuarios/{id}")
-    public String get(@PathVariable String id) {
-        try {
-            Usuario usuario = (Usuario) usuarioService.getById(Long.parseLong(id));
-            return "Usuario: " + usuario.getNombre() +" "+usuario.getApellido();
-        } catch (Exception e) {
-            return e.getMessage();
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<?> getUsuario(@PathVariable String id) {
+        Usuario usuario = (Usuario) this.usuarioService.getById(Long.parseLong(id));
+        if (usuario == null) {
+            CustomErrorType error = new CustomErrorType("No se encontro ningun usuario con id: " + id);
+            return new ResponseEntity(error, HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
 
 //    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    @GetMapping("/usuarios")
-    public String getAllUsuarios() {
-        try {
-            List<Usuario> usuarios = (List<Usuario>) usuarioService.getAll();
-            String str = "";
-            for (Usuario u: usuarios) {
-                str = str.concat(u.getNombre()+" "+u.getApellido()+ this.nuevalinea);
-            }
-            return str;
-        } catch (Exception e) {
-            return e.getMessage();
+    @GetMapping("/usuario")
+    public  ResponseEntity<List<Usuario>>  getAllUsuarios() {
+        List<Usuario> usuarios = this.usuarioService.getAll();
+        if (usuarios.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
+        return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/usuario")
     public ResponseEntity<String> nuevoUsuario(@RequestBody Usuario nuevoUsuario) {
         if(this.usuarioService.yaExiste(nuevoUsuario)){
             CustomErrorType error = new CustomErrorType("Ya existe un usuario con email: " +nuevoUsuario.getEmail());
@@ -57,9 +55,37 @@ public class UsuarioRestController {
 
         if(this.usuarioService.esValido(nuevoUsuario)){
             this.usuarioService.save(Usuario.build(nuevoUsuario));
+            Usuario usuario = this.usuarioService.getByEmailAndContrasenia(nuevoUsuario.getEmail(),nuevoUsuario.getContrasenia());
+            Cuenta cuenta = new Cuenta(usuario);
+            this.cuentaService.save(cuenta);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
 
         return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+    }
+
+    @PutMapping("/usuario/{id}")
+    public ResponseEntity<?> actualizarUsuario(@PathVariable String id, @RequestBody Usuario usuario) {
+        Usuario usuarioActual = (Usuario) this.usuarioService.getById(Long.parseLong(id));
+
+        if (usuarioActual == null) {
+            CustomErrorType error = new CustomErrorType("No se encontro ningun usuario con id: " + id);
+            return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+        }
+
+        usuarioActual.actualizar(usuario);
+        this.usuarioService.save(usuarioActual);
+        return new ResponseEntity<Usuario>(usuarioActual, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/usuario/{id}")
+    public ResponseEntity<?> eliminarUsuario(@PathVariable String id) {
+        Usuario usuario = (Usuario) this.usuarioService.getById(Long.parseLong(id));
+        if (usuario == null) {
+            CustomErrorType error = new CustomErrorType("No se encontro ningun usuario con id: " + id);
+            return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+        }
+        this.usuarioService.deleteById(Long.parseLong(id));
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
 }

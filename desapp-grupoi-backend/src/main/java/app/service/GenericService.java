@@ -6,6 +6,7 @@ import util.HibernateUtil;
 
 import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
+import java.util.Hashtable;
 import java.util.List;
 
 public class GenericService<T> extends HibernateUtil {
@@ -91,12 +92,29 @@ public class GenericService<T> extends HibernateUtil {
         }
     }
 
-    protected List<T> executeQueryList(String queryString, String column, String value) {
+    public void deleteById(final Serializable id) {
         try{
             this.openSessionBeginTransaction();
 
             this.dao.setSession(this.getSession());
-            this.listObjs = this.dao.executeQueryList(queryString, column, value);
+            this.dao.deleteById(id);
+
+            this.transactionCommit();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            this.transactionRollback();
+        }
+        finally {
+            this.sessionClose();
+        }
+    }
+
+    protected List<T> executeQueryList(String queryString, Hashtable<String, String> hashtable) {
+        try{
+            this.openSessionBeginTransaction();
+
+            this.dao.setSession(this.getSession());
+            this.listObjs = this.dao.executeQueryList(queryString, hashtable);
 
             this.transactionCommit();
         }catch (Exception ex) {
