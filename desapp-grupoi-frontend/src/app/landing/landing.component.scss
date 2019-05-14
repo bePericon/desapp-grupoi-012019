@@ -1,0 +1,25 @@
+.fondo-landing{
+
+    background-image: url(/assets/img/fiesta.jpg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-repeat: no-repeat; */
+    background-size: cover;
+    background-position: center center;
+}
+
+.layer{
+    background-image: linear-gradient(to bottom, rgba(112, 0, 125, 0.6) 1%, rgba(226, 108, 211, 0.6) 59%, rgba(0, 255, 255, 0.25) 96%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+h1, p, h2,span{
+    color:white!important;
+}
