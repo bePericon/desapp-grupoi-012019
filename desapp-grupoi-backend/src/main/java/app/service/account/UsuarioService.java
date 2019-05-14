@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManagerFactory;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional
@@ -29,7 +31,15 @@ public class UsuarioService extends GenericService {
     }
 
     public boolean esValido(Usuario usuario){
-        return true;
+        boolean nombreValido = !usuario.getNombre().isEmpty() && usuario.getNombre().length() <= 30;
+        boolean apellidoValido = !usuario.getApellido().isEmpty() && usuario.getApellido().length() <= 30;
+
+        Pattern p = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        Matcher m = p.matcher(usuario.getEmail());
+        boolean emailValido = !usuario.getEmail().isEmpty() && m.find();
+        boolean contraseniaValida = !usuario.getContrasenia().isEmpty() && usuario.getContrasenia().length() == 8;
+
+        return nombreValido && apellidoValido && emailValido && contraseniaValida;
     }
 
     public Usuario getByEmailAndContrasenia(String email, String contrasenia) {
