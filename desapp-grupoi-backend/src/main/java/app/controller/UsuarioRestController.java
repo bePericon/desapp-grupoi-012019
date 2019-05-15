@@ -31,7 +31,7 @@ public class UsuarioRestController {
         Usuario usuario = (Usuario) this.usuarioService.getById(Long.parseLong(id));
         if (usuario == null) {
             CustomErrorType error = new CustomErrorType("No se encontro ningun usuario con id: " + id);
-            return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
@@ -41,16 +41,16 @@ public class UsuarioRestController {
     public  ResponseEntity<List<Usuario>>  getAllUsuarios() {
         List<Usuario> usuarios = this.usuarioService.getAll();
         if (usuarios.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
     }
 
     @PostMapping("/usuario")
-    public ResponseEntity<String> nuevoUsuario(@RequestBody Usuario nuevoUsuario) {
+    public ResponseEntity nuevoUsuario(@RequestBody Usuario nuevoUsuario) {
         if(this.usuarioService.yaExiste(nuevoUsuario)){
             CustomErrorType error = new CustomErrorType("Ya existe un usuario con email: " +nuevoUsuario.getEmail());
-            return new ResponseEntity(error ,HttpStatus.CONFLICT);
+            return new ResponseEntity<>(error ,HttpStatus.CONFLICT);
         }
 
         if(this.usuarioService.esValido(nuevoUsuario)){
@@ -70,7 +70,7 @@ public class UsuarioRestController {
 
         if (usuarioActual == null) {
             CustomErrorType error = new CustomErrorType("No se encontro ningun usuario con id: " + id);
-            return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         }
 
         usuarioActual.actualizar(usuario);
@@ -83,7 +83,7 @@ public class UsuarioRestController {
         Usuario usuario = (Usuario) this.usuarioService.getById(Long.parseLong(id));
         if (usuario == null) {
             CustomErrorType error = new CustomErrorType("No se encontro ningun usuario con id: " + id);
-            return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         }
         this.usuarioService.deleteById(Long.parseLong(id));
         return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);

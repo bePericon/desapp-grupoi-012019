@@ -3,6 +3,8 @@ package app.model.account;
 import app.model.event.Evento;
 import app.model.event.Invitacion;
 import app.model.event.Template;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +15,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "cuenta")
-public class Cuenta {
+public class Cuenta implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

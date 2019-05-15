@@ -13,15 +13,11 @@ public interface IGenericDao<T> {
 
     void save(T entity);
 
-    void delete(T entity);
+    void update(T entity);
 
     T getById(Serializable id);
 
-    List<T> getAll();
-
     void deleteById(Serializable id);
 
-    int count();
-
-    List<T> executeQueryList(String s, Hashtable<String, String> hashtable);
+    List<T> getAll();
 }

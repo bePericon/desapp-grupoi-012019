@@ -1,58 +1,42 @@
 package app.persistence;
 
-import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
-import java.util.Hashtable;
 import java.util.List;
 
+@Repository
 public abstract class GenericDao<T> implements IGenericDao<T>, Serializable {
 
-    private Session session;
-    public Session getSession() {
-        return session;
-    }
-    public void setSession(Session session) {
-        this.session = session;
-    }
+    @PersistenceContext
+    protected EntityManager entityManager;
 
+    protected Class<T> persistentClass = getDomainClass();
 
-    protected Class<T> persistentClass = this.getDomainClass();
     protected abstract Class<T> getDomainClass();
 
-    public void save(T entity){
-        this.session.saveOrUpdate(entity);
+    public void save(T entity) {
+        entityManager.persist(entity);
     }
 
-    public void delete(T entity) {
-        this.session.delete(entity);
+    public void update(T entity) {
+        entityManager.merge(entity);
     }
 
-    public void deleteById(Serializable id){
-        T obj = this.getById(id);
-        this.session.merge(obj);
-        this.session.delete(obj);
+    public T getById(Serializable id) {
+        return entityManager.find(this.getDomainClass(), id);
     }
 
-    public T getById(final Serializable id) {
-        return this.session.get(this.persistentClass, id);
+    public void deleteById(Serializable id) {
+        T entity = getById(id);
+        if (entity != null) {
+            entityManager.remove(entity);
+        }
     }
 
     public List<T> getAll(){
-        List<T> objs = this.session.createQuery("from "+this.persistentClass.getName()+" o").list();
-        return objs;
-    }
-
-    public int count(){
-        List<Long> list = this.session.createQuery("select count(*) from " + this.persistentClass.getName() + " o").list();
-        Long count = list.get(0);
-        return count.intValue();
-    }
-
-    public List<T> executeQueryList(String queryString, Hashtable<String,String> hashtable) {
-        Query query = session.createQuery(queryString);
-        hashtable.forEach((column, value) -> query.setParameter(column, value));
-        return query.getResultList();
+        return entityManager.createQuery("from " + this.persistentClass.getName() + " o").getResultList();
     }
 }

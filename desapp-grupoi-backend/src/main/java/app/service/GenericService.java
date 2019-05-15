@@ -1,129 +1,31 @@
 package app.service;
 
-import app.persistence.GenericDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import util.HibernateUtil;
+import app.persistence.IGenericDao;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
-import java.util.Hashtable;
 import java.util.List;
 
-public class GenericService<T> extends HibernateUtil {
+@Transactional
+public abstract class GenericService<T extends Serializable> {
 
-    private GenericDao<T> dao;
+    protected abstract IGenericDao<T> getDao();
 
-    T obj = null;
-    List<T> listObjs = null;
-
-    @Autowired
-    public GenericService(EntityManagerFactory factory, GenericDao dao) {
-        super(factory);
-        this.dao = dao;
-    }
-
+    @Transactional(readOnly = true)
     public List<T> getAll() {
-        try{
-            this.openSessionBeginTransaction();
-
-            this.dao.setSession(this.getSession());
-            this.listObjs = this.dao.getAll();
-
-            this.transactionCommit();
-        }catch (Exception ex) {
-            ex.printStackTrace();
-            this.transactionRollback();
-        }
-        finally {
-            this.sessionClose();
-            return this.listObjs;
-        }
+        return this.getDao().getAll();
     }
 
+    @Transactional(readOnly = true)
     public T getById(final Serializable id) {
-        try{
-            this.openSessionBeginTransaction();
-
-            this.dao.setSession(this.getSession());
-            this.obj = dao.getById(id);
-
-            this.transactionCommit();
-        }catch (Exception ex) {
-            ex.printStackTrace();
-            this.transactionRollback();
-        }
-        finally {
-            this.sessionClose();
-            return this.obj;
-        }
+        return getDao().getById(id);
     }
 
-    public void save(final T object) {
-        try{
-            this.openSessionBeginTransaction();
-
-            this.dao.setSession(this.getSession());
-            this.dao.save(object);
-
-            this.transactionCommit();
-        }catch (Exception ex) {
-            ex.printStackTrace();
-            this.transactionRollback();
-        }
-        finally {
-            this.sessionClose();
-        }
-    }
-
-    public void delete(final T object) {
-        try{
-            this.openSessionBeginTransaction();
-
-            this.dao.setSession(this.getSession());
-            this.dao.delete(object);
-
-            this.transactionCommit();
-        }catch (Exception ex) {
-            ex.printStackTrace();
-            this.transactionRollback();
-        }
-        finally {
-            this.sessionClose();
-        }
+    public void save(final T entity) {
+        this.getDao().save(entity);
     }
 
     public void deleteById(final Serializable id) {
-        try{
-            this.openSessionBeginTransaction();
-
-            this.dao.setSession(this.getSession());
-            this.dao.deleteById(id);
-
-            this.transactionCommit();
-        }catch (Exception ex) {
-            ex.printStackTrace();
-            this.transactionRollback();
-        }
-        finally {
-            this.sessionClose();
-        }
-    }
-
-    protected List<T> executeQueryList(String queryString, Hashtable<String, String> hashtable) {
-        try{
-            this.openSessionBeginTransaction();
-
-            this.dao.setSession(this.getSession());
-            this.listObjs = this.dao.executeQueryList(queryString, hashtable);
-
-            this.transactionCommit();
-        }catch (Exception ex) {
-            ex.printStackTrace();
-            this.transactionRollback();
-        }
-        finally {
-            this.sessionClose();
-            return this.listObjs;
-        }
+        this.getDao().deleteById(id);
     }
 }

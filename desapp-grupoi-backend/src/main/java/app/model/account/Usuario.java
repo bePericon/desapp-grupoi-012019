@@ -4,6 +4,7 @@ import app.model.event.Invitacion;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
