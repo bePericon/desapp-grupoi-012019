@@ -34,10 +34,11 @@ public class Usuario implements Serializable {
 	@Column(name="contrasenia")
 	private String contrasenia;
 
-//	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+//	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	@PrimaryKeyJoinColumn
 //	private Cuenta cuenta;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<Invitacion> invitaciones;
 	
 	public Usuario() {
@@ -87,5 +88,9 @@ public class Usuario implements Serializable {
 		this.email = usuario.getEmail();
 		this.fechaNac = usuario.getFechaNac();
 		this.contrasenia = usuario.getContrasenia();
+	}
+
+	public boolean tieneInvitacionesPendientes() {
+		return this.invitaciones.size() > 0 && this.invitaciones.stream().anyMatch(inv -> inv.estaPendiente());
 	}
 }

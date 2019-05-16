@@ -1,6 +1,7 @@
 package app.service.account;
 
 import app.model.account.Cuenta;
+import app.model.account.Usuario;
 import app.persistence.GenericDao;
 import app.persistence.IGenericDao;
 import app.persistence.account.CuentaDao;
@@ -25,5 +26,16 @@ public class CuentaService extends GenericService<Cuenta> {
 
     public CuentaService() {
         super();
+    }
+
+    public Cuenta getDisponibleParaEliminar(Usuario usuario) {
+        if(usuario.tieneInvitacionesPendientes()){
+//            throw Exception;
+        }
+        return this.getByUsuarioEmail(usuario.getEmail());
+    }
+
+    private Cuenta getByUsuarioEmail(String email) {
+        return this.getDao().getByUsuarioEmail(email);
     }
 }

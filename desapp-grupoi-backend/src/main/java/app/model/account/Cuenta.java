@@ -21,7 +21,7 @@ public class Cuenta implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
+    @OneToOne(cascade=CascadeType.ALL)
     private Usuario usuario;
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -45,7 +45,7 @@ public class Cuenta implements Serializable {
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Evento> eventos = new ArrayList<Evento>();
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Template> templates = new ArrayList<Template>();
 
     public Cuenta(){

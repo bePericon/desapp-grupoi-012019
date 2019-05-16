@@ -41,6 +41,9 @@ public class Invitacion {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
+
+    public boolean estaPendiente() {
+		return !this.confirmada;
+    }
 }

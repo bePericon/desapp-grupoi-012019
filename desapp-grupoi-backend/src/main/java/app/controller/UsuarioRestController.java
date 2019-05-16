@@ -25,7 +25,6 @@ public class UsuarioRestController {
     @Autowired
     private CuentaService cuentaService;
 
-//    @RequestMapping(value = "/usuarios/{id}", method = RequestMethod.GET)
     @GetMapping("/usuario/{id}")
     public ResponseEntity<?> getUsuario(@PathVariable String id) {
         Usuario usuario = (Usuario) this.usuarioService.getById(Long.parseLong(id));
@@ -36,8 +35,7 @@ public class UsuarioRestController {
         return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    @GetMapping("/usuario")
+    @GetMapping("/usuario/all")
     public  ResponseEntity<List<Usuario>>  getAllUsuarios() {
         List<Usuario> usuarios = this.usuarioService.getAll();
         if (usuarios.isEmpty()) {
@@ -85,6 +83,9 @@ public class UsuarioRestController {
             CustomErrorType error = new CustomErrorType("No se encontro ningun usuario con id: " + id);
             return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         }
+
+        Cuenta cuenta = this.cuentaService.getDisponibleParaEliminar(usuario);
+        this.cuentaService.deleteById(cuenta.getId());
         this.usuarioService.deleteById(Long.parseLong(id));
         return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
