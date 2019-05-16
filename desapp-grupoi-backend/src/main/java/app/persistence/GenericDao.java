@@ -1,12 +1,9 @@
 package app.persistence;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.CriteriaQuery;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,10 +16,6 @@ public abstract class GenericDao<T> implements IGenericDao<T>, Serializable {
     protected Class<T> persistentClass = getDomainClass();
 
     protected abstract Class<T> getDomainClass();
-
-    protected CriteriaBuilder getCB(){
-        return this.entityManager.getCriteriaBuilder();
-    }
 
     public void save(T entity) {
         entityManager.persist(entity);
