@@ -1,5 +1,6 @@
 package app.model.account;
 
+import app.error.exception.ExceptionUsuarioSaldoInsuficiente;
 import app.model.event.Evento;
 import app.model.event.Invitacion;
 import app.model.event.Template;
@@ -68,7 +69,8 @@ public class Cuenta implements Serializable {
             this.saldo.restar(monto);
             this.agregarMovimiento(EnumTipos.TipoMovimiento.RETIRAR, new Date(), monto);
         }
-        //TODO: manejo de excepciones
+        else
+            throw new ExceptionUsuarioSaldoInsuficiente();
     }
 
     public boolean haySaldoSuficiente(Dinero monto) {
@@ -97,15 +99,15 @@ public class Cuenta implements Serializable {
     }
 
     private EstadoCredito estadoUltimoCredito() {
-        return this.getUltimoCredito().getEstado();
+        return this.creditos.get(this.creditos.size()-1).getEstado();
     }
 
     public void debitarCuotaCredito() {
-        Dinero cuota = this.getUltimoCredito().getMontoCuota();
+        Dinero cuota = this.creditos.get(this.creditos.size()-1).getMontoCuota();
         if(this.haySaldoSuficiente(cuota)){
             this.saldo.restar(cuota);
             this.agregarMovimiento(EnumTipos.TipoMovimiento.PAGARCUOTA, new Date(), cuota);
-            this.getUltimoCredito().saldarMonto(cuota);
+            this.creditos.get(this.creditos.size()-1).saldarMonto(cuota);
         }else {
             this.setSituacionDeuda(EstadoSituacionDeuda.MOROSO);
         }
@@ -135,10 +137,6 @@ public class Cuenta implements Serializable {
         return this.saldo;
     }
 
-    public Movimiento getUltimoMovimiento() {
-        return this.movimientos.get(this.movimientos.size()-1);
-    }
-
     public void setTarjetaCredito(String numero, int codigo) {
         this.tarjetaCredito = new TarjetaCredito(numero, codigo);
     }
@@ -153,10 +151,6 @@ public class Cuenta implements Serializable {
 
     public List<Credito> getCreditos() {
         return this.creditos;
-    }
-
-    public Credito getUltimoCredito() {
-        return this.creditos.get(this.creditos.size()-1);
     }
 
     public Usuario getUsuario() {

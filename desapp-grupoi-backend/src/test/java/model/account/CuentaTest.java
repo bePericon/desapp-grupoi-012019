@@ -62,9 +62,9 @@ public class CuentaTest {
     @Test
     public void testDepositarDineroSeAgregaUnMovimientoTipoDepositar() {
         this.cuentaTest.depositarDinero(new Dinero(100));
-        Movimiento movimiento = this.cuentaTest.getUltimoMovimiento();
+        Movimiento ultimoMovimiento = this.cuentaTest.getMovimientos().get(this.cuentaTest.getMovimientos().size()-1);
 
-        assertEquals(EnumTipos.TipoMovimiento.DEPOSITAR, movimiento.getTipoMovimiento());
+        assertEquals(EnumTipos.TipoMovimiento.DEPOSITAR, ultimoMovimiento.getTipoMovimiento());
     }
 
     @Test
@@ -79,9 +79,9 @@ public class CuentaTest {
     public void testRetirarDineroSeAgregaUnMovimientoTipoRetirar() {
         this.cuentaTest.depositarDinero(new Dinero(1000));
         this.cuentaTest.retirarDinero(new Dinero(100));
-        Movimiento movimiento = this.cuentaTest.getUltimoMovimiento();
+        Movimiento ultimoMovimiento = this.cuentaTest.getMovimientos().get(this.cuentaTest.getMovimientos().size()-1);
 
-        assertEquals(EnumTipos.TipoMovimiento.RETIRAR, movimiento.getTipoMovimiento());
+        assertEquals(EnumTipos.TipoMovimiento.RETIRAR, ultimoMovimiento.getTipoMovimiento());
     }
 
     @Test
