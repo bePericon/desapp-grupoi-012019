@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import util.CustomErrorType;
+import app.util.CustomErrorType;
 
 import java.util.List;
 
@@ -27,11 +27,7 @@ public class UsuarioRestController {
 
     @GetMapping("/usuario/{id}")
     public ResponseEntity<?> getUsuario(@PathVariable String id) {
-        Usuario usuario = (Usuario) this.usuarioService.getById(Long.parseLong(id));
-        if (usuario == null) {
-            CustomErrorType error = new CustomErrorType("No se encontro ningun usuario con id: " + id);
-            return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-        }
+        Usuario usuario = this.usuarioService.getByIdUsuario(Long.parseLong(id));
         return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
 

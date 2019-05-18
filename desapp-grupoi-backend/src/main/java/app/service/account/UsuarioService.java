@@ -1,5 +1,6 @@
 package app.service.account;
 
+import app.error.exception.ExceptionUsuarioNoEncontrado;
 import app.model.account.Usuario;
 import app.persistence.account.UsuarioDao;
 import app.service.GenericService;
@@ -50,6 +51,14 @@ public class UsuarioService extends GenericService<Usuario> {
         if(usuario.getContrasenia() != contrasenia){
 //            return throw ExceptionUsuarioContraseniaIncorrecta();
         }
+        return usuario;
+    }
+
+    public Usuario getByIdUsuario(long idUsuario) {
+        Usuario usuario = (Usuario) this.getById(idUsuario);
+        if(usuario == null)
+            throw new ExceptionUsuarioNoEncontrado();
+
         return usuario;
     }
 }

@@ -38,4 +38,8 @@ public class CuentaService extends GenericService<Cuenta> {
     private Cuenta getByUsuarioEmail(String email) {
         return this.getDao().getByUsuarioEmail(email);
     }
+
+    public Cuenta getCuentaByIdUsuario(long idUsuario) {
+        return this.getDao().getCuentaByIdUsuario(idUsuario);
+    }
 }
