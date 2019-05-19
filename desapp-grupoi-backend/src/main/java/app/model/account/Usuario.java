@@ -18,20 +18,20 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name="nombre")
+	@Column
 	private String nombre;
 
-	@Column(name="apellido")
+	@Column
 	private String apellido;
 
-	@Column(name="email")
+	@Column
 	private String email;
 
-	@Column(name = "fechaNac")
-	@Temporal(TemporalType.DATE)
+	@Column
+	//@Temporal(TemporalType.DATE)
 	private Date fechaNac;
 
-	@Column(name="contrasenia")
+	@Column
 	private String contrasenia;
 
 //	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)

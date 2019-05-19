@@ -21,10 +21,12 @@ public abstract class GenericService<T extends Serializable> {
         return getDao().getById(id);
     }
 
+    @Transactional
     public void save(final T entity) {
         this.getDao().save(entity);
     }
 
+    @Transactional
     public void deleteById(final Serializable id) {
         this.getDao().deleteById(id);
     }

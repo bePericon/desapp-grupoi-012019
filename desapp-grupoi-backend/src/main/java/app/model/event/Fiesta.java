@@ -29,8 +29,7 @@ public class Fiesta extends Modalidad {
 		this.fechaLimite = fechaLimite;
 	}
 
-	@Column(name = "fechalimite")
-	@Temporal(TemporalType.DATE)
+	@Column
 	private Date fechaLimite;
 
 	@Override

@@ -1,6 +1,6 @@
 package app.model.account;
 
-import app.error.exception.ExceptionUsuarioSaldoInsuficiente;
+import app.error.exception.ExceptionNotAcceptable;
 import app.model.event.Evento;
 import app.model.event.Invitacion;
 import app.model.event.Template;
@@ -70,7 +70,7 @@ public class Cuenta implements Serializable {
             this.agregarMovimiento(EnumTipos.TipoMovimiento.RETIRAR, new Date(), monto);
         }
         else
-            throw new ExceptionUsuarioSaldoInsuficiente();
+            throw new ExceptionNotAcceptable("No hay saldo suficiente.");
     }
 
     public boolean haySaldoSuficiente(Dinero monto) {
