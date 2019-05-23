@@ -1,3 +1,38 @@
-<p>
-  eventos works!
-</p>
+<div class="container-fluid" >
+
+  <div class="row">
+    <div class="col-sm-12">
+      <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="material-icons"> whatshot </i>
+            Mas populares
+          </ng-template>
+          <app-mostrar-eventos></app-mostrar-eventos>
+        </mat-tab>
+
+        <mat-tab label="Pasados">
+          <app-mostrar-eventos></app-mostrar-eventos>
+        </mat-tab>
+
+        <mat-tab label="Eventos en curso">
+          <app-mostrar-eventos></app-mostrar-eventos>
+        </mat-tab>
+        <mat-tab style="width:100%!important">
+          <ng-template mat-tab-label>
+            <i class="material-icons" style="color:#0012ff!important">
+              add_circle_outline
+            </i>
+            <span style="color:#0012ff!important"> Crear Evento </span>
+          </ng-template>
+          <div style="width:100%!important">
+            <app-crear-evento style="width:100%!important"></app-crear-evento>
+          </div>
+          <button (click)="getDatos()">getdatos</button>
+
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+
+</div>

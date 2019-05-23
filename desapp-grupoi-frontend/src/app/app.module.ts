@@ -10,48 +10,22 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { EventosComponent } from './eventos/eventos.component';
-import { RouterModule, Routes } from '@angular/router';
 import { NosotrosComponent } from './nosotros/nosotros.component';
 import { RegisterComponent } from './register/register.component';
-import {CdkStepperModule} from '@angular/cdk/stepper';
-import {MatStepperModule} from '@angular/material/stepper'
-
-
-const appRoutes: Routes = [
-  {
-    path: '',
-    component: LandingComponent
-  },
-  {
-    path: 'nosotros',
-    component: NosotrosComponent
-  },
-  {
-    path: 'eventos',
-    component: EventosComponent
-  }
-
-
-  
-  // {
-  //   path: 'hero/:id',
-  //   component: HeroDetailComponent
-  // },
-  // {
-  //   path: 'heroes',
-  //   component: HeroListComponent,
-  //   data: { title: 'Heroes List' }
-  // },
-  // {
-  //   path: '',
-  //   redirectTo: '/heroes',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: '**',
-  //   component: PageNotFoundComponent
-  // }
-];
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MenuComponent } from './menu/menu.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
+import { HttpClientModule } from '@angular/common/http';
+import { Routes, RouterModule } from '@angular/router';
+import { EventeandoComponent } from './eventeando/eventeando.component';
+import { MostrarEventosComponent } from './mostrar-eventos/mostrar-eventos.component';
+import { CrearEventoComponent } from './crear-evento/crear-evento.component';
+import {MatSelectModule} from '@angular/material/select';
+import { InvitacionesComponent } from './invitaciones/invitaciones.component';
+import { BilleteraComponent } from './billetera/billetera.component';
+import { MostrarInvitacionesComponent } from './mostrar-invitaciones/mostrar-invitaciones.component';
 
 @NgModule({
   declarations: [
@@ -59,15 +33,19 @@ const appRoutes: Routes = [
     LandingComponent,
     EventosComponent,
     NosotrosComponent,
-    RegisterComponent
+    RegisterComponent,
+    MenuComponent,
+    EventeandoComponent,
+    MostrarEventosComponent,
+    CrearEventoComponent,
+    InvitacionesComponent,
+    BilleteraComponent,
+    MostrarInvitacionesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatDialogModule,
-    RouterModule.forRoot(
-      appRoutes 
-    ),
     MatIconModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -76,8 +54,14 @@ const appRoutes: Routes = [
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule
-    
+    MatFormFieldModule,
+    MatTabsModule,
+    MatRadioModule,
+    HttpClientModule,
+    RouterModule.forRoot([]),
+    RouterModule.forChild([]),
+    MatSelectModule
+
 
   ],
   exports: [
@@ -92,12 +76,20 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatFormFieldModule,
     CdkStepperModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTabsModule,
+    MatRadioModule,
+    HttpClientModule,
+    MatSelectModule
   ],
   entryComponents: [RegisterComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
+
+
+
+
 export class AppModule {
 
 

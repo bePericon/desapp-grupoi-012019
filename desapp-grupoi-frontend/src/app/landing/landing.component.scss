@@ -4,9 +4,10 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-size: cover;
     background-position: center center;
+    
 }
 
 .layer{
@@ -27,7 +28,7 @@ h1, p, h2,h5,span{
     border-radius: 5%;
     max-width: ypx;
     padding: 0px 15px 0px 15px;
-    background-color: #f8f9fa86;
+    background-color: #f8f9fad1;
 }
 
 .titulo-login{

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Router } from '@angular/router';
-// import { RegisterComponent } from '';
+// import { AppRoutingModule } from './app-routing.module';
 import {MatDialog} from '@angular/material';
 
 import { RegisterComponent } from '../register/register.component';
@@ -26,7 +26,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class LandingComponent implements OnInit {
   constructor(private router: Router, public dialog: MatDialog) { }
-s
+
   ngOnInit() {
   }
   emailFormControl = new FormControl('', [
@@ -38,7 +38,11 @@ s
   matcher = new MyErrorStateMatcher();
 
   goto(ruta){
-    this.router.navigate(['/'+ruta]);
+    this.router.navigate(['eventeando/'+ruta]);
+  }
+
+  gotoNosotros(){
+    this.router.navigate(['nosotros']);
   }
 
   openDialog() {

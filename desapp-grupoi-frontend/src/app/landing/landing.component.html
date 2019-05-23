@@ -16,7 +16,7 @@
             <div class="text-center">
               <h5>¿Quienes somos?</h5>
               <p>
-                <button type="button" (click)="goto('nosotros')" class="btn btn-outline-light">Conocenos</button>
+                <button type="button" (click)="gotoNosotros()" class="btn btn-outline-light">Conocenos</button>
               </p>
             </div>
           </div>
@@ -46,7 +46,7 @@
                 <br>
                 <mat-form-field>
                   <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'">
-                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}} </mat-icon>
+                  <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}} </mat-icon>
                 </mat-form-field>
 
                 <br><br>
@@ -62,8 +62,8 @@
 
           </div>
         </div>
-        <br> <br>
-        <div class="row">
+        <!-- <br>  -->
+        <div class="row mt-3">
           <div class="col-sm-6">
             <div class="text-center">
               <h2 class="mx-auto">¿No estás registrado? </h2>

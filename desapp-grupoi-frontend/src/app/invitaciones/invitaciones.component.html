@@ -1,0 +1,31 @@
+<div class="container-fluid" >
+
+  <div class="row">
+    <div class="col-sm-12">
+      <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="material-icons"> fiber_new </i>
+            Pendientes
+          </ng-template>
+          <app-mostrar-invitaciones></app-mostrar-invitaciones>
+        </mat-tab>
+
+        <mat-tab label="Aceptados en curso">
+          <app-mostrar-invitaciones></app-mostrar-invitaciones>
+        </mat-tab>
+
+        <mat-tab label="Pasados">
+          <app-mostrar-invitaciones></app-mostrar-invitaciones>
+        </mat-tab>
+
+        <mat-tab label="Rechazados">
+          <app-mostrar-invitaciones></app-mostrar-invitaciones>
+        </mat-tab>
+
+       
+      </mat-tab-group>
+    </div>
+  </div>
+
+</div>
