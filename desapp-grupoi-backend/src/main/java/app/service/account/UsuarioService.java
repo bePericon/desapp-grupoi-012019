@@ -1,6 +1,10 @@
 package app.service.account;
 
-import app.error.exception.ExceptionUsuarioNoEncontrado;
+import app.error.exception.ExceptionBadRequest;
+import app.error.exception.ExceptionConflict;
+import app.error.exception.ExceptionNoContent;
+import app.error.exception.ExceptionNotFound;
+import app.model.account.Cuenta;
 import app.model.account.Usuario;
 import app.persistence.account.UsuarioDao;
 import app.service.GenericService;
@@ -8,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +22,9 @@ public class UsuarioService extends GenericService<Usuario> {
 
     @Autowired
     private UsuarioDao dao;
+
+    @Autowired
+    private CuentaService cuentaService;
 
     @Override
     protected UsuarioDao getDao() {
@@ -46,19 +54,56 @@ public class UsuarioService extends GenericService<Usuario> {
     public Usuario getByEmailAndContrasenia(String email, String contrasenia) {
         Usuario usuario = this.getDao().getByEmail(email);
         if(usuario == null){
-//        return throw ExceptionUsuarioNoEncontrado();
+            throw new ExceptionNotFound("El usuario no fue encontrado.");
         }
         if(usuario.getContrasenia() != contrasenia){
-//            return throw ExceptionUsuarioContraseniaIncorrecta();
+            throw new ExceptionConflict("La contraseña es incorrecta.");
         }
         return usuario;
     }
 
     public Usuario getByIdUsuario(long idUsuario) {
-        Usuario usuario = (Usuario) this.getById(idUsuario);
+        Usuario usuario = this.getById(idUsuario);
         if(usuario == null)
-            throw new ExceptionUsuarioNoEncontrado();
+            throw new ExceptionNotFound("El usuario no fue encontrado.");
 
+        return usuario;
+    }
+
+    public List<Usuario> getAllUsuarios() {
+        List<Usuario> usuarios = this.getAll();
+        if (usuarios.isEmpty()) {
+            throw new ExceptionNoContent("Lista de usuarios vacia.");
+        }
+        return usuarios;
+    }
+
+    public Usuario createNuevoUsuario(Usuario nuevoUsuario) {
+        if(this.yaExiste(nuevoUsuario))
+            throw new ExceptionConflict("Ya existe un usuario con email: " +nuevoUsuario.getEmail());
+
+        if(!this.esValido(nuevoUsuario))
+            throw new ExceptionBadRequest("Los datos del nuevo usuario no son validos.");
+
+        this.save(Usuario.build(nuevoUsuario));
+        Usuario usuario = this.getByEmailAndContrasenia(nuevoUsuario.getEmail(),nuevoUsuario.getContrasenia());
+        Cuenta cuenta = new Cuenta(usuario);
+        this.cuentaService.save(cuenta);
+        return usuario;
+    }
+
+    public Usuario updateUsuario(long idUsuario, Usuario usuario) {
+        Usuario usuarioActual = this.getByIdUsuario(idUsuario);
+        usuarioActual.actualizar(usuario);
+        this.save(usuarioActual);
+        return usuarioActual;
+    }
+
+    public Usuario deleteByIdUsuario(long idUsuario) {
+        Usuario usuario = this.getByIdUsuario(idUsuario);
+        Cuenta cuenta = this.cuentaService.getDisponibleParaEliminar(usuario);
+        this.cuentaService.deleteById(cuenta.getId());
+        this.deleteById(idUsuario);
         return usuario;
     }
 }

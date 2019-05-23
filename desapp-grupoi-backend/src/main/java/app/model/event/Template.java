@@ -11,7 +11,7 @@ import app.model.event.EnumTipos.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "template")
+@Table(name = "e_template")
 public class Template {
 
 	@Id

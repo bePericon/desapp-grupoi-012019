@@ -1,5 +1,6 @@
 package app.service.account;
 
+import app.error.exception.ExceptionNotAcceptable;
 import app.model.account.Cuenta;
 import app.model.account.Usuario;
 import app.persistence.GenericDao;
@@ -29,9 +30,9 @@ public class CuentaService extends GenericService<Cuenta> {
     }
 
     public Cuenta getDisponibleParaEliminar(Usuario usuario) {
-        if(usuario.tieneInvitacionesPendientes()){
-//            throw Exception;
-        }
+        if(usuario.tieneInvitacionesPendientes())
+            throw new ExceptionNotAcceptable("Hay invitaciones pendientes.");
+
         return this.getByUsuarioEmail(usuario.getEmail());
     }
 

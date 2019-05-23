@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+
+    <Properties>
+        <Property name="log-path">.logs</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console-Appender" target="SYSTEM_OUT">
+            <PatternLayout
+                pattern="%style{%d{ISO8601}}{white} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" />
+        </Console>
+
+        <RollingFile name="Eventeando-File-Appender"
+                     fileName="${log-path}/eventeando-console-log4j2.log"
+                     filePattern="${log-path}/$${date:yyyy-MM-dd}/eventeando-console-log4j2-%d{-dd-MMMM-yyyy}-%i.log">
+            <PatternLayout>
+                <pattern>
+                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+                </pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- rollover on startup, daily and when the file reaches
+                    10 MegaBytes -->
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy
+                        size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="App-File-Appender"
+                     fileName="${log-path}/eventeando-app-log4j2.log"
+                     filePattern="${log-path}/$${date:yyyy-MM-dd}/eventeando-app-log4j2-%d{-dd-MMMM-yyyy}-%i.log">
+            <PatternLayout>
+                <pattern>
+                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+                </pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- rollover on startup, daily and when the file reaches
+                    10 MegaBytes -->
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy
+                        size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+<!--        <File name="App-File-Appender" fileName="${log-path}/eventeando-app-log4j2.log" >-->
+<!--            <PatternLayout>-->
+<!--                <pattern>-->
+<!--                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n-->
+<!--                </pattern>-->
+<!--            </PatternLayout>-->
+<!--        </File>-->
+    </Appenders>
+
+    <Loggers>
+        <Logger name="app.App" level="info" additivity="false">
+            <AppenderRef ref="App-File-Appender"/>
+            <AppenderRef ref="Console-Appender"/>
+            <AppenderRef ref="Eventeando-File-Appender"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="Console-Appender"/>
+            <AppenderRef ref="Eventeando-File-Appender"/>
+        </Root>
+    </Loggers>
+</Configuration>
