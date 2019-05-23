@@ -1,0 +1,13 @@
+.card-img{
+    border-radius: 50%;
+    max-width: 150px;
+    border: 2px solid #673ab7;
+}
+
+.fondo{
+    background: #c94b4b;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom,  #c94b4b, #4b134f);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom,#c94b4b, #4b134f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    height:100vh;
+}

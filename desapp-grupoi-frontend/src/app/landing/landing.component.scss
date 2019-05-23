@@ -1,18 +1,16 @@
 .fondo-landing{
-
-    background-image: url(/assets/img/fiesta.jpg);
+    background-image: url(/assets/img/f1.jpg);
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-repeat: no-repeat; */
     background-size: cover;
     background-position: center center;
 }
 
 .layer{
-    background-image: linear-gradient(to bottom, rgba(112, 0, 125, 0.6) 1%, rgba(226, 108, 211, 0.6) 59%, rgba(0, 255, 255, 0.25) 96%);
+    background-image:  linear-gradient(to bottom, rgba(112, 0, 125, 0.6) 1%, rgba(0, 0, 0, 0.6) 59%, rgba(255, 0, 0, 0.25) 96%);
     position: absolute;
     top: 0;
     left: 0;
@@ -20,10 +18,54 @@
     height: 100%;
 }
 
-h1, p, h2,span{
+h1, p, h2,h5,span{
     color:white!important;
 }
 
 .login-c{
-    border: 2px;
+    border: 1px solid #f8f9fa96;
+    border-radius: 5%;
+    max-width: ypx;
+    padding: 0px 15px 0px 15px;
+    background-color: #f8f9fa86;
 }
+
+.titulo-login{
+    margin-top:5px;
+    color: black!important;
+
+}
+
+.sarasa{
+  display: block!important;
+}
+
+
+  .mat-form-field {
+
+    width: 100%;
+
+}
+
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  
+  .example-right-align {
+    text-align: right;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
