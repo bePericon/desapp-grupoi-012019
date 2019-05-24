@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatDialogModule, MatIconModule, } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule,MatNativeDateModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +26,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { InvitacionesComponent } from './invitaciones/invitaciones.component';
 import { BilleteraComponent } from './billetera/billetera.component';
 import { MostrarInvitacionesComponent } from './mostrar-invitaciones/mostrar-invitaciones.component';
+import {MatDatepickerModule,} from '@angular/material/datepicker';
+
+import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { MostrarInvitacionesComponent } from './mostrar-invitaciones/mostrar-inv
     CrearEventoComponent,
     InvitacionesComponent,
     BilleteraComponent,
-    MostrarInvitacionesComponent
+    MostrarInvitacionesComponent,
+    
+    MiCuentaComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,10 @@ import { MostrarInvitacionesComponent } from './mostrar-invitaciones/mostrar-inv
     HttpClientModule,
     RouterModule.forRoot([]),
     RouterModule.forChild([]),
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+ 
+    MatNativeDateModule 
 
 
   ],
@@ -80,7 +88,8 @@ import { MostrarInvitacionesComponent } from './mostrar-invitaciones/mostrar-inv
     MatTabsModule,
     MatRadioModule,
     HttpClientModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ],
   entryComponents: [RegisterComponent],
   providers: [],

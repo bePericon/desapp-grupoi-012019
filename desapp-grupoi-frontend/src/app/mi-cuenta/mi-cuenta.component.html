@@ -1,0 +1,62 @@
+<div class="container-fluid mt-5">
+
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Modificar datos personales</h3>
+      <form class="mi-cuenta-form">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Debés ingresar un email válido.
+          </mat-error>
+
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            El Email es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Nombre" value="">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Apellido" value="">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento ">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+      </form>
+
+      <button class="btn btn-outline-success mt-5 float-right"> <i class="fas fa-user-edit"></i> </button>
+
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+
+      <h3>Cambiar contraseña</h3>
+      <form class="cambiar-contrasenia">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'">
+          <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
+          </mat-icon>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Repita la contraseña" [type]="hideR ? 'password' : 'text'">
+          <mat-icon style="cursor:pointer" matSuffix (click)="hideR = !hideR">{{hide ? 'visibility_off' : 'visibility'}}
+          </mat-icon>
+          <mat-hint align="end">Recuerda que las contraseñas deben coincidir</mat-hint>
+        </mat-form-field>
+
+
+      </form>
+      <button class="btn btn-outline-success mt-4  float-right"> <i class="far fa-save"></i> </button>
+    </div>
+
+  </div>
+</div>

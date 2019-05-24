@@ -5,7 +5,7 @@
     <div class="layer">
       <div class="container">
         <br><br><br>
-        <div class="row">
+        <div class="row text-center">
 
           <div class="col-sm-6">
 
@@ -32,15 +32,15 @@
               <br>
               <h4 class="titulo-login">Login <i class="fas fa-user-circle"></i></h4>
               <hr>
-              <form class="example-form">
+              <form class="login-form">
                 <mat-form-field class="">
                   <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
 
                   <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                    Please enter a valid email address
-                  </mat-error>
-                  <mat-error *ngIf="emailFormControl.hasError('required')">
-                    Email is <strong>required</strong>
+                      Debés ingresar un email válido.
+                    </mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                      El Email es <strong>requerido</strong>
                   </mat-error>
                 </mat-form-field>
                 <br>
