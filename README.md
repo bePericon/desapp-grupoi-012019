@@ -1,13 +1,17 @@
 # desapp-grupoi-012019
 ## Proyecto: Eventeando
-- Aplicacion para creacion de distintos eventos, calculos de gastos, etc.
+- Aplicacion para gestión de eventos sociales y control de gastos, incluyendo el manejo de invitaciones, templates, particularidades de eventos, control de perfil, registro, logueto y etc.
 
 ----
 
-###Manojo de tecnologias y herramientas:
-- Lenguaje: Java 8 (Openjdk version 1.8.*) 
+### Stack tecnológico:
+- Java 8 (Openjdk version 1.8.*) 
 - Spring Boot (v2.1.3.RELEASE)
 - Apache Maven < 3.6.*
+- Angular 7
+- Bootstrap 4
+- HTML5 
+- CSS3
 - Integracion continua: Travis-CI
 [![Build Status](https://travis-ci.org/bePericon/desapp-grupoi-012019.svg?branch=master)](https://travis-ci.org/bePericon/desapp-grupoi-012019)
 - Revision y analisis de codigo: Codacy (Reportes generados con JaCoCo)
