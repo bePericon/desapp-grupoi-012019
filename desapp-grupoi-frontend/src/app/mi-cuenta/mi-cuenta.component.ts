@@ -5,9 +5,6 @@ import { Router } from '@angular/router';
 
 import {MatDialog} from '@angular/material';
 
-import { RegisterComponent } from '../register/register.component';
-
-
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -17,41 +14,28 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+  selector: 'app-mi-cuenta',
+  templateUrl: './mi-cuenta.component.html',
+  styleUrls: ['./mi-cuenta.component.scss']
 })
 
 
 
-export class LandingComponent implements OnInit {
+export class MiCuentaComponent implements OnInit {
+
   constructor(private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
   }
+
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
 
   hide = true;
+  hideR = true;
   matcher = new MyErrorStateMatcher();
-
-  goto(ruta){
-    this.router.navigate(['eventeando/'+ruta]);
-  }
-
-  gotoNosotros(){
-    this.router.navigate(['nosotros']);
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(RegisterComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
 
 }
