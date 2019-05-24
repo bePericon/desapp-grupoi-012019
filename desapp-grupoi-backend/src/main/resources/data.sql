@@ -14,6 +14,7 @@ insert into cuenta (situacion_deuda, saldo_id, usuario_id) values
 ('NORMAL', 1, 1),('NORMAL', 2, 2),('NORMAL', 3, 3),('NORMAL', 4, 4);
 
 -- Creacion de eventos: (saldo, modalidad, template, evento)
+-- Creamos un evento Publico del primer usuario
 -- Saldo
 insert into dinero (id, aux, monto) values (5,0,0);
 -- Modalidad Fiesta
@@ -25,3 +26,26 @@ insert into e_template (id, descripcion, nombre, visibilidad, modalidad_id, orga
 -- Evento
 insert into evento (id, nombre, organizador_id, template_id) values
 (1, 'Evento Fiesta', 1, 1);
+-- Tabla conectora: CuentaEvento
+insert into cuenta_eventos (cuenta_id, eventos_id) values (1, 1);
+-- Tabla conectora: EventoAsistentes
+insert into evento_asistentes (evento_id, asistentes_id) values (1, 2);
+insert into evento_asistentes (evento_id, asistentes_id) values (1, 4);
+-- Invitaciones: 2 confirmadas - 1 sin confirmar
+insert into invitacion (id, confirmada, email, evento_id) values
+(1, 1, 'brian@email.com', 1),(2, 0, 'ale@email.com', 1),(3, 1, 'homero@email.com', 1);
+
+-- Creamos un evento Privado del segundo usuario.
+-- Saldo
+insert into dinero (id, aux, monto) values (6,0,0);
+-- Modalidad Fiesta
+insert into fiesta (id, costo_total_id, organizador_id, fecha_limite) values
+(2, 6, 2, TO_DATE('20/12/2019', 'DD/MM/YYYY'));
+-- Template vacio
+insert into e_template (id, descripcion, nombre, visibilidad, modalidad_id, organizador_id) values
+(2, 'Segundo template vacio', 'Evento Template', 'PRIVADA', 2, 2);
+-- Evento
+insert into evento (id, nombre, organizador_id, template_id) values
+(2, 'Evento Fiesta Privada', 2, 2);
+-- Tabla conectora: CuentaEvento
+insert into cuenta_eventos (cuenta_id, eventos_id) values (2, 2);

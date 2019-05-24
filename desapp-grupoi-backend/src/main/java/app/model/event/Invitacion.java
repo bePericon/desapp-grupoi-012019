@@ -3,10 +3,11 @@ package app.model.event;
 import app.model.account.Usuario;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "invitacion")
-public class Invitacion {
+public class Invitacion implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -17,6 +18,8 @@ public class Invitacion {
 
 	@ManyToOne
 	private Evento evento;
+
+	public Invitacion(){}
 
 	public Invitacion(String email, Evento evento) {
 		this.email = email;

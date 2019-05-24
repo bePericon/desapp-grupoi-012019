@@ -11,9 +11,11 @@ import java.util.Date;
 import java.util.List;
 
 import app.model.account.EnumEstados.*;
+import lombok.Data;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "cuenta")
 public class Cuenta implements Serializable {
@@ -31,10 +33,10 @@ public class Cuenta implements Serializable {
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Credito> creditos = new ArrayList<Credito>();
 
-    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
+    @OneToOne(cascade=CascadeType.ALL)
     private TarjetaCredito tarjetaCredito;
 
-    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
+    @OneToOne(cascade=CascadeType.ALL)
     private Dinero saldo;
 
     @Enumerated(EnumType.STRING)
@@ -43,7 +45,7 @@ public class Cuenta implements Serializable {
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Invitacion> invitaciones = new ArrayList<Invitacion>();
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL)
     private List<Evento> eventos = new ArrayList<Evento>();
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -86,7 +88,7 @@ public class Cuenta implements Serializable {
     }
 
     private void agregarCredito(Credito credito) {
-        if(! this.hayCreditoEnCurso() && this.getSituacion().esCumplidor()){
+        if(! this.hayCreditoEnCurso() && this.getSituacionDeuda().esCumplidor()){
             credito.setUsuarioSolicitante(this.getUsuario());
             this.creditos.add(credito);
             this.saldo.sumar(credito.getMonto());
@@ -125,53 +127,4 @@ public class Cuenta implements Serializable {
         this.templates.add(template);
     }
 
-
-    // Getters and Setters
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-    public Dinero getSaldo() {
-        return this.saldo;
-    }
-
-    public void setTarjetaCredito(String numero, int codigo) {
-        this.tarjetaCredito = new TarjetaCredito(numero, codigo);
-    }
-
-    public TarjetaCredito getTarjetaCredito() {
-        return this.tarjetaCredito;
-    }
-
-    public List<Movimiento> getMovimientos() {
-        return this.movimientos;
-    }
-
-    public List<Credito> getCreditos() {
-        return this.creditos;
-    }
-
-    public Usuario getUsuario() {
-        return this.usuario;
-    }
-
-    public EstadoSituacionDeuda getSituacion() { return this.situacionDeuda; }
-
-    public void setSituacionDeuda(EstadoSituacionDeuda situacion) {
-        this.situacionDeuda = situacion;
-    }
-
-    public List<Invitacion> getInvitaciones() {
-        return this.invitaciones;
-    }
-
-    public List<Evento> getEventos() {
-        return this.eventos;
-    }
-
-    public List<Template> getTemplates() {
-        return this.templates;
-    }
 }

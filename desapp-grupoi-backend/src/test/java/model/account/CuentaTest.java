@@ -33,7 +33,7 @@ public class CuentaTest {
         Cuenta cuenta = new Cuenta(Mockito.mock(Usuario.class));
 
         assertNotNull(cuenta.getUsuario());
-        assertEquals(EnumEstados.EstadoSituacionDeuda.NORMAL, cuenta.getSituacion());
+        assertEquals(EnumEstados.EstadoSituacionDeuda.NORMAL, cuenta.getSituacionDeuda());
         assertEquals(0, cuenta.getSaldo().getMonto(), 0.0);
     }
 
@@ -86,30 +86,30 @@ public class CuentaTest {
 
     @Test
     public void testSetTarjetaCreditoDatosCorrectos() {
-        this.cuentaTest.setTarjetaCredito("1111222233334444", 123);
+        this.cuentaTest.setTarjetaCredito(new TarjetaCredito("1111222233334444", 123));
         TarjetaCredito tarjeta = this.cuentaTest.getTarjetaCredito();
 
-        assertEquals(16, tarjeta.getNumero().length());
-        assertEquals(3, String.valueOf(tarjeta.getCodigo()).length());
+        assertEquals(16, tarjeta.getNumeroTarjeta().length());
+        assertEquals(3, String.valueOf(tarjeta.getCodigoSeguridad()).length());
     }
 
     @Test
     public void testEstadoSituacionDeudaUsuarioSituacionNormal() {
         this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.NORMAL);
 
-        assertTrue(this.cuentaTest.getSituacion().esNormal());
+        assertTrue(this.cuentaTest.getSituacionDeuda().esNormal());
     }
     @Test
     public void testEstadoSituacionDeudaUsuarioSituacionCumplidor() {
         this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.CUMPLIDOR);
 
-        assertTrue(this.cuentaTest.getSituacion().esCumplidor());
+        assertTrue(this.cuentaTest.getSituacionDeuda().esCumplidor());
     }
     @Test
     public void testEstadoSituacionDeudaUsuarioSituacionMoroso() {
         this.cuentaTest.setSituacionDeuda(EnumEstados.EstadoSituacionDeuda.MOROSO);
 
-        assertTrue(this.cuentaTest.getSituacion().esMoroso());
+        assertTrue(this.cuentaTest.getSituacionDeuda().esMoroso());
     }
 
     @Test
@@ -135,7 +135,7 @@ public class CuentaTest {
         this.cuentaTest.debitarCuotaCredito();
 
         assertEquals(0, this.cuentaTest.getSaldo().getMonto(), 0.0);
-        assertTrue(this.cuentaTest.getSituacion().esMoroso());
+        assertTrue(this.cuentaTest.getSituacionDeuda().esMoroso());
     }
 
     @Test
