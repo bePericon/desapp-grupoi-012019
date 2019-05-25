@@ -1,42 +1,122 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-  </button>
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Completa tu nombre</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Nombre de pila" formControlName="firstCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Completa tu apellido</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Apellido" formControlName="secondCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Atrás</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button> -->
+<h3>Registro a Eventeando</h3>
+<mat-horizontal-stepper [linear]="true" #stepper>
+
+  <mat-step [stepControl]="nombreForm">
+    <form [formGroup]="nombreForm">
+      <ng-template matStepLabel>Tu nombre</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Nombre de pila" formControlName="nombreCtrl" required>
+      </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button matStepperNext>Siguiente <i class="material-icons">
+            chevron_right
+          </i></button>
       </div>
-    </mat-step>
-  </mat-horizontal-stepper>
-  
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="apellidoForm">
+    <form [formGroup]="apellidoForm">
+      <ng-template matStepLabel>Tu apellido</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Apellido" formControlName="apellidoCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious><i class="material-icons">
+            chevron_left
+          </i>Atrás</button>
+        <button mat-button matStepperNext>Siguiente <i class="material-icons">
+            chevron_right
+          </i></button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="emailForm">
+    <form [formGroup]="emailForm">
+      <ng-template matStepLabel>e-mail</ng-template>
+      <mat-form-field class="full-width">
+
+        <input matInput placeholder="Email" formControlName="emailCtrl" required>
+        <!-- <mat-error *ngIf="emailCtrl.hasError('email') && !emailCtrl.hasError('required')">
+          Debés ingresar un email válido.
+        </mat-error>  -->
+        <mat-hint align="end">Recordá poner un mail válido</mat-hint>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious><i class="material-icons">
+            chevron_left
+          </i>Atrás</button>
+        <button mat-button matStepperNext>Siguiente <i class="material-icons">
+            chevron_right
+          </i></button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="contraseniaForm">
+    <form [formGroup]="contraseniaForm">
+      <ng-template matStepLabel>Contraseña</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Contraseña" type="password" formControlName="contraseniaCtrl" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Repite la contraseña" type="password" formControlName="contraseniaCtrl" required>
+      </mat-form-field>
+
+      hacer una validacion de comparacion
+
+      <div>
+        <button mat-button matStepperPrevious><i class="material-icons">
+            chevron_left
+          </i>Atrás</button>
+        <button mat-button matStepperNext>Siguiente <i class="material-icons">
+            chevron_right
+          </i></button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <mat-step [stepControl]="fechaNacForm">
+    <form [formGroup]="fechaNacForm">
+      <ng-template matStepLabel>Fecha de Nacimiento</ng-template>
+      <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" formControlName="fechaNacCtrl"
+          required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious><i class="material-icons">
+            chevron_left
+          </i>Atrás</button>
+        <button mat-button matStepperNext>Siguiente<i class="material-icons">
+            chevron_right
+          </i></button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Listo!</ng-template>
+    Ya tenés todo listo para resgistrarte, poné "aceptar" e ingrersá a Eventeando.
+    <div>
+      <button mat-button matStepperPrevious>Atrás</button>
+      <button mat-button (click)="stepper.reset()" color="red">Reiniciar <i class="material-icons">
+          refresh
+        </i> </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
 
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Piola</button>
-  </mat-dialog-actions>
+  <button class="btn btn-outline-danger" mat-dialog-close>Cancelar</button>
+  <button class="btn btn-success ml-3" [mat-dialog-close]="true" cdkFocusInitial>Registrarme!</button>
+</mat-dialog-actions>
