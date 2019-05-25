@@ -21,13 +21,13 @@ public class Template {
 	private String nombre;
 	private String descripcion;
 
-	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
+	@OneToOne(cascade=CascadeType.ALL)
 	private Usuario organizador;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
 	private List<Item> items;
 
-	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
+	@OneToOne(cascade=CascadeType.ALL)
 	private Modalidad modalidad;
 
 	@Enumerated(EnumType.STRING)

@@ -1,7 +1,10 @@
 package app.model.account;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "tarjetacredito")
 public class TarjetaCredito {
@@ -10,19 +13,15 @@ public class TarjetaCredito {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private String numeroTarjeta;
+    @Column
     private int codigoSeguridad;
 
-    public TarjetaCredito(String numero, int codigo) {
-        this.numeroTarjeta = numero;
-        this.codigoSeguridad = codigo;
-    }
+    public TarjetaCredito(){}
 
-    public String getNumero() {
-        return this.numeroTarjeta;
-    }
-
-    public int getCodigo() {
-        return this.codigoSeguridad;
+    public TarjetaCredito(String numeroTarjeta, int codigoSeguridad) {
+        this.numeroTarjeta = numeroTarjeta;
+        this.codigoSeguridad = codigoSeguridad;
     }
 }

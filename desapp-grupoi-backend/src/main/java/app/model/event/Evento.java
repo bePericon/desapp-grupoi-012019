@@ -1,5 +1,6 @@
 package app.model.event;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "evento")
-public class Evento {
+public class Evento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -21,10 +22,10 @@ public class Evento {
 
 	private String nombre;
 
-	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
+	@OneToOne(cascade=CascadeType.ALL)
 	private Usuario organizador;
 
-	@OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
+	@OneToOne(cascade=CascadeType.ALL)
 	private Template template;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -32,6 +33,8 @@ public class Evento {
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="evento")
 	private List<Invitacion> invitados;
+
+	public Evento(){}
 
 	public Evento(Usuario organizador, String nombreEvento) {
 		this.organizador = organizador;

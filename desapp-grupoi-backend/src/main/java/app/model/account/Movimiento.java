@@ -20,7 +20,7 @@ public class Movimiento {
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
-    @OneToOne(cascade={CascadeType.ALL, CascadeType.REMOVE})
+    @OneToOne(cascade=CascadeType.ALL)
     private Dinero monto;
 
     public Movimiento() {
