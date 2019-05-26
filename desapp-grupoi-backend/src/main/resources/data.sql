@@ -1,4 +1,7 @@
 
+-- Se elimina una FK de la tabla para poder tener para distintos eventos los mismos invitados.
+ALTER TABLE evento_asistentes DROP CONSTRAINT UK_RE4YATSY4AHR7LP6AV7GCNQ9J;
+
 -- Creacion de usuarios: (usuario, saldo, cuenta)
 -- Usuarios
 insert into usuario (id, nombre, apellido, email, contrasenia, fecha_nac) values
@@ -49,3 +52,22 @@ insert into evento (id, nombre, organizador_id, template_id) values
 (2, 'Evento Fiesta Privada', 2, 2);
 -- Tabla conectora: CuentaEvento
 insert into cuenta_eventos (cuenta_id, eventos_id) values (2, 2);
+
+-- Creamos un evento Publico del primer usuario para Eventos Pasados.
+-- Saldo
+insert into dinero (id, aux, monto) values (7,0,0);
+-- Modalidad Fiesta (ya esta vencida)
+insert into fiesta (id, costo_total_id, organizador_id, fecha_limite) values
+(3, 7, 1, TO_DATE('10/02/2019', 'DD/MM/YYYY'));
+-- Template vacio
+insert into e_template (id, descripcion, nombre, visibilidad, modalidad_id, organizador_id) values
+(3, 'Primer template vacio', 'Evento Template', 'PUBLICA', 3, 1);
+-- Evento
+insert into evento (id, nombre, organizador_id, template_id) values
+(3, 'Evento Fiesta (ya vencida)', 1, 3);
+-- Tabla conectora: CuentaEvento
+insert into cuenta_eventos (cuenta_id, eventos_id) values (1, 3);
+-- Tabla conectora: EventoAsistentes
+insert into evento_asistentes (evento_id, asistentes_id) values (3, 2);
+insert into evento_asistentes (evento_id, asistentes_id) values (3, 3);
+insert into evento_asistentes (evento_id, asistentes_id) values (3, 4);

@@ -29,14 +29,6 @@ public class Fiesta extends Modalidad {
 		this.fechaLimite = fechaLimite;
 	}
 
-	@Column
-	private Date fechaLimite;
-
-	@Override
-	public boolean fechaVigente(Date fecha){
-		return this.fechaLimite.after(fecha);
-	}
-
 	@Override
 	public void calcularCostos(List<Usuario> asistentes) {
 		int cantAsistentes = asistentes.size();

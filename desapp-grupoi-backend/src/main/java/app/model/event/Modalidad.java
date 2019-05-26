@@ -29,6 +29,9 @@ public abstract class Modalidad implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL)
 	protected Usuario organizador;
 
+	@Column
+	protected Date fechaLimite;
+
 	public Modalidad() {
 		this.itemsAComprar = new ArrayList<Item>();
 		this.itemsComprados = new ArrayList<ItemUsuario>();
@@ -43,7 +46,7 @@ public abstract class Modalidad implements Serializable {
 	}
 
 	public boolean fechaVigente(Date fecha){
-		return true;
+		return this.fechaLimite.after(fecha);
 	}
 
 	public void agregarItemUsuario(ItemUsuario itemUsuario) {
@@ -90,6 +93,5 @@ public abstract class Modalidad implements Serializable {
 	}
 	public Dinero getCostoTotal(){
 		return this.costoTotal;
-
-	};
+	}
 }

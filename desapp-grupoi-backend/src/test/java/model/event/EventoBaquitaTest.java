@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 public class EventoBaquitaTest {
@@ -170,7 +173,7 @@ public class EventoBaquitaTest {
         this.evento = new Evento(mockUsuario, nombre);
     }
     private void setTemplateModalidadBaquitaCompraPreviaConTresItems() {
-        this.modalidad = new BaquitaCompraPrevia();
+        this.modalidad = new BaquitaCompraPrevia(new Date(2030,11,27,10,10,00));
         this.agregarTresItemsEnTemplate();
         this.template.setModalidad(this.modalidad);
     }
@@ -183,7 +186,7 @@ public class EventoBaquitaTest {
     }
 
     private void setTemplateModalidadBaquitaRecoleccionPreviaConTresItems() {
-        this.modalidad = new BaquitaRecoleccionPrevia();
+        this.modalidad = new BaquitaRecoleccionPrevia(new Date(2030,11,27,10,10,00));
         this.agregarTresItemsEnTemplate();
         this.template.setModalidad(this.modalidad);
     }

@@ -40,11 +40,6 @@ public class CuentaDao extends GenericDao<Cuenta> {
         cq.where(cb.equal(usuario.get("id"),idUsuario));
         cq.select(cuenta);
         List<Cuenta> cuentas = this.entityManager.createQuery(cq).getResultList();
-
-        if (cuentas.size() == 0){
-//            throw Exception();
-        }
-
         return cuentas.get(0);
     }
 }

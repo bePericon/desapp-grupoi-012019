@@ -4,6 +4,7 @@ import app.model.account.Dinero;
 import app.model.account.Usuario;
 
 import javax.persistence.Entity;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -13,9 +14,11 @@ public class Canasta extends Modalidad {
 	/*
 		Canasta: se presenta la lista de gastos a realizar y cada asistente elige un ítem del cual hacerse cargo.
 	 */
+	public Canasta(){}
 
-	public Canasta() {
+	public Canasta(Date fechaLimite) {
 		super();
+		this.fechaLimite = fechaLimite;
 	}
 
 	@Override
