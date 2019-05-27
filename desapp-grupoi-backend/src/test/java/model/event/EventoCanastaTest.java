@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 public class EventoCanastaTest {
@@ -41,7 +43,7 @@ public class EventoCanastaTest {
 		//FIXTURE
         this.setUsuarios();
         this.setNuevoEvento("Asado");
-        this.modalidad = new Canasta();
+        this.modalidad = new Canasta(new Date(2030,11,27,10,10,00));
         this.evento.setModalidad(this.modalidad);
         this.evento.agregarItem(new Item(this.getCosto(200), "Carne", 2));
         this.evento.agregarItem(new Item(this.getCosto(180), "Coca", 2));
@@ -62,7 +64,7 @@ public class EventoCanastaTest {
         //FIXTURE
         this.setUsuarios();
         this.setNuevoEvento("Asado");
-        this.modalidad = new Canasta();
+        this.modalidad = new Canasta(new Date(2030,11,27,10,10,00));
         this.evento.setModalidad(this.modalidad);
         this.evento.agregarItem(new Item(this.getCosto(200), "Carne", 2));
         this.evento.agregarItem(new Item(this.getCosto(180), "Coca", 2));

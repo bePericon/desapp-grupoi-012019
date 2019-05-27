@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = {"app"})
+@RequestMapping(value = {"app/evento"})
 @EnableAutoConfiguration
 public class EventoRestController {
 
@@ -29,21 +29,41 @@ public class EventoRestController {
     @Autowired
     private CuentaService cuentaService;
 
-    @GetMapping("/evento/all")
+    // Api para Mas populares
+    @GetMapping("/populares/all")
     public ResponseEntity<List<Evento>> getAllEventos() {
         List<Evento> eventos = this.eventoService.getAllEventos();
         return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
     }
 
-    @GetMapping("/evento/cuenta/{id}")
+    @GetMapping("/populares/cuenta/{id}")
     public ResponseEntity<List<Evento>> getMisEventos(@PathVariable String id) {
         List<Evento> eventos = this.eventoService.getEventosByCuentaId(Long.parseLong(id));
         return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
     }
 
-    @GetMapping("/evento/usuario/{id}")
+    @GetMapping("/populares/usuario/{id}")
     public ResponseEntity<List<Evento>> getEventosQueEstoyInvitado(@PathVariable String id) {
         List<Evento> eventos = this.eventoService.getEventosInvitado(Long.parseLong(id));
+        return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
+    }
+
+    // Api para Pasados
+    @GetMapping("/pasados/all")
+    public ResponseEntity<List<Evento>> getAllEventosPasados() {
+        List<Evento> eventos = this.eventoService.getAllEventosPasados();
+        return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
+    }
+
+    @GetMapping("/pasados/cuenta/{id}")
+    public ResponseEntity<List<Evento>> getMisEventosPasados(@PathVariable String id) {
+        List<Evento> eventos = this.eventoService.getEventosByCuentaIdPasados(Long.parseLong(id));
+        return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
+    }
+
+    @GetMapping("/pasados/usuario/{id}")
+    public ResponseEntity<List<Evento>> getEventosQueEstoyInvitadoPasados(@PathVariable String id) {
+        List<Evento> eventos = this.eventoService.getEventosInvitadoPasados(Long.parseLong(id));
         return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
     }
 }

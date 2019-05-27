@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -49,5 +50,21 @@ public class EventoService extends GenericService<Evento> {
         Usuario usuario = this.usuarioService.getByIdUsuario(idUsuario);
         List<Evento> eventos = this.getDao().getEventosInvitado(usuario.getEmail());
         return eventos;
+    }
+
+    public List<Evento> getAllEventosPasados() {
+        List<Evento> eventos = this.getDao().getAllEventosPublicosPasados();
+        if (eventos.isEmpty()) {
+            throw new ExceptionNoContent("Lista de eventos vacia.");
+        }
+        return eventos;
+    }
+
+    public List<Evento> getEventosByCuentaIdPasados(long idCuenta) {
+        return this.getEventosByCuentaId(idCuenta).stream().filter(e -> ! e.fechaVigente()).collect(Collectors.toList());
+    }
+
+    public List<Evento> getEventosInvitadoPasados(long idUsuario) {
+        return this.getEventosInvitado(idUsuario).stream().filter(e -> ! e.fechaVigente()).collect(Collectors.toList());
     }
 }

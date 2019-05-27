@@ -7,6 +7,7 @@ import app.model.account.Usuario;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,8 +31,11 @@ public abstract class Baquita extends Modalidad {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	protected List<Deuda> deudas;
 
-	public Baquita( ) {
+	public Baquita(){}
+
+	public Baquita(Date fechaLimite) {
 		super();
+		this.fechaLimite = fechaLimite;
 		this.costoUsuario = new Dinero(0);
 		this.deudas = new ArrayList<Deuda>();
 	}

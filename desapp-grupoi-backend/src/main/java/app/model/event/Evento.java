@@ -164,4 +164,8 @@ public class Evento implements Serializable {
 	private Date hoy(){
 		return new Date(System.currentTimeMillis());
 	}
+
+	public boolean fechaVigente() {
+		return this.template.fechaVigente(this.hoy());
+	}
 }

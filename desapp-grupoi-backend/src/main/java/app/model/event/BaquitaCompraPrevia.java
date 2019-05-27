@@ -5,6 +5,7 @@ import app.model.account.Usuario;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,8 +18,10 @@ public class BaquitaCompraPrevia extends Baquita {
 */
 
 
-	public BaquitaCompraPrevia() {
-		super();
+	public BaquitaCompraPrevia() {	}
+
+	public BaquitaCompraPrevia(Date fechaLimite) {
+		super(fechaLimite);
 	}
 
 	@Override

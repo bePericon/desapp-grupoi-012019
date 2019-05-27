@@ -4,6 +4,7 @@ import app.model.account.Dinero;
 import app.model.account.Usuario;
 
 import javax.persistence.Entity;
+import java.util.Date;
 
 @Entity
 public class BaquitaRecoleccionPrevia extends Baquita {
@@ -19,7 +20,10 @@ public class BaquitaRecoleccionPrevia extends Baquita {
 		mismos para las compras.
 */
 
-	public BaquitaRecoleccionPrevia() {
+	public BaquitaRecoleccionPrevia() {	}
+
+	public BaquitaRecoleccionPrevia(Date fechaLimite) {
+		super(fechaLimite);
 	}
 
 	public void pagarDeuda(Usuario deudor, Dinero monto){
