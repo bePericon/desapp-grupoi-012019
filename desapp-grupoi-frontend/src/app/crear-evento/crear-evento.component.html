@@ -1,43 +1,108 @@
-<!-- <div style="width: 100%;"> -->
 <div class="container mt-3">
 
   <div class="row">
 
     <div class="col-sm-8">
-      <mat-form-field>
-        <mat-label>Modalidad</mat-label>
-        <mat-select [formControl]="modalidadControl" required>
-          <mat-option>--</mat-option>
-          <mat-option *ngFor="let mod of modalidades" [value]="mod">
-            {{mod.nombre}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="modalidadControl.hasError('required')">Por favor elija una modalidad</mat-error>
-        <mat-hint>{{modalidadControl.value?.sound}}</mat-hint>
-      </mat-form-field>
+
+      <h3> Primero elegí una modalidad:</h3>
+      <span>clickeá sobre cualquiera de las modalidades para elegirla</span> <i class="fas fa-info-circle ml-2"></i>
+      <br>
+      <!-- <div class="card"> -->
+        <!-- <div class="card-body"> -->
+          <button type="button" value="fiesta" (click)="elegirModalidad('fiesta')" 
+          class="btn btn-outline-dark rounded-pill" matTooltip="{{infoFiesta}}">Fiesta
+          </button>
+          <!-- <span>Aca ponemos una descripcion de lo que son las fiestas sdfdsf fsfdsf sdfsdfsdfsdfsdfsdfsdf  ff</span> -->
+        <!-- </div> -->
+      <!-- </div> -->
+
+      <button type="button" class="btn btn-outline-dark ml-2  rounded-pill" (click)="elegirModalidad('canasta')"
+        matTooltip="{{infoCanasta}}">Canasta</button>
+      <button type="button" class="btn btn-outline-dark ml-2 rounded-pill" (click)="elegirModalidad('baquita v1')"
+        matTooltip="{{infoBaquitav1}}">Baquita v1</button>
+      <button type="button" class="btn btn-outline-dark ml-2 rounded-pill" (click)="elegirModalidad('baquita v2')"
+        matTooltip="{{infoBaquitav2}}">Baquita v2</button>
+
+
+
+      <mat-vertical-stepper *ngIf="modalidad" [linear]="false" #stepper>
+
+        <mat-step [stepControl]="nombreForm">
+          <form [formGroup]="nombreForm">
+            <ng-template matStepLabel>Nombre del evento</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="Nombre del evento" formControlName="nombreCtrl" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Siguiente <i class="material-icons">
+                  chevron_right
+                </i></button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="descripcionForm">
+          <form [formGroup]="descripcionForm">
+            <ng-template matStepLabel>Poné una descripción</ng-template>
+            <mat-form-field>
+              <textarea matInput placeholder="Descripción" formControlName="descripcionCtrl" required></textarea>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious><i class="material-icons">
+                  chevron_left
+                </i>Atrás</button>
+              <button mat-button matStepperNext>Siguiente <i class="material-icons">
+                  chevron_right
+                </i></button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="fechaForm">
+          <form [formGroup]="fechaForm">
+            <ng-template matStepLabel>Fecha de Evento</ng-template>
+            <mat-form-field class="full-width">
+              <input matInput [matDatepicker]="picker" placeholder="Fecha del Evento" formControlName="fechaCtrl"
+                required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperPrevious><i class="material-icons">
+                  chevron_left
+                </i>Atrás</button>
+              <button mat-button matStepperNext>Siguiente<i class="material-icons">
+                  chevron_right
+                </i></button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Invitar amigos</ng-template>
+          hacer lo de invitar gente
+          <div>
+            <button mat-button matStepperPrevious>Atrás</button>
+            <!-- <button mat-button (click)="stepper.reset()" color="red">Reiniciar 
+                <i class="material-icons">
+                  refresh
+                </i> 
+              </button> -->
+            <button mat-button color="red">
+              comenzar a invitar!
+            </button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
     </div>
     <div class="col-sm-4">
 
       Cosas de templates, menu al costado
 
-      </div>
-  </div>
-  <div class="row">
-
-    <div class="col-sm-12">
-
-      <!-- <form class="example-form"> -->
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Favorite food" value="Sushi">
-        </mat-form-field>
-<br>
-        <mat-form-field class="example-full-width">
-          <textarea matInput placeholder="Descripcion"></textarea>
-        </mat-form-field>
-
-        agregar invitados
-        items, como los cargamos? 
-      <!-- </form> -->
     </div>
   </div>
+  <br>
+
+
 </div>

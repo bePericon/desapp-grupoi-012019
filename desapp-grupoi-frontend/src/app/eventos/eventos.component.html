@@ -1,4 +1,4 @@
-<div class="container-fluid" >
+<div class="container-fluid">
 
   <div class="row">
     <div class="col-sm-12">
@@ -15,20 +15,27 @@
           <app-mostrar-eventos></app-mostrar-eventos>
         </mat-tab>
 
-        <mat-tab label="Eventos en curso">
+        <mat-tab label="Me invitaron en curso">
           <app-mostrar-eventos></app-mostrar-eventos>
         </mat-tab>
+        <mat-tab label="Creados por mi">
+          <app-mostrar-eventos></app-mostrar-eventos>
+        </mat-tab>
+
         <mat-tab style="width:100%!important">
           <ng-template mat-tab-label>
-            <i class="material-icons" style="color:#0012ff!important">
-              add_circle_outline
-            </i>
-            <span style="color:#0012ff!important"> Crear Evento </span>
+            <div class="crear" style="color:#0012ff!important">
+              <i class="material-icons">
+                add_circle_outline
+              </i>
+              <span style="vertical-align: super"> Crear Evento </span>
+            </div>
+
           </ng-template>
           <div style="width:100%!important">
             <app-crear-evento style="width:100%!important"></app-crear-evento>
           </div>
-          <button (click)="getDatos()">getdatos</button>
+          <!-- <button (click)="getDatos()">getdatos</button> -->
 
         </mat-tab>
       </mat-tab-group>

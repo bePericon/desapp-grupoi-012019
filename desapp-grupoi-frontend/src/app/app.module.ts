@@ -27,6 +27,7 @@ import { InvitacionesComponent } from './invitaciones/invitaciones.component';
 import { BilleteraComponent } from './billetera/billetera.component';
 import { MostrarInvitacionesComponent } from './mostrar-invitaciones/mostrar-invitaciones.component';
 import {MatDatepickerModule,} from '@angular/material/datepicker';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
 
@@ -67,8 +68,8 @@ import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
     RouterModule.forChild([]),
     MatSelectModule,
     MatDatepickerModule,
- 
-    MatNativeDateModule 
+    MatNativeDateModule,
+    MatTooltipModule
 
 
   ],
@@ -89,7 +90,8 @@ import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
     MatRadioModule,
     HttpClientModule,
     MatSelectModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatTooltipModule
   ],
   entryComponents: [RegisterComponent],
   providers: [],
