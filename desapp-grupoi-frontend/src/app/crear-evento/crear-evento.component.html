@@ -8,11 +8,9 @@
       <span>Primero elegí cualquiera de las modalidades.</span>
       <br>
 
-
       <button type="button" value="fiesta" (click)="elegirModalidad('fiesta')" class="btn btn-outline-dark rounded-pill"
         matTooltip="{{infoFiesta}}">Fiesta
       </button>
-
 
       <button type="button" class="btn btn-outline-dark ml-2  rounded-pill" (click)="elegirModalidad('canasta')"
         matTooltip="{{infoCanasta}}">Canasta</button>
@@ -20,8 +18,6 @@
         matTooltip="{{infoBaquitav1}}">Baquita v1</button>
       <button type="button" class="btn btn-outline-dark ml-2 rounded-pill" (click)="elegirModalidad('baquita v2')"
         matTooltip="{{infoBaquitav2}}">Baquita v2</button>
-
-
 
       <mat-vertical-stepper *ngIf="modalidad" [linear]="false" #stepper>
 
@@ -77,17 +73,29 @@
           </form>
         </mat-step>
 
-        <mat-step>
-          <ng-template matStepLabel>Invitar amigos</ng-template>
-          <span>un input que recibe emails, conun boton que dice "agregar", y aca mismo aparecen en una lista</span>
-          <div>
-            <button mat-button matStepperPrevious>Atrás</button>
+        <mat-step [stepControl]="emailForm">
+          <form [formGroup]="emailForm">
+            <ng-template matStepLabel>Invitar!</ng-template>
+            <mat-form-field class="full-width">
+              <input [(ngModel)]="invitado" matInput placeholder="Email" formControlName="emailCtrl" required>
+              <mat-hint>Recordá poner un mail válido</mat-hint>
+            </mat-form-field>
 
-            <button mat-button color="red">
-              comenzar a invitar!
-            </button>
-          </div>
+            <button (click)="invitar()">invitar</button>
+
+            <div>
+              <button mat-button matStepperPrevious>
+                <i class="material-icons">
+                  chevron_left
+                </i>
+                Atrás
+              </button>
+              <br><br>
+              <p *ngFor="let t of invitados">{{t}}</p>
+            </div>
+          </form>
         </mat-step>
+
       </mat-vertical-stepper>
     </div>
     <div class="col-sm-6">

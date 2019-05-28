@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 export interface Combo {
   nombre: string;
   desc: string;
 }
+
+
 
 @Component({
   selector: 'app-crear-evento',
@@ -15,7 +18,10 @@ export interface Combo {
 
 export class CrearEventoComponent implements OnInit {
   panelOpenState = false;
+  invitado:string;
+  invitados:Array<string>;
   constructor(private _formBuilder: FormBuilder) { 
+    this.invitados=[];
   }
 
   ngOnInit() {
@@ -25,6 +31,7 @@ export class CrearEventoComponent implements OnInit {
     this.infoBaquitav2 = "Descripcion de baquitav2";
   
     this.modalidad = "";
+
     this.modalidadControl = new FormControl('', [Validators.required]);
 
     this.nombreForm = this._formBuilder.group({
@@ -37,12 +44,17 @@ export class CrearEventoComponent implements OnInit {
     this.fechaForm = this._formBuilder.group({
       fechaCtrl: ['', Validators.required]
     });
+
+    this.emailForm = this._formBuilder.group({
+      emailCtrl: ['', [Validators.required, Validators.email]]
+    });
   }
   
   modalidadControl:FormControl;
   nombreForm: FormGroup;
   descripcionForm: FormGroup;
   fechaForm: FormGroup;
+  emailForm: FormGroup;
 
   infoFiesta:String;
   infoCanasta:String;
@@ -50,6 +62,13 @@ export class CrearEventoComponent implements OnInit {
   infoBaquitav2:String;
   modalidad:String;
  
+
+invitar(){
+
+  console.log(this.invitado)
+  console.log(this.invitados)
+  this.invitados.push(this.invitado);
+}
 
   elegirModalidad(mod:String){
     this.modalidad=mod;  

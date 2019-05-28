@@ -39,11 +39,7 @@
     <form [formGroup]="emailForm">
       <ng-template matStepLabel>e-mail</ng-template>
       <mat-form-field class="full-width">
-
         <input matInput placeholder="Email" formControlName="emailCtrl" required>
-        <!-- <mat-error *ngIf="emailCtrl.hasError('email') && !emailCtrl.hasError('required')">
-          Debés ingresar un email válido.
-        </mat-error>  -->
         <mat-hint align="end">Recordá poner un mail válido</mat-hint>
       </mat-form-field>
       <div>
