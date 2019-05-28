@@ -33,6 +33,9 @@ public class EventoService extends GenericService<Evento> {
         return this.dao;
     }
 
+    /*
+     * Retorna todos los eventos Publicos.
+     */
     public List<Evento> getAllEventos() {
         List<Evento> eventos = this.getDao().getAllEventosPublicos();
         if (eventos.isEmpty()) {
@@ -41,17 +44,26 @@ public class EventoService extends GenericService<Evento> {
         return eventos;
     }
 
+    /*
+     * Retorna todos los eventos que fueron creados por una cuenta.
+     */
     public List<Evento> getEventosByCuentaId(long idCuenta) {
         Cuenta cuenta = this.cuentaService.getCuentaByIdUsuario(idCuenta);
         return cuenta.getEventos();
     }
 
+    /*
+     * Retorna todos los eventos donde el usuario esta invitado.
+     */
     public List<Evento> getEventosInvitado(long idUsuario) {
         Usuario usuario = this.usuarioService.getByIdUsuario(idUsuario);
         List<Evento> eventos = this.getDao().getEventosInvitado(usuario.getEmail());
         return eventos;
     }
 
+    /*
+     * Retorna todos los eventos publicos que ya vencieron (su fecha limite ya paso).
+     */
     public List<Evento> getAllEventosPasados() {
         List<Evento> eventos = this.getDao().getAllEventosPublicosPasados();
         if (eventos.isEmpty()) {
@@ -60,11 +72,26 @@ public class EventoService extends GenericService<Evento> {
         return eventos;
     }
 
-    public List<Evento> getEventosByCuentaIdPasados(long idCuenta) {
+    /*
+     * Retorna todos los eventos vencidos que fueron creados por una cuenta.
+     */
+    public List<Evento> getEventosPasadosByIdCuenta(long idCuenta) {
         return this.getEventosByCuentaId(idCuenta).stream().filter(e -> ! e.fechaVigente()).collect(Collectors.toList());
     }
 
-    public List<Evento> getEventosInvitadoPasados(long idUsuario) {
+    /*
+     * Retorna todos los eventos vencidos donde el usuario esta invitado.
+     */
+    public List<Evento> getEventosMeInvitaronPasados(long idUsuario) {
         return this.getEventosInvitado(idUsuario).stream().filter(e -> ! e.fechaVigente()).collect(Collectors.toList());
+    }
+
+    /*
+     * Retorna todos los eventos en curso donde el usuario esta invitado.
+     */
+    public List<Evento> getEventosInvitadoEnCurso(long idUsuario) {
+        Usuario usuario = this.usuarioService.getByIdUsuario(idUsuario);
+        List<Evento> eventos = this.getDao().getEventosInvitadoEnCurso(usuario.getEmail());
+        return eventos;
     }
 }

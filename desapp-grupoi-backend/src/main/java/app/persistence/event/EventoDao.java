@@ -60,4 +60,25 @@ public class EventoDao extends GenericDao<Evento> {
 
         return eventosPublicos;
     }
+
+    public List<Evento> getEventosInvitadoEnCurso(String email) {
+        CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
+        CriteriaQuery<Evento> query = cb.createQuery(Evento.class);
+        Root<Evento> evento= query.from(Evento.class);
+
+        Join<Evento, Usuario> eventoUsuarioJoin = evento.join("asistentes", JoinType.LEFT);
+        Join<Evento, Template> eventoTemplateJoin = evento.join("template", JoinType.LEFT);
+        Join<Template, Modalidad> templateModalidadJoin = eventoTemplateJoin.join("modalidad", JoinType.LEFT);
+
+        query
+            .select(evento)
+            .where(
+                    cb.equal(eventoUsuarioJoin.get("email"), email),
+                    cb.greaterThan(templateModalidadJoin.get("fechaLimite"), new Date(System.currentTimeMillis()))
+            );
+
+        List<Evento> eventosPublicos = this.entityManager.createQuery(query).getResultList();
+
+        return eventosPublicos;
+    }
 }
