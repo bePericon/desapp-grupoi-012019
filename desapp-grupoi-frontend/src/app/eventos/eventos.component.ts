@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { EventoService } from '../evento.service';
+import { MostrarEventosComponent } from './../mostrar-eventos/mostrar-eventos.component';
+import { EventoService } from './../services/evento.service';
+import { Evento } from './../model/evento.model';
+import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
+
 
 @Component({
   selector: 'app-eventos',
@@ -8,22 +11,25 @@ import { EventoService } from '../evento.service';
 })
 export class EventosComponent implements OnInit {
 
-  variable: any
+  variable: any;
 
-  constructor(private eventoSrv: EventoService) { }
+  @ViewChild('ameMasPopulares') ameMasPopulares: MostrarEventosComponent;
+  @ViewChild('amePasados') amePasados: MostrarEventosComponent;
+  @ViewChild('ameInvitaronEnCurso') ameInvitaronEnCurso: MostrarEventosComponent;
+  @ViewChild('ameCreadosPorMi') ameCreadosPorMi: MostrarEventosComponent;
+
+  constructor(private eventoService: EventoService) { }
 
   ngOnInit() {
+    this.ameMasPopulares.getMasPopulares();
+    this.amePasados.getPasados();
+    this.ameInvitaronEnCurso.getInvitaronEnCurso();
+    this.ameCreadosPorMi.getCreadosPorMi();
   }
 
   getDatos() {
-    // console.log(this.eventoSrv.getUsuarios());
-
-    this.eventoSrv.getUsuarios().subscribe(res => {
-      this.variable = res;
-    })
-
-  
   }
+  
   sas(){
     alert("sarasa")
   }
