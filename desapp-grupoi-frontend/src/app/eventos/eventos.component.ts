@@ -22,9 +22,11 @@ export class EventosComponent implements OnInit {
       this.variable = res;
     })
 
-
+  
   }
-
+  sas(){
+    alert("sarasa")
+  }
   // showConfig() {
   //   this.eventoSrv.getConfig()
   //     .subscribe((data: Config) => this.config = {

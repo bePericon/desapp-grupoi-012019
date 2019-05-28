@@ -14,7 +14,7 @@ export interface Combo {
 
 
 export class CrearEventoComponent implements OnInit {
-
+  panelOpenState = false;
   constructor(private _formBuilder: FormBuilder) { 
   }
 

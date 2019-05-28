@@ -28,8 +28,10 @@ import { BilleteraComponent } from './billetera/billetera.component';
 import { MostrarInvitacionesComponent } from './mostrar-invitaciones/mostrar-invitaciones.component';
 import {MatDatepickerModule,} from '@angular/material/datepicker';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
+import { CrearTemplateComponent } from './crear-template/crear-template.component';
+import { MostrarTemplateComponent } from './mostrar-template/mostrar-template.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,11 @@ import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
     BilleteraComponent,
     MostrarInvitacionesComponent,
     
-    MiCuentaComponent
+    MiCuentaComponent,
+    
+    CrearTemplateComponent,
+    
+    MostrarTemplateComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +75,8 @@ import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
 
 
   ],
@@ -91,7 +98,8 @@ import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
     HttpClientModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
   entryComponents: [RegisterComponent],
   providers: [],
