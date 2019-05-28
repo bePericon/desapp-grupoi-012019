@@ -18,8 +18,9 @@ export interface Combo {
 
 export class CrearEventoComponent implements OnInit {
   panelOpenState = false;
-  invitado:string;
-  invitados:Array<string>;
+  // invitado:string;
+  invitados;
+  
   constructor(private _formBuilder: FormBuilder) { 
     this.invitados=[];
   }
@@ -32,10 +33,11 @@ export class CrearEventoComponent implements OnInit {
   
     this.modalidad = "";
 
-    this.modalidadControl = new FormControl('', [Validators.required]);
+    // this.modalidadControl = new FormControl('', [Validators.required]);
 
+    //formgroup
     this.nombreForm = this._formBuilder.group({
-      nombreCtrl: ['', Validators.required]
+      nombreCtrl: ['', Validators.required] //formControl
     });
     this.descripcionForm = this._formBuilder.group({
       descripcionCtrl: ['', Validators.required]
@@ -46,7 +48,7 @@ export class CrearEventoComponent implements OnInit {
     });
 
     this.emailForm = this._formBuilder.group({
-      emailCtrl: ['', [Validators.required, Validators.email]]
+      emailCtrl: ['', [ Validators.email]]
     });
   }
   
@@ -64,14 +66,29 @@ export class CrearEventoComponent implements OnInit {
  
 
 invitar(){
-
-  console.log(this.invitado)
-  console.log(this.invitados)
-  this.invitados.push(this.invitado);
+  //los forms en angular ahora son reactivos, asi que tuve que hacer un workarround para manipular la data
+  let invitado = this.emailForm.value.emailCtrl; //agarra el dato
+  this.invitados.push(invitado);  //agrega a una lista
+  
+  this.emailForm.get('emailCtrl').setValue(''); //lo blanquea
+  this.emailForm.get('emailCtrl').markAsPristine(); //limpiamos las validaciones
+  this.emailForm.get('emailCtrl').markAsUntouched(); // limpiamos las validaciones
 }
 
   elegirModalidad(mod:String){
     this.modalidad=mod;  
   }
 
+  removerInvitado(inv){
+    // recorre lista de invitados, compara y lo saca de la lista
+    alert("implementar remover usuario")
+  }
+
+
+  cancelarCreacion(stepper){
+    this.invitados = [];
+
+    stepper.reset();
+    this.modalidad = null;
+  }
 }

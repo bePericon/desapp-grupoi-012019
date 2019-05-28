@@ -5,6 +5,7 @@
     <div class="col-sm-6">
 
       <h3> Crear evento personalizado:</h3>
+      <br>
       <span>Primero elegí cualquiera de las modalidades.</span>
       <br>
 
@@ -28,9 +29,11 @@
               <input matInput placeholder="Nombre del evento" formControlName="nombreCtrl" required>
             </mat-form-field>
             <div>
-              <button mat-button matStepperNext>Siguiente <i class="material-icons">
+              <button mat-button matStepperNext>Siguiente
+                <i class="material-icons">
                   chevron_right
-                </i></button>
+                </i>
+              </button>
             </div>
           </form>
         </mat-step>
@@ -42,12 +45,16 @@
               <textarea matInput placeholder="Descripción" formControlName="descripcionCtrl" required></textarea>
             </mat-form-field>
             <div>
-              <button mat-button matStepperPrevious><i class="material-icons">
+              <button mat-button matStepperPrevious>
+                <i class="material-icons">
                   chevron_left
-                </i>Atrás</button>
-              <button mat-button matStepperNext>Siguiente <i class="material-icons">
+                </i>Atrás
+              </button>
+              <button mat-button matStepperNext>Siguiente
+                <i class="material-icons">
                   chevron_right
-                </i></button>
+                </i>
+              </button>
             </div>
           </form>
         </mat-step>
@@ -77,7 +84,7 @@
           <form [formGroup]="emailForm">
             <ng-template matStepLabel>Invitar!</ng-template>
             <mat-form-field class="full-width">
-              <input [(ngModel)]="invitado" matInput placeholder="Email" formControlName="emailCtrl" required>
+              <input matInput placeholder="Email" formControlName="emailCtrl">
               <mat-hint>Recordá poner un mail válido</mat-hint>
             </mat-form-field>
 
@@ -90,14 +97,31 @@
                 </i>
                 Atrás
               </button>
-              <br><br>
-              <p *ngFor="let t of invitados">{{t}}</p>
+              <!-- stepper.reset() -->
+              <br>
+              <button  (click)="cancelarCreacion(stepper)" class="btn btn-outline-danger">Cancelar creación de evento
+
+              </button>
+              <br>
+
+              <div *ngIf="invitados.length > 0">
+                <h4>Invitados:</h4>
+                <div *ngFor="let t of invitados" class="mt-1">
+                  <span style="vertical-align: super;">{{t}} </span>
+                  <button (click)="removerInvitado(t)" class="btn btn-outline-danger btn-sm float-right" matTooltip="Remover invitado">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </mat-step>
 
       </mat-vertical-stepper>
     </div>
+
+    <!-- TEMPLATES************************************************************************************ -->
+
     <div class="col-sm-6">
 
       <div class="row">
