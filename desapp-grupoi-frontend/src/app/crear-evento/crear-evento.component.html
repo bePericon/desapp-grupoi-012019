@@ -1,20 +1,18 @@
-<div class="container mt-3">
+<div class="container-fluid mt-3">
 
   <div class="row">
 
-    <div class="col-sm-8">
+    <div class="col-sm-6">
 
-      <h3> Primero elegí una modalidad:</h3>
-      <span>clickeá sobre cualquiera de las modalidades para elegirla</span> <i class="fas fa-info-circle ml-2"></i>
+      <h3> Elegí una modalidad:</h3>
+      <span>Primero elegí cualquiera de las modalidades.</span>
       <br>
-      <!-- <div class="card"> -->
-        <!-- <div class="card-body"> -->
-          <button type="button" value="fiesta" (click)="elegirModalidad('fiesta')" 
-          class="btn btn-outline-dark rounded-pill" matTooltip="{{infoFiesta}}">Fiesta
-          </button>
-          <!-- <span>Aca ponemos una descripcion de lo que son las fiestas sdfdsf fsfdsf sdfsdfsdfsdfsdfsdfsdf  ff</span> -->
-        <!-- </div> -->
-      <!-- </div> -->
+
+
+      <button type="button" value="fiesta" (click)="elegirModalidad('fiesta')" class="btn btn-outline-dark rounded-pill"
+        matTooltip="{{infoFiesta}}">Fiesta
+      </button>
+
 
       <button type="button" class="btn btn-outline-dark ml-2  rounded-pill" (click)="elegirModalidad('canasta')"
         matTooltip="{{infoCanasta}}">Canasta</button>
@@ -84,11 +82,7 @@
           hacer lo de invitar gente
           <div>
             <button mat-button matStepperPrevious>Atrás</button>
-            <!-- <button mat-button (click)="stepper.reset()" color="red">Reiniciar 
-                <i class="material-icons">
-                  refresh
-                </i> 
-              </button> -->
+
             <button mat-button color="red">
               comenzar a invitar!
             </button>
@@ -96,13 +90,47 @@
         </mat-step>
       </mat-vertical-stepper>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
 
-      Cosas de templates, menu al costado
+      <div class="row">
+
+        <h3>Sino, podés crealo desde un template:</h3>
+
+        <span>Primero elegí la categía de templates.</span>
+        <br> <br>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Tus templates
+              </mat-panel-title>
+              <mat-panel-description>
+                Estos son los templates creados por vos
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <app-mostrar-template></app-mostrar-template>
+
+          </mat-expansion-panel>
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Templates públicos
+              </mat-panel-title>
+              <mat-panel-description>
+                Templates públicos, comunes a todos los usuarios
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <app-mostrar-template></app-mostrar-template>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+      </div>
 
     </div>
+    <br>
+
+
   </div>
-  <br>
-
-
-</div>

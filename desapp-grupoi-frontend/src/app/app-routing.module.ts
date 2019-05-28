@@ -6,6 +6,7 @@ import { EventosComponent } from './eventos/eventos.component';
 import { NosotrosComponent } from './nosotros/nosotros.component';
 import { BilleteraComponent } from './billetera/billetera.component';
 import { InvitacionesComponent } from './invitaciones/invitaciones.component';
+import { CrearEventoComponent } from './crear-evento/crear-evento.component';
 import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'eventos', pathMatch: 'full' },
       { path: 'eventos', component: EventosComponent, pathMatch: 'full' },
+      { path: 'crear-evento', component: CrearEventoComponent, pathMatch: 'full' },
       { path: 'invitaciones', component: InvitacionesComponent, pathMatch: 'full' },
       { path: 'billetera', component: BilleteraComponent, pathMatch: 'full' },
       { path: 'miCuenta', component: MiCuentaComponent, pathMatch: 'full' }
