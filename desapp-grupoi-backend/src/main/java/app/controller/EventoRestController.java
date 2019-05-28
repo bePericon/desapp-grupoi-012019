@@ -1,12 +1,8 @@
 package app.controller;
 
-import app.model.account.Cuenta;
-import app.model.account.Usuario;
 import app.model.event.Evento;
 import app.service.account.CuentaService;
-import app.service.account.UsuarioService;
 import app.service.event.EventoService;
-import app.util.CustomErrorType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
@@ -30,21 +26,10 @@ public class EventoRestController {
     private CuentaService cuentaService;
 
     // Api para Mas populares
+    // TODO: crear calificacion.
     @GetMapping("/populares/all")
     public ResponseEntity<List<Evento>> getAllEventos() {
         List<Evento> eventos = this.eventoService.getAllEventos();
-        return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
-    }
-
-    @GetMapping("/populares/cuenta/{id}")
-    public ResponseEntity<List<Evento>> getMisEventos(@PathVariable String id) {
-        List<Evento> eventos = this.eventoService.getEventosByCuentaId(Long.parseLong(id));
-        return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
-    }
-
-    @GetMapping("/populares/usuario/{id}")
-    public ResponseEntity<List<Evento>> getEventosQueEstoyInvitado(@PathVariable String id) {
-        List<Evento> eventos = this.eventoService.getEventosInvitado(Long.parseLong(id));
         return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
     }
 
@@ -55,15 +40,29 @@ public class EventoRestController {
         return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
     }
 
-    @GetMapping("/pasados/cuenta/{id}")
+    @GetMapping("/pasados/cuenta/{id}") //Creados por el usuario.
     public ResponseEntity<List<Evento>> getMisEventosPasados(@PathVariable String id) {
-        List<Evento> eventos = this.eventoService.getEventosByCuentaIdPasados(Long.parseLong(id));
+        List<Evento> eventos = this.eventoService.getEventosPasadosByIdCuenta(Long.parseLong(id));
         return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
     }
 
-    @GetMapping("/pasados/usuario/{id}")
-    public ResponseEntity<List<Evento>> getEventosQueEstoyInvitadoPasados(@PathVariable String id) {
-        List<Evento> eventos = this.eventoService.getEventosInvitadoPasados(Long.parseLong(id));
+    @GetMapping("/pasados/usuario/{id}") //Que invitaron al usuario.
+    public ResponseEntity<List<Evento>> getEventosMeInvitaronPasados(@PathVariable String id) {
+        List<Evento> eventos = this.eventoService.getEventosMeInvitaronPasados(Long.parseLong(id));
+        return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
+    }
+
+    // Api para Estoy invitado y estan en curso
+    @GetMapping("/encurso/usuario/{id}")
+    public ResponseEntity<List<Evento>> getEventosMeInvitaronEnCurso(@PathVariable String id) {
+        List<Evento> eventos = this.eventoService.getEventosInvitadoEnCurso(Long.parseLong(id));
+        return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
+    }
+
+    // Api para Creados por mi
+    @GetMapping("/cuenta/{id}") //Los eventos creados por el usuario.
+    public ResponseEntity<List<Evento>> getMisEventos(@PathVariable String id) {
+        List<Evento> eventos = this.eventoService.getEventosByCuentaId(Long.parseLong(id));
         return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
     }
 }
