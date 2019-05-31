@@ -2,6 +2,7 @@ package app.model.event;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,12 +10,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Data
 @Entity
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 public abstract class Modalidad implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
@@ -32,12 +34,18 @@ public abstract class Modalidad implements Serializable {
 	@Column
 	protected Date fechaLimite;
 
-	public Modalidad() {
+	@OneToOne(cascade=CascadeType.ALL)
+	protected Dinero costoUsuario;
+
+	public Modalidad(){}
+
+	public Modalidad(Date fechaLimite) {
 		this.itemsAComprar = new ArrayList<Item>();
 		this.itemsComprados = new ArrayList<ItemUsuario>();
 		this.costoTotal = new Dinero(0);
+		this.fechaLimite = fechaLimite;
+		this.costoUsuario = new Dinero(0);
 	}
-
 
 	public void calcularCostos(List<Usuario> asistentes) {
 		this.costoTotal = new Dinero(0);
@@ -58,7 +66,7 @@ public abstract class Modalidad implements Serializable {
 		this.agregarItemUsuario(new ItemUsuario(item, usuario));
 	}
 
-	public int getCantidadItemsComprados(){
+	public int obtenerCantidadItemsComprados(){
 		return this.itemsComprados.size();
 	}
 
@@ -66,32 +74,4 @@ public abstract class Modalidad implements Serializable {
 		return this.getCostoUsuario();
 	}
 
-	public Dinero getCostoUsuario(){
-		return new Dinero(0);
-	}
-
-//	Getters y setters
-
-	public List<Item> getItemsAComprar() {
-		return itemsAComprar;
-	}
-
-	public List<ItemUsuario> getItemsComprados() {
-		return itemsComprados;
-	}
-
-	public void setOrganizador(Usuario user) {
-		this.organizador = user;
-	}
-
-	public void setItemsAComprar(List<Item> listaItems) {
-		this.itemsAComprar = listaItems;
-	}
-
-	public void addItemsAComprar(Item item) {
-		this.itemsAComprar.add(item);
-	}
-	public Dinero getCostoTotal(){
-		return this.costoTotal;
-	}
 }

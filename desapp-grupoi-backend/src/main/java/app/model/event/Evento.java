@@ -1,8 +1,6 @@
 package app.model.event;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -100,7 +98,7 @@ public class Evento implements Serializable {
 	}
 
 	public int getCantidadItems() {
-		return this.template.geCantidadItems();
+		return this.template.obtenerCantidadItems();
 	}
 
 	public boolean agregarAsistente(Usuario asistente) {
@@ -137,7 +135,7 @@ public class Evento implements Serializable {
 
 	public Dinero getCostoTotal() {
 		this.template.calcularCostos(this.asistentes);
-		return this.template.getCostoTotal();
+		return this.template.obtenerCostoTotal();
 	}
 
     public void elegirItemPorIndice(Usuario usuario, int i) {
@@ -145,20 +143,20 @@ public class Evento implements Serializable {
     }
 
 	public int getCantidadItemsComprados() {
-		return this.template.getCantidadItemsComprados();
+		return this.template.obtenerCantidadItemsComprados();
 	}
 
 	public List<ItemUsuario> getItemsComprados() {
-		return this.template.getItemsComprados();
+		return this.template.obtenerItemsComprados();
 	}
 
 	public Dinero getCostoUsuario(Usuario usuario) {
-		return this.template.getCostoUsuario(usuario);
+		return this.template.obtenerCostoUsuario(usuario);
 	}
 
 	public Dinero getCostoUsuario() {
 		this.calcularCostos(this.asistentes);
-		return this.template.getCostoUsuario();
+		return this.template.obtenerCostoUsuario();
 	}
 
 	private Date hoy(){

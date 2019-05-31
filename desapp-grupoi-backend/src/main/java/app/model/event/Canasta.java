@@ -17,8 +17,7 @@ public class Canasta extends Modalidad {
 	public Canasta(){}
 
 	public Canasta(Date fechaLimite) {
-		super();
-		this.fechaLimite = fechaLimite;
+		super(fechaLimite);
 	}
 
 	@Override

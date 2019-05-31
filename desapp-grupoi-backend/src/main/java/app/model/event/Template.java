@@ -1,18 +1,22 @@
 package app.model.event;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import app.model.NewTemplate;
 import app.model.account.Dinero;
 import app.model.account.Usuario;
 import app.model.event.EnumTipos.*;
+import lombok.Data;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "e_template")
-public class Template {
+public class Template implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,6 +51,7 @@ public class Template {
 	public Template(String nombre, String descripcion, Usuario organizador, Modalidad modalidad) {
 		this(nombre,descripcion, organizador);
 		this.modalidad = modalidad;
+		this.modalidad.setOrganizador(organizador);
 	}
 
 	public void hacerPublica() {
@@ -57,40 +62,20 @@ public class Template {
 		this.items.add(item);
 	}
 
-	//	GETTERS Y SETTERS
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public List<Item> getItems() {
-		return this.items;
-	}
-
 	public void setModalidad(Modalidad modalidad) {
 		this.modalidad = modalidad;
 		this.modalidad.setItemsAComprar(this.items);
 		this.modalidad.setOrganizador(this.organizador);
 	}
 
-	public Modalidad getModalidad() {
-		return modalidad;
-	}
-
-	public TipoVisibilidad getVisibilidad() {
-		return visibilidad;
-	}
-
-	public int geCantidadItems() {
+	public int obtenerCantidadItems() {
 		return this.items.size();
+	}
+
+	public void setOrganizador(Usuario usuario){
+		this.organizador = usuario;
+		if(this.modalidad != null)
+			this.modalidad.setOrganizador(usuario);
 	}
 
 	public void calcularCostos(List<Usuario> asistentes) {
@@ -98,7 +83,7 @@ public class Template {
 			this.modalidad.calcularCostos(asistentes);
 	}
 
-	public Dinero getCostoTotal() {
+	public Dinero obtenerCostoTotal() {
 		if(this.modalidad == null)
 			return new Dinero(0);
 
@@ -112,27 +97,23 @@ public class Template {
 		return this.modalidad.fechaVigente(fecha);
 	}
 
-	public void setOrganizador(Usuario usuario){
-		this.organizador = usuario;
-	}
-
 	public void elegirItemPorIndice(Usuario usuario, int i) {
 		this.modalidad.agregarItemUsuario(this.items.get(i), usuario);
 	}
 
-	public int getCantidadItemsComprados() {
-		return this.modalidad.getCantidadItemsComprados();
+	public int obtenerCantidadItemsComprados() {
+		return this.modalidad.obtenerCantidadItemsComprados();
 	}
 
-	public List<ItemUsuario> getItemsComprados() {
+	public List<ItemUsuario> obtenerItemsComprados() {
 		return this.modalidad.getItemsComprados();
 	}
 
-	public Dinero getCostoUsuario(Usuario usuario) {
+	public Dinero obtenerCostoUsuario(Usuario usuario) {
 		return this.modalidad.getCostoUsuario(usuario);
 	}
 
-	public Dinero getCostoUsuario() {
+	public Dinero obtenerCostoUsuario() {
 		return this.modalidad.getCostoUsuario();
 	}
 }

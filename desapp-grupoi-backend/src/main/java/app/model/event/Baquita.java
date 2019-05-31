@@ -25,17 +25,13 @@ public abstract class Baquita extends Modalidad {
 			mismos para las compras.
 	*/
 
-	@OneToOne(cascade=CascadeType.ALL)
-	protected Dinero costoUsuario;
-
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	protected List<Deuda> deudas;
 
 	public Baquita(){}
 
 	public Baquita(Date fechaLimite) {
-		super();
-		this.fechaLimite = fechaLimite;
+		super(fechaLimite);
 		this.costoUsuario = new Dinero(0);
 		this.deudas = new ArrayList<Deuda>();
 	}
@@ -48,11 +44,6 @@ public abstract class Baquita extends Modalidad {
 
 		if(this.costoTotal.mayorACero())
 			this.costoUsuario = this.costoTotal.dividir(asistentes.size());
-	}
-
-	@Override
-	public Dinero getCostoUsuario(){
-		return this.costoUsuario;
 	}
 
 	public int getCantidadDeudas(){

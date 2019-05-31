@@ -20,9 +20,10 @@ insert into cuenta (situacion_deuda, saldo_id, usuario_id) values
 -- Creamos un evento Publico del primer usuario
 -- Saldo
 insert into dinero (id, aux, monto) values (5,0,0);
+insert into dinero (id, aux, monto) values (6,0,0);
 -- Modalidad Fiesta
-insert into fiesta (id, costo_total_id, organizador_id, fecha_limite) values
-(1, 5, 1, TO_DATE('20/12/2019', 'DD/MM/YYYY'));
+insert into modalidad (DTYPE, id, costo_total_id, costo_usuario_id, organizador_id, fecha_limite) values
+('Fiesta', 1, 5, 6, 1, TO_DATE('20/12/2019', 'DD/MM/YYYY'));
 -- Template vacio
 insert into e_template (id, descripcion, nombre, visibilidad, modalidad_id, organizador_id) values
 (1, 'Primer template vacio', 'Evento Template', 'PUBLICA', 1, 1);
@@ -31,6 +32,8 @@ insert into evento (id, nombre, organizador_id, template_id) values
 (1, 'Evento Fiesta', 1, 1);
 -- Tabla conectora: CuentaEvento
 insert into cuenta_eventos (cuenta_id, eventos_id) values (1, 1);
+-- Tabla conectora: CuentaTemplate
+insert into cuenta_templates (cuenta_id, templates_id) values (1, 1)
 -- Tabla conectora: EventoAsistentes
 insert into evento_asistentes (evento_id, asistentes_id) values (1, 2);
 insert into evento_asistentes (evento_id, asistentes_id) values (1, 4);
@@ -40,10 +43,11 @@ insert into invitacion (id, confirmada, email, evento_id) values
 
 -- Creamos un evento Privado del segundo usuario.
 -- Saldo
-insert into dinero (id, aux, monto) values (6,0,0);
+insert into dinero (id, aux, monto) values (7,0,0);
+insert into dinero (id, aux, monto) values (8,0,0);
 -- Modalidad Fiesta
-insert into fiesta (id, costo_total_id, organizador_id, fecha_limite) values
-(2, 6, 2, TO_DATE('20/12/2019', 'DD/MM/YYYY'));
+insert into modalidad (DTYPE, id, costo_total_id, costo_usuario_id, organizador_id, fecha_limite) values
+('Fiesta', 2, 7, 8, 2, TO_DATE('20/12/2019', 'DD/MM/YYYY'));
 -- Template vacio
 insert into e_template (id, descripcion, nombre, visibilidad, modalidad_id, organizador_id) values
 (2, 'Segundo template vacio', 'Evento Template', 'PRIVADA', 2, 2);
@@ -52,13 +56,16 @@ insert into evento (id, nombre, organizador_id, template_id) values
 (2, 'Evento Fiesta Privada', 2, 2);
 -- Tabla conectora: CuentaEvento
 insert into cuenta_eventos (cuenta_id, eventos_id) values (2, 2);
+-- Tabla conectora: CuentaTemplate
+insert into cuenta_templates (cuenta_id, templates_id) values (2, 2)
 
 -- Creamos un evento Publico del primer usuario para Eventos Pasados.
 -- Saldo
-insert into dinero (id, aux, monto) values (7,0,0);
+insert into dinero (id, aux, monto) values (9,0,0);
+insert into dinero (id, aux, monto) values (10,0,0);
 -- Modalidad Fiesta (ya esta vencida)
-insert into fiesta (id, costo_total_id, organizador_id, fecha_limite) values
-(3, 7, 1, TO_DATE('10/02/2019', 'DD/MM/YYYY'));
+insert into modalidad (DTYPE, id, costo_total_id, costo_usuario_id, organizador_id, fecha_limite) values
+('Fiesta', 3, 9, 10, 1, TO_DATE('10/02/2019', 'DD/MM/YYYY'));
 -- Template vacio
 insert into e_template (id, descripcion, nombre, visibilidad, modalidad_id, organizador_id) values
 (3, 'Primer template vacio', 'Evento Template', 'PUBLICA', 3, 1);
@@ -67,7 +74,10 @@ insert into evento (id, nombre, organizador_id, template_id) values
 (3, 'Evento Fiesta (ya vencida)', 1, 3);
 -- Tabla conectora: CuentaEvento
 insert into cuenta_eventos (cuenta_id, eventos_id) values (1, 3);
+-- Tabla conectora: CuentaTemplate
+insert into cuenta_templates (cuenta_id, templates_id) values (1, 3)
 -- Tabla conectora: EventoAsistentes
 insert into evento_asistentes (evento_id, asistentes_id) values (3, 2);
 insert into evento_asistentes (evento_id, asistentes_id) values (3, 3);
 insert into evento_asistentes (evento_id, asistentes_id) values (3, 4);
+

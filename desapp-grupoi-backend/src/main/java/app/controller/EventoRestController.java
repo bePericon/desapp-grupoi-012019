@@ -1,8 +1,11 @@
 package app.controller;
 
+import app.model.NewTemplate;
 import app.model.event.Evento;
+import app.model.event.Template;
 import app.service.account.CuentaService;
 import app.service.event.EventoService;
+import app.service.event.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
@@ -22,6 +25,9 @@ public class EventoRestController {
 
     @Autowired
     private CuentaService cuentaService;
+
+    @Autowired
+    private TemplateService templateService;
 
     // Api para Mas populares
     // TODO: crear calificacion.
@@ -62,5 +68,24 @@ public class EventoRestController {
     public ResponseEntity<List<Evento>> getMisEventos(@PathVariable String id) {
         List<Evento> eventos = this.eventoService.getEventosByCuentaId(Long.parseLong(id));
         return new ResponseEntity<List<Evento>>(eventos, HttpStatus.OK);
+    }
+
+    // Api para Templates
+    @PostMapping("/template/{id}") //Crear template apara el usuario con Id
+    public ResponseEntity nuevoTemplate(@PathVariable String id, @RequestBody NewTemplate nuevoTemplate) {
+        Template template = this.templateService.createNuevoTemplate(Long.parseLong(id), nuevoTemplate);
+        return new ResponseEntity<Template>(template,HttpStatus.CREATED);
+    }
+
+    @GetMapping("/template/{id}") //Retorna el template con ese id.
+    public ResponseEntity<Template> getTemplateById(@PathVariable String id) {
+        Template template = this.templateService.getTemplateById(Long.parseLong(id));
+        return new ResponseEntity<Template>(template, HttpStatus.OK);
+    }
+
+    @GetMapping("/template/usuario/{id}") //Retorna los templates del usuario con id.
+    public ResponseEntity<List<Template>> getTemplatesByIdUsuario(@PathVariable String id) {
+        List<Template> templates = this.templateService.getTemplatesByIdUsuario(Long.parseLong(id));
+        return new ResponseEntity<List<Template>>(templates, HttpStatus.OK);
     }
 }

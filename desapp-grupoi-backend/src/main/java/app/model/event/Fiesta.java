@@ -3,10 +3,7 @@ package app.model.event;
 import app.model.account.Dinero;
 import app.model.account.Usuario;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
 
@@ -25,8 +22,7 @@ public class Fiesta extends Modalidad {
 	}
 
 	public Fiesta(Date fechaLimite) {
-		super();
-		this.fechaLimite = fechaLimite;
+		super(fechaLimite);
 	}
 
 	@Override
@@ -48,14 +44,4 @@ public class Fiesta extends Modalidad {
 				this.agregarItemUsuario(itemUsuario);
 		}
 	}
-	
-	public Date getHoy() {
-		return new Date();
-	}
-	
-	public Date getFechaLimite() {
-		return fechaLimite;
-	}
-
-
 }
