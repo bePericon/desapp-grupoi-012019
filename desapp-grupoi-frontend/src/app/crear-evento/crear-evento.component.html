@@ -99,7 +99,7 @@
               </button>
               <!-- stepper.reset() -->
               <br>
-              <button  (click)="cancelarCreacion(stepper)" class="btn btn-outline-danger">Cancelar creación de evento
+              <button (click)="cancelarCreacion(stepper)" class="btn btn-outline-danger">Cancelar creación de evento
 
               </button>
               <br>
@@ -108,7 +108,8 @@
                 <h4>Invitados:</h4>
                 <div *ngFor="let t of invitados" class="mt-1">
                   <span style="vertical-align: super;">{{t}} </span>
-                  <button (click)="removerInvitado(t)" class="btn btn-outline-danger btn-sm float-right" matTooltip="Remover invitado">
+                  <button (click)="removerInvitado(t)" class="btn btn-outline-danger btn-sm float-right"
+                    matTooltip="Remover invitado">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
@@ -128,7 +129,7 @@
 
         <h3>Sino, podés crealo desde un template:</h3>
 
-        <span>Primero elegí la categía de templates.</span>
+        <!-- <span>Primero elegí la categía de templates.</span> -->
         <br> <br>
         <mat-accordion>
           <mat-expansion-panel>
@@ -159,12 +160,16 @@
           </mat-expansion-panel>
         </mat-accordion>
 
-        <h3 class="mt-5">Y sino, podés crear tu propio template desde cero</h3>
+
+      </div>
+      <div class="row">
+
+        <br>
         <app-crear-template></app-crear-template>
       </div>
-
     </div>
     <br>
 
 
   </div>
+</div>
