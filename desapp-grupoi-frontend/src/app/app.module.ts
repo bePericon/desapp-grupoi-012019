@@ -32,6 +32,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
 import { CrearTemplateComponent } from './crear-template/crear-template.component';
 import { MostrarTemplateComponent } from './mostrar-template/mostrar-template.component';
+import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { MostrarTemplateComponent } from './mostrar-template/mostrar-template.co
     
     CrearTemplateComponent,
     
-    MostrarTemplateComponent
+    MostrarTemplateComponent,
+    
+    EstadoCuentaComponent
   ],
   imports: [
     BrowserModule,
@@ -76,8 +80,8 @@ import { MostrarTemplateComponent } from './mostrar-template/mostrar-template.co
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
-    MatExpansionModule
-
+    MatExpansionModule,
+    MatListModule
 
   ],
   exports: [
@@ -99,7 +103,8 @@ import { MostrarTemplateComponent } from './mostrar-template/mostrar-template.co
     MatSelectModule,
     MatDatepickerModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatListModule
   ],
   entryComponents: [RegisterComponent],
   providers: [],
