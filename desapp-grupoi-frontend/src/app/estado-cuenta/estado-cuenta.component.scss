@@ -1,0 +1,34 @@
+
+.cabecera-item {
+  margin: 0;
+  padding-top: 10px;
+  color: #585858;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.valor-item {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+button:focus {outline:0;}
+
+.pill-button {
+  font-size: 18px;
+  font-weight: 400;
+  padding-top: 25px;
+  padding-bottom: 15px;
+  text-align: center;
+  color:#0012ff!important
+}
+
+.pill-button span {
+  vertical-align: super;
+}
+
+table{
+  margin-top: 30px;
+  width: 100%;
+}

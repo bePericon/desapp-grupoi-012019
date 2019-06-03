@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatDialogModule, MatIconModule,MatNativeDateModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule, MatNativeDateModule, MatPaginator } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +34,8 @@ import { CrearTemplateComponent } from './crear-template/crear-template.componen
 import { MostrarTemplateComponent } from './mostrar-template/mostrar-template.component';
 import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
 import {MatListModule} from '@angular/material/list';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -81,8 +83,9 @@ import {MatListModule} from '@angular/material/list';
     MatNativeDateModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatListModule
-
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   exports: [
     BrowserModule,
@@ -104,7 +107,9 @@ import {MatListModule} from '@angular/material/list';
     MatDatepickerModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   entryComponents: [RegisterComponent],
   providers: [],
