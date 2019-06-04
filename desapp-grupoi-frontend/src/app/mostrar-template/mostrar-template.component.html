@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="row">
-      <div class="col-3 mt-3" *ngFor="let t of templates">
+      <div class="col-4 mt-2" *ngFor="let t of templates">
 
         <div class="templ">
-          <span>{{t.nombre}}</span>
-
+          <h5>{{t.nombre}}</h5>
+          <h6 class="mb-2 text-muted">{{t.modalidad}}</h6>
           <p>{{t.descripcion}}</p>
-          <button>elegir</button>
+          <button class="btn btn-outline-success" (click)="elegirTemplate(t)">Elegir! <i class="fas fa-check"></i></button>
         </div>
       </div>
 
