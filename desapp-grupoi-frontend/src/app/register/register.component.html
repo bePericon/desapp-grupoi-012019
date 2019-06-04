@@ -61,10 +61,10 @@
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput placeholder="Repite la contraseña" type="password" formControlName="contraseniaCtrl" required>
+        <input matInput placeholder="Repite la contraseña" type="password" formControlName="contraseniaDosCtrl" required>
+        <mat-error *ngIf="contraseniaForm.invalid">Las contraseñas no son iguales.</mat-error>
       </mat-form-field>
 
-      hacer una validacion de comparacion
 
       <div>
         <button mat-button matStepperPrevious><i class="material-icons">
@@ -92,7 +92,7 @@
         <button mat-button matStepperPrevious><i class="material-icons">
             chevron_left
           </i>Atrás</button>
-        <button mat-button matStepperNext>Siguiente<i class="material-icons">
+        <button mat-button (click)="ultimoPasoRealizado()" matStepperNext>Siguiente<i class="material-icons">
             chevron_right
           </i></button>
       </div>
@@ -104,7 +104,7 @@
     Ya tenés todo listo para resgistrarte!
     <div>
       <button mat-button matStepperPrevious>Atrás</button>
-      <button mat-button (click)="stepper.reset()" color="red">Reiniciar 
+      <button mat-button (click)="stepper.reset() && resetForm()" color="red">Reiniciar 
         <i class="material-icons">
           refresh
         </i> 
@@ -116,5 +116,6 @@
 
 <mat-dialog-actions align="end">
   <button class="btn btn-outline-danger" mat-dialog-close>Cancelar</button>
-  <button class="btn btn-success ml-3" [mat-dialog-close]="true" cdkFocusInitial>Registrarme!</button>
+  <button (click)="registro()" class="btn btn-success ml-3" [mat-dialog-close]="true" 
+  [disabled]="!registroValido()" >Registrarme!</button>
 </mat-dialog-actions>
