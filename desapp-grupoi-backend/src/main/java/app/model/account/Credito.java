@@ -1,11 +1,9 @@
 package app.model.account;
 
 import app.model.account.EnumEstados.EstadoCredito;
-import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "credito")
 public class Credito {
@@ -54,5 +52,62 @@ public class Credito {
             this.estado = EstadoCredito.FINALIZADO;
         else
             this.estado = EstadoCredito.ENCURSO;
+    }
+
+    //Getters y setters
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Usuario getUsuarioSolicitante() {
+        return usuarioSolicitante;
+    }
+
+    public void setUsuarioSolicitante(Usuario usuarioSolicitante) {
+        this.usuarioSolicitante = usuarioSolicitante;
+    }
+
+    public Dinero getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Dinero monto) {
+        this.monto = monto;
+    }
+
+    public int getCuotas() {
+        return cuotas;
+    }
+
+    public void setCuotas(int cuotas) {
+        this.cuotas = cuotas;
+    }
+
+    public Dinero getMontoRestante() {
+        return montoRestante;
+    }
+
+    public void setMontoRestante(Dinero montoRestante) {
+        this.montoRestante = montoRestante;
+    }
+
+    public int getCuotasRestantes() {
+        return cuotasRestantes;
+    }
+
+    public void setCuotasRestantes(int cuotasRestantes) {
+        this.cuotasRestantes = cuotasRestantes;
+    }
+
+    public EstadoCredito getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoCredito estado) {
+        this.estado = estado;
     }
 }

@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import app.model.NewTemplate;
 import app.model.account.Dinero;
 import app.model.account.Usuario;
 import app.model.event.EnumTipos.*;
-import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "e_template")
 public class Template implements Serializable {
@@ -115,5 +112,54 @@ public class Template implements Serializable {
 
 	public Dinero obtenerCostoUsuario() {
 		return this.modalidad.getCostoUsuario();
+	}
+
+	//Getters y setters
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Usuario getOrganizador() {
+		return organizador;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public Modalidad getModalidad() {
+		return modalidad;
+	}
+
+	public TipoVisibilidad getVisibilidad() {
+		return visibilidad;
+	}
+
+	public void setVisibilidad(TipoVisibilidad visibilidad) {
+		this.visibilidad = visibilidad;
 	}
 }

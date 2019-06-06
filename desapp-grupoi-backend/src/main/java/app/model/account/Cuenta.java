@@ -11,11 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 import app.model.account.EnumEstados.*;
-import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "cuenta")
 public class Cuenta implements Serializable {
@@ -127,4 +125,85 @@ public class Cuenta implements Serializable {
         this.templates.add(template);
     }
 
+    //Getters y setters
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Movimiento> getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(List<Movimiento> movimientos) {
+        this.movimientos = movimientos;
+    }
+
+    public List<Credito> getCreditos() {
+        return creditos;
+    }
+
+    public void setCreditos(List<Credito> creditos) {
+        this.creditos = creditos;
+    }
+
+    public TarjetaCredito getTarjetaCredito() {
+        return tarjetaCredito;
+    }
+
+    public void setTarjetaCredito(TarjetaCredito tarjetaCredito) {
+        this.tarjetaCredito = tarjetaCredito;
+    }
+
+    public Dinero getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Dinero saldo) {
+        this.saldo = saldo;
+    }
+
+    public EstadoSituacionDeuda getSituacionDeuda() {
+        return situacionDeuda;
+    }
+
+    public void setSituacionDeuda(EstadoSituacionDeuda situacionDeuda) {
+        this.situacionDeuda = situacionDeuda;
+    }
+
+    public List<Invitacion> getInvitaciones() {
+        return invitaciones;
+    }
+
+    public void setInvitaciones(List<Invitacion> invitaciones) {
+        this.invitaciones = invitaciones;
+    }
+
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+    public List<Template> getTemplates() {
+        return templates;
+    }
+
+    public void setTemplates(List<Template> templates) {
+        this.templates = templates;
+    }
 }

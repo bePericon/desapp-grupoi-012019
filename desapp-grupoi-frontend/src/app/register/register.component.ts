@@ -92,9 +92,9 @@ export class RegisterComponent implements OnInit {
 
     var usuario = new Usuario(0,u.nombre,u.apellido,u.email,u.contrasenia,u.fechaNac)
     
-    console.log("Vamos bien!");
+    console.log("Vamos bien! usuario:" + u);
 
-    this.authService.registerUser(usuario).subscribe(
+    this.authService.registerUser(u).subscribe(
       res => {
         console.log("Se guardo correctamente");
       },
