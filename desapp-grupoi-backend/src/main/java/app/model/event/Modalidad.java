@@ -2,15 +2,12 @@ package app.model.event;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
-import lombok.Data;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
 @Entity
 @Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 public abstract class Modalidad implements Serializable {
@@ -74,4 +71,60 @@ public abstract class Modalidad implements Serializable {
 		return this.getCostoUsuario();
 	}
 
+	//Getters y Setters
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<Item> getItemsAComprar() {
+		return itemsAComprar;
+	}
+
+	public void setItemsAComprar(List<Item> itemsAComprar) {
+		this.itemsAComprar = itemsAComprar;
+	}
+
+	public List<ItemUsuario> getItemsComprados() {
+		return itemsComprados;
+	}
+
+	public void setItemsComprados(List<ItemUsuario> itemsComprados) {
+		this.itemsComprados = itemsComprados;
+	}
+
+	public Dinero getCostoTotal() {
+		return costoTotal;
+	}
+
+	public void setCostoTotal(Dinero costoTotal) {
+		this.costoTotal = costoTotal;
+	}
+
+	public Usuario getOrganizador() {
+		return organizador;
+	}
+
+	public void setOrganizador(Usuario organizador) {
+		this.organizador = organizador;
+	}
+
+	public Date getFechaLimite() {
+		return fechaLimite;
+	}
+
+	public void setFechaLimite(Date fechaLimite) {
+		this.fechaLimite = fechaLimite;
+	}
+
+	public Dinero getCostoUsuario() {
+		return costoUsuario;
+	}
+
+	public void setCostoUsuario(Dinero costoUsuario) {
+		this.costoUsuario = costoUsuario;
+	}
 }
