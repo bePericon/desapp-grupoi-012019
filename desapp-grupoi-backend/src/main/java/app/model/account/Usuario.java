@@ -148,4 +148,6 @@ public class Usuario implements Serializable {
 	public void setInvitaciones(List<Invitacion> invitaciones) {
 		this.invitaciones = invitaciones;
 	}
+
 }
+

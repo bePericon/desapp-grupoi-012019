@@ -1,11 +1,12 @@
 package app.controller;
 
 import app.model.account.Usuario;
+import app.model.web.ApiResponse;
 import app.service.account.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,32 +22,32 @@ public class UsuarioRestController {
     private UsuarioService usuarioService;
 
     @GetMapping("/usuario/{id}")
-    public ResponseEntity<?> getUsuario(@PathVariable String id) {
+    public ApiResponse<Usuario> getUsuario(@PathVariable String id) {
         Usuario usuario = this.usuarioService.getByIdUsuario(Long.parseLong(id));
-        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+        return new ApiResponse<Usuario>(HttpStatus.OK.value(), "Usuario encontrado.", usuario);
     }
 
     @GetMapping("/usuario/all")
-    public  ResponseEntity<List<Usuario>>  getAllUsuarios() {
+    public  ApiResponse<List<Usuario>>  getAllUsuarios() {
         List<Usuario> usuarios = this.usuarioService.getAllUsuarios();
-        return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
+        return new ApiResponse<List<Usuario>>(HttpStatus.OK.value(), "Todos los usuarios.", usuarios);
     }
 
     @PostMapping("/usuario")
-    public ResponseEntity nuevoUsuario(@RequestBody Usuario nuevoUsuario) {
+    public ApiResponse nuevoUsuario(@RequestBody Usuario nuevoUsuario) {
         Usuario usuario = this.usuarioService.createNuevoUsuario(nuevoUsuario);
-        return new ResponseEntity<Usuario>(usuario,HttpStatus.CREATED);
+        return new ApiResponse<Usuario>(HttpStatus.CREATED.value(), "Usuario creado exitosamente.", usuario);
     }
 
     @PutMapping("/usuario/{id}")
-    public ResponseEntity<?> actualizarUsuario(@PathVariable String id, @RequestBody Usuario usuario) {
+    public ApiResponse<?> actualizarUsuario(@PathVariable String id, @RequestBody Usuario usuario) {
         Usuario usuarioActual = this.usuarioService.updateUsuario(Long.parseLong(id), usuario);
-        return new ResponseEntity<Usuario>(usuarioActual, HttpStatus.OK);
+        return new ApiResponse<Usuario>(HttpStatus.OK.value(), "Usuario actualizado exitosamente.", usuarioActual);
     }
 
     @DeleteMapping("/usuario/{id}")
-    public ResponseEntity<?> eliminarUsuario(@PathVariable String id) {
+    public ApiResponse<?> eliminarUsuario(@PathVariable String id) {
         Usuario usuario = this.usuarioService.deleteByIdUsuario(Long.parseLong(id));
-        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+        return new ApiResponse<Usuario>(HttpStatus.OK.value(), "Usuario eliminado.", usuario);
     }
 }

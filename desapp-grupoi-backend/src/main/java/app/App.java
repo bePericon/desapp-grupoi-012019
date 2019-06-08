@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication//(exclude = { SecurityAutoConfiguration.class })
 @ComponentScan({"/app/controller","/app/service", "/app/persistence", "/app/model"})
 public class App {
 

@@ -1,4 +1,4 @@
-package app.model;
+package app.model.web;
 
 import app.model.event.*;
 import app.model.event.EnumTipos.TipoModalidad;

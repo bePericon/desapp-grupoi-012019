@@ -1,4 +1,4 @@
-package app.model;
+package app.model.web;
 
 public class Login {
 

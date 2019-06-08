@@ -53,8 +53,6 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>2.1.4.RELEASE</version>
         </dependency>
-        
-
 
         <!-- Dependencies for DB in memory -->
         <dependency>
@@ -88,14 +86,6 @@
             <artifactId>mockito-core</artifactId>
             <version>2.27.0</version>
         </dependency>
-        <!-- Proyect lombok -->
-<!--        <dependency>-->
-<!--            <groupId>org.projectlombok</groupId>-->
-<!--            <artifactId>lombok</artifactId>-->
-<!--            <version>1.18.8</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-
     </dependencies>
 
     <build>

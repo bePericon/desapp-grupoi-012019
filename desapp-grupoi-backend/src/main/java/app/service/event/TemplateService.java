@@ -2,7 +2,7 @@ package app.service.event;
 
 import app.error.exception.ExceptionBadRequest;
 import app.error.exception.ExceptionNotFound;
-import app.model.NewTemplate;
+import app.model.web.NewTemplate;
 import app.model.account.Cuenta;
 import app.model.account.Usuario;
 import app.model.event.*;

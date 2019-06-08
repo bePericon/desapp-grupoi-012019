@@ -1,11 +1,11 @@
 package app.controller;
-import app.model.Login;
+import app.model.web.ApiResponse;
+import app.model.web.Login;
 import app.model.account.Usuario;
 import app.service.account.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,13 +36,8 @@ public class AppRestController {
     // ------------------------------------- //
 
     @PostMapping("/app/login")
-    public ResponseEntity<Usuario> login(@RequestBody Login us) {
-
+    public ApiResponse<Usuario> login(@RequestBody Login us) {
         Usuario usuario = this.usuarioService.getByEmailAndContrasenia(us.getEmail(),us.getContrasenia());
-
-        if(usuario == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+        return new ApiResponse<Usuario>(HttpStatus.OK.value(), "Login exitoso.", usuario);
     }
 }

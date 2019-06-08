@@ -2,12 +2,13 @@ package app.service.account;
 
 import app.error.exception.ExceptionBadRequest;
 import app.error.exception.ExceptionConflict;
-import app.error.exception.ExceptionNoContent;
 import app.error.exception.ExceptionNotFound;
 import app.model.account.Cuenta;
 import app.model.account.Usuario;
 import app.persistence.account.UsuarioDao;
 import app.service.GenericService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +19,12 @@ import java.util.regex.Pattern;
 
 @Service
 @Transactional
-public class UsuarioService extends GenericService<Usuario> {
+public class UsuarioService extends GenericService<Usuario>{
+
+    private static final Logger logger = LogManager.getLogger(UsuarioService.class);
 
     @Autowired
     private UsuarioDao dao;
-
     @Autowired
     private CuentaService cuentaService;
 
@@ -56,13 +58,13 @@ public class UsuarioService extends GenericService<Usuario> {
         if(usuario == null){
             throw new ExceptionNotFound("El usuario no fue encontrado.");
         }
-        if(usuario.getContrasenia() != contrasenia){
+        if(!usuario.getContrasenia().equals(contrasenia)){
             throw new ExceptionConflict("La contraseña es incorrecta.");
         }
         return usuario;
     }
 
-    public Usuario getByIdUsuario(long idUsuario) {
+    public Usuario getByIdUsuario(long idUsuario){
         Usuario usuario = this.getById(idUsuario);
         if(usuario == null)
             throw new ExceptionNotFound("El usuario no fue encontrado.");
@@ -72,9 +74,6 @@ public class UsuarioService extends GenericService<Usuario> {
 
     public List<Usuario> getAllUsuarios() {
         List<Usuario> usuarios = this.getAll();
-        if (usuarios.isEmpty()) {
-            throw new ExceptionNoContent("Lista de usuarios vacia.");
-        }
         return usuarios;
     }
 
@@ -85,8 +84,12 @@ public class UsuarioService extends GenericService<Usuario> {
         if(!this.esValido(nuevoUsuario))
             throw new ExceptionBadRequest("Los datos del nuevo usuario no son validos.");
 
-        this.save(Usuario.build(nuevoUsuario));
-        Usuario usuario = this.getByEmailAndContrasenia(nuevoUsuario.getEmail(),nuevoUsuario.getContrasenia());
+//        String pass = bCryptPasswordEncoder.encode(nuevoUsuario.getContrasenia());
+        Usuario usuario = Usuario.build(nuevoUsuario);
+//        usuario.setContrasenia(pass);
+
+        this.save(usuario);
+        usuario = this.getByEmailAndContrasenia(nuevoUsuario.getEmail(), usuario.getContrasenia());// pass);
         Cuenta cuenta = new Cuenta(usuario);
         this.cuentaService.save(cuenta);
         return usuario;
