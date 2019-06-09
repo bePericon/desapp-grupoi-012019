@@ -1,5 +1,5 @@
 <div class="mt-5">
-
+  <br>
   <div class="row">
 
     <div class="col-sm-6">
@@ -7,7 +7,7 @@
       <h3> Crear evento personalizado:</h3>
       <br>
       <span>Primero elegí cualquiera de las modalidades.</span>
-      <br>
+      <br><br>
 
       <button type="button" value="fiesta" (click)="elegirModalidad('fiesta')" class="btn btn-outline-dark rounded-pill"
         matTooltip="{{infoFiesta}}">Fiesta
@@ -88,7 +88,9 @@
               <mat-hint>Recordá poner un mail válido</mat-hint>
             </mat-form-field>
 
-            <button style="border-radius:50%; width:40px; height:40px" class="btn btn-outline-success ml-4" (click)="invitar()"><i class="fas fa-user-plus"></i></button>
+            <button matTooltip="agregar a lista de invitados!" style="border-radius:50%; width:40px; height:40px"
+              class="btn btn-outline-success ml-4" (click)="invitar()" [disabled]="emailInvalido()"><i
+                class="fas fa-user-plus"></i></button>
 
             <div>
               <button mat-button matStepperPrevious>
@@ -97,21 +99,21 @@
                 </i>
                 Atrás
               </button>
-              <!-- stepper.reset() -->
-              <br>
-              <button (click)="cancelarCreacion(stepper)" class="btn btn-outline-danger">Cancelar creación de evento
-
+            
+              <button matTooltip="Se perderán todos los datos cargados" (click)="cancelarCreacion(stepper)" mat-button>Cancelar evento
               </button>
               <br>
 
               <div *ngIf="invitados.length > 0">
                 <h4>Invitados:</h4>
                 <div *ngFor="let t of invitados" class="mt-1">
-                  <span style="vertical-align: super;">{{t}} </span>
-                  <button (click)="removerInvitado(t)" class="btn btn-outline-danger btn-sm float-right"
-                    matTooltip="Remover invitado">
-                    <i class="fas fa-times"></i>
-                  </button>
+                  <div>
+                    <span style="vertical-align: super;">{{t}} </span>
+                    <button (click)="removerInvitado(t)"  class="btn btn-outline-danger btn-sm boton-cerrar"
+                      matTooltip="Remover invitado">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -129,7 +131,6 @@
 
         <h3>Sino, podés crealo desde un template:</h3>
 
-        <!-- <span>Primero elegí la categía de templates.</span> -->
         <br> <br>
         <mat-accordion>
           <mat-expansion-panel>
@@ -163,7 +164,7 @@
 
       </div>
       <div class="row">
-
+        <!-- CREAR TEMPLATE -->
         <br>
         <app-crear-template></app-crear-template>
       </div>
