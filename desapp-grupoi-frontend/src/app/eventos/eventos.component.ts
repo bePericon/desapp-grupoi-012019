@@ -27,18 +27,6 @@ export class EventosComponent implements OnInit {
     this.ameCreadosPorMi.getCreadosPorMi();
   }
 
-  getDatos() {
-  }
-  
-  sas(){
-    alert("sarasa")
-  }
-  // showConfig() {
-  //   this.eventoSrv.getConfig()
-  //     .subscribe((data: Config) => this.config = {
-  //         heroesUrl: data['heroesUrl'],
-  //         textfile:  data['textfile']
-  //     });
-  // }
+
 
 }

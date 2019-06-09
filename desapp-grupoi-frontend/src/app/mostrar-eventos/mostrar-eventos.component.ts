@@ -13,13 +13,6 @@ export class MostrarEventosComponent implements OnInit {
 
   constructor(private eventoService: EventoService) {
 
-    //esto deberia venir desde un servicio
-    // this.eventos=[{ nombreEvento: "fiesta", descripcion: "sarasa" },
-    // { nombreEvento: "fiest2", descripcion: "sadsad" },
-    // { nombreEvento: "baquitaloca", descripcion: "baquita de prueba" },
-    // { nombreEvento: "canastulli", descripcion: "sasaadsadsadasrasa" },
-    // { nombreEvento: "una cosa", descripcion: "sarasasdsadsadsaa" }]
-
   }
 
   ngOnInit() {

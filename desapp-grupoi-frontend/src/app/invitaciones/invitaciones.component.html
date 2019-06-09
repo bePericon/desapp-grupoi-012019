@@ -1,4 +1,4 @@
-<div class="container-fluid" >
+<div class="container-fluid">
 
   <div class="row">
     <div class="col-sm-12">
@@ -8,22 +8,35 @@
             <i class="material-icons"> fiber_new </i>
             Pendientes
           </ng-template>
-          <app-mostrar-invitaciones></app-mostrar-invitaciones>
+          <app-mostrar-invitaciones #aPendientes></app-mostrar-invitaciones>
         </mat-tab>
 
-        <mat-tab label="Aceptados en curso">
-          <app-mostrar-invitaciones></app-mostrar-invitaciones>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="fas fa-check mr-1"></i>
+            Aceptados en curso
+          </ng-template>
+
+          <app-mostrar-invitaciones #aAceptados></app-mostrar-invitaciones>
         </mat-tab>
 
-        <mat-tab label="Pasados">
-          <app-mostrar-invitaciones></app-mostrar-invitaciones>
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <i class="fas fa-history mr-1"></i>
+            Pasados
+          </ng-template>
+          <app-mostrar-invitaciones #aPasados></app-mostrar-invitaciones>
         </mat-tab>
 
-        <mat-tab label="Rechazados">
-          <app-mostrar-invitaciones></app-mostrar-invitaciones>
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <i class="fas fa-times mr-1"></i>
+            Rechazados
+          </ng-template>
+          <app-mostrar-invitaciones #aRechazados></app-mostrar-invitaciones>
         </mat-tab>
 
-       
+
       </mat-tab-group>
     </div>
   </div>
