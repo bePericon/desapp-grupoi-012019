@@ -88,7 +88,7 @@
               <mat-hint>Recordá poner un mail válido</mat-hint>
             </mat-form-field>
 
-            <button (click)="invitar()">invitar</button>
+            <button style="border-radius:50%; width:40px; height:40px" class="btn btn-outline-success ml-4" (click)="invitar()"><i class="fas fa-user-plus"></i></button>
 
             <div>
               <button mat-button matStepperPrevious>
@@ -135,10 +135,10 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                Tus templates
+                <i class="fas fa-book"></i>
               </mat-panel-title>
               <mat-panel-description>
-                Estos son los templates creados por vos
+                Mis templates
               </mat-panel-description>
             </mat-expansion-panel-header>
 
@@ -148,10 +148,10 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                Templates públicos
+                <i class="fas fa-globe"></i>
               </mat-panel-title>
               <mat-panel-description>
-                Templates públicos, comunes a todos los usuarios
+                Templates públicos
               </mat-panel-description>
             </mat-expansion-panel-header>
 

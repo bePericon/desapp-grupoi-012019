@@ -36,6 +36,7 @@ import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatExpansionModule,
     MatListModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
   exports: [
     BrowserModule,
@@ -109,7 +111,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatExpansionModule,
     MatListModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
   entryComponents: [RegisterComponent],
   providers: [],

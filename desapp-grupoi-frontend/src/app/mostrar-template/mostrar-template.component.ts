@@ -24,4 +24,9 @@ export class MostrarTemplateComponent implements OnInit {
     console.log("Esto no le gusta al profe, pero: Felicitaciones, elegiste el template "+ t.nombre+ "que es "+ t.descripcion)
   }
 
+
+  esMiTemplate(){
+    return true;  
+  }
+
 }

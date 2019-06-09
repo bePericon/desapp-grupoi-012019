@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 
-
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -11,10 +10,18 @@ import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/form
 })
 export class CrearTemplateComponent implements OnInit {
 
-  constructor() { }
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
+  constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
   }
-
 
 }
