@@ -10,6 +10,7 @@ import app.service.GenericService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,8 @@ public class UsuarioService extends GenericService<Usuario>{
     private UsuarioDao dao;
     @Autowired
     private CuentaService cuentaService;
+
+    private BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder(4);
 
     @Override
     protected UsuarioDao getDao() {
@@ -58,7 +61,7 @@ public class UsuarioService extends GenericService<Usuario>{
         if(usuario == null){
             throw new ExceptionNotFound("El usuario no fue encontrado.");
         }
-        if(!usuario.getContrasenia().equals(contrasenia)){
+        if(!this.bCrypt.matches(contrasenia, usuario.getContrasenia())){
             throw new ExceptionConflict("La contraseña es incorrecta.");
         }
         return usuario;
@@ -84,14 +87,15 @@ public class UsuarioService extends GenericService<Usuario>{
         if(!this.esValido(nuevoUsuario))
             throw new ExceptionBadRequest("Los datos del nuevo usuario no son validos.");
 
-//        String pass = bCryptPasswordEncoder.encode(nuevoUsuario.getContrasenia());
-        Usuario usuario = Usuario.build(nuevoUsuario);
-//        usuario.setContrasenia(pass);
+        String pass = this.bCrypt.encode(nuevoUsuario.getContrasenia());
+        nuevoUsuario.setContrasenia(pass);
 
-        this.save(usuario);
-        usuario = this.getByEmailAndContrasenia(nuevoUsuario.getEmail(), usuario.getContrasenia());// pass);
+        this.save(Usuario.build(nuevoUsuario));
+
+        Usuario usuario = this.getDao().getByEmail(nuevoUsuario.getEmail());
         Cuenta cuenta = new Cuenta(usuario);
         this.cuentaService.save(cuenta);
+
         return usuario;
     }
 
