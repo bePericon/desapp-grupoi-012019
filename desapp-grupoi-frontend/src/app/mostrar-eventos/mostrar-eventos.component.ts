@@ -13,13 +13,6 @@ export class MostrarEventosComponent implements OnInit {
 
   constructor(private eventoService: EventoService) {
 
-    //esto deberia venir desde un servicio
-    // this.eventos=[{ nombreEvento: "fiesta", descripcion: "sarasa" },
-    // { nombreEvento: "fiest2", descripcion: "sadsad" },
-    // { nombreEvento: "baquitaloca", descripcion: "baquita de prueba" },
-    // { nombreEvento: "canastulli", descripcion: "sasaadsadsadasrasa" },
-    // { nombreEvento: "una cosa", descripcion: "sarasasdsadsadsaa" }]
-
   }
 
   ngOnInit() {
@@ -30,28 +23,30 @@ export class MostrarEventosComponent implements OnInit {
   getMasPopulares(){
     this.eventoService.getEventosPopulares()
     .subscribe(res => {
-      this.eventos = res as Evento[];
+      this.eventos = res.result as Evento[];
     });
   }
 
   getPasados(){
     this.eventoService.getEventosPasados()
     .subscribe(res => {
-      this.eventos = res as Evento[];
+      console.log(res);
+      
+      this.eventos = res.result as Evento[];
     });
   }
 
   getInvitaronEnCurso(){
     this.eventoService.getEventosInvitaronEnCurso()
     .subscribe(res => {
-      this.eventos = res as Evento[];
+      this.eventos = res.result as Evento[];
     });
   }
 
   getCreadosPorMi(){
     this.eventoService.getEventos()
     .subscribe(res => {
-      this.eventos = res as Evento[];
+      this.eventos = res.result as Evento[];
     });
   }
 

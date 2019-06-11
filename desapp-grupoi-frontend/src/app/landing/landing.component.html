@@ -32,28 +32,30 @@
               <br>
               <h4 class="titulo-login">Login <i class="fas fa-user-circle"></i></h4>
               <hr>
-              <form class="login-form">
+              <form [formGroup]="myForm" (ngSubmit)="signIn()" class="login-form">
                 <mat-form-field class="">
-                  <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+                  <input matInput placeholder="Email" formControlName="emailCtrl">
 
-                  <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                      Debés ingresar un email válido.
-                    </mat-error>
-                    <mat-error *ngIf="emailFormControl.hasError('required')">
-                      El Email es <strong>requerido</strong>
+                  <mat-error *ngIf="getEmail.hasError('email') && !getEmail.hasError('required')">
+                    Debés ingresar un email válido.
                   </mat-error>
+                  <mat-error *ngIf="getEmail.hasError('required')">
+                    El Email es <strong>requerido</strong>
+                  </mat-error>
+                  <br>
                 </mat-form-field>
                 <br>
                 <mat-form-field>
-                  <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'">
+                  <input matInput placeholder="Contraseña" formControlName="contraseniaCtrl" [type]="hide ? 'password' : 'text'">
                   <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}} </mat-icon>
+                  <mat-error *ngIf="submitted && error_password">Contraseña incorrecta.</mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="submitted && error_not_found">Usuario no encontrado.</mat-error>
 
                 <br><br>
-                <button type="button" (click)="goto('eventos')"
+                <button type="submit"
                   class="btn btn-outline-dark  btn-block">Ingresar!</button>
               </form>
-
               <!-- <button type="button" class="btn btn-outline-secondary">Olvidé mi contraseña</button> -->
               <br>
             </div>

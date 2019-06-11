@@ -1,31 +1,43 @@
 <div class="container-fluid mt-3">
-     <!-- <div class="row"> -->
-    <!-- <div class="col-sm-12"> -->
 
-       <!-- <mat-radio-group aria-label="Select an option"> -->
-         <!-- TODO: hacer que estos botones filtren los eventos --> 
-         <!-- <mat-radio-button checked value="Todos">Todos</mat-radio-button> -->
-        <!-- <mat-radio-button class="ml-2" value="Mis eventos">En curso</mat-radio-button>
-        <mat-radio-button class="ml-2" value="Estoy invitado">Pasados</mat-radio-button>
-      </mat-radio-group> 
-
-    </div> 
-  </div>  -->
   <div class="row">
     <div class="col-sm-12">
       <div class="row card-group">
         <div class="col-3" *ngFor="let ev of eventos">
 
           <div class="card mt-2 ml-2">
-            <h5 class="card-header">{{ev.nombre}}</h5>
+
+            <h5 class="text-center">{{ev.nombre}}</h5>
+            <hr>
+            <div class="d-flex justify-content-center mb-2">
+                <button matTooltip="Cant. Items: {{ev.cantidadItems}}" class="btn btn-outline-primary">
+                  <i class="fas fa-bars"></i>
+                </button>
+
+                <button matTooltip="Costo total: {{ev.costoTotal.monto}}" class="btn btn-outline-primary ml-2">
+                  <i class="fas fa-dollar-sign mx-auto"></i>
+                </button>
+
+                <button matTooltip="Invitados: {{ev.invitados.length}}" class="btn btn-outline-primary ml-2"><i
+                    class="fas fa-users" style="margin-left: -3px;"></i></button>
+              </div>
+
+            <h6 class="card-subtitle mb-1 mt-2 text-muted"> <i class="far fa-user mr-2"></i>By:
+              {{ev.organizador.nombre}} {{ev.organizador.apellido}}</h6>
+            <p><i class="fas fa-user-check mr-1"></i> {{ev.cantidadAsistentes}} asistentes confirmados</p>
+
             <div class="card-body">
-   
+            
               <p class="card-text">{{ev.descripcion}}</p>
 
+              <button matTooltip="copiar a mis templates" class="btn btn-outline-success float-right"><i
+                  class="far fa-copy"></i></button>
+
             </div>
+
           </div>
 
-   
+
         </div>
       </div>
     </div>

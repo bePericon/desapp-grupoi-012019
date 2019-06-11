@@ -4,11 +4,26 @@
       <div class="col-4 mt-2" *ngFor="let t of templates">
 
         <div class="templ">
-          <h5>{{t.nombre}}</h5>
-          <h6 class="mb-2 text-muted">{{t.modalidad}}</h6>
+          <span class="titulo">{{t.nombre}} - <span class="mb-2 text-muted">{{t.modalidad}}</span></span>
+          <!-- <h6 class="mb-2 text-muted">{{t.modalidad}}</h6> -->
+          <hr>
           <p>{{t.descripcion}}</p>
-          <button class="btn btn-outline-success" (click)="elegirTemplate(t)">Elegir! <i class="fas fa-check"></i></button>
+          <hr>
+          <div *ngIf="esMiTemplate">
+              <mat-checkbox  [(ngModel)]="visibilidad"> Hacer público <i class="fas fa-globe ml-2"></i></mat-checkbox>
+          </div>
+
+          <button matTooltip="Elegir {{t.nombre}}" class="btn btn-outline-success float-right" 
+            (click)="elegirTemplate(t)"> <i class="fas fa-check"></i>
+          </button>
+          <!-- <br>
+          <br> -->
+
         </div>
+
+        
+
+
       </div>
 
 

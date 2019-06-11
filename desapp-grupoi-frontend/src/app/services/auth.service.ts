@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../model/usuario.model';
+import { Session } from '../model/session.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,8 @@ export class AuthService {
   }
 
   // Sing in a user
-  // singIn(user: User): Observable<Session> {
-  //   return this.httpClient.post<Session>(`${this.URL_API}/login`, user);
-  // }
+  singIn(usuario): Observable<Session> {
+    return this.httpClient.post<Session>(`${this.URL_API}/login`, usuario);
+  }
 
 }

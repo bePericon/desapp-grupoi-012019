@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { InvitacionesService } from './../services/invitaciones.service';
+import { Invitacion } from '../model/invitacion.model';
 @Component({
   selector: 'app-mostrar-invitaciones',
   templateUrl: './mostrar-invitaciones.component.html',
@@ -7,19 +8,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MostrarInvitacionesComponent implements OnInit {
 
-  eventos = [];
+  invitaciones =[];
 
-  constructor() { 
+  constructor(private invitacionesService: InvitacionesService) {
 
-    //esto deberia venir desde un servicio
-    this.eventos=[{ nombreEvento: "fiesta", descripcion: "sarasa" },
-    { nombreEvento: "fiest2", descripcion: "sadsad" },
-    { nombreEvento: "baquitaloca", descripcion: "baquita de prueba" },
-    { nombreEvento: "canastulli", descripcion: "sasaadsadsadasrasa" },
-    { nombreEvento: "una cosa", descripcion: "sarasasdsadsadsaa" }]
+    
   }
 
   ngOnInit() {
   }
+
+
+  getPendientes(){
+    this.invitaciones = this.invitacionesService.getPendientes();
+    // .subscribe(res => {
+    //   this.invitaciones = res as Invitacion[];
+    // });
+  }
+
+  getPasadas(){
+    this.invitaciones = this.invitacionesService.getPasadas();
+  //   this.eventoService.getEventosPasados()
+  //   .subscribe(res => {
+  //     this.eventos = res as Evento[];
+  //   });
+  }
+
+  getAceptadas(){
+    this.invitaciones = this.invitacionesService.getAceptadas();
+  //   this.eventoService.getEventosInvitaronEnCurso()
+  //   .subscribe(res => {
+  //     this.eventos = res as Evento[];
+  //   });
+  }
+
+  getRechazadas(){
+    this.invitaciones = this.invitacionesService.getRechazadas();
+  //   this.eventoService.getEventos()
+  //   .subscribe(res => {
+  //     this.eventos = res as Evento[];
+  //   });
+  }
+
 
 }

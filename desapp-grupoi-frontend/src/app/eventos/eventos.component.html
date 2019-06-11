@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid"> -->
 
   <div class="row">
     <div class="col-sm-12">
@@ -11,24 +11,32 @@
           <app-mostrar-eventos #ameMasPopulares></app-mostrar-eventos>
         </mat-tab>
 
-        <mat-tab label="Pasados">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="fas fa-history mr-1"></i>
+            Pasados
+          </ng-template>
           <app-mostrar-eventos #amePasados></app-mostrar-eventos>
         </mat-tab>
 
-        <mat-tab label="Me invitaron en curso">
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <i class="far fa-calendar-check mr-1"></i>
+            Me invitaron en curso
+          </ng-template>
           <app-mostrar-eventos #ameInvitaronEnCurso></app-mostrar-eventos>
         </mat-tab>
-        <mat-tab label="Creados por mi">
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <i class="fas fa-child mr-1"></i>
+            Creados por mi
+          </ng-template>
           <app-mostrar-eventos #ameCreadosPorMi></app-mostrar-eventos>
         </mat-tab>
 
-        <!-- <a mat-tab-link label="sdsddssd">
-          <!-- <app-mostrar-eventos></app-mostrar-eventos> -->
-        <!-- </a> --> 
-
         <mat-tab style="width:100%!important" (click)="sas()">
-          <ng-template mat-tab-label >
-            <div class="crear"  style="color:#0012ff!important">
+          <ng-template mat-tab-label>
+            <div class="crear" style="color:#0012ff!important">
               <i class="material-icons">
                 add_circle_outline
               </i>
@@ -39,11 +47,10 @@
           <div style="width:100%!important">
             <app-crear-evento style="width:100%!important"></app-crear-evento>
           </div>
-          <!-- <button (click)="getDatos()">getdatos</button> -->
 
         </mat-tab>
       </mat-tab-group>
     </div>
   </div>
 
-</div>
+<!-- </div> -->

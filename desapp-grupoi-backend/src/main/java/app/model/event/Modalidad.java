@@ -2,7 +2,6 @@ package app.model.event;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;

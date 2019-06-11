@@ -1,32 +1,52 @@
-<div class="container-fluid">
-    <h3 class="mt-5">Y sino, podés crear tu propio template desde cero</h3>
+<div class="container">
+  <h3 class="mt-5">O podés crear tu propio template desde cero</h3>
   <div class="row">
-    <form class="mi-cuenta-form">
+   
+      <mat-horizontal-stepper [linear]="true" #stepper>
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Nombre de Template</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="Nombre del Template" formControlName="firstCtrl" required>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext>Siguiente</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Descripción</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="Descripción" formControlName="secondCtrl" required>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-button matStepperNext>Siguiente</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Elegir visibilidad</ng-template>
 
-      <br>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Nombre de template" value="">
-      </mat-form-field>
-      <br>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Algo" value="">
-      </mat-form-field>
-      <br>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Otra cosa" value="">
-      </mat-form-field>
-      <br>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="sarasa" value="">
-      </mat-form-field>
-      <br>
+            <h6>¿Hacerlo público?</h6>
+            <mat-checkbox  [(ngModel)]="visibilidad"> Hacer público </mat-checkbox>
 
-    </form>
+            <hr>
+            <div>
+              <button mat-button matStepperPrevious>Atrás</button>
+              <button mat-button (click)="stepper.reset()">Cancelar todo <i class="fas fa-redo"></i> </button>
+              <hr>
+              <button class="btn btn-outline-success mt-1"> Crear! </button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+
+
   </div>
-    <mat-radio-group aria-label="Select an option">
-      <mat-radio-button value="public" checked>Público</mat-radio-button>
-      <mat-radio-button class="ml-2" value="private">Privado</mat-radio-button>
-    </mat-radio-group>
 
+    
+
+    
  
 </div>

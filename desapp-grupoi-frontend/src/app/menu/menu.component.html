@@ -1,21 +1,19 @@
-<nav class="navbar navbar-dark bg-dark">
-  <!-- <a class="navbar-brand" href="/eventeando/eventos"><i class="fas fa-home"></i></a> -->
-  <a class="navbar-brand" href="/eventeando/crear-evento">
-    <!-- <i class="material-icons" >
-      add
-    </i>  -->
-    <i class="fas fa-plus-circle" matTooltip="Crear evento!"></i> 
-  </a>
-  <a class="" href="/eventeando/eventos"><i class="far fa-newspaper mr-1"></i> Eventos</a>
 
-  <a class="" href="/eventeando/invitaciones"> <i class="far fa-envelope"></i> Invitaciones</a>
-  <a class="" href="/eventeando/billetera"> <i class="fas fa-wallet"></i> Billetera</a>
+  <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm ">
 
-  <div style="color:white" class="" >
-    <div style="cursor:pointer">
-      <i class="fas fa-user-cog"></i>
-      <a class="ml-1" href="/eventeando/miCuenta">Mi cuenta</a>
-      / <a href="#">Salir</a>
+
+    <button  matTooltip="Crear evento!" class="btn btn-outline-light" style="border-radius:50%" (click)="irACrearEvento()">
+      <i class="fas fa-plus"></i>
+    </button>
+
+    <a class="" href="/eventeando/eventos"><i class="far fa-newspaper mr-1"></i> Eventos</a>
+    <a class="" href="/eventeando/invitaciones"> <i class="far fa-envelope"></i> Invitaciones</a>
+    <a class="" href="/eventeando/billetera"> <i class="fas fa-wallet"></i> Billetera</a>
+
+    <div style="color:white">
+      <div style="cursor:pointer">
+        <a class="ml-1" href="/eventeando/miCuenta"><i class="fas fa-user-cog"></i> Mi cuenta</a>
+        / <a href="#">Salir</a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>

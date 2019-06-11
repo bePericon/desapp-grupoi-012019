@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Evento } from '../model/evento.model';
+import { StorageService } from './storage.service';
+import { Session } from '../model/session.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,32 +11,36 @@ import { Evento } from '../model/evento.model';
 export class EventoService {
 
   // Variables
+  usuarioId: number;
   selectedEvento : Evento;
   eventos: Evento[];
   // URL of th Rest API server
   readonly URL_API = 'http://localhost:8080/app/evento';
 
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService) {
     this.selectedEvento = new Evento();
+    this.usuarioId = this.storageService.getCurrentUser().id;
   }
 
   //SE HARDCODEARON LOS ID DE USUARIOS!!
   // Methods
-  getEventosPopulares(){
-    return this.http.get(this.URL_API+ '/populares/all'); 
+  getEventosPopulares(): Observable<Session>{
+    return this.http.get<Session>(this.URL_API+ '/populares/all'); 
   };
 
-  getEventosPasados(){
-    return this.http.get(this.URL_API+ '/pasados/usuario/2');
+  getEventosPasados(): Observable<Session>{
+    return this.http.get<Session>(this.URL_API+ '/pasados/cuenta/'+ this.usuarioId);
   };
 
-  getEventosInvitaronEnCurso(){
-    return this.http.get(this.URL_API+ '/encurso/usuario/2'); 
+  getEventosInvitaronEnCurso(): Observable<Session>{
+    return this.http.get<Session>(this.URL_API+ '/encurso/usuario/'+ this.usuarioId);
   };
 
-  getEventos(){
-    return this.http.get(this.URL_API+ '/cuenta/2'); 
+  getEventos(): Observable<Session>{
+    return this.http.get<Session>(this.URL_API+ '/cuenta/'+ this.usuarioId);
   };
 
   postEvento(Evento: Evento){

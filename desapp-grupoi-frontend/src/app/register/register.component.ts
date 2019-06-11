@@ -82,19 +82,17 @@ export class RegisterComponent implements OnInit {
         return; 
       }
 
-    var u = {
+    var usuario = {
       nombre: this.nombreForm.controls['nombreCtrl'].value,
       apellido: this.apellidoForm.controls['apellidoCtrl'].value,
       email: this.emailForm.controls['emailCtrl'].value,
       contrasenia: this.contraseniaForm.controls['contraseniaCtrl'].value,
       fechaNac:  this.fechaNacForm.controls['fechaNacCtrl'].value
     };
-
-    var usuario = new Usuario(0,u.nombre,u.apellido,u.email,u.contrasenia,u.fechaNac)
     
-    console.log("Vamos bien! usuario:" + u);
+    console.log("Vamos bien! usuario:" + usuario);
 
-    this.authService.registerUser(u).subscribe(
+    this.authService.registerUser(usuario).subscribe(
       res => {
         console.log("Se guardo correctamente");
       },
