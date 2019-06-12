@@ -22,7 +22,7 @@
             <form [formGroup]="descripcionFormGroup">
               <ng-template matStepLabel>Descripción</ng-template>
               <mat-form-field>
-                <input matInput placeholder="Descripción" formControlName="descripcionCtrl" required>
+                <textarea  matInput placeholder="Descripción" formControlName="descripcionCtrl" required></textarea>
               </mat-form-field>
               <div>
                 <button mat-button matStepperPrevious>Atrás</button>
@@ -59,7 +59,7 @@
               <ng-template matStepLabel>Modalidad</ng-template>
 
               <mat-form-field>
-                  <mat-label>Favorite food</mat-label>
+                  <mat-label>Modalidad</mat-label>
                   <mat-select  formControlName="modalidadCtrl">
                     <mat-option *ngFor="let mod of modalidades" [value]="mod.value">
                       {{mod.viewValue}}
@@ -74,18 +74,18 @@
           </mat-step>
 
           <!-- AGREGAR ITEMS -->
-          <!-- <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
+          <mat-step [stepControl]="secondFormGroup">
+            <!-- <form [formGroup]="secondFormGroup"> -->
               <ng-template matStepLabel>Agregar items</ng-template>
-              <mat-form-field>
-                <input matInput placeholder="Descripción" formControlName="secondCtrl" required>
-              </mat-form-field>
+              
+              <app-agregar-items></app-agregar-items>
+
               <div>
                 <button mat-button matStepperPrevious>Atrás</button>
                 <button mat-button matStepperNext>Siguiente</button>
               </div>
-            </form>
-          </mat-step> -->
+            <!-- </form> -->
+          </mat-step>
 
           <mat-step>
             <ng-template matStepLabel>Elegir visibilidad</ng-template>

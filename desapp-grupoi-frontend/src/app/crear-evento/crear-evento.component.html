@@ -79,6 +79,19 @@
             </div>
           </form>
         </mat-step>
+        <!-- AGREGAR ITEMS -->
+        <mat-step [stepControl]="secondFormGroup">
+          <!-- <form [formGroup]="secondFormGroup"> -->
+            <ng-template matStepLabel>Agregar items</ng-template>
+
+            <app-agregar-items></app-agregar-items>
+
+            <div>
+              <button mat-button matStepperPrevious>Atrás</button>
+              <button mat-button matStepperNext>Siguiente</button>
+            </div>
+          <!-- </form> -->
+        </mat-step>
 
         <mat-step [stepControl]="emailForm">
           <form [formGroup]="emailForm">
@@ -99,8 +112,9 @@
                 </i>
                 Atrás
               </button>
-            
-              <button matTooltip="Se perderán todos los datos cargados" (click)="cancelarCreacion(stepper)" mat-button>Cancelar evento
+
+              <button matTooltip="Se perderán todos los datos cargados" (click)="cancelarCreacion(stepper)"
+                mat-button>Cancelar evento
               </button>
               <br>
 
@@ -109,7 +123,7 @@
                 <div *ngFor="let t of invitados" class="mt-1">
                   <div>
                     <span style="vertical-align: super;">{{t}} </span>
-                    <button (click)="removerInvitado(t)"  class="btn btn-outline-danger btn-sm boton-cerrar"
+                    <button (click)="removerInvitado(t)" class="btn btn-outline-danger btn-sm boton-cerrar"
                       matTooltip="Remover invitado">
                       <i class="fas fa-times"></i>
                     </button>
