@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
 
 @Component({
   selector: 'app-crear-template',
@@ -10,18 +8,44 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class CrearTemplateComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  nombreFormGroup: FormGroup;
+  descripcionFormGroup: FormGroup;
+  fechaEventoForm: FormGroup;
+  modalidadFormGroup: FormGroup;
+  // descripcionFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+
+  modalidades: any;
+
+  constructor(private _formBuilder: FormBuilder) {
+    
+  }
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+    
+    this.modalidades  = [
+      {value: 'FIESTA', viewValue: 'Fiesta'},
+      {value: 'CANASTA', viewValue: 'Canasta'},
+      {value: 'BAQIUTA-V1', viewValue: 'Baqiuta v1'},
+      {value: 'BAQUITA-V2', viewValue: 'Baquita v2'},
+    ];
+
+    this.nombreFormGroup = this._formBuilder.group({
+      nombreCtrl: ['', Validators.required]
     });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+    this.descripcionFormGroup = this._formBuilder.group({
+      descripcionCtrl: ['', Validators.required]
     });
+    this.fechaEventoForm = this._formBuilder.group({
+      fechaEventoCtrl: ['', Validators.required]
+    });
+    this.modalidadFormGroup = this._formBuilder.group({
+      modalidadCtrl: ['', Validators.required]
+    });
+    // this.secondFormGroup = this._formBuilder.group({
+    //   secondCtrl: ['', Validators.required]
+    // });
+
   }
 
 }
