@@ -10,14 +10,12 @@
           <p>{{t.descripcion}}</p>
           <hr>
           <div *ngIf="esMiTemplate">
-              <mat-checkbox  [(ngModel)]="visibilidad"> Hacer público <i class="fas fa-globe ml-2"></i></mat-checkbox>
+              <mat-checkbox  [(ngModel)]="visibilidad"><i class="fas fa-globe ml-1"></i> Público </mat-checkbox>
           </div>
 
           <button matTooltip="Elegir {{t.nombre}}" class="btn btn-outline-success float-right" 
             (click)="elegirTemplate(t)"> <i class="fas fa-check"></i>
           </button>
-          <!-- <br>
-          <br> -->
 
         </div>
 

@@ -1,19 +1,23 @@
+<nav class="navbar navbar-dark bg-dark fixed-top shadow-sm ">
 
-  <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm ">
 
+  <button matTooltip="Crear evento!" class="btn btn-outline-light" style="border-radius:50%" (click)="irACrearEvento()">
+    <i class="fas fa-plus"></i>
+  </button>
 
-    <button  matTooltip="Crear evento!" class="btn btn-outline-light" style="border-radius:50%" (click)="irACrearEvento()">
-      <i class="fas fa-plus"></i>
-    </button>
+  <a class="" href="/eventeando/eventos" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}">
+    <i
+      class="far fa-newspaper mr-1"></i> Eventos</a>
+  <a class="" href="/eventeando/invitaciones" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"> <i
+      class="far fa-envelope"></i> Invitaciones</a>
+  <a class="" href="/eventeando/billetera" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"> <i
+      class="fas fa-wallet"></i> Billetera</a>
 
-    <a class="" href="/eventeando/eventos"><i class="far fa-newspaper mr-1"></i> Eventos</a>
-    <a class="" href="/eventeando/invitaciones"> <i class="far fa-envelope"></i> Invitaciones</a>
-    <a class="" href="/eventeando/billetera"> <i class="fas fa-wallet"></i> Billetera</a>
-
-    <div style="color:white">
-      <div style="cursor:pointer">
-        <a class="ml-1" href="/eventeando/miCuenta"><i class="fas fa-user-cog"></i> Mi cuenta</a>
-        / <a href="#">Salir</a>
-      </div>
+  <div style="color:white">
+    <div style="cursor:pointer">
+      <a class="ml-1" href="/eventeando/miCuenta" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"><i
+          class="fas fa-user-cog"></i> Mi cuenta</a>
+      / <a href="#">Salir</a>
     </div>
-  </nav>
+  </div>
+</nav>

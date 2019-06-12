@@ -37,6 +37,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AgregarItemsComponent } from './agregar-items/agregar-items.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     
     MostrarTemplateComponent,
     
-    EstadoCuentaComponent
+    EstadoCuentaComponent,
+    
+    AgregarItemsComponent
   ],
   imports: [
     BrowserModule,
