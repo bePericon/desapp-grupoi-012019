@@ -76,7 +76,7 @@ export class StorageService {
    */
   singOut(): void {
     this.removeCurrentSession();
-    this.router.navigateByUrl('/auth/login');
+    this.router.navigateByUrl('/');
   }
 
 }

@@ -55,14 +55,19 @@
     <div class="col-sm">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <ng-container matColumnDef="tipo">
-          <th mat-header-cell *matHeaderCellDef> Tipo </th>
-          <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+        <ng-container matColumnDef="tipoMovimiento">
+          <th mat-header-cell *matHeaderCellDef> Tipo de movimiento </th>
+          <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="valor">
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="monto.monto">
           <th mat-header-cell *matHeaderCellDef> Monto </th>
-          <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+          <td mat-cell *matCellDef="let element">$ {{element.monto.monto}} </td>
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

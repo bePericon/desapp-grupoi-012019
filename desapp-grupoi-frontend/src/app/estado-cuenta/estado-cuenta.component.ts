@@ -1,3 +1,5 @@
+import { CuentaService } from './../services/cuenta.service';
+import { Cuenta } from './../model/cuenta.model';
 import { Movimiento } from './../model/movimiento.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
@@ -9,42 +11,39 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 })
 export class EstadoCuentaComponent implements OnInit {
 
-  saldo: any;
-  situacion: any;
+  cuenta: Cuenta;
+  saldo: number;
+  situacion: string;
   tarjetaCredito: any;
   movimientos: Movimiento[];
   opcionesExpandidas: Boolean;
 
   //Table
   @ViewChild (MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['tipo', 'valor'];
+  displayedColumns: string[] = ['tipoMovimiento', 'fecha', 'monto.monto'];
   dataSource: MatTableDataSource<Movimiento>;
 
-  constructor() { }
+  constructor(private cuentaService: CuentaService) { }
 
   ngOnInit() {
-    this.saldo = 1000;
-    this.situacion = 'NORMAL';
+    this.cargarCuenta();
     this.tarjetaCredito = 'XXXX-XXXX-XXXX-XXXX';
-    this.movimientos = [
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 0, tipo: 'Deposito', valor: '1000'},
-      {_id: 1, tipo: 'Deposito', valor: '1000'}
-    ];
     this.opcionesExpandidas = false;
+  }
 
-    //Table
-    this.dataSource = new MatTableDataSource<Movimiento>(this.movimientos);
-    this.dataSource.paginator = this.paginator;
+  cargarCuenta(){
+    this.cuentaService.getCuenta()
+      .subscribe(res => {
+        this.cuenta = res.result as Cuenta;
+        this.saldo = this.cuenta.saldo.monto;
+        this.situacion = this.cuenta.situacionDeuda;
+        this.movimientos = this.cuenta.movimientos;
+
+        //Table
+        this.dataSource = new MatTableDataSource<Movimiento>(this.movimientos);
+        this.dataSource.paginator = this.paginator;
+        
+      });
   }
 
   expandirOpciones(){

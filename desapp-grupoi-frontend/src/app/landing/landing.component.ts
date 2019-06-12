@@ -64,7 +64,6 @@ export class LandingComponent implements OnInit {
     this.authService.singIn(usuario)
       .subscribe(
         res => {
-          console.log(res);
           this.storageService.setCurrentSession(res);
           this.goto('eventos');
         },
@@ -73,7 +72,7 @@ export class LandingComponent implements OnInit {
             this.error_not_found = true;
           else if (error.error.status == 400)
             this.error_password = true;
-
+            
           console.log('Error: '+ error.error.message);
         }
       );

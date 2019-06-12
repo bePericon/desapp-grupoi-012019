@@ -16,8 +16,7 @@ public class Movimiento {
     @Enumerated(EnumType.STRING)
     private TipoMovimiento tipoMovimiento;
 
-    @Column(name = "fechaNac")
-    @Temporal(TemporalType.DATE)
+    @Column
     private Date fecha;
 
     @OneToOne(cascade=CascadeType.ALL)
@@ -34,5 +33,13 @@ public class Movimiento {
 
     public TipoMovimiento getTipoMovimiento() {
         return tipoMovimiento;
+    }
+
+    public Date getFecha() {
+        return this.fecha;
+    }
+
+    public Dinero getMonto() {
+        return this.monto;
     }
 }

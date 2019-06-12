@@ -1,4 +1,3 @@
-import { Usuario } from './usuario.model';
 
 export class Session {
   public status: number;

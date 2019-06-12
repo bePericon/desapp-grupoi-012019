@@ -25,7 +25,6 @@ export class EventoService {
     this.usuarioId = this.storageService.getCurrentUser().id;
   }
 
-  //SE HARDCODEARON LOS ID DE USUARIOS!!
   // Methods
   getEventosPopulares(): Observable<Session>{
     return this.http.get<Session>(this.URL_API+ '/populares/all'); 

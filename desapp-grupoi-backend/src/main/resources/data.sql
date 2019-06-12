@@ -11,7 +11,7 @@ insert into usuario (id, nombre, apellido, email, contrasenia, fecha_nac) values
 (4, 'Homero', 'Simpson','homero@email.com','$2a$04$CjttILdAPP0k.yduBaoM6erI/sf/w2H1fXjXUDbsO3MTkP2nvtST.',TO_DATE('12/05/1956', 'DD/MM/YYYY'));
 -- Saldos
 insert into dinero (id, aux, monto) values
-(1,0,0),(2,0,0),(3,0,0),(4,0,0);
+(1,0,3250),(2,0,0),(3,0,0),(4,0,0);
 -- Cuentas
 insert into cuenta (situacion_deuda, saldo_id, usuario_id) values
 ('NORMAL', 1, 1),('NORMAL', 2, 2),('NORMAL', 3, 3),('NORMAL', 4, 4);
@@ -80,4 +80,26 @@ insert into cuenta_templates (cuenta_id, templates_id) values (1, 3)
 insert into evento_asistentes (evento_id, asistentes_id) values (3, 2);
 insert into evento_asistentes (evento_id, asistentes_id) values (3, 3);
 insert into evento_asistentes (evento_id, asistentes_id) values (3, 4);
+
+-- Montos para movimientos
+insert into dinero (id, aux, monto) values 
+(11,0,1000),(12,0,1000),(13,0,1000),(14,0,1000),(15,0,1000),(16,0,1000),(17,0,1000),
+(18,0,250),(19,0,500), ---<<--- Primer usuario.
+(20,0,1000),(21,0,1000),(22,0,1000),(23,0,1000),(24,0,1000),
+(25,0,500),(26,0,500),(27,0,500),(28,0,500),(29,0,500),(30,0,500),(31,0,500);
+
+-- NOTA: modificar el saldo de la cuenta mas arriba!
+insert into movimiento (id, fecha, tipo_movimiento, monto_id) values 
+(1, TO_DATE('01/02/2019', 'DD/MM/YYYY'), 'DEPOSITAR', 11),
+(2, TO_DATE('01/02/2019', 'DD/MM/YYYY'), 'DEPOSITAR', 12),
+(3, TO_DATE('01/02/2019', 'DD/MM/YYYY'), 'DEPOSITAR', 13),
+(4, TO_DATE('01/02/2019', 'DD/MM/YYYY'), 'RETIRAR', 14),
+(5, TO_DATE('01/02/2019', 'DD/MM/YYYY'), 'RETIRAR', 15),
+(6, TO_DATE('01/02/2019', 'DD/MM/YYYY'), 'DEPOSITAR', 16),
+(7, TO_DATE('01/02/2019', 'DD/MM/YYYY'), 'DEPOSITAR', 17),
+(8, TO_DATE('01/02/2019', 'DD/MM/YYYY'), 'RETIRAR', 18),
+(9, TO_DATE('01/02/2019', 'DD/MM/YYYY'), 'DEPOSITAR', 19);
+
+insert into cuenta_movimientos (cuenta_id, movimientos_id) values
+(1, 1),(1, 2),(1, 3),(1, 4),(1, 5),(1, 6),(1, 7),(1, 8),(1, 9);
 
