@@ -2,7 +2,8 @@ import { CuentaService } from './../services/cuenta.service';
 import { Cuenta } from './../model/cuenta.model';
 import { Movimiento } from './../model/movimiento.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
+import { EditTarjetaComponent } from './edit-tarjeta/edit-tarjeta.component';
 
 @Component({
   selector: 'app-estado-cuenta',
@@ -23,31 +24,49 @@ export class EstadoCuentaComponent implements OnInit {
   displayedColumns: string[] = ['tipoMovimiento', 'fecha', 'monto.monto'];
   dataSource: MatTableDataSource<Movimiento>;
 
-  constructor(private cuentaService: CuentaService) { }
+  constructor(
+    private cuentaService: CuentaService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.cargarCuenta();
-    this.tarjetaCredito = 'XXXX-XXXX-XXXX-XXXX';
+    this.loadData();
     this.opcionesExpandidas = false;
   }
 
-  cargarCuenta(){
+  loadData(){
     this.cuentaService.getCuenta()
       .subscribe(res => {
-        this.cuenta = res.result as Cuenta;
-        this.saldo = this.cuenta.saldo.monto;
-        this.situacion = this.cuenta.situacionDeuda;
-        this.movimientos = this.cuenta.movimientos;
-
-        //Table
-        this.dataSource = new MatTableDataSource<Movimiento>(this.movimientos);
-        this.dataSource.paginator = this.paginator;
-        
+        this.cargarCuenta(res);
       });
   }
 
-  expandirOpciones(){
-    this.opcionesExpandidas = !this.opcionesExpandidas;
+  cargarCuenta(res){
+    this.cuenta = res.result as Cuenta;
+    this.saldo = this.cuenta.saldo.monto;
+    this.situacion = this.cuenta.situacionDeuda;
+    this.movimientos = this.cuenta.movimientos;
+
+    //Table
+    this.dataSource = new MatTableDataSource<Movimiento>(this.movimientos);
+    this.dataSource.paginator = this.paginator;
+
+    this.tarjetaCredito = '4242424242424242';
+  }
+
+  // expandirOpciones(){
+  //   this.opcionesExpandidas = !this.opcionesExpandidas;
+  // }
+
+  editarTarjeta(){
+    const dialogRef = this.dialog.open(EditTarjetaComponent, {
+      width: '300px',
+      data: {numero: this.tarjetaCredito},
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      (result)? this.tarjetaCredito = result : undefined;
+    });
   }
 
 }

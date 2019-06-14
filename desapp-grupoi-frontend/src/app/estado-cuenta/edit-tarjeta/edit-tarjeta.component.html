@@ -1,0 +1,24 @@
+
+<div class="">
+  <h1 mat-dialog-title>Editar tarjeta</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="tarjetaForm">
+      <mat-form-field>
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="tipoCtrl" (ngModelChange)="onChange()" required>
+          <mat-option *ngFor="let t of types" [value]="t">
+            {{t.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Número</mat-label>
+        <input matInput formControlName="numeroCtrl" [(ngModel)]="data.numero" required>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="btn-danger" (click)="cancelar()">Cancelar</button>
+    <button mat-button [mat-dialog-close]="data.numero" [disabled]="!tarjetaValida()" cdkFocusInitial>Cambiar</button>
+  </div>
+</div>

@@ -38,6 +38,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AgregarItemsComponent } from './agregar-items/agregar-items.component';
+import { EditTarjetaComponent } from './estado-cuenta/edit-tarjeta/edit-tarjeta.component';
 
 @NgModule({
   declarations: [
@@ -53,16 +54,12 @@ import { AgregarItemsComponent } from './agregar-items/agregar-items.component';
     InvitacionesComponent,
     BilleteraComponent,
     MostrarInvitacionesComponent,
-    
     MiCuentaComponent,
-    
     CrearTemplateComponent,
-    
     MostrarTemplateComponent,
-    
     EstadoCuentaComponent,
-    
-    AgregarItemsComponent
+    AgregarItemsComponent,
+    EditTarjetaComponent
   ],
   imports: [
     BrowserModule,
@@ -117,7 +114,7 @@ import { AgregarItemsComponent } from './agregar-items/agregar-items.component';
     MatPaginatorModule,
     MatCheckboxModule
   ],
-  entryComponents: [RegisterComponent],
+  entryComponents: [RegisterComponent, EditTarjetaComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
