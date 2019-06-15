@@ -1,3 +1,4 @@
+import { Tarjeta } from './tarjeta.model';
 import { Movimiento } from './movimiento.model';
 
 export class Cuenta {
@@ -8,4 +9,5 @@ export class Cuenta {
   };
   situacionDeuda: string;
   movimientos: Movimiento[];
+  tarjetaCredito: Tarjeta;
 }

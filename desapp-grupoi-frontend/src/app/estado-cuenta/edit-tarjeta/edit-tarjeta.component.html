@@ -13,7 +13,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Número</mat-label>
-        <input matInput formControlName="numeroCtrl" [(ngModel)]="data.numero" required>
+        <input matInput formControlName="numeroCtrl" (ngModelChange)="onChange()" [(ngModel)]="data.numero" required>
       </mat-form-field>
     </form>
   </div>

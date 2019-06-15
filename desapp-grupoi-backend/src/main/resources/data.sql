@@ -15,6 +15,9 @@ insert into dinero (id, aux, monto) values
 -- Cuentas
 insert into cuenta (situacion_deuda, saldo_id, usuario_id) values
 ('NORMAL', 1, 1),('NORMAL', 2, 2),('NORMAL', 3, 3),('NORMAL', 4, 4);
+-- Tarjetas de credito
+insert into tarjetacredito (codigo_seguridad, numero_tarjeta) values
+('123','4242424242424242'),('123','378282246310005'),('123','378282246310005'),('123','378282246310005');
 
 -- Creacion de eventos: (saldo, modalidad, template, evento)
 -- Creamos un evento Publico del primer usuario

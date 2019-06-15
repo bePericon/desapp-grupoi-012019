@@ -50,7 +50,7 @@ export class EstadoCuentaComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Movimiento>(this.movimientos);
     this.dataSource.paginator = this.paginator;
 
-    this.tarjetaCredito = '4242424242424242';
+    this.tarjetaCredito = '4242 4242 4242 4242';
   }
 
   // expandirOpciones(){

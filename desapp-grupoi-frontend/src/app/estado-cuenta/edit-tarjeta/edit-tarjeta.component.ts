@@ -31,37 +31,32 @@ export class EditTarjetaComponent implements OnInit {
     this.tarjetaForm = this._formBuilder.group({
       tipoCtrl: [datos.type, Validators.required],
       numeroCtrl: [datos.number, Validators.required]
-    },{validator: this.match('tipoCtrl', 'numeroCtrl')});
+    });
   }
 
   obtenerDatos(){
-    var num = this.data.numero; //this.card.parse(this.data.numero)
+    var num = this.card.parse(this.data.numero)
     var nombreTipo = this.card.type(num) as String;
-    nombreTipo = nombreTipo.toLowerCase().replace(" ", "");
+    nombreTipo = nombreTipo.replace(" ","-").toLowerCase();
     return {
       type: require(`creditcards-types/types/${nombreTipo}`),
-      number: num
+      number: this.data.numero
     };
   }
 
-  match(tipo: string, numero: string) {
-    return (formGroup: FormGroup) => {
-      const tipoCtrl = formGroup.controls[tipo];
-      const numeroCtrl = formGroup.controls[numero];
-
-      var card = this.CARD([tipoCtrl.value]);
-      var num = this.data.numero; //this.card.parse(this.data.numero)
-
-      (card.isValid(num))? numeroCtrl.setErrors(null) : numeroCtrl.setErrors({ match: true});
-
-    }
-  }
+  getTipo(){ return  this.tarjetaForm.controls['tipoCtrl'].value;}
+  getNumero(){ return  this.tarjetaForm.controls['numeroCtrl'].value;}
 
   onChange() {
-    // console.log(this.tipoCtrl.value);
-    // this.card = this.CARD([this.tipoCtrl.value]);
+    var card = this.CARD([this.getTipo()]);
 
-    this.match('tipoCtrl', 'numeroCtrl');   
+    var num = card.parse(this.getNumero());
+    
+    if(!card.isValid(num)){
+      this.tarjetaForm.controls['numeroCtrl'].setErrors( {match: true} );
+    }else{
+      this.tarjetaForm.controls['numeroCtrl'].setErrors( null );
+    }
   }
 
   cancelar(){
@@ -73,3 +68,23 @@ export class EditTarjetaComponent implements OnInit {
   }
 
 }
+
+// class DataTipoTarjeta {
+
+//   Type = require('creditcards-types/type');
+
+//   visaCredito = this.Type({
+//     name: 'Visa Credito',
+//     pattern: /\b8[0-9]{3}[-][0-9]{4}[-][0-9]{4}[-][0-9](?:[0-9]{3})?\b/,
+//     eagerPattern: /^8/
+//   });
+
+//   mastercardCredito = this.Type({
+//     name: 'Mastercard Credito',
+//     pattern: /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/,
+//     eagerPattern: /^(2[3-7]|22[2-9]|5[1-5])/
+//   });
+
+//   listTypes = [this.visaCredito , this.mastercardCredito];
+// }
+
