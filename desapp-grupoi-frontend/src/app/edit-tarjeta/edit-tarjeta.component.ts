@@ -19,23 +19,25 @@ export class EditTarjetaComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<EditTarjetaComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Tarjeta) {}
+    @Inject(MAT_DIALOG_DATA) public data: Tarjeta) { }
 
   ngOnInit() {
     this.types = require('creditcards-types');
     this.CARD = require('creditcards/card');
     this.card = this.CARD(this.types);
-    
+
     var datos = this.obtenerDatos();
-    
-    this.tarjetaForm = this._formBuilder.group({
-      tipoCtrl: [datos.type, Validators.required],
-      numeroCtrl: [datos.number, Validators.required]
-    });
+
+    this.tarjetaForm = this._formBuilder.group(
+      {
+        tipoCtrl: [datos.type, Validators.required],
+        numeroCtrl: [datos.number, Validators.required]
+      }
+    );
   }
 
-  obtenerDatos(){
-    var num = this.card.parse(this.data.numero)
+  obtenerDatos() {
+    var num = this.data.numero; //this.card.parse(this.data.numero)
     var nombreTipo = this.card.type(num) as String;
     nombreTipo = nombreTipo.replace(" ","-").toLowerCase();
     return {
@@ -59,11 +61,11 @@ export class EditTarjetaComponent implements OnInit {
     }
   }
 
-  cancelar(){
+  cancelar() {
     this.dialogRef.close();
   }
 
-  tarjetaValida(){
+  tarjetaValida() {
     return !this.tarjetaForm.invalid;
   }
 

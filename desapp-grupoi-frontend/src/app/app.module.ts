@@ -38,9 +38,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AgregarItemsComponent } from './agregar-items/agregar-items.component';
-import { EditTarjetaComponent } from './estado-cuenta/edit-tarjeta/edit-tarjeta.component';
 import { IngresarDineroComponent } from './ingresar-dinero/ingresar-dinero.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { EditTarjetaComponent } from './edit-tarjeta/edit-tarjeta.component';
 
 @NgModule({
   declarations: [
