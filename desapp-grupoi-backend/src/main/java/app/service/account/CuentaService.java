@@ -2,9 +2,7 @@ package app.service.account;
 
 import app.error.exception.ExceptionNotAcceptable;
 import app.error.exception.ExceptionNotFound;
-import app.model.account.Cuenta;
-import app.model.account.TarjetaCredito;
-import app.model.account.Usuario;
+import app.model.account.*;
 import app.persistence.GenericDao;
 import app.persistence.IGenericDao;
 import app.persistence.account.CuentaDao;
@@ -61,5 +59,45 @@ public class CuentaService extends GenericService<Cuenta> {
         cuenta.setTarjetaCredito(tarjeta);
         this.getDao().update(cuenta);
         return cuenta;
+    }
+
+    public Cuenta nuevoMovimiento(long idCuenta, EnumTipos.TipoMovimiento tipo, Dinero dinero) {
+        Cuenta cuenta = this.getDao().getById(idCuenta);
+
+        switch (tipo){
+            case DEPOSITAR:
+                cuenta.depositarDinero(dinero);
+                break;
+            case RETIRAR:
+                this.nuevoMovimientoRetirar(dinero, cuenta);
+                break;
+            case CREDITO:
+                nuevoMovimientoCredito(cuenta);
+                break;
+            case PAGARCUOTA:
+                cuenta.debitarCuotaCredito();
+                break;
+        }
+
+        this.getDao().update(cuenta);
+        return cuenta;
+    }
+
+    private void nuevoMovimientoCredito(Cuenta cuenta) {
+        if(! cuenta.hayCreditoEnCurso() && cuenta.getSituacionDeuda().esCumplidor())
+            cuenta.solicitarCredito();
+        else if(cuenta.hayCreditoEnCurso())
+            throw new ExceptionNotAcceptable("Ya existe un credito en curso.");
+        else if(cuenta.getSituacionDeuda().esMoroso())
+            throw new ExceptionNotAcceptable("La situacion del usuario es: MOROSO.");
+        else if(cuenta.getSituacionDeuda().esNormal())
+            throw new ExceptionNotAcceptable("El usuario no puede solicitar credito en situacion: NORMAL.");
+    }
+
+    private void nuevoMovimientoRetirar(Dinero dinero, Cuenta cuenta) {
+        if(cuenta.haySaldoSuficiente(dinero))
+            cuenta.retirarDinero(dinero);
+        else
+            throw new ExceptionNotAcceptable("No hay saldo suficiente.");
     }
 }

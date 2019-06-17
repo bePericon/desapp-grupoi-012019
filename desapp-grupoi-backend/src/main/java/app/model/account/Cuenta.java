@@ -65,12 +65,8 @@ public class Cuenta implements Serializable {
     }
 
     public void retirarDinero(Dinero monto) {
-        if(this.haySaldoSuficiente(monto)) {
-            this.saldo.restar(monto);
-            this.agregarMovimiento(EnumTipos.TipoMovimiento.RETIRAR, new Date(), monto);
-        }
-        else
-            throw new ExceptionNotAcceptable("No hay saldo suficiente.");
+        this.saldo.restar(monto);
+        this.agregarMovimiento(EnumTipos.TipoMovimiento.RETIRAR, new Date(), monto);
     }
 
     public boolean haySaldoSuficiente(Dinero monto) {
@@ -86,12 +82,10 @@ public class Cuenta implements Serializable {
     }
 
     private void agregarCredito(Credito credito) {
-        if(! this.hayCreditoEnCurso() && this.getSituacionDeuda().esCumplidor()){
-            credito.setUsuarioSolicitante(this.getUsuario());
-            this.creditos.add(credito);
-            this.saldo.sumar(credito.getMonto());
-            this.agregarMovimiento(EnumTipos.TipoMovimiento.CREDITO, new Date(), credito.getMonto());
-        }
+        credito.setUsuarioSolicitante(this.getUsuario());
+        this.creditos.add(credito);
+        this.saldo.sumar(credito.getMonto());
+        this.agregarMovimiento(EnumTipos.TipoMovimiento.CREDITO, new Date(), credito.getMonto());
     }
 
     public boolean hayCreditoEnCurso() {

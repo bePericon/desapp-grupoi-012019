@@ -30,8 +30,6 @@ export class MostrarEventosComponent implements OnInit {
   getPasados(){
     this.eventoService.getEventosPasados()
     .subscribe(res => {
-      console.log(res);
-      
       this.eventos = res.result as Evento[];
     });
   }

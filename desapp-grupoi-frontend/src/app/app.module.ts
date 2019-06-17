@@ -39,6 +39,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AgregarItemsComponent } from './agregar-items/agregar-items.component';
 import { EditTarjetaComponent } from './estado-cuenta/edit-tarjeta/edit-tarjeta.component';
+import { IngresarDineroComponent } from './ingresar-dinero/ingresar-dinero.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { EditTarjetaComponent } from './estado-cuenta/edit-tarjeta/edit-tarjeta.
     MostrarTemplateComponent,
     EstadoCuentaComponent,
     AgregarItemsComponent,
-    EditTarjetaComponent
+    EditTarjetaComponent,
+    IngresarDineroComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +90,8 @@ import { EditTarjetaComponent } from './estado-cuenta/edit-tarjeta/edit-tarjeta.
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     BrowserModule,
@@ -112,7 +116,8 @@ import { EditTarjetaComponent } from './estado-cuenta/edit-tarjeta/edit-tarjeta.
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [RegisterComponent, EditTarjetaComponent],
   providers: [],

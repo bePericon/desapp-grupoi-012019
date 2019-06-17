@@ -1,0 +1,132 @@
+<div class="accion-magin-top">
+  <h3>Elegir accion:</h3>
+  <button type="button" (click)="switchAccion('ingresar')" 
+  class="btn btn-outline-dark rounded-pill btn-margin"
+  [ngClass]="{ 'active': mostrarIngresar }">Ingresar dinero</button>
+  <button type="button" (click)="switchAccion('retirar')" 
+  class="btn btn-outline-dark rounded-pill btn-margin"
+  [ngClass]="{ 'active': mostrarRetirar }">Retirar dinero</button>
+</div>
+
+<mat-horizontal-stepper *ngIf="mostrarIngresar" [linear]="true" #stepperIngresar>
+  <!-- Paso 1: ingresar dinero -->
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template  matStepLabel>¿Cuánto dinero quieres ingresar?</ng-template>
+      <mat-form-field 
+      [hideRequiredMarker]="firstFormGroup.value.hideRequired"
+      [floatLabel]="firstFormGroup.value.floatLabel">
+        <span matPrefix>$&nbsp;</span>
+        <input matInput placeholder="Monto" formControlName="montoCtrl" 
+        pattern="[0-9]+(\.[0-9][0-9]?)?" required>
+        <mat-hint align="start">Max. decimales: 2</mat-hint>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <!-- Paso 2: ingresar codigo seguridad tarjeta -->
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Ingresá tu código de seguridad</ng-template>
+      <mat-form-field 
+      [hideRequiredMarker]="secondFormGroup.value.hideRequired"
+      [floatLabel]="secondFormGroup.value.floatLabel">
+        <input matInput placeholder="Código seguridad" formControlName="codigoCtrl" 
+        type="number" pattern="[0-9]{3}?" required>
+        <mat-hint align="start">Max. dígitos: 3</mat-hint>
+    </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <!-- Paso 3: completado! -->
+  <mat-step>
+    <ng-template matStepLabel>Confirmar ingreso de dinero</ng-template>
+    <div>
+      <button mat-button matStepperPrevious *ngIf="mostrar">Atrás</button>
+      <button mat-button (click)="confirmar()" *ngIf="mostrar">Confirmar</button>
+      <button mat-button (click)="stepperIngresar.reset(); ingresarMas();" 
+      *ngIf="!mostrar">Ingresar más dinero</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+<mat-horizontal-stepper *ngIf="mostrarRetirar" [linear]="true" #stepperRetirar>
+  <!-- Paso 1: retirar dinero -->
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template  matStepLabel>¿Cuánto dinero quieres retirar?</ng-template>
+      <mat-form-field 
+      [hideRequiredMarker]="firstFormGroup.value.hideRequired"
+      [floatLabel]="firstFormGroup.value.floatLabel">
+        <span matPrefix>$&nbsp;</span>
+        <input matInput placeholder="Monto" formControlName="montoCtrl" 
+        pattern="[0-9]+(\.[0-9][0-9]?)?" required>
+        <mat-hint align="start">Max. decimales: 2</mat-hint>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <!-- Paso 2: ingresar codigo seguridad tarjeta -->
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Ingresá tu código de seguridad</ng-template>
+      <mat-form-field 
+      [hideRequiredMarker]="secondFormGroup.value.hideRequired"
+      [floatLabel]="secondFormGroup.value.floatLabel">
+        <input matInput placeholder="Código seguridad" formControlName="codigoCtrl" 
+        type="number" pattern="[0-9]{3}?" required>
+        <mat-hint align="start">Max. dígitos: 3</mat-hint>
+    </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <!-- Paso 3: completado! -->
+  <mat-step>
+    <ng-template matStepLabel>Confirmar retiro de dinero</ng-template>
+    <div>
+      <button mat-button matStepperPrevious *ngIf="mostrar">Atrás</button>
+      <button mat-button (click)="confirmar()" *ngIf="mostrar">Confirmar</button>
+      <button mat-button (click)="stepperRetirar.reset(); ingresarMas();" 
+      *ngIf="!mostrar">Retirar más dinero</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+<br>
+
+<div class="col-sm-12">
+  <div class="d-flex justify-content-center">
+    <div class="col-sm-4" *ngIf="!mostrar">
+      <mat-card class="example-card border">
+        <mat-card-header class="card-center">
+          <mat-card-title><h3>Perfecto!</h3></mat-card-title>
+          <mat-card-subtitle *ngIf="mostrarIngresar">El ingreso fue correcto!</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="mostrarRetirar">El retiro fue correcto!</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-center">
+          <div class="d-flex justify-content-around">
+            <div class="p-2 bd-highlight">
+              <h5>Saldo actual</h5>
+              <p class="p-margin-botton-0">
+                <span>$</span>
+                {{saldo}}
+              </p>
+            </div>
+          </div>
+          <i class="far fa-check-circle fa-7x text-success"></i>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
