@@ -1,17 +1,22 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Injectable } from '@angular/core';
+import { Evento } from '../model/evento.model';
+import { StorageService } from './storage.service';
+import { Session } from '../model/session.model';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class InvitacionesService {
 
   invitaciones = [];
+  usuarioId: number;
 
-  readonly URL_API = 'http://localhost:8080/app/evento';
+  readonly URL_API = 'http://localhost:8080/app/invitacion';
 
-  constructor(private http: HttpClient) {
-    // this.selectedEvento = new Evento();
+  constructor(private http: HttpClient, private storageService: StorageService) {
+
+    this.usuarioId = this.storageService.getCurrentUser().id;
 
     this.invitaciones = [
             {
@@ -57,21 +62,21 @@ export class InvitacionesService {
 
 
   getPendientes(){
-    // return this.http.get(this.URL_API+ '/populares/all'); 
+    // return this.http.get(this.URL_API+ '/aceptadas/'); 
     return this.invitaciones;
   };
 
   getAceptadas(){
-    // return this.http.get(this.URL_API+ '/populares/all'); 
+    // return this.http.get(this.URL_API+ '/pendientes/'); 
     return this.invitaciones;
   };
 
   getRechazadas(){
-    // return this.http.get(this.URL_API+ '/populares/all'); 
+    // return this.http.get(this.URL_API+ '/rechazadas/'); 
     return this.invitaciones;
   };
   getPasadas(){
-    // return this.http.get(this.URL_API+ '/populares/all'); 
+    // return this.http.get(this.URL_API+ '/pasadas/'); 
     return this.invitaciones;
   };
 

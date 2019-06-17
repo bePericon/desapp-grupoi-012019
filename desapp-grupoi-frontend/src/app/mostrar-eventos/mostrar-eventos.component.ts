@@ -12,13 +12,12 @@ export class MostrarEventosComponent implements OnInit {
   eventos: Evento[];
 
   constructor(private eventoService: EventoService) {
-
   }
 
   ngOnInit() {
-    
   }
 
+  //TODO: estos llamados tienen que estar en los servicios mepa
 
   getMasPopulares(){
     this.eventoService.getEventosPopulares()

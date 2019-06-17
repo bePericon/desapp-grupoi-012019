@@ -103,3 +103,10 @@ insert into movimiento (id, fecha, tipo_movimiento, monto_id) values
 insert into cuenta_movimientos (cuenta_id, movimientos_id) values
 (1, 1),(1, 2),(1, 3),(1, 4),(1, 5),(1, 6),(1, 7),(1, 8),(1, 9);
 
+-- costo es dinero pero se constuye solo con el valor del costo
+--insert into item (id,  nombre_item, costo, personas_por_unidad) values 
+--(1, 'cocacola',50, 3),
+--(2, 'asado', 230, 2),
+--(3, 'birra', 80, 1),
+--(4, 'sanguchitos', 25, 1);
+

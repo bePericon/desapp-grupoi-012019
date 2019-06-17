@@ -8,47 +8,46 @@ import { Invitacion } from '../model/invitacion.model';
 })
 export class MostrarInvitacionesComponent implements OnInit {
 
-  invitaciones =[];
+  invitaciones = [];
+  // invitaciones = Invitacion[];
 
   constructor(private invitacionesService: InvitacionesService) {
-
-    
   }
 
   ngOnInit() {
   }
 
-
   getPendientes(){
-    this.invitaciones = this.invitacionesService.getPendientes();
+    this.invitaciones = this.invitacionesService.getPendientes()
+    // this.invitacionesService.getPendientes()
     // .subscribe(res => {
+      // habilitarBotones = true;
     //   this.invitaciones = res as Invitacion[];
     // });
   }
 
   getPasadas(){
-    this.invitaciones = this.invitacionesService.getPasadas();
-  //   this.eventoService.getEventosPasados()
+    this.invitaciones = this.invitacionesService.getPasadas()
+    // this.invitacionesService.getPasadas()
   //   .subscribe(res => {
-  //     this.eventos = res as Evento[];
+  //     this.invitaciones = res as Invitacion[];
   //   });
   }
 
   getAceptadas(){
-    this.invitaciones = this.invitacionesService.getAceptadas();
-  //   this.eventoService.getEventosInvitaronEnCurso()
+    this.invitaciones = this.invitacionesService.getAceptadas()
+  //   this.invitacionesService.getAceptadas()
   //   .subscribe(res => {
-  //     this.eventos = res as Evento[];
+  //     this.invitaciones = res as Invitacion[];
   //   });
   }
 
   getRechazadas(){
-    this.invitaciones = this.invitacionesService.getRechazadas();
-  //   this.eventoService.getEventos()
+    this.invitaciones = this.invitacionesService.getRechazadas()
+  //   this.invitacionesService.getRechazadas()
   //   .subscribe(res => {
-  //     this.eventos = res as Evento[];
+  //     this.invitaciones = res as Invitacion[];
   //   });
   }
-
 
 }
