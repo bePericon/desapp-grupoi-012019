@@ -20,7 +20,7 @@
           <h3 class="cabecera-item">Tarjeta de crédito</h3>
           <div class="d-flex justify-content-around">
             <p class="valor-item" >
-              {{tarjetaCredito}}
+              {{tarjetaCredito.numeroTarjeta}}
             </p>
             <button class="btn btn-outline-secondary edit-button"
             matTooltip="Editar tarjeta"  mat-raised-button (click)="editarTarjeta()">
@@ -31,30 +31,6 @@
       </div>
 
     </div>
-
-    <!-- <div class="col-sm-2">
-      <button mat-button (click)="expandirOpciones()" 
-      class="pill-button border rounded-pill col-sm">
-        <div>
-          <span> Más opciones </span>
-          <i class="material-icons">add</i>
-        </div>
-      </button>
-    </div>
-
-    <div class="col-sm d-flex flex-row-reverse" *ngIf="opcionesExpandidas">
-      <mat-list class="flex-column">
-        <mat-list-item>
-          <span> Editar tarjeta </span>
-          <i class="material-icons">chevron_right</i>
-        </mat-list-item>
-        <mat-list-item>
-          <span> Otra opción </span>
-          <i class="material-icons">chevron_right</i>
-        </mat-list-item>
-      </mat-list>
-    </div> -->
-      
   </div>
 
   <div class="row">

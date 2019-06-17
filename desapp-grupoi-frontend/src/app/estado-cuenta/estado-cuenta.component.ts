@@ -1,3 +1,4 @@
+import { Tarjeta } from 'src/app/model/tarjeta.model';
 import { CuentaService } from './../services/cuenta.service';
 import { Cuenta } from './../model/cuenta.model';
 import { Movimiento } from './../model/movimiento.model';
@@ -15,7 +16,7 @@ export class EstadoCuentaComponent implements OnInit {
   cuenta: Cuenta;
   saldo: number;
   situacion: string;
-  tarjetaCredito: any;
+  tarjetaCredito: Tarjeta;
   movimientos: Movimiento[];
   opcionesExpandidas: Boolean;
 
@@ -40,33 +41,37 @@ export class EstadoCuentaComponent implements OnInit {
       });
   }
 
-  cargarCuenta(res){
+  private cargarCuenta(res){
     this.cuenta = res.result as Cuenta;
     this.saldo = this.cuenta.saldo.monto;
     this.situacion = this.cuenta.situacionDeuda;
     this.movimientos = this.cuenta.movimientos;
+    this.tarjetaCredito = this.cuenta.tarjetaCredito;
 
     //Table
     this.dataSource = new MatTableDataSource<Movimiento>(this.movimientos);
     this.dataSource.paginator = this.paginator;
 
-    this.tarjetaCredito = '4242 4242 4242 4242';
   }
-
-  // expandirOpciones(){
-  //   this.opcionesExpandidas = !this.opcionesExpandidas;
-  // }
-
+  
   editarTarjeta(){
     const dialogRef = this.dialog.open(EditTarjetaComponent, {
-      width: '300px',
-      data: {numero: this.tarjetaCredito},
+      width: '250px',
+      data: new Tarjeta(this.tarjetaCredito.numeroTarjeta, this.tarjetaCredito.codigoSeguridad),
       disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      (result)? this.tarjetaCredito = result : undefined;
+      (result)? this.saveTarjeta(result) : undefined;
     });
   }
 
+  saveTarjeta(tarjeta){
+    this.tarjetaCredito = tarjeta;
+
+    this.cuentaService.putTarjeta(tarjeta)
+      .subscribe(res => {
+        console.log("Se actualizo la tarjeta! ");
+      });
+  }
 }

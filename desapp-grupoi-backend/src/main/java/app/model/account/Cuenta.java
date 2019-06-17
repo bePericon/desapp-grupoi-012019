@@ -119,6 +119,10 @@ public class Cuenta implements Serializable {
         this.templates.add(template);
     }
 
+    public boolean matchCodigoSeguridad(int codigoSeguridad) {
+        return this.getTarjetaCredito().matchCodigoSeguridad(codigoSeguridad);
+    }
+
     //Getters y setters
 
     public long getId() {

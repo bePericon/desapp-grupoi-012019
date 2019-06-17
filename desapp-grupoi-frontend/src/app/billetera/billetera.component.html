@@ -11,7 +11,8 @@
             </mat-tab>
     
             <mat-tab label="Ingresar dinero">
-              <app-ingresar-dinero></app-ingresar-dinero>
+              <app-ingresar-dinero (notifyActualizarEstadoCuenta)='onNotifyActualizarEstadoCuenta($event)'>
+              </app-ingresar-dinero>
             </mat-tab>
 
             <mat-tab label="Creditos">

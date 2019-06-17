@@ -22,6 +22,10 @@ public class TarjetaCredito {
         this.codigoSeguridad = codigoSeguridad;
     }
 
+    public boolean matchCodigoSeguridad(int codigoSeguridad) {
+        return this.codigoSeguridad == codigoSeguridad;
+    }
+
     //Getters y setters
     public long getId() {
         return id;

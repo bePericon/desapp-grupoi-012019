@@ -1,5 +1,8 @@
+import { ErrorResponse } from './../model/error-response.model';
+import { Cuenta } from './../model/cuenta.model';
+import { CuentaService } from './../services/cuenta.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-ingresar-dinero',
@@ -11,13 +14,25 @@ export class IngresarDineroComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  saldo: number = 0;
+  saldo: number;
   mostrar: Boolean = true;
   
   mostrarIngresar: Boolean = false;
   mostrarRetirar: Boolean = false;
 
-  constructor(fb: FormBuilder) {
+  mostrarSuccess: Boolean = false;
+  mostrarFailure: Boolean = false;
+
+  textoCardTitulo: string;
+  textoCard: string;
+
+  // Notificacion para poder actualizar el estado de cuenta.
+  @Output() notifyActualizarEstadoCuenta: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  constructor(
+    private fb: FormBuilder,
+    private cuentaService: CuentaService) {
+
     this.firstFormGroup = fb.group({
       hideRequired: false,
       floatLabel: 'auto',
@@ -31,12 +46,68 @@ export class IngresarDineroComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadCuenta();
   }
 
-  confirmar(){
-    this.mostrar = !this.mostrar;
+  private loadCuenta() {
+    this.cuentaService.getCuenta()
+      .subscribe(res => {
+        this.saldo = (res.result as Cuenta).saldo.monto;
+      });
+  }
+
+  getMonto(){ return  this.firstFormGroup.controls['montoCtrl'].value;}
+  getCodigo(){ return  this.secondFormGroup.controls['codigoCtrl'].value;}
+
+  confirmar(nombreAccion){
+    this.ingresarMas();
+
+    switch (nombreAccion) {
+      case 'ingreso':
+        this.ingresarDinero();
+        break;
+      default:
+        this.retirarDinero();
+        break;
+    }
     
-    //servicio!
+  }
+
+  private retirarDinero() {
+    this.cuentaService.putMovimientoRetirar(this.getMonto(), this.getCodigo())
+      .subscribe(res => {
+        this.success('retiro');
+      },error => {
+        this.failure(error);
+      });
+  }
+
+  
+  private ingresarDinero() {
+    this.cuentaService.putMovimientoIngresar(this.getMonto(), this.getCodigo())
+    .subscribe(res => {
+      this.success('ingreso');
+    },error => {
+      this.failure(error);
+    });
+  }
+  
+  private failure(error: any) {
+    var e = error as ErrorResponse;
+    this.textoCardTitulo = "Que mal!";
+    this.textoCard = e.error.message;
+    this.switchIcon('failure');
+  }
+
+  private success(accion) {
+    this.textoCardTitulo = "Perfecto!";
+    this.textoCard = `El ${accion} fue correcto!`;
+    this.switchIcon('success');
+
+    // Notificamos para actualizar el estado de cuenta
+    this.notifyActualizarEstadoCuenta.emit(true);
+
+    this.loadCuenta();
   }
 
   ingresarMas(){
@@ -52,6 +123,20 @@ export class IngresarDineroComponent implements OnInit {
     if(nombreAccion == 'ingresar'){
       this.mostrarIngresar = true;
       this.mostrarRetirar = false;
+    }
+
+    this.mostrar = true;
+  }
+
+  switchIcon(icon){
+    if(icon == 'success'){
+      this.mostrarFailure = false;
+      this.mostrarSuccess = true;
+    }
+
+    if(icon == 'failure'){
+      this.mostrarFailure = true;
+      this.mostrarSuccess = false;
     }
   }
 

@@ -2,6 +2,7 @@ package app.controller;
 
 import app.model.account.*;
 import app.model.web.ApiResponse;
+import app.model.web.NewMovimiento;
 import app.service.account.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,27 +24,27 @@ public class CuentaRestController {
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"", cuenta);
     }
 
-    @PutMapping("/cuenta/{id}")
+    @PutMapping("/cuenta/tarjeta/{id}")
     public ApiResponse<?> setTarjetaCreditoCuenta(@PathVariable String id, @RequestBody TarjetaCredito tarjeta) {
         Cuenta cuenta = this.cuentaService.setTarjetaCredito(Long.parseLong(id), tarjeta);
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"",cuenta);
     }
 
     @PutMapping("/cuenta/movimiento/deposito/{idCuenta}")
-    public ApiResponse<?> nuevoMovimientoDeposito(@PathVariable String idCuenta, @RequestBody Dinero dinero) {
-        Cuenta cuenta = this.cuentaService.nuevoMovimiento(Long.parseLong(idCuenta), EnumTipos.TipoMovimiento.DEPOSITAR, dinero);
+    public ApiResponse<?> nuevoMovimientoDeposito(@PathVariable String idCuenta, @RequestBody NewMovimiento newMovimiento) {
+        Cuenta cuenta = this.cuentaService.nuevoMovimiento(Long.parseLong(idCuenta), EnumTipos.TipoMovimiento.DEPOSITAR, newMovimiento);
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"",cuenta);
     }
 
     @PutMapping("/cuenta/movimiento/retiro/{idCuenta}")
-    public ApiResponse<?> nuevoMovimientoRetiro(@PathVariable String idCuenta, @RequestBody Dinero dinero) {
-        Cuenta cuenta = this.cuentaService.nuevoMovimiento(Long.parseLong(idCuenta), EnumTipos.TipoMovimiento.RETIRAR, dinero);
+    public ApiResponse<?> nuevoMovimientoRetiro(@PathVariable String idCuenta, @RequestBody NewMovimiento newMovimiento) {
+        Cuenta cuenta = this.cuentaService.nuevoMovimiento(Long.parseLong(idCuenta), EnumTipos.TipoMovimiento.RETIRAR, newMovimiento);
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"",cuenta);
     }
 
     @PutMapping("/cuenta/movimiento/credito/{idCuenta}")
-    public ApiResponse<?> nuevoMovimientoCredito(@PathVariable String idCuenta, @RequestBody Dinero dinero) {
-        Cuenta cuenta = this.cuentaService.nuevoMovimiento(Long.parseLong(idCuenta), EnumTipos.TipoMovimiento.CREDITO, dinero);
+    public ApiResponse<?> nuevoMovimientoCredito(@PathVariable String idCuenta, @RequestBody NewMovimiento newMovimiento) {
+        Cuenta cuenta = this.cuentaService.nuevoMovimiento(Long.parseLong(idCuenta), EnumTipos.TipoMovimiento.CREDITO, newMovimiento);
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"",cuenta);
     }
 }

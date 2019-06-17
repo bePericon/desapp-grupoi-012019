@@ -10,10 +10,10 @@ import { Tarjeta } from 'src/app/model/tarjeta.model';
 })
 export class EditTarjetaComponent implements OnInit {
 
+  original: Tarjeta;
   tarjetaForm: FormGroup;
   numeroEditado: string;
-  CARD: any;
-  card: any;
+  dataTipoTarjeta: DataTipoTarjeta;
   types: any[];
 
   constructor(
@@ -22,27 +22,28 @@ export class EditTarjetaComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Tarjeta) { }
 
   ngOnInit() {
-    this.types = require('creditcards-types');
-    this.CARD = require('creditcards/card');
-    this.card = this.CARD(this.types);
+    this.original = new Tarjeta(this.data.numeroTarjeta, this.data.codigoSeguridad);
+    this.dataTipoTarjeta = new DataTipoTarjeta();
+    this.types = this.dataTipoTarjeta.listTypes;
 
     var datos = this.obtenerDatos();
 
     this.tarjetaForm = this._formBuilder.group(
       {
         tipoCtrl: [datos.type, Validators.required],
-        numeroCtrl: [datos.number, Validators.required]
+        numeroCtrl: [datos.number, Validators.required],
+        codigoCtrl: [datos.cod, Validators.required]
       }
     );
   }
 
   obtenerDatos() {
-    var num = this.data.numero; //this.card.parse(this.data.numero)
-    var nombreTipo = this.card.type(num) as String;
-    nombreTipo = nombreTipo.replace(" ","-").toLowerCase();
+    var num = this.data.numeroTarjeta;
+    var tipo = this.dataTipoTarjeta.getType(num) as TypeCard;
     return {
-      type: require(`creditcards-types/types/${nombreTipo}`),
-      number: this.data.numero
+      type: tipo,
+      number: this.data.numeroTarjeta,
+      cod: this.data.codigoSeguridad
     };
   }
 
@@ -50,11 +51,7 @@ export class EditTarjetaComponent implements OnInit {
   getNumero(){ return  this.tarjetaForm.controls['numeroCtrl'].value;}
 
   onChange() {
-    var card = this.CARD([this.getTipo()]);
-
-    var num = card.parse(this.getNumero());
-    
-    if(!card.isValid(num)){
+    if(!this.dataTipoTarjeta.isValid(this.getTipo(), this.getNumero())){
       this.tarjetaForm.controls['numeroCtrl'].setErrors( {match: true} );
     }else{
       this.tarjetaForm.controls['numeroCtrl'].setErrors( null );
@@ -62,6 +59,7 @@ export class EditTarjetaComponent implements OnInit {
   }
 
   cancelar() {
+    this.data = this.original;
     this.dialogRef.close();
   }
 
@@ -71,22 +69,45 @@ export class EditTarjetaComponent implements OnInit {
 
 }
 
-// class DataTipoTarjeta {
+class TypeCard {
 
-//   Type = require('creditcards-types/type');
+  constructor(n: string, p: string){
+    this.name = n;
+    this.pattern = p;
+  }
 
-//   visaCredito = this.Type({
-//     name: 'Visa Credito',
-//     pattern: /\b8[0-9]{3}[-][0-9]{4}[-][0-9]{4}[-][0-9](?:[0-9]{3})?\b/,
-//     eagerPattern: /^8/
-//   });
+  name: string;
+  pattern: string;
+}
 
-//   mastercardCredito = this.Type({
-//     name: 'Mastercard Credito',
-//     pattern: /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/,
-//     eagerPattern: /^(2[3-7]|22[2-9]|5[1-5])/
-//   });
+class DataTipoTarjeta {
 
-//   listTypes = [this.visaCredito , this.mastercardCredito];
-// }
+  visaCredito = new TypeCard(
+    'Visa Credito', 
+    '^4[0-9]{3}[-][0-9]{4}[-][0-9]{4}[-][0-9]{4}$'
+  );
+
+  mastercardCredito = new TypeCard(
+    'American Express',
+    '^3[47][0-9]{13}$'
+  );
+
+  listTypes = [this.visaCredito , this.mastercardCredito];
+
+  isValid(type: TypeCard, num: string){
+    return this.match(type.pattern, num)
+  }
+
+  getType(num: string){
+    var retType = this.listTypes.find(t => this.match(t.pattern, num));
+    return retType;
+  }
+
+  match(pattern: string, num: string){
+    var 
+      regex = new RegExp(pattern),
+      test = regex.test(num);
+    return test;
+  }
+}
 

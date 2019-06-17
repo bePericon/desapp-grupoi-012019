@@ -48,7 +48,7 @@
     <ng-template matStepLabel>Confirmar ingreso de dinero</ng-template>
     <div>
       <button mat-button matStepperPrevious *ngIf="mostrar">Atrás</button>
-      <button mat-button (click)="confirmar()" *ngIf="mostrar">Confirmar</button>
+      <button mat-button (click)="confirmar('ingreso')" *ngIf="mostrar">Confirmar</button>
       <button mat-button (click)="stepperIngresar.reset(); ingresarMas();" 
       *ngIf="!mostrar">Ingresar más dinero</button>
     </div>
@@ -95,7 +95,7 @@
     <ng-template matStepLabel>Confirmar retiro de dinero</ng-template>
     <div>
       <button mat-button matStepperPrevious *ngIf="mostrar">Atrás</button>
-      <button mat-button (click)="confirmar()" *ngIf="mostrar">Confirmar</button>
+      <button mat-button (click)="confirmar('retiro')" *ngIf="mostrar">Confirmar</button>
       <button mat-button (click)="stepperRetirar.reset(); ingresarMas();" 
       *ngIf="!mostrar">Retirar más dinero</button>
     </div>
@@ -109,13 +109,12 @@
     <div class="col-sm-4" *ngIf="!mostrar">
       <mat-card class="example-card border">
         <mat-card-header class="card-center">
-          <mat-card-title><h3>Perfecto!</h3></mat-card-title>
-          <mat-card-subtitle *ngIf="mostrarIngresar">El ingreso fue correcto!</mat-card-subtitle>
-          <mat-card-subtitle *ngIf="mostrarRetirar">El retiro fue correcto!</mat-card-subtitle>
+          <mat-card-title><h3>{{textoCardTitulo}}</h3></mat-card-title>
+          <mat-card-subtitle>{{textoCard}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content class="card-center">
           <div class="d-flex justify-content-around">
-            <div class="p-2 bd-highlight">
+            <div *ngIf="mostrarSuccess" class="p-2 bd-highlight">
               <h5>Saldo actual</h5>
               <p class="p-margin-botton-0">
                 <span>$</span>
@@ -123,7 +122,8 @@
               </p>
             </div>
           </div>
-          <i class="far fa-check-circle fa-7x text-success"></i>
+          <i *ngIf="mostrarSuccess" class="far fa-check-circle fa-7x text-success"></i>
+          <i *ngIf="mostrarFailure" class="far fa-times-circle fa-7x text-danger"></i>
         </mat-card-content>
       </mat-card>
     </div>

@@ -1,3 +1,4 @@
+import { EstadoCuentaComponent } from './../estado-cuenta/estado-cuenta.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
@@ -7,9 +8,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class BilleteraComponent implements OnInit {
 
+  @ViewChild(EstadoCuentaComponent) estadoCuentaComp: EstadoCuentaComponent;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onNotifyActualizarEstadoCuenta(notifyActualizarEstadoCuenta: boolean){
+    if(notifyActualizarEstadoCuenta){ this.estadoCuentaComp.loadData(); }
   }
 
 }

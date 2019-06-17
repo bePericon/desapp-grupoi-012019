@@ -3,18 +3,12 @@ package app.service.account;
 import app.error.exception.ExceptionNotAcceptable;
 import app.error.exception.ExceptionNotFound;
 import app.model.account.*;
-import app.persistence.GenericDao;
-import app.persistence.IGenericDao;
+import app.model.web.NewMovimiento;
 import app.persistence.account.CuentaDao;
 import app.service.GenericService;
-import app.util.CustomErrorType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManagerFactory;
 
 @Service
 @Transactional
@@ -61,18 +55,18 @@ public class CuentaService extends GenericService<Cuenta> {
         return cuenta;
     }
 
-    public Cuenta nuevoMovimiento(long idCuenta, EnumTipos.TipoMovimiento tipo, Dinero dinero) {
+    public Cuenta nuevoMovimiento(long idCuenta, EnumTipos.TipoMovimiento tipo, NewMovimiento newMovimiento) {
         Cuenta cuenta = this.getDao().getById(idCuenta);
 
         switch (tipo){
             case DEPOSITAR:
-                cuenta.depositarDinero(dinero);
+                this.nuevoMovimientoDepositar(newMovimiento, cuenta);
                 break;
             case RETIRAR:
-                this.nuevoMovimientoRetirar(dinero, cuenta);
+                this.nuevoMovimientoRetirar(newMovimiento, cuenta);
                 break;
             case CREDITO:
-                nuevoMovimientoCredito(cuenta);
+                this.nuevoMovimientoCredito(cuenta);
                 break;
             case PAGARCUOTA:
                 cuenta.debitarCuotaCredito();
@@ -94,10 +88,19 @@ public class CuentaService extends GenericService<Cuenta> {
             throw new ExceptionNotAcceptable("El usuario no puede solicitar credito en situacion: NORMAL.");
     }
 
-    private void nuevoMovimientoRetirar(Dinero dinero, Cuenta cuenta) {
-        if(cuenta.haySaldoSuficiente(dinero))
-            cuenta.retirarDinero(dinero);
-        else
+    private void nuevoMovimientoRetirar(NewMovimiento movimiento, Cuenta cuenta) {
+        if(! cuenta.matchCodigoSeguridad(movimiento.getCodigoSeguridad()))
+            throw  new ExceptionNotAcceptable("Código de seguridad incorrecto.");
+        else if(! cuenta.haySaldoSuficiente(movimiento.getMonto()))
             throw new ExceptionNotAcceptable("No hay saldo suficiente.");
+        else
+            cuenta.retirarDinero(movimiento.getMonto());
+    }
+
+    private void nuevoMovimientoDepositar(NewMovimiento movimiento, Cuenta cuenta) {
+        if(! cuenta.matchCodigoSeguridad(movimiento.getCodigoSeguridad()))
+            throw  new ExceptionNotAcceptable("Código de seguridad incorrecto.");
+        else
+            cuenta.depositarDinero(movimiento.getMonto());
     }
 }

@@ -13,12 +13,21 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Número</mat-label>
-        <input matInput formControlName="numeroCtrl" (ngModelChange)="onChange()" [(ngModel)]="data.numero" required>
+        <input matInput formControlName="numeroCtrl" 
+        (ngModelChange)="onChange()" [(ngModel)]="data.numeroTarjeta" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Código de seguridad</mat-label>
+        <input matInput formControlName="codigoCtrl" pattern="[0-9]{3}?"
+        [(ngModel)]="data.codigoSeguridad" required>
+        <mat-hint align="start">Max. dígitos: 3</mat-hint>
       </mat-form-field>
     </form>
   </div>
+  <br>
   <div mat-dialog-actions>
-    <button mat-button class="btn-danger" (click)="cancelar()">Cancelar</button>
-    <button mat-button [mat-dialog-close]="data.numero" [disabled]="!tarjetaValida()" cdkFocusInitial>Cambiar</button>
+    <button mat-button class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+    <button mat-button class="btn btn-success" [mat-dialog-close]="data" 
+    [disabled]="!tarjetaValida()" cdkFocusInitial>Cambiar</button>
   </div>
 </div>
