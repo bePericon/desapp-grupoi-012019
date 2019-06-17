@@ -19,22 +19,27 @@ export class EditTarjetaComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<EditTarjetaComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Tarjeta) {}
+    @Inject(MAT_DIALOG_DATA) public data: Tarjeta) { }
 
   ngOnInit() {
     this.types = require('creditcards-types');
     this.CARD = require('creditcards/card');
     this.card = this.CARD(this.types);
-    
+
     var datos = this.obtenerDatos();
-    
-    this.tarjetaForm = this._formBuilder.group({
-      tipoCtrl: [datos.type, Validators.required],
-      numeroCtrl: [datos.number, Validators.required]
-    },{validator: this.match('tipoCtrl', 'numeroCtrl')});
+
+    this.tarjetaForm = this._formBuilder.group(
+      {
+        tipoCtrl: [datos.type, Validators.required],
+        numeroCtrl: [datos.number, Validators.required]
+      },
+      {
+        validator: this.match('tipoCtrl', 'numeroCtrl')
+      }
+    );
   }
 
-  obtenerDatos(){
+  obtenerDatos() {
     var num = this.data.numero; //this.card.parse(this.data.numero)
     var nombreTipo = this.card.type(num) as String;
     nombreTipo = nombreTipo.toLowerCase().replace(" ", "");
@@ -52,7 +57,7 @@ export class EditTarjetaComponent implements OnInit {
       var card = this.CARD([tipoCtrl.value]);
       var num = this.data.numero; //this.card.parse(this.data.numero)
 
-      (card.isValid(num))? numeroCtrl.setErrors(null) : numeroCtrl.setErrors({ match: true});
+      (card.isValid(num)) ? numeroCtrl.setErrors(null) : numeroCtrl.setErrors({ match: true });
 
     }
   }
@@ -61,14 +66,14 @@ export class EditTarjetaComponent implements OnInit {
     // console.log(this.tipoCtrl.value);
     // this.card = this.CARD([this.tipoCtrl.value]);
 
-    this.match('tipoCtrl', 'numeroCtrl');   
+    this.match('tipoCtrl', 'numeroCtrl');
   }
 
-  cancelar(){
+  cancelar() {
     this.dialogRef.close();
   }
 
-  tarjetaValida(){
+  tarjetaValida() {
     return !this.tarjetaForm.invalid;
   }
 

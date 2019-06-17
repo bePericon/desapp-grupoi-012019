@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ItemService } from '../services/item.service';
 
 @Component({
   selector: 'app-agregar-items',
@@ -8,49 +9,63 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class AgregarItemsComponent implements OnInit {
 
-  items:any
-
-  nombreItem : string
+  nombreItem: string
   personasPorUnidad: number
   monto: number
   cantidadItems: number
+  itemModel
+  cantidadItemModel: number
+  nombreItemNuevo: string
+  rendimientoItemNuevo: number
+  montoItemNuevo: number
 
   itemsParaElEvento: any
+  items
+  constructor(private itService: ItemService) {
 
-  constructor() {
+    // this.itService.getItemsDisponibles()
+    //   .subscribe(res => {
+    //     this.items = res.result;
+    //   });
 
-    this.items  = [
-      {value: 'item1', viewValue: 'coca', rinde:2},
-      {value: 'item2', viewValue: 'lala', rinde:4},
-      {value: 'item3', viewValue: 'sarasa', rinde:3},
-      {value: 'item4', viewValue: 'ema', rinde:1},
-    ];
+    this.items = this.items = [ {
+      value: 'item1',
+      viewValue: 'coca',
+      rinde: 2
+    }]
 
-    this.itemsParaElEvento =[]
-   }
+    this.itemsParaElEvento = []
+  }
 
   ngOnInit() {
   }
 
 
-  agregarAlListado(){
-    //   llamar al servicio, pasarle item
-  }
-
-  agregarAlEvento(){
-    //construye item con los datos del form
-    // y lo agrega a la lista
-    this.itemsParaElEvento.push()
+  agregarAlListado() {
+    let item = {
+      nombre: this.nombreItemNuevo,
+      personasPorUnidad: this.rendimientoItemNuevo,
+      monto: this.montoItemNuevo
+    }
 
   }
 
-  agAlListadoEsInvalido(){
-    //   que esten los 2 datos cargados
-  }
-  agAlEventoEsInvalido(){
+  agregarAlEvento() {
+    let item = {
+      nombre: this.itemModel,
+      cantidad: this.cantidadItemModel
+    }
 
-    // que esten los 3 datos cargados
-    // return this.nombreItem && this.personasPorUnidad && this.monto
+    this.itemsParaElEvento.push(item)
+
+  }
+
+  agAlListadoEsInvalido() {
+    return !(this.nombreItemNuevo && this.rendimientoItemNuevo && this.montoItemNuevo)
+  }
+
+  agAlEventoEsInvalido() {
+    return !(this.itemModel && this.cantidadItemModel)
   }
 
 

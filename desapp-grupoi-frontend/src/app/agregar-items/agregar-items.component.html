@@ -1,20 +1,17 @@
 <form>
-
-    <mat-form-field>
+    <mat-form-field  >
         <mat-label>Seleccione un item</mat-label>
-        <mat-select >
+        <mat-select [(ngModel)]="itemModel" [ngModelOptions]="{standalone: true}">
             <mat-option *ngFor="let i of items" [value]="i.value">
                 {{i.viewValue}}
             </mat-option>
         </mat-select>
     </mat-form-field>
-
     <br>
-
     <mat-form-field>
-        <input type="number" matInput placeholder="Cantidad" value="{{cantidadItems}}">
+        <input type="number" matInput placeholder="Cantidad" value="{{cantidadItems}}" 
+        [(ngModel)]="cantidadItemModel" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
-    
 </form>
 
 <br>
@@ -22,19 +19,22 @@
 <button [disabled]="agAlEventoEsInvalido()" class="btn btn-outline-success"
     (click)="agregarAlEvento()">Agregar al evento<i class="fas fa-cart-plus"></i></button>
 <hr>
-
 <h6> ¿No existe el item que querés en el listado?, no hay drama, podés agregarlo</h6>
 <form >
     <mat-form-field>
-        <input matInput placeholder="¿que item es?" value="{{nombreItem}}">
+        <input matInput placeholder="¿que item es?" value="{{nombreItem}}"
+        [(ngModel)]="nombreItemNuevo" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
     <br>
     <mat-form-field>
-        <input matInput placeholder="¿Para cuantas personas alcanza?" value="{{personasPorUnidad}}">
+        <input matInput placeholder="¿Para cuantas personas alcanza?" type="number"value="{{personasPorUnidad}}"
+        [(ngModel)]="rendimientoItemNuevo" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
     <br>
     <mat-form-field>
-        <input type="number" matInput placeholder="¿cuanto cuesta?" value="{{monto}}">
+            <span matPrefix><i class="fas fa-dollar-sign"></i> &nbsp;</span>
+        <input type="number" matInput placeholder="¿cuanto cuesta?" value="{{monto}}"
+        [(ngModel)]="montoItemNuevo" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
     <br>     
 </form>

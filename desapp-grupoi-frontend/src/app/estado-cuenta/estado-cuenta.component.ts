@@ -3,7 +3,7 @@ import { Cuenta } from './../model/cuenta.model';
 import { Movimiento } from './../model/movimiento.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
-import { EditTarjetaComponent } from './edit-tarjeta/edit-tarjeta.component';
+import { EditTarjetaComponent } from '../edit-tarjeta/edit-tarjeta.component';
 
 @Component({
   selector: 'app-estado-cuenta',
