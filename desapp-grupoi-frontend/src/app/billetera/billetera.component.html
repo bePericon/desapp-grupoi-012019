@@ -3,20 +3,30 @@
   <div class="row">
     <div class="col">
 
-        <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
-            <mat-tab label="Estado de cuenta">
-              <app-estado-cuenta></app-estado-cuenta>
-            </mat-tab>
-    
-            <mat-tab label="Ingresar dinero">
-              <app-ingresar-dinero (notifyActualizarEstadoCuenta)='onNotifyActualizarEstadoCuenta($event)'>
-              </app-ingresar-dinero>
-            </mat-tab>
+      <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
+        <mat-tab>
+          <ng-template mat-tab-label>
+             
+              <i class="fas fa-file-invoice-dollar mr-1"></i> Estado de cuenta  
+          </ng-template>
+          <app-estado-cuenta></app-estado-cuenta>
+        </mat-tab>
 
-            <mat-tab label="Creditos">
-              
-            </mat-tab>
-        </mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <i class="fas fa-dollar-sign mr-1"></i> Ingresar/ Retirar dinero
+          </ng-template>
+          <app-ingresar-dinero (notifyActualizarEstadoCuenta)='onNotifyActualizarEstadoCuenta($event)'>
+          </app-ingresar-dinero>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <i class="fas fa-hand-holding-usd mr-1"></i> Creditos 
+          </ng-template>
+          <!-- Y ACA QUE VAAAAA????? -->
+        </mat-tab>
+      </mat-tab-group>
 
     </div>
   </div>

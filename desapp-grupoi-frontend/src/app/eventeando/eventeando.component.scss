@@ -4,3 +4,36 @@
 //     background-attachment: fixed;
 //     background-size: cover;
 // }
+
+button{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    animation-name: spin;
+    width: 60px;
+    height: 60px;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    color: #92088b!important;
+    border-color:#92088b!important;
+    font-size: 30px;
+    outline: none!important;
+}
+
+button:hover{
+    background-color: #831d7e!important;
+    color: #ffffff!important;
+    border-color:#ff00f2!important;
+   
+}
+
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
