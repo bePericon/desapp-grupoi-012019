@@ -3,6 +3,7 @@ package model.event;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import app.model.account.Cuenta;
 import app.model.account.Dinero;
 import app.model.account.Usuario;
 import app.model.event.*;
@@ -22,6 +23,9 @@ public class EventoFiestaTest {
     private Usuario usuarioUno;
     private Usuario usuarioDos;
     private Modalidad modalidad;
+    private Cuenta organizadorCuenta;
+    private Cuenta usuarioUnoCuenta;
+    private Cuenta usuarioDosCuenta;
 
     @Before
     public void init(){
@@ -36,6 +40,9 @@ public class EventoFiestaTest {
         this.usuarioUno = null;
         this.usuarioDos = null;
         this.modalidad = null;
+        this.organizadorCuenta= null;
+        this.usuarioUnoCuenta= null;
+        this.usuarioDosCuenta= null;
     }
 
     @Test
@@ -44,13 +51,11 @@ public class EventoFiestaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadFiestaConDosItems();
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
 
         // STIMULUS
-        this.usuarioUno.getInvitaciones().get(0).confirmar(this.usuarioUno);
+        this.usuarioUnoCuenta.getInvitaciones().get(0).confirmar(this.usuarioUno);
 
         // ASSERT
         assertEquals(380, this.evento.getCostoTotal().getMonto(), 0.0);
@@ -62,14 +67,12 @@ public class EventoFiestaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadFiestaConDosItems();
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
 
         // STIMULUS
-        this.usuarioUno.getInvitaciones().get(0).confirmar(this.usuarioUno);
-        this.usuarioDos.getInvitaciones().get(0).confirmar(this.usuarioDos);
+        this.usuarioUnoCuenta.getInvitaciones().get(0).confirmar(this.usuarioUno);
+        this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
 
         // ASSERT
         assertEquals(380, this.evento.getCostoTotal().getMonto(), 0.0);
@@ -81,15 +84,13 @@ public class EventoFiestaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadFiestaConDosItems();
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
         this.setMasItemsEnEvento();
 
         // STIMULUS
-        this.usuarioUno.getInvitaciones().get(0).confirmar(this.usuarioUno);
-        this.usuarioDos.getInvitaciones().get(0).confirmar(this.usuarioDos);
+        this.usuarioUnoCuenta.getInvitaciones().get(0).confirmar(this.usuarioUno);
+        this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
 
     	//ASSERT
     	 assertEquals(505, this.evento.getCostoTotal().getMonto(), 0.0);
@@ -101,14 +102,12 @@ public class EventoFiestaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadFiestaConDosItemsFechaNoVigente();
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
 
         // STIMULUS
-        this.usuarioUno.getInvitaciones().get(0).confirmar(this.usuarioUno);
-        this.usuarioDos.getInvitaciones().get(0).confirmar(this.usuarioDos);
+        this.usuarioUnoCuenta.getInvitaciones().get(0).confirmar(this.usuarioUno);
+        this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
 
         // ASSERT
     	assertTrue(evento.getAsistentes().isEmpty());
@@ -135,11 +134,15 @@ public class EventoFiestaTest {
         this.organizador = new Usuario("Orga", "Nizador", "organizador@email.com");
         this.usuarioUno = new Usuario("Usuario", "Uno", "invitado-uno@email.com");
         this.usuarioDos = new Usuario("Usuario", "Dos", "invitado-dos@email.com");
+
+        this.organizadorCuenta = new Cuenta(this.organizador);
+        this.usuarioUnoCuenta = new Cuenta(this.usuarioUno);
+        this.usuarioDosCuenta = new Cuenta(this.usuarioDos);
     }
 
     private void seEnvianInvitaciones() {
-        this.usuarioUno.agregarInvitacion(this.evento.getInvitados().get(0));
-        this.usuarioDos.agregarInvitacion(this.evento.getInvitados().get(1));
+        this.usuarioUnoCuenta.agregarInvitacion(new Invitacion(this.usuarioUno.getEmail(), this.evento));
+        this.usuarioDosCuenta.agregarInvitacion(new Invitacion(this.usuarioDos.getEmail(), this.evento));
     }
 
     private void setMasItemsEnEvento() {

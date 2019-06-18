@@ -1,6 +1,7 @@
 package app.model.event;
 
 import app.model.account.Usuario;
+import app.model.event.EnumEstados.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +15,9 @@ public class Invitacion implements Serializable {
 	private long id;
 
 	private String email;
-	private boolean confirmada;
+
+	@Enumerated(EnumType.STRING)
+	private EstadoInvitacion estadoInvitacion;
 
 	@ManyToOne
 	private Evento evento;
@@ -24,19 +27,39 @@ public class Invitacion implements Serializable {
 	public Invitacion(String email, Evento evento) {
 		this.email = email;
 		this.evento = evento;
-		this.confirmada = false;
+		this.estadoInvitacion = EstadoInvitacion.PENDIENTE;
 	}
 
 	//si no es usuario se registra y ahi confirma
 	public void confirmar(Usuario recienConfirmado) {
-		this.confirmada = this.evento.agregarAsistente(recienConfirmado);
+		if(this.evento.agregarAsistente(recienConfirmado))
+			this.estadoInvitacion = EstadoInvitacion.ACEPTADA;
 	}
 
 	public String getNombreEventoInvitacion() {
 		return this.evento.getNombre();
 	}
-	
-	
+
+	public boolean estaPendiente() { return this.estadoInvitacion == EstadoInvitacion.PENDIENTE; }
+
+	public boolean estaAceptada() {
+		return this.estadoInvitacion == EstadoInvitacion.ACEPTADA;
+	}
+
+	public boolean estaRechazada() {
+		return this.estadoInvitacion == EstadoInvitacion.RECHAZADA;
+	}
+
+	// Getters y Setters
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -45,8 +68,19 @@ public class Invitacion implements Serializable {
 		this.email = email;
 	}
 
+	public EstadoInvitacion getEstadoInvitacion() {
+		return estadoInvitacion;
+	}
 
-    public boolean estaPendiente() {
-		return !this.confirmada;
-    }
+	public void setEstadoInvitacion(EstadoInvitacion estadoInvitacion) {
+		this.estadoInvitacion = estadoInvitacion;
+	}
+
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
 }

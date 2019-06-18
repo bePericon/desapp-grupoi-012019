@@ -41,8 +41,11 @@ insert into cuenta_templates (cuenta_id, templates_id) values (1, 1)
 insert into evento_asistentes (evento_id, asistentes_id) values (1, 2);
 insert into evento_asistentes (evento_id, asistentes_id) values (1, 4);
 -- Invitaciones: 2 confirmadas - 1 sin confirmar
-insert into invitacion (id, confirmada, email, evento_id) values
-(1, 1, 'brian@email.com', 1),(2, 0, 'ale@email.com', 1),(3, 1, 'homero@email.com', 1);
+insert into invitacion (id, email, estado_invitacion, evento_id) values
+(1,'brian@email.com', 'ACEPTADA', 1),(2, 'ale@email.com', 'PENDIENTE', 1),(3, 'homero@email.com', 'PENDIENTE', 1);
+-- Tabla conectora: CuentaInvitaciones
+insert into cuenta_invitaciones (cuenta_id, invitaciones_id) values
+(2, 1),(3, 2),(4, 3);
 
 -- Creamos un evento Privado del segundo usuario.
 -- Saldo
@@ -105,4 +108,14 @@ insert into movimiento (id, fecha, tipo_movimiento, monto_id) values
 
 insert into cuenta_movimientos (cuenta_id, movimientos_id) values
 (1, 1),(1, 2),(1, 3),(1, 4),(1, 5),(1, 6),(1, 7),(1, 8),(1, 9);
+
+--Precios de los items
+insert into dinero (id, aux, monto) values
+(32,0,80),(33,0,100),(34,0,70),(35,0,200);
+-- Algunos items
+insert into item (id,  nombre_item, personas_por_unidad, costo_id) values
+(1, 'Cocacola', 3, 32),
+(2, 'Asado', 2, 33),
+(3, 'Birra', 1, 34),
+(4, 'Docena sanguchitos', 4, 35);
 

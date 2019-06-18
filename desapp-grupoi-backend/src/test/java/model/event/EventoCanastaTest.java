@@ -1,6 +1,7 @@
 package model.event;
 
 
+import app.model.account.Cuenta;
 import app.model.account.Dinero;
 import app.model.account.Usuario;
 import app.model.event.*;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -22,6 +24,9 @@ public class EventoCanastaTest {
     private Usuario usuarioUno;
     private Usuario usuarioDos;
     private Modalidad modalidad;
+    private Cuenta organizadorCuenta;
+    private Cuenta usuarioUnoCuenta;
+    private Cuenta usuarioDosCuenta;
 
     @Before
     public void init(){
@@ -36,6 +41,9 @@ public class EventoCanastaTest {
         this.usuarioUno = null;
         this.usuarioDos = null;
         this.modalidad = null;
+        this.organizadorCuenta= null;
+        this.usuarioUnoCuenta= null;
+        this.usuarioDosCuenta= null;
     }
 
 	@Test
@@ -47,10 +55,8 @@ public class EventoCanastaTest {
         this.evento.setModalidad(this.modalidad);
         this.evento.agregarItem(new Item(this.getCosto(200), "Carne", 2));
         this.evento.agregarItem(new Item(this.getCosto(180), "Coca", 2));
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
         this.seEnvianInvitaciones();
-        this.usuarioDos.getInvitaciones().get(0).confirmar(this.usuarioDos);
+        this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
 
         // STIMULUS
 		this.evento.elegirItemPorIndice(this.usuarioDos, 1); // Coca
@@ -68,10 +74,8 @@ public class EventoCanastaTest {
         this.evento.setModalidad(this.modalidad);
         this.evento.agregarItem(new Item(this.getCosto(200), "Carne", 2));
         this.evento.agregarItem(new Item(this.getCosto(180), "Coca", 2));
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
         this.seEnvianInvitaciones();
-        this.usuarioDos.getInvitaciones().get(0).confirmar(this.usuarioDos);
+        this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
 
         // STIMULUS
         this.evento.elegirItemPorIndice(this.usuarioDos, 1); // Coca
@@ -94,10 +98,14 @@ public class EventoCanastaTest {
         this.organizador = new Usuario("Orga", "Nizador", "organizador@email.com");
         this.usuarioUno = new Usuario("Usuario", "Uno", "invitado-uno@email.com");
         this.usuarioDos = new Usuario("Usuario", "Dos", "invitado-dos@email.com");
+
+        this.organizadorCuenta = new Cuenta(this.organizador);
+        this.usuarioUnoCuenta = new Cuenta(this.usuarioUno);
+        this.usuarioDosCuenta = new Cuenta(this.usuarioDos);
     }
 
     private void seEnvianInvitaciones() {
-        this.usuarioUno.agregarInvitacion(this.evento.getInvitados().get(0));
-        this.usuarioDos.agregarInvitacion(this.evento.getInvitados().get(1));
+        this.usuarioUnoCuenta.agregarInvitacion(new Invitacion(this.usuarioUno.getEmail(), this.evento));
+        this.usuarioDosCuenta.agregarInvitacion(new Invitacion(this.usuarioDos.getEmail(), this.evento));
     }
 }

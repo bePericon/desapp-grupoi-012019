@@ -109,6 +109,7 @@ public class Cuenta implements Serializable {
 
     public void agregarInvitacion(Invitacion invitacion) {
         this.invitaciones.add(invitacion);
+        //this.usuario.agregarInvitacion(invitacion);
     }
 
     public void agregarEvento(Evento evento) {
@@ -122,6 +123,10 @@ public class Cuenta implements Serializable {
     public boolean matchCodigoSeguridad(int codigoSeguridad) {
         return this.getTarjetaCredito().matchCodigoSeguridad(codigoSeguridad);
     }
+
+    public boolean tieneInvitacionesPendientes() {
+		return this.invitaciones.size() > 0 && this.invitaciones.stream().anyMatch(inv -> inv.estaPendiente());
+	}
 
     //Getters y setters
 

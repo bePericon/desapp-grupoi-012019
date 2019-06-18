@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { MatButtonModule, MatDialogModule, MatIconModule, MatNativeDateModule, MatPaginator } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +41,11 @@ import { AgregarItemsComponent } from './agregar-items/agregar-items.component';
 import { IngresarDineroComponent } from './ingresar-dinero/ingresar-dinero.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { EditTarjetaComponent } from './edit-tarjeta/edit-tarjeta.component';
+import localeEsAr from '@angular/common/locales/es-AR';
+import { registerLocaleData } from '@angular/common';
+
+
+registerLocaleData(localeEsAr, 'es-Ar');
 
 @NgModule({
   declarations: [
@@ -120,7 +125,7 @@ import { EditTarjetaComponent } from './edit-tarjeta/edit-tarjeta.component';
     MatProgressSpinnerModule
   ],
   entryComponents: [RegisterComponent, EditTarjetaComponent],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'es-Ar' }],
   bootstrap: [AppComponent]
 })
 

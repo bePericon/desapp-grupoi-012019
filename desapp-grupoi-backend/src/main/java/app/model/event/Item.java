@@ -2,11 +2,14 @@ package app.model.event;
 
 import app.model.account.Dinero;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -18,11 +21,24 @@ public class Item {
 	private String nombreItem;
 	private int personasPorUnidad;
 
+	public Item() {
+	}
+
 	public Item(Dinero costo, String nombreItem, int personasPorUnidad) {
 		this.costo = costo;
 		this.nombreItem = nombreItem;
 		this.personasPorUnidad = personasPorUnidad; //lo que rinde cada item por persona
 		
+	}
+
+	// Getters y Setters
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public Dinero getCosto() {
@@ -48,5 +64,4 @@ public class Item {
 	public void setPersonasPorUnidad(int personasPorUnidad) {
 		this.personasPorUnidad = personasPorUnidad;
 	}
-
 }

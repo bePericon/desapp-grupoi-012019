@@ -67,6 +67,10 @@ public class UsuarioService extends GenericService<Usuario>{
         return usuario;
     }
 
+    public Usuario getByEmail(String email) {
+        return this.getDao().getByEmail(email);
+    }
+
     public Usuario getByIdUsuario(long idUsuario){
         Usuario usuario = this.getById(idUsuario);
         if(usuario == null)

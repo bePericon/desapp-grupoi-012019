@@ -36,8 +36,8 @@ public class Usuario implements Serializable {
 //	@PrimaryKeyJoinColumn
 //	private Cuenta cuenta;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private List<Invitacion> invitaciones;
+//	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	private List<Invitacion> invitaciones;
 	
 	public Usuario() {
 
@@ -47,7 +47,7 @@ public class Usuario implements Serializable {
 		this.nombre = nombre;
 		this.apellido = apellido;
 //		this.cuenta = new Cuenta(this);
-		this.invitaciones = new ArrayList<Invitacion>();
+//		this.invitaciones = new ArrayList<Invitacion>();
 	}
 
 	public Usuario(String nombre, String apellido, String email) {
@@ -76,9 +76,9 @@ public class Usuario implements Serializable {
 		return this.contrasenia.equals(contra);
 	}
 
-	public void agregarInvitacion(Invitacion inv) {
-		this.invitaciones.add(inv);
-	}
+//	public void agregarInvitacion(Invitacion inv) {
+//		this.invitaciones.add(inv);
+//	}
 
 	public void actualizar(Usuario usuario) {
 		this.nombre = usuario.getNombre();
@@ -88,9 +88,9 @@ public class Usuario implements Serializable {
 		this.contrasenia = usuario.getContrasenia();
 	}
 
-	public boolean tieneInvitacionesPendientes() {
-		return this.invitaciones.size() > 0 && this.invitaciones.stream().anyMatch(inv -> inv.estaPendiente());
-	}
+//	public boolean tieneInvitacionesPendientes() {
+//		return this.invitaciones.size() > 0 && this.invitaciones.stream().anyMatch(inv -> inv.estaPendiente());
+//	}
 
 	//Getters y setters
 	public long getId() {
@@ -141,13 +141,13 @@ public class Usuario implements Serializable {
 		this.contrasenia = contrasenia;
 	}
 
-	public List<Invitacion> getInvitaciones() {
-		return invitaciones;
-	}
+//	public List<Invitacion> getInvitaciones() {
+//		return invitaciones;
+//	}
 
-	public void setInvitaciones(List<Invitacion> invitaciones) {
-		this.invitaciones = invitaciones;
-	}
+//	public void setInvitaciones(List<Invitacion> invitaciones) {
+//		this.invitaciones = invitaciones;
+//	}
 
 }
 
