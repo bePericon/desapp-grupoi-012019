@@ -2,8 +2,8 @@
     <mat-form-field  >
         <mat-label>Seleccione un item</mat-label>
         <mat-select [(ngModel)]="itemModel" [ngModelOptions]="{standalone: true}">
-            <mat-option *ngFor="let i of items" [value]="i.value">
-                {{i.viewValue}}
+            <mat-option *ngFor="let i of items" [value]="i">
+                {{i.nombreItem}} ${{i.costo.monto}} - Rinde: {{i.personasPorUnidad}} pers. 
             </mat-option>
         </mat-select>
     </mat-form-field>

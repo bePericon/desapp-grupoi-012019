@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemService } from '../services/item.service';
 import { Item } from '../model/Item.model';
+import { UtilsService } from '../services/utils.service';
+
 
 @Component({
   selector: 'app-agregar-items',
@@ -22,7 +24,7 @@ export class AgregarItemsComponent implements OnInit {
   itemsParaElEvento: any
   items
 
-  constructor(private itService: ItemService) {
+  constructor(private itService: ItemService, private utils:UtilsService) {
 
     this.getItems();
 
@@ -61,9 +63,14 @@ export class AgregarItemsComponent implements OnInit {
     }
 
     this.itemsParaElEvento.push(item)
-
+    
+    let message = this.itemModel.nombreItem + " agregado "
+    let action = this.cantidadItemModel+" unidades"
+    this.utils.notificacion(message, action);
+    
+    this.itemModel = null
+    this.cantidadItemModel=null
   }
-
 
 //VALIDACIONES DE BOTONES
 

@@ -43,6 +43,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { EditTarjetaComponent } from './edit-tarjeta/edit-tarjeta.component';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { registerLocaleData } from '@angular/common';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -96,7 +97,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   exports: [
     BrowserModule,
@@ -122,10 +124,12 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   entryComponents: [RegisterComponent, EditTarjetaComponent],
-  providers: [{ provide: LOCALE_ID, useValue: 'es-Ar' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'es-Ar' },
+],
   bootstrap: [AppComponent]
 })
 
