@@ -15,14 +15,12 @@ import java.util.List;
 
 @Service
 @Transactional
-public class InvitacionService extends GenericService<Evento> {
+public class InvitacionService extends GenericService<Invitacion> {
 
     @Autowired
     private InvitacionDao dao;
 
     // Services
-//    @Autowired
-//    private CuentaService cuentaService;
     @Autowired
     private UsuarioService usuarioService;
 

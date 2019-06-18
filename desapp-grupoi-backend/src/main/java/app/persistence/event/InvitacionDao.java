@@ -10,11 +10,11 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
-public class InvitacionDao extends GenericDao<Evento> {
+public class InvitacionDao extends GenericDao<Invitacion> {
 
     @Override
     protected Class getDomainClass() {
-        return Evento.class;
+        return Invitacion.class;
     }
 
 

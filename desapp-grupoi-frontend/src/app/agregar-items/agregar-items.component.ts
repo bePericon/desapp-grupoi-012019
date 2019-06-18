@@ -34,7 +34,7 @@ export class AgregarItemsComponent implements OnInit {
     this.itService.getItemsDisponibles()
     .subscribe(res => {
       console.log(res);
-      // this.items = res.result as Item[];
+      this.items = res.result as Item[];
 
     });
   }

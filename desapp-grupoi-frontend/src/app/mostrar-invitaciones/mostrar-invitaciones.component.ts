@@ -8,7 +8,7 @@ import { Invitacion } from '../model/invitacion.model';
 })
 export class MostrarInvitacionesComponent implements OnInit {
 
-  invitaciones = [];
+  invitacioness = [];
   // invitaciones = Invitacion[];
 
   constructor(private invitacionesService: InvitacionesService) {
@@ -18,7 +18,7 @@ export class MostrarInvitacionesComponent implements OnInit {
   }
 
   getPendientes(){
-    this.invitaciones = this.invitacionesService.getPendientes()
+    this.invitacioness = this.invitacionesService.getPendientes()
     // this.invitacionesService.getPendientes()
     // .subscribe(res => {
       // habilitarBotones = true;
@@ -27,7 +27,7 @@ export class MostrarInvitacionesComponent implements OnInit {
   }
 
   getPasadas(){
-    this.invitaciones = this.invitacionesService.getPasadas()
+    this.invitacioness = this.invitacionesService.getPasadas()
     // this.invitacionesService.getPasadas()
   //   .subscribe(res => {
   //     this.invitaciones = res as Invitacion[];
@@ -35,7 +35,7 @@ export class MostrarInvitacionesComponent implements OnInit {
   }
 
   getAceptadas(){
-    this.invitaciones = this.invitacionesService.getAceptadas()
+    this.invitacioness = this.invitacionesService.getAceptadas()
   //   this.invitacionesService.getAceptadas()
   //   .subscribe(res => {
   //     this.invitaciones = res as Invitacion[];
@@ -43,7 +43,7 @@ export class MostrarInvitacionesComponent implements OnInit {
   }
 
   getRechazadas(){
-    this.invitaciones = this.invitacionesService.getRechazadas()
+    this.invitacioness = this.invitacionesService.getRechazadas()
   //   this.invitacionesService.getRechazadas()
   //   .subscribe(res => {
   //     this.invitaciones = res as Invitacion[];
