@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CuentaService extends GenericService<Cuenta> {
@@ -83,7 +85,7 @@ public class CuentaService extends GenericService<Cuenta> {
         else if(cuenta.hayCreditoEnCurso())
             throw new ExceptionNotAcceptable("Ya existe un credito en curso.");
         else if(cuenta.getSituacionDeuda().esMoroso())
-            throw new ExceptionNotAcceptable("La situacion del usuario es: MOROSO.");
+            throw new ExceptionNotAcceptable("El usuario no puede solicitar credito en situacion: MOROSO.");
         else if(cuenta.getSituacionDeuda().esNormal())
             throw new ExceptionNotAcceptable("El usuario no puede solicitar credito en situacion: NORMAL.");
     }
@@ -102,5 +104,19 @@ public class CuentaService extends GenericService<Cuenta> {
             throw  new ExceptionNotAcceptable("Código de seguridad incorrecto.");
         else
             cuenta.depositarDinero(movimiento.getMonto());
+    }
+
+    public List<Credito> getAllCreditosByIdCuenta(long idCuenta) {
+        Cuenta cuenta = this.getDao().getById(idCuenta);
+        return cuenta.getCreditos();
+    }
+
+    public Cuenta createNuevoCredito(long idCuenta) {
+        Cuenta cuenta = this.getDao().getById(idCuenta);
+        cuenta.solicitarCredito();
+
+        this.getDao().update(cuenta);
+
+        return this.getDao().getCuentaByIdUsuario(idCuenta);
     }
 }

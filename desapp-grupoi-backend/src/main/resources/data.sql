@@ -17,7 +17,7 @@ insert into tarjetacredito (codigo_seguridad, numero_tarjeta) values
 ('123','4242-4242-4242-4242'),('123','345111111111111'),('123','346111111111111'),('123','347111111111111');
 -- Cuentas
 insert into cuenta (situacion_deuda, saldo_id, tarjeta_credito_id, usuario_id) values
-('NORMAL', 1, 1, 1),('NORMAL', 2, 2, 2),('NORMAL', 3, 3, 3),('NORMAL', 4, 4, 4);
+('NORMAL', 1, 1, 1),('CUMPLIDOR', 2, 2, 2),('NORMAL', 3, 3, 3),('NORMAL', 4, 4, 4);
 
 -- Creacion de eventos: (saldo, modalidad, template, evento)
 -- Creamos un evento Publico del primer usuario

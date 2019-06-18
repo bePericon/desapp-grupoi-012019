@@ -7,6 +7,9 @@ public class NewMovimiento {
     private int codigoSeguridad;
     private Dinero monto;
 
+    public NewMovimiento() {
+    }
+
     public NewMovimiento(int codigoSeguridad, Dinero dinero) {
         this.codigoSeguridad = codigoSeguridad;
         this.monto = dinero;

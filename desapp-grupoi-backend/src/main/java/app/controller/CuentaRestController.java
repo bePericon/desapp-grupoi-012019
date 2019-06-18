@@ -2,12 +2,15 @@ package app.controller;
 
 import app.model.account.*;
 import app.model.web.ApiResponse;
+import app.model.web.NewCredito;
 import app.model.web.NewMovimiento;
 import app.service.account.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.PUT})
@@ -24,9 +27,12 @@ public class CuentaRestController {
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"", cuenta);
     }
 
-    @PutMapping("/cuenta/tarjeta/{id}")
-    public ApiResponse<?> setTarjetaCreditoCuenta(@PathVariable String id, @RequestBody TarjetaCredito tarjeta) {
-        Cuenta cuenta = this.cuentaService.setTarjetaCredito(Long.parseLong(id), tarjeta);
+    /*
+    * Edicion de Tarjeta en Cuenta.
+    */
+    @PutMapping("/cuenta/tarjeta/{idCuenta}")
+    public ApiResponse<?> setTarjetaCreditoCuenta(@PathVariable String idCuenta, @RequestBody TarjetaCredito tarjeta) {
+        Cuenta cuenta = this.cuentaService.setTarjetaCredito(Long.parseLong(idCuenta), tarjeta);
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"",cuenta);
     }
 
@@ -42,9 +48,19 @@ public class CuentaRestController {
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"",cuenta);
     }
 
+    /*
+    * Api para creditos
+    */
     @PutMapping("/cuenta/movimiento/credito/{idCuenta}")
-    public ApiResponse<?> nuevoMovimientoCredito(@PathVariable String idCuenta, @RequestBody NewMovimiento newMovimiento) {
-        Cuenta cuenta = this.cuentaService.nuevoMovimiento(Long.parseLong(idCuenta), EnumTipos.TipoMovimiento.CREDITO, newMovimiento);
+    public ApiResponse<?> nuevoMovimientoCredito(@PathVariable String idCuenta) {
+        Cuenta cuenta = this.cuentaService.nuevoMovimiento(Long.parseLong(idCuenta), EnumTipos.TipoMovimiento.CREDITO, new NewMovimiento());
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"",cuenta);
     }
+
+    @GetMapping("/cuenta/credito/{idCuenta}")
+    public ApiResponse<?> getAllCreditos(@PathVariable String idCuenta) {
+        List<Credito> creditos = this.cuentaService.getAllCreditosByIdCuenta(Long.parseLong(idCuenta));
+        return new ApiResponse<List<Credito>>(HttpStatus.OK.value(),"", creditos);
+    }
+
 }

@@ -89,7 +89,7 @@ public class Cuenta implements Serializable {
     }
 
     public boolean hayCreditoEnCurso() {
-        return (this.getCreditos().size() > 0) && (this.estadoUltimoCredito().equals(EstadoCredito.ENCURSO));
+        return (this.getCreditos().size() > 0) && (this.estadoUltimoCredito().equals(EstadoCredito.GUARDADO) || this.estadoUltimoCredito().equals(EstadoCredito.ENCURSO));
     }
 
     private EstadoCredito estadoUltimoCredito() {
