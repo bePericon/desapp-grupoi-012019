@@ -2,6 +2,7 @@ package app.controller;
 
 import app.model.web.ApiResponse;
 import app.model.event.Invitacion;
+import app.model.web.Invitaciones;
 import app.service.event.InvitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,12 +20,34 @@ public class InvitacionController {
     @Autowired
     private InvitacionService invitacionService;
 
-
-    // Api para Estoy invitado y estan en curso
-    @GetMapping("/pendientes/{id}")
-    public ApiResponse<List<Invitacion>> getInvitacionesEnCurso(@PathVariable String id) {
-        List<Invitacion> invitaciones = this.invitacionService.getInvitacionesEnCurso(Long.parseLong(id));
+    @GetMapping("/pendiente/{idUsuario}")
+    public ApiResponse<List<Invitacion>> getInvitacionesPendientes(@PathVariable String idUsuario) {
+        List<Invitacion> invitaciones = this.invitacionService.getInvitacionesPendientes(Long.parseLong(idUsuario));
         return new ApiResponse<List<Invitacion>>(HttpStatus.OK.value(),"", invitaciones);
+    }
+
+    @GetMapping("/aceptada/{idUsuario}")
+    public ApiResponse<List<Invitacion>> getInvitacionesAceptadasEnCurso(@PathVariable String idUsuario) {
+        List<Invitacion> invitaciones = this.invitacionService.getInvitacionesAceptadasEnCurso(Long.parseLong(idUsuario));
+        return new ApiResponse<List<Invitacion>>(HttpStatus.OK.value(),"", invitaciones);
+    }
+
+    @GetMapping("/pasada/{idUsuario}")
+    public ApiResponse<List<Invitacion>> getInvitacionesPasadas(@PathVariable String idUsuario) {
+        List<Invitacion> invitaciones = this.invitacionService.getInvitacionesPasadas(Long.parseLong(idUsuario));
+        return new ApiResponse<List<Invitacion>>(HttpStatus.OK.value(),"", invitaciones);
+    }
+
+    @GetMapping("/rechazada/{idUsuario}")
+    public ApiResponse<List<Invitacion>> getInvitacionesRechazadas(@PathVariable String idUsuario) {
+        List<Invitacion> invitaciones = this.invitacionService.getInvitacionesRechazadas(Long.parseLong(idUsuario));
+        return new ApiResponse<List<Invitacion>>(HttpStatus.OK.value(),"", invitaciones);
+    }
+
+    @PostMapping("/nuevalista/")
+    public ApiResponse<?> guardarListaInvitaciones(@RequestBody Invitaciones invitaciones) {
+        this.invitacionService.guardarListaInvitaciones(invitaciones);
+        return new ApiResponse<Boolean>(HttpStatus.CREATED.value(),"", true);
     }
 
 }

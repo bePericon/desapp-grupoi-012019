@@ -35,16 +35,22 @@ public class CuentaService extends GenericService<Cuenta> {
     }
 
     public Cuenta getDisponibleParaEliminar(Usuario usuario) {
-        if(usuario.tieneInvitacionesPendientes())
+        Cuenta cuenta = this.getDao().getByUsuarioEmail(usuario.getEmail());
+        if(cuenta.tieneInvitacionesPendientes())
             throw new ExceptionNotAcceptable("Hay invitaciones pendientes.");
 
-        return this.getByUsuarioEmail(usuario.getEmail());
+        return cuenta;
     }
 
     private Cuenta getByUsuarioEmail(String email) {
         Cuenta cuenta = this.getDao().getByUsuarioEmail(email);
         if(cuenta == null)
             throw new ExceptionNotFound("No se encontro ninguna cuenta con ese email.");
+        return cuenta;
+    }
+
+    public Cuenta getByUsuarioEmailWithException(String email) {
+        Cuenta cuenta = this.getDao().getByUsuarioEmail(email);
         return cuenta;
     }
 

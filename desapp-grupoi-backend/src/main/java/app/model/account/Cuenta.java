@@ -115,6 +115,7 @@ public class Cuenta implements Serializable {
 
     public void agregarInvitacion(Invitacion invitacion) {
         this.invitaciones.add(invitacion);
+        //this.usuario.agregarInvitacion(invitacion);
     }
 
     public void agregarEvento(Evento evento) {
@@ -124,6 +125,10 @@ public class Cuenta implements Serializable {
     public void agregarTemplate(Template template) {
         this.templates.add(template);
     }
+
+    public boolean tieneInvitacionesPendientes() {
+		return this.invitaciones.size() > 0 && this.invitaciones.stream().anyMatch(inv -> inv.estaPendiente());
+	}
 
     //Getters y setters
 

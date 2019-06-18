@@ -29,8 +29,8 @@ public class Evento implements Serializable {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<Usuario> asistentes;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="evento")
-	private List<Invitacion> invitados;
+//	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="evento")
+//	private List<Invitacion> invitados;
 
 	public Evento(){}
 
@@ -39,7 +39,7 @@ public class Evento implements Serializable {
 		this.nombre = nombreEvento;
 		this.asistentes = new ArrayList<Usuario>();
 		this.template = new Template(nombre, "", this.organizador);
-		this.invitados = new ArrayList<Invitacion>();
+//		this.invitados = new ArrayList<Invitacion>();
 	}
 
 	public void cambiarModalidad(Modalidad modalidad) {
@@ -85,13 +85,13 @@ public class Evento implements Serializable {
 		return this.template;
 	}
 
-	public List<Invitacion> getInvitados() {
-		return this.invitados;
-	}
+//	public List<Invitacion> getInvitados() {
+//		return this.invitados;
+//	}
 
-	public void agregarInvitado(String email) {
-		this.invitados.add(new Invitacion(email, this));
-	}
+//	public void agregarInvitado(String email) {
+//		this.invitados.add(new Invitacion(email, this));
+//	}
 
 	public void agregarItem(Item item) {
 		this.template.agregarItem(item);
@@ -115,10 +115,7 @@ public class Evento implements Serializable {
 	}
 
 	private boolean puedeAsistir(Usuario asistente) {
-		boolean esfechaVigente = this.template.fechaVigente(this.hoy());
-		boolean estaInvitado = this.invitados.stream().anyMatch(i -> i.getEmail().equals(asistente.getEmail()));
-
-		return esfechaVigente && estaInvitado;
+		return this.fechaVigente();
 	}
 
 	private void calcularCostos(List<Usuario> asistentes) {
@@ -129,9 +126,9 @@ public class Evento implements Serializable {
 		return this.asistentes.size();
 	}
 
-	public int getCantidadInvitados() {
-		return this.invitados.size();
-	}
+//	public int getCantidadInvitados() {
+//		return this.invitados.size();
+//	}
 
 	public Dinero getCostoTotal() {
 		this.template.calcularCostos(this.asistentes);

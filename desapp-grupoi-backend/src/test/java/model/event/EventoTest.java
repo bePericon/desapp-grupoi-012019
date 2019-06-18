@@ -1,8 +1,10 @@
 package model.event;
 
+import app.model.account.Cuenta;
 import app.model.account.Dinero;
 import app.model.account.Usuario;
 import app.model.event.Evento;
+import app.model.event.Invitacion;
 import app.model.event.Item;
 import app.model.event.Template;
 import org.junit.After;
@@ -20,6 +22,10 @@ public class EventoTest {
     private Usuario organizador;
     private Usuario usuarioUno;
     private Usuario usuarioDos;
+    private Cuenta organizadorCuenta;
+    private Cuenta usuarioUnoCuenta;
+    private Cuenta usuarioDosCuenta;
+
 
     @Before
     public void init(){
@@ -33,31 +39,9 @@ public class EventoTest {
         this.organizador = null;
         this.usuarioUno = null;
         this.usuarioDos = null;
-    }
-
-    @Test
-    public void testEventoCrearUnEventoSinInvitados() {
-        // FIXTURE
-        Usuario mockUsuario = Mockito.mock(Usuario.class);
-
-        // STIMULUS
-        this.evento = new Evento(mockUsuario, "Asado");
-
-        // ASSERT
-        assertEquals(0, this.evento.getCantidadInvitados());
-    }
-
-    @Test
-    public void testEventoCrearUnEventoConDosInvitados() {
-        // FIXTURE
-        this.setNuevoEvento("Asado");
-
-        // STIMULUS
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
-
-        // ASSERT
-        assertEquals(2, this.evento.getCantidadInvitados());
+        this.organizadorCuenta= null;
+        this.usuarioUnoCuenta= null;
+        this.usuarioDosCuenta= null;
     }
 
     @Test
@@ -65,13 +49,11 @@ public class EventoTest {
         // FIXTURE
         this.setUsuarios();
         this.setNuevoEvento("Asado");
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
         this.seEnvianInvitaciones();
 
         // STIMULUS
-        this.usuarioUno.getInvitaciones().get(0).confirmar(this.usuarioUno);
-        this.usuarioDos.getInvitaciones().get(0).confirmar(this.usuarioDos);
+        this.usuarioUnoCuenta.getInvitaciones().get(0).confirmar(this.usuarioUno);
+        this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
 
         // ASSERT
         assertEquals(2, this.evento.getCantidadAsistentes());
@@ -126,11 +108,15 @@ public class EventoTest {
         this.organizador = new Usuario("Orga", "Nizador", "organizador@email.com");
         this.usuarioUno = new Usuario("Usuario", "Uno", "invitado-uno@email.com");
         this.usuarioDos = new Usuario("Usuario", "Dos", "invitado-dos@email.com");
+
+        this.organizadorCuenta = new Cuenta(this.organizador);
+        this.usuarioUnoCuenta = new Cuenta(this.usuarioUno);
+        this.usuarioDosCuenta = new Cuenta(this.usuarioDos);
     }
 
     private void seEnvianInvitaciones() {
-        this.usuarioUno.agregarInvitacion(this.evento.getInvitados().get(0));
-        this.usuarioDos.agregarInvitacion(this.evento.getInvitados().get(1));
+        this.usuarioUnoCuenta.agregarInvitacion(new Invitacion(this.usuarioUno.getEmail(), this.evento));
+        this.usuarioDosCuenta.agregarInvitacion(new Invitacion(this.usuarioDos.getEmail(), this.evento));
     }
 
 }

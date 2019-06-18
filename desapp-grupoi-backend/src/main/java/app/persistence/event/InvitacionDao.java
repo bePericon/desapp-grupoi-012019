@@ -17,19 +17,4 @@ public class InvitacionDao extends GenericDao<Invitacion> {
         return Invitacion.class;
     }
 
-
-    //TODO: implementar
-    public List<Invitacion> getInvitacionesPendientes(String email) {
-        CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
-        CriteriaQuery<Invitacion> cq = cb.createQuery(Invitacion.class);
-        Root<Invitacion> invitacion = cq.from(Invitacion.class);
-        Join<Invitacion, Usuario> eventoUsuarioJoin = invitacion.join("asistentes", JoinType.LEFT);
-        cq.where(cb.equal(eventoUsuarioJoin.get("email"), email));
-        cq.select(invitacion);
-        List<Invitacion> eventosPublicos = this.entityManager.createQuery(cq).getResultList();
-
-        return eventosPublicos;
-    }
-
-
 }

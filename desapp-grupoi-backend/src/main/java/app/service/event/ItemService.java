@@ -26,11 +26,6 @@ public class ItemService extends GenericService<Item> {
      * Retorna todos los items disponibles.
      */
     public List<Item> getAllItems() {
-//        List<Item> items = this.getDao().getAllItemsDisponibles();
-//        if (items.isEmpty()) {
-//            throw new ExceptionNoContent("Lista de items vacia.");
-//        }
-//        return items;
         return this.getDao().getAll();
     }
 

@@ -1,5 +1,6 @@
 package model.event;
 
+import app.model.account.Cuenta;
 import app.model.account.Dinero;
 import app.model.account.Usuario;
 import app.model.event.*;
@@ -22,6 +23,10 @@ public class EventoBaquitaTest {
     private Usuario usuarioDos;
     private Usuario usuarioTres;
     private Modalidad modalidad;
+    private Cuenta organizadorCuenta;
+    private Cuenta usuarioUnoCuenta;
+    private Cuenta usuarioDosCuenta;
+    private Cuenta usuarioTresCuenta;
 
     @Before
     public void init(){
@@ -37,6 +42,10 @@ public class EventoBaquitaTest {
         this.usuarioDos = null;
         this.usuarioTres = null;
         this.modalidad = null;
+        this.organizadorCuenta= null;
+        this.usuarioUnoCuenta= null;
+        this.usuarioDosCuenta= null;
+        this.usuarioTresCuenta= null;
     }
 
     @Test
@@ -45,7 +54,6 @@ public class EventoBaquitaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadBaquitaCompraPreviaConTresItems();
-        this.agregarInvitados();
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
         this.todosAceptanLasInvitaciones();
@@ -63,7 +71,6 @@ public class EventoBaquitaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadBaquitaCompraPreviaConTresItems();
-        this.agregarInvitados();
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
         this.todosAceptanLasInvitaciones();
@@ -86,7 +93,6 @@ public class EventoBaquitaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadBaquitaCompraPreviaConTresItems();
-        this.agregarInvitados();
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
         this.todosAceptanLasInvitaciones();
@@ -111,7 +117,6 @@ public class EventoBaquitaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadBaquitaRecoleccionPreviaConTresItems();
-        this.agregarInvitados();
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
         this.todosAceptanLasInvitaciones();
@@ -129,7 +134,6 @@ public class EventoBaquitaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadBaquitaRecoleccionPreviaConTresItems();
-        this.agregarInvitados();
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
         this.todosAceptanLasInvitaciones();
@@ -150,7 +154,6 @@ public class EventoBaquitaTest {
         this.setUsuarios();
         this.setNuevoEvento("Asado");
         this.setTemplateModalidadBaquitaRecoleccionPreviaConTresItems();
-        this.agregarInvitados();
         this.seEnvianInvitaciones();
         this.evento.setTemplate(this.template);
         this.todosAceptanLasInvitaciones();
@@ -200,23 +203,22 @@ public class EventoBaquitaTest {
         this.usuarioUno = new Usuario("Usuario", "Uno", "invitado-uno@email.com");
         this.usuarioDos = new Usuario("Usuario", "Dos", "invitado-dos@email.com");
         this.usuarioTres = new Usuario("Usuario", "Tres", "invitado-tres@email.com");
-    }
 
-    private void agregarInvitados() {
-        this.evento.agregarInvitado("invitado-uno@email.com");
-        this.evento.agregarInvitado("invitado-dos@email.com");
-        this.evento.agregarInvitado("invitado-tres@email.com");
+        this.organizadorCuenta = new Cuenta(this.organizador);
+        this.usuarioUnoCuenta = new Cuenta(this.usuarioUno);
+        this.usuarioDosCuenta = new Cuenta(this.usuarioDos);
+        this.usuarioTresCuenta = new Cuenta(this.usuarioTres);
     }
 
     private void seEnvianInvitaciones() {
-        this.usuarioUno.agregarInvitacion(this.evento.getInvitados().get(0));
-        this.usuarioDos.agregarInvitacion(this.evento.getInvitados().get(1));
-        this.usuarioTres.agregarInvitacion(this.evento.getInvitados().get(2));
+        this.usuarioUnoCuenta.agregarInvitacion(new Invitacion(this.usuarioUno.getEmail(), this.evento));
+        this.usuarioDosCuenta.agregarInvitacion(new Invitacion(this.usuarioDos.getEmail(), this.evento));
+        this.usuarioTresCuenta.agregarInvitacion(new Invitacion(this.usuarioTres.getEmail(), this.evento));
     }
 
     private void todosAceptanLasInvitaciones() {
-        this.usuarioUno.getInvitaciones().get(0).confirmar(this.usuarioUno);
-        this.usuarioDos.getInvitaciones().get(0).confirmar(this.usuarioDos);
-        this.usuarioTres.getInvitaciones().get(0).confirmar(this.usuarioTres);
+        this.usuarioUnoCuenta.getInvitaciones().get(0).confirmar(this.usuarioUno);
+        this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
+        this.usuarioTresCuenta.getInvitaciones().get(0).confirmar(this.usuarioTres);
     }
 }
