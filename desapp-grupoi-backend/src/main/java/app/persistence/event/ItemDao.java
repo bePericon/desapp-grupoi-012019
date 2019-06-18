@@ -7,11 +7,11 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
-public class ItemDao extends GenericDao<Evento> {
+public class ItemDao extends GenericDao<Item> {
 
     @Override
     protected Class getDomainClass() {
-        return Evento.class;
+        return Item.class;
     }
     
     public List<Item> getAllItemsDisponibles() {

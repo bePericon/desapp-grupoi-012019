@@ -26,6 +26,6 @@ export class ItemService {
 
 
   getItemsDisponibles(): Observable<Session>{
-    return this.http.get<Session>(this.URL_API+ '/all'); 
+    return this.http.get<Session>(this.URL_API + '/all'); 
   };
 }

@@ -2,11 +2,13 @@ package app.model.event;
 
 import app.model.account.Dinero;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

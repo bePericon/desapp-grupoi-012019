@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ItemService extends GenericService<Evento> {
+public class ItemService extends GenericService<Item> {
 
     @Autowired
     private ItemDao dao;
