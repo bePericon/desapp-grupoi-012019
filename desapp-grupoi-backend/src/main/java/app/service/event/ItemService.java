@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ItemService extends GenericService<Evento> {
+public class ItemService extends GenericService<Item> {
 
     @Autowired
     private ItemDao dao;
@@ -26,31 +26,17 @@ public class ItemService extends GenericService<Evento> {
      * Retorna todos los items disponibles.
      */
     public List<Item> getAllItems() {
-        List<Item> items = this.getDao().getAllItemsDisponibles();
-        if (items.isEmpty()) {
-            throw new ExceptionNoContent("Lista de items vacia.");
-        }
-        return items;
+//        List<Item> items = this.getDao().getAllItemsDisponibles();
+//        if (items.isEmpty()) {
+//            throw new ExceptionNoContent("Lista de items vacia.");
+//        }
+//        return items;
+        return this.getDao().getAll();
     }
 
-    
-//    guarda el item
-//    public Usuario guardarItem(Item item) {
-//        if(this.yaExiste(nuevoUsuario))
-//            throw new ExceptionConflict("Ya existe un usuario con email: " +nuevoUsuario.getEmail());
 
-//        if(!this.esValido(nuevoUsuario))
-//            throw new ExceptionBadRequest("Los datos del nuevo usuario no son validos.");
-
-//        String pass = this.bCrypt.encode(nuevoUsuario.getContrasenia());
-//        nuevoUsuario.setContrasenia(pass);
-
-//        this.save(Item.build(item));
-//
-//        Usuario usuario = this.getDao().getByEmail(nuevoUsuario.getEmail());
-//        Cuenta cuenta = new Cuenta(usuario);
-//        this.cuentaService.save(cuenta);
-//
-//        return usuario;
-//    }
+    public Item createNuevoItem(Item nuevoItem) {
+        this.getDao().save(nuevoItem);
+        return nuevoItem;
+    }
 }
