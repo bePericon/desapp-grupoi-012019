@@ -5,17 +5,17 @@
 
       <div class="card mt-2 ml-2">
 
-        <h5 class="text-center">{{inv.nombreEvento}}</h5>
-        <h6 class="text-center text-muted mt-1">{{inv.modalidad}}</h6>
+        <h5 class="text-center">{{inv.evento.nombre}}</h5>
+        <h6 class="text-center text-muted mt-1">{{inv.evento.nombre}}</h6>
 
         <h6 class="card-subtitle mt-2 text-muted">
           <i class="far fa-user mr-2"></i> Fuiste invitado por:
-          {{inv.organizador.nombre}}, {{inv.organizador.apellido}}
+          {{inv.evento.organizador.nombre}}, {{inv.evento.organizador.apellido}}
         </h6>
 
-        <span><i class="fas fa-user-check mr-1"></i> {{inv.cantidadAsistentes}} asistentes confirmados</span>
+        <span><i class="fas fa-user-check mr-1"></i> {{inv.evento.asistentes.length}} asistentes confirmados</span>
         <hr>
-        <p class="card-text">{{inv.descripcion}}</p>
+        <p class="card-text">{{inv.evento.descripcion}}</p>
 
         <hr>
         <div class="d-flex justify-content-center ">

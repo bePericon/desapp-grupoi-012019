@@ -6,10 +6,7 @@ export class Invitacion {
   constructor() {
   };
 
-  _id: string;
-  nombre: String;
+  id: string;
   evento: Evento;
-  descripcion: String;
-  asistentes: Usuario[];
   
 }
