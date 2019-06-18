@@ -30,6 +30,10 @@ export class EstadoCuentaComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
+
+    //crear inicializacion para el update
+    this.tarjetaCredito = new Tarjeta("",0);
+
     this.loadData();
     this.opcionesExpandidas = false;
   }
