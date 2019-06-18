@@ -36,7 +36,9 @@ export class RegisterComponent implements OnInit {
     this.contraseniaForm = this._formBuilder.group({
       contraseniaCtrl: ['', Validators.required],
       contraseniaDosCtrl: ['', Validators.required]
-    },{validator: this.mustMatch('contraseniaCtrl', 'contraseniaDosCtrl')});
+    },{
+      validator: this.mustMatch('contraseniaCtrl', 'contraseniaDosCtrl')
+    });
     this.fechaNacForm = this._formBuilder.group({
       fechaNacCtrl: ['', Validators.required]
     });

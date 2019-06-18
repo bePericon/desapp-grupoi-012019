@@ -23,10 +23,10 @@ export class CrearEventoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.infoFiesta = "Descripcion de fiestas";
-    this.infoCanasta = "Descripcion de canasta";
-    this.infoBaquitav1 = "Descripcion de baquita";
-    this.infoBaquitav2 = "Descripcion de baquitav2";
+    this.infoFiesta = "Los gastos corren por cuenta del organizador.";
+    this.infoCanasta = "se presenta la lista de gastos a realizar y cada asistente elige un ítem del cual hacerse cargo.";
+    this.infoBaquitav1 = "Una o más personas realizan las compras y luego se divide con los demás asistentes.";
+    this.infoBaquitav2 = "Crea una cuenta común a la cual deberán girar su parte los asistentes y así el organizador dispone de fondos para las compras.";
 
     this.modalidad = "";
 

@@ -5,20 +5,19 @@
     <div class="col-sm-6">
 
       <h3> Crear evento personalizado:</h3>
-      <br>
-      <span>Primero elegí cualquiera de las modalidades.</span>
-      <br><br>
+      
+      <p class="mt-3 ">Primero elegí cualquiera de las modalidades.</p>
+      <!-- <br><br> -->
 
-      <button type="button" value="fiesta" (click)="elegirModalidad('fiesta')" class="btn btn-outline-dark rounded-pill"
+      <button type="button" value="fiesta" (click)="elegirModalidad('fiesta')" class="btn btn-outline-dark rounded-pill  mb-1"
         matTooltip="{{infoFiesta}}">Fiesta
       </button>
-
-      <button type="button" class="btn btn-outline-dark ml-2  rounded-pill" (click)="elegirModalidad('canasta')"
+      <button type="button" class="btn btn-outline-dark ml-2 mb-1 rounded-pill" (click)="elegirModalidad('canasta')"
         matTooltip="{{infoCanasta}}">Canasta</button>
-      <button type="button" class="btn btn-outline-dark ml-2 rounded-pill" (click)="elegirModalidad('baquita v1')"
-        matTooltip="{{infoBaquitav1}}">Baquita v1</button>
-      <button type="button" class="btn btn-outline-dark ml-2 rounded-pill" (click)="elegirModalidad('baquita v2')"
-        matTooltip="{{infoBaquitav2}}">Baquita v2</button>
+      <button type="button" class="btn btn-outline-dark ml-2 mb-1 rounded-pill" (click)="elegirModalidad('baquita-v1')"
+        matTooltip="{{infoBaquitav1}}">Baquita dividiendo compras</button>
+      <button type="button" class="btn btn-outline-dark ml-2 mb-1 rounded-pill" (click)="elegirModalidad('baquita-v2')"
+        matTooltip="{{infoBaquitav2}}">Baquita cunta en común</button>
 
       <mat-vertical-stepper *ngIf="modalidad" [linear]="false" #stepper>
 

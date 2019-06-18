@@ -1,15 +1,14 @@
 <div class="container-fluid mt-3">
 
-  <div class="row">
-    <div class="col-sm-12">
       <div class="row card-group">
-        <div class="col-3" *ngFor="let ev of eventos">
+        <div class="col-sm-3" *ngFor="let ev of eventos">
 
           <div class="card mt-2 ml-2">
 
             <h5 class="text-center">{{ev.nombre}}</h5>
             <hr>
-            <div class="d-flex justify-content-center mb-2">
+            <div class="col-12 justify-content-center mb-2 mx-auto">
+
                 <button matTooltip="Cant. Items: {{ev.cantidadItems}}" class="btn btn-outline-primary">
                   <i class="fas fa-bars"></i>
                 </button>
@@ -40,5 +39,5 @@
 
         </div>
       </div>
-    </div>
+
   </div>

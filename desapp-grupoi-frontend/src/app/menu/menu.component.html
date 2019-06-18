@@ -1,22 +1,24 @@
-<nav class="navbar navbar-dark bg-dark fixed-top shadow-sm ">
 
+<nav class="navbar navbar-dark bg-dark fixed-top shadow-sm">
 
   <button matTooltip="Crear evento!" class="btn btn-outline-light" style="border-radius:50%" (click)="irACrearEvento()">
     <i class="fas fa-plus"></i>
   </button>
 
   <a class="" routerLink="/eventeando/eventos" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}">
-    <i
-      class="far fa-newspaper mr-1"></i> Eventos</a>
-  <a class="" routerLink="/eventeando/invitaciones" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"> <i
-      class="far fa-envelope"></i> Invitaciones</a>
+    <i class="far fa-newspaper mr-1"></i> Eventos
+  </a>
+  <a class="" routerLink="/eventeando/invitaciones" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}">
+    <i class="far fa-envelope"></i> Invitaciones
+  </a>
   <a class="" routerLink="/eventeando/billetera" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"> <i
-      class="fas fa-wallet"></i> Billetera</a>
+      class="fas fa-wallet"></i> Billetera
+  </a>
 
   <div style="color:white">
     <div style="cursor:pointer">
-      <a class="ml-1" routerLink="/eventeando/miCuenta" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"><i
-          class="fas fa-user-cog"></i> Mi cuenta</a>
+      <a class="ml-1" routerLink="/eventeando/miCuenta" routerLinkActive="activo"
+        [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-user-cog"></i> Mi perfil</a>
       / <a routerLink="#">Salir</a>
     </div>
   </div>
