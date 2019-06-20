@@ -1,16 +1,17 @@
-import { Usuario } from './usuario.model';
+import { JSONclass } from './json.model';
+import { Monto } from './monto.model';
 
-export class Item {
+export class Item extends JSONclass {
 
-  constructor() {
-      
-  };
+  constructor(nombre, personasPorUnidad, costo){
+    super();
+    this.nombreItem = nombre;
+    this.personasPorUnidad = personasPorUnidad;
+    this.costo = new Monto(costo);
+  }
 
-//   (id,  nombre_item, costo, personas_por_unidad)
-
-  _id: string;
+  id: string;
   nombreItem: String;
-  costo: Usuario;
   personasPorUnidad: String;
-
+  costo: Monto;
 }

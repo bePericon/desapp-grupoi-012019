@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AgregarItemsComponent } from './../agregar-items/agregar-items.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -14,9 +15,25 @@ export interface Combo {
 })
 
 export class CrearEventoComponent implements OnInit {
+
+  modalidadControl: FormControl;
+  nombreForm: FormGroup;
+  descripcionForm: FormGroup;
+  fechaForm: FormGroup;
+  itemForm: FormGroup;
+  emailForm: FormGroup;
+
+  infoFiesta: String;
+  infoCanasta: String;
+  infoBaquitav1: String;
+  infoBaquitav2: String;
+  modalidad: String;
+
   panelOpenState = false;
   // invitado:string;
   invitados;
+
+  @ViewChild(AgregarItemsComponent) agregarItemsComponent: AgregarItemsComponent;
 
   constructor(private _formBuilder: FormBuilder) {
     this.invitados = [];
@@ -48,19 +65,6 @@ export class CrearEventoComponent implements OnInit {
       emailCtrl: ['', [Validators.email]]
     });
   }
-
-  modalidadControl: FormControl;
-  nombreForm: FormGroup;
-  descripcionForm: FormGroup;
-  fechaForm: FormGroup;
-  emailForm: FormGroup;
-
-  infoFiesta: String;
-  infoCanasta: String;
-  infoBaquitav1: String;
-  infoBaquitav2: String;
-  modalidad: String;
-
 
   invitar() {
     //los forms en angular ahora son reactivos, asi que tuve que hacer un workarround para manipular la data

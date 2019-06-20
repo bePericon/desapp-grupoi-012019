@@ -2,112 +2,103 @@
   <h3 class="mt-5">O podés crear tu propio template desde cero</h3>
   <div class="row">
    
+    <mat-vertical-stepper [linear]="true" #stepper>
 
+      <mat-step [stepControl]="nombreFormGroup">
+        <form [formGroup]="nombreFormGroup">
+          <ng-template matStepLabel>Nombre de Template</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Nombre del Template" formControlName="nombreCtrl" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </form>
+      </mat-step>
 
-      <mat-vertical-stepper [linear]="true" #stepper>
+      <mat-step [stepControl]="descripcionFormGroup">
+        <form [formGroup]="descripcionFormGroup">
+          <ng-template matStepLabel>Descripción</ng-template>
+          <mat-form-field>
+            <textarea  matInput placeholder="Descripción" formControlName="descripcionCtrl" required></textarea>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Atrás</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </form>
+      </mat-step>
 
-          <mat-step [stepControl]="nombreFormGroup">
-            <form [formGroup]="nombreFormGroup">
-              <ng-template matStepLabel>Nombre de Template</ng-template>
-              <mat-form-field>
-                <input matInput placeholder="Nombre del Template" formControlName="nombreCtrl" required>
-              </mat-form-field>
-              <div>
-                <button mat-button matStepperNext>Siguiente</button>
-              </div>
-            </form>
-          </mat-step>
+      <mat-step [stepControl]="fechaFormGroup">
+        <form [formGroup]="fechaFormGroup">
+          <ng-template matStepLabel>Fecha evento</ng-template>
+          <mat-form-field class="full-width">
+            <input matInput [matDatepicker]="picker" placeholder="Fecha del evento" 
+            formControlName="fechaCtrl" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    
+          <div>
+            <button mat-button matStepperPrevious><i class="material-icons">
+                chevron_left
+              </i>Atrás</button>
+            <button mat-button matStepperNext>Siguiente<i class="material-icons">
+                chevron_right
+              </i></button>
+          </div>
+        </form>
+      </mat-step>
 
-          <mat-step [stepControl]="descripcionFormGroup">
-            <form [formGroup]="descripcionFormGroup">
-              <ng-template matStepLabel>Descripción</ng-template>
-              <mat-form-field>
-                <textarea  matInput placeholder="Descripción" formControlName="descripcionCtrl" required></textarea>
-              </mat-form-field>
-              <div>
-                <button mat-button matStepperPrevious>Atrás</button>
-                <button mat-button matStepperNext>Siguiente</button>
-              </div>
-            </form>
-          </mat-step>
+      <!-- MODALIDAD, PONER UN SELECT -->
+      <mat-step [stepControl]="modalidadFormGroup">
+        <form [formGroup]="modalidadFormGroup">
+          <ng-template matStepLabel>Modalidad</ng-template>
 
+          <mat-form-field>
+              <mat-label>Modalidad</mat-label>
+              <mat-select  formControlName="modalidadCtrl">
+                <mat-option *ngFor="let mod of modalidades" [value]="mod.value">
+                  {{mod.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Atrás</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- AGREGAR ITEMS -->
+      <mat-step>
+          <ng-template matStepLabel>Agregar items</ng-template>
           
-          <mat-step [stepControl]="fechaEventoForm">
-              <form [formGroup]="fechaEventoForm">
-                <ng-template matStepLabel>Fecha evento</ng-template>
-                <mat-form-field class="full-width">
-                  <input matInput [matDatepicker]="picker" placeholder="Fecha del evento" formControlName="fechaEventoCtrl"
-                    required>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-          
-                <div>
-                  <button mat-button matStepperPrevious><i class="material-icons">
-                      chevron_left
-                    </i>Atrás</button>
-                  <button mat-button matStepperNext>Siguiente<i class="material-icons">
-                      chevron_right
-                    </i></button>
-                </div>
-              </form>
-            </mat-step>
+          <app-agregar-items></app-agregar-items>
 
-          <!-- MODALIDAD, PONER UN SELECT -->
-          <mat-step [stepControl]="modalidadFormGroup">
-            <form [formGroup]="modalidadFormGroup">
-              <ng-template matStepLabel>Modalidad</ng-template>
+          <div>
+            <button mat-button matStepperPrevious>Atrás</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+      </mat-step>
 
-              <mat-form-field>
-                  <mat-label>Modalidad</mat-label>
-                  <mat-select  formControlName="modalidadCtrl">
-                    <mat-option *ngFor="let mod of modalidades" [value]="mod.value">
-                      {{mod.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              <div>
-                <button mat-button matStepperPrevious>Atrás</button>
-                <button mat-button matStepperNext>Siguiente</button>
-              </div>
-            </form>
-          </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Elegir visibilidad</ng-template>
 
-          <!-- AGREGAR ITEMS -->
-          <mat-step [stepControl]="secondFormGroup">
-            <!-- <form [formGroup]="secondFormGroup"> -->
-              <ng-template matStepLabel>Agregar items</ng-template>
-              
-              <app-agregar-items></app-agregar-items>
+        <h6>¿Hacerlo público?</h6>
+        <mat-checkbox  [(ngModel)]="visibilidad"> Hacer público </mat-checkbox>
 
-              <div>
-                <button mat-button matStepperPrevious>Atrás</button>
-                <button mat-button matStepperNext>Siguiente</button>
-              </div>
-            <!-- </form> -->
-          </mat-step>
-
-          <mat-step>
-            <ng-template matStepLabel>Elegir visibilidad</ng-template>
-
-            <h6>¿Hacerlo público?</h6>
-            <mat-checkbox  [(ngModel)]="visibilidad"> Hacer público </mat-checkbox>
-
-            <hr>
-            <div>
-              <button mat-button matStepperPrevious>Atrás</button>
-              <button mat-button (click)="stepper.reset()">Cancelar todo <i class="fas fa-redo"></i> </button>
-              <hr>
-              <button class="btn btn-outline-success mt-1"> Crear! </button>
-            </div>
-          </mat-step>
-        </mat-vertical-stepper>
-
+        <hr>
+        <div>
+          <button mat-button matStepperPrevious>Atrás</button>
+          <button mat-button (click)="stepper.reset() && resetForm()">Cancelar todo <i class="fas fa-redo"></i> </button>
+          <hr>
+          <button class="btn btn-outline-success mt-1" (click)="crearTemplate()" 
+          [disabled]="!creacionValida()"> Crear! </button>
+        </div>
+      </mat-step>
+    
+    </mat-vertical-stepper>
 
   </div>
-
-    
-
-    
- 
 </div>

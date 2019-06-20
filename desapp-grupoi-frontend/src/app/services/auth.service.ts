@@ -19,8 +19,6 @@ export class AuthService {
   // METHODS
   // Register a user
   registerUser(usuario): Observable<Usuario> {
-    console.log(usuario);
-    
     return this.httpClient.post<Usuario>(`${this.URL_API}/usuario`, usuario);
   }
 

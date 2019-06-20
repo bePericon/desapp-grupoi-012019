@@ -11,75 +11,83 @@ import { UtilsService } from '../services/utils.service';
   styleUrls: ['./agregar-items.component.scss']
 })
 export class AgregarItemsComponent implements OnInit {
+  
+  items: Item[];
 
-  nombreItem: string
-  personasPorUnidad: number
-  monto: number
-  cantidadItems: number
-  itemModel
-  cantidadItemModel: number
+  // Variables agregado de items
+  itemModel: Item;
+  cantidadItemModel: number;
+  // Variables item nuevo
   nombreItemNuevo: string
   rendimientoItemNuevo: number
   montoItemNuevo: number
-  itemsParaElEvento: any
-  items
 
-  constructor(private itService: ItemService, private utils:UtilsService) {
+  itemsParaUsar: Item[];
+
+  constructor(
+    private itemService: ItemService, 
+    private utilsService: UtilsService) {
 
     this.getItems();
 
-    this.itemsParaElEvento = []
+    this.itemsParaUsar = []
   }
 
 //esto en un servicio
   getItems(){
-    this.itService.getItemsDisponibles()
-    .subscribe(res => {
-      console.log(res);
-      this.items = res.result as Item[];
-
-    });
+    this.itemService.getItemsDisponibles()
+      .subscribe(res => {
+        this.items = res.result as Item[];
+      });
   }
 
   ngOnInit() {
   }
 
-//TODO: genera un item y lo manda al servicio para guardarlo
-  agregarAlListado() {
-    let item = {
-      nombre: this.nombreItemNuevo,
-      personasPorUnidad: this.rendimientoItemNuevo,
-      monto: this.montoItemNuevo
-    }
+  crearItemNuevo() {
+    var item = new Item(this.nombreItemNuevo, this.rendimientoItemNuevo, this.montoItemNuevo);
 
+    this.itemService.crearItem(item.toJSON())
+      .subscribe(res => {
+        this.getItems();
+        this.limpiarFormCreacion();
+      });
+  }
+
+  limpiarFormCreacion(){
+    this.nombreItemNuevo = undefined;
+    this.rendimientoItemNuevo = undefined;
+    this.montoItemNuevo = undefined;
   }
 
   //guarda en una lista para que sea tomado por componente padre
   //TODO: implementar databinding
   agregarAlEvento() {
-    let item = {
-      nombre: this.itemModel,
-      cantidad: this.cantidadItemModel
+    // Agregamos a la lista
+    var i = this.cantidadItemModel;
+    for(i; i>=1; i--) {
+      this.itemsParaUsar.push(this.itemModel)
     }
-
-    this.itemsParaElEvento.push(item)
-    
+    // Mostramos notificacion
     let message = this.itemModel.nombreItem + " agregado "
     let action = this.cantidadItemModel+" unidades"
-    this.utils.notificacion(message, action);
+    this.utilsService.notificacion(message, action);
     
-    this.itemModel = null
-    this.cantidadItemModel=null
+    this.limpiarFormAgregar();
   }
 
-//VALIDACIONES DE BOTONES
-
-  agAlListadoEsInvalido() {
-    return !(this.nombreItemNuevo && this.rendimientoItemNuevo && this.montoItemNuevo)
+  limpiarFormAgregar(){
+    this.itemModel = undefined;
+    this.cantidadItemModel= undefined;
   }
 
-  agAlEventoEsInvalido() {
-    return !(this.itemModel && this.cantidadItemModel)
+  // VALIDACIONES DE BOTONES
+  isItemNuevoValido() {
+    return this.nombreItemNuevo && this.rendimientoItemNuevo && this.montoItemNuevo;
+  }
+
+  isItemValido() {
+    return this.itemModel && this.cantidadItemModel;
   }
 
 

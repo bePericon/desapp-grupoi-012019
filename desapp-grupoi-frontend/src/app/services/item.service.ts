@@ -19,13 +19,17 @@ export class ItemService {
 
 
   constructor(
-    private http: HttpClient,
+    private httpClient: HttpClient,
     private storageService: StorageService) {
     this.usuarioId = this.storageService.getCurrentUser().id;
   }
 
 
   getItemsDisponibles(): Observable<Session>{
-    return this.http.get<Session>(this.URL_API + '/all'); 
+    return this.httpClient.get<Session>(this.URL_API + '/all'); 
   };
+
+  crearItem(item): Observable<Session> {
+    return this.httpClient.post<Session>(`${this.URL_API}/`, item);
+  }
 }

@@ -54,4 +54,13 @@ export class EventoService {
     
   };
 
+  // TEMPLATES
+  //http://localhost:8080/app/evento/template/idUsuario --post
+  crearTemplate(template): Observable<Session> {
+    return this.http.post<Session>(`${this.URL_API}/template/${this.usuarioId}`, template);
+  }
+
+  //http://localhost:8080/app/evento/template/idTemplate --get
+  //http://localhost:8080/app/evento/template/usuario/idUsuario --get
+
 }

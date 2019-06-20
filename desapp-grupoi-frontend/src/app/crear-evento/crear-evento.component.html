@@ -79,16 +79,16 @@
           </form>
         </mat-step>
         <!-- AGREGAR ITEMS -->
-        <mat-step [stepControl]="secondFormGroup">
+        <mat-step [stepControl]="itemForm">
           <!-- <form [formGroup]="secondFormGroup"> -->
-            <ng-template matStepLabel>Agregar items</ng-template>
+          <ng-template matStepLabel>Agregar items</ng-template>
 
-            <app-agregar-items></app-agregar-items>
+          <app-agregar-items></app-agregar-items>
 
-            <div>
-              <button mat-button matStepperPrevious>Atrás</button>
-              <button mat-button matStepperNext>Siguiente</button>
-            </div>
+          <div>
+            <button mat-button matStepperPrevious>Atrás</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
           <!-- </form> -->
         </mat-step>
 
