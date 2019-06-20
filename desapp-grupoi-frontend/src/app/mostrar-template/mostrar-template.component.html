@@ -4,21 +4,24 @@
   <div class="row card-group">
     <div class="col-sm-5" *ngFor="let t of templates">
 
-      <div class="card mt-2 ml-2 p-2">
+      <!-- <div class="card mt-2 ml-2 p-2">
           <span class="titulo">{{t.nombre}} - <span class="mb-2 text-muted">{{t.modalidad}}</span></span>
 
           <hr>
           <p>{{t.descripcion}}</p>
-          <!-- <hr> -->
-          <div *ngIf="esMiTemplate">
-              <mat-checkbox  [(ngModel)]="visibilidad"><i class="fas fa-globe ml-1"></i> Público </mat-checkbox>
-          </div>
-          <hr>
-          <button matTooltip="Elegir {{t.nombre}}" class="btn btn-outline-success float-right" 
+           <hr> -->
+          <!-- <div *ngIf="esMiTemplate"> -->
+              <!-- <mat-checkbox  [(ngModel)]="visibilidad"><i class="fas fa-globe ml-1"></i> Público </mat-checkbox> -->
+          <!-- </div> -->
+          <!-- <hr>  -->
+          <!-- <button matTooltip="Elegir {{t.nombre}}" class="btn btn-outline-success float-right" 
             (click)="elegirTemplate(t)"> <i class="fas fa-check"></i>
-          </button>
+          </button> -->
+          <button 
+            (click)="mostrarTemplates()"> <i class="fas fa-check"></i>
+          </button> 
 
-      </div>
+      <!-- </div> -->
 
     </div>
   </div>

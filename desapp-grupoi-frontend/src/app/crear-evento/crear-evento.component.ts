@@ -30,8 +30,8 @@ export class CrearEventoComponent implements OnInit {
   infoBaquitav2: String;
   modalidad: String;
 
-  templatesPublicos: TemplateEvento
-  templatesPrivados: TemplateEvento
+  templatesPublicos: TemplateEvento[]
+  templatesPrivados: TemplateEvento[]
 
   panelOpenState = false;
 
@@ -41,6 +41,7 @@ export class CrearEventoComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private eventoService: EventoService) {
     this.invitados = [];
+     
   }
 
   ngOnInit() {
@@ -48,10 +49,7 @@ export class CrearEventoComponent implements OnInit {
     this.infoCanasta = "se presenta la lista de gastos a realizar y cada asistente elige un ítem del cual hacerse cargo.";
     this.infoBaquitav1 = "Una o más personas realizan las compras y luego se divide con los demás asistentes.";
     this.infoBaquitav2 = "Crea una cuenta común a la cual deberán girar su parte los asistentes y así el organizador dispone de fondos para las compras.";
-
     this.modalidad = "";
-
-    // this.modalidadControl = new FormControl('', [Validators.required]);
 
     //formgroup
     this.nombreForm = this._formBuilder.group({
@@ -69,14 +67,14 @@ export class CrearEventoComponent implements OnInit {
       emailCtrl: ['', [Validators.email]]
     });
 
-
-    this.getTemplatesPublicos();
-    this.getTemplatesPrivados();
-
+    this.templatesPrivados=[]
+   
+  // this.getTemplatesPublicos();
+  this.getTemplatesPrivados();
   }
 
   invitar() {
-    //los forms en angular ahora son reactivos, asi que tuve que hacer un workarround para manipular la data
+
     let invitado = this.emailForm.value.emailCtrl; //agarra el dato
     this.invitados.push(invitado);  //agrega a una lista
 
@@ -107,18 +105,26 @@ export class CrearEventoComponent implements OnInit {
     return this.emailForm.get('emailCtrl').errors || this.emailForm.get('emailCtrl').pristine
   }
 
-  getTemplatesPublicos(){
+  getTemplatesPublicos() {
     this.eventoService.getTemplatesPublicos()
-    .subscribe(res => {
-      this.templatesPublicos = res.result as TemplateEvento[];
-    });
+      .subscribe(res => {
+        console.log("PUBLICOS");
+        console.log(res.result)
+        this.templatesPublicos = res.result as TemplateEvento[];
+        // this.templatesPublicos = [];
+      });
   }
 
-  getTemplatesPrivados(){
-    this.eventoService.getTemplatesPrivados()
-    .subscribe(res => {
-      this.templatesPrivados = res.result as TemplateEvento[];
-    });
+  getTemplatesPrivados() {
+    this.eventoService.getTemplatesPrivados().subscribe(res => {
+        for (let t of res.result) {
+          let tNuevo = new TemplateEvento(t.descripcion, t.items,'hardcodeada', t.nombre, 
+          (t.organizador.nombre+ " " +t.organizador.apellido), t.visibilidad);
+          this.templatesPrivados.push(tNuevo);
+        }
+      });
+      console.log("LISTA CON OBJETO CONSTRUIDO")
+      console.log( this.templatesPrivados)
   }
 
 }

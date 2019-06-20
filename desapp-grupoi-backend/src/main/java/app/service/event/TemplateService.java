@@ -16,6 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
+
 @Service
 @Transactional
 public class TemplateService extends GenericService<Template> {
@@ -94,4 +100,13 @@ public class TemplateService extends GenericService<Template> {
         }
         return template;
     }
+
+	public  List<Template>  getTemplatesPublicos() {
+		
+		List<Template> templates = this.getDao().getTemplatesPublicos();
+		
+	
+
+        return templates;
+	}
 }

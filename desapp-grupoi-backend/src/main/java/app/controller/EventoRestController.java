@@ -30,7 +30,6 @@ public class EventoRestController {
     private TemplateService templateService;
 
     // Api para Mas populares
-    // TODO: crear calificacion.
     @GetMapping("/populares/all")
     public ApiResponse<List<Evento>> getAllEventos() {
         List<Evento> eventos = this.eventoService.getAllEventos();
@@ -88,4 +87,14 @@ public class EventoRestController {
         List<Template> templates = this.templateService.getTemplatesByIdUsuario(Long.parseLong(id));
         return new ApiResponse<List<Template>>(HttpStatus.OK.value(),"",templates);
     }
+    
+    
+    @GetMapping("/pasados/template/publicos") //todos los templates publicos
+    public ApiResponse<List<Template>> getTemplatesPublicos() {
+
+    	List<Template> templates = this.templateService.getTemplatesPublicos();
+        return new ApiResponse<List<Template>>(HttpStatus.OK.value(),"", templates);
+    }
+    
+
 }

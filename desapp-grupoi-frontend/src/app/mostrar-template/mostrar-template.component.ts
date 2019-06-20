@@ -10,26 +10,24 @@ export class MostrarTemplateComponent implements OnInit {
   
   
   @Input() templates: TemplateEvento[];
-  
-
+  // templates
 
   constructor() {
-    //esto deberia venir desde un servicio
-    // this.templates = [
-    // { nombre: "Template uno", descripcion: "Este es un template loco",modalidad:"Fiesta" },
-    // { nombre: "Otro loco", descripcion: "Este es otro template loco",modalidad:"Canasta" },
-    // { nombre: "Locochón", descripcion: "Template locochón",modalidad:"Baquita con recoleccion previa" },
-    // { nombre: "Nombre de tempalte", descripcion: "un cuarto template",modalidad:"Fiesta" },
-    // { nombre: "aaaa", descripcion: "sarlanga",modalidad:"Canasta" }]
+
   }
 
   ngOnInit() {
+    // this.templates = [];
   }
 
   elegirTemplate(t){
     console.log("Esto no le gusta al profe, pero: Felicitaciones, elegiste el template "+ t.nombre+ "que es "+ t.descripcion)
   }
 
+  mostrarTemplates(){
+    console.log("MOSTRAR:")
+    console.log(this.templates)
+  }
 
   esMiTemplate(){
     // le pasa el tempalte y compara el id de usuario con el de session y elige
