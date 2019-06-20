@@ -2,6 +2,7 @@ package app.model.event;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
+import app.model.event.EnumTipos.*;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
@@ -20,8 +21,9 @@ public class BaquitaCompraPrevia extends Baquita {
 
 	public BaquitaCompraPrevia() {	}
 
-	public BaquitaCompraPrevia(Date fechaLimite) {
+	public BaquitaCompraPrevia(Date fechaLimite){
 		super(fechaLimite);
+		this.tipoModalidad = TipoModalidad.BAQUITA_COMPRA;
 	}
 
 	@Override

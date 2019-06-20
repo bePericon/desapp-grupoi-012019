@@ -2,6 +2,7 @@ package app.model.event;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
+import app.model.event.EnumTipos.*;
 
 import javax.persistence.Entity;
 import java.util.Date;
@@ -23,6 +24,7 @@ public class Fiesta extends Modalidad {
 
 	public Fiesta(Date fechaLimite) {
 		super(fechaLimite);
+		this.tipoModalidad = TipoModalidad.FIESTA;
 	}
 
 	@Override
