@@ -2,6 +2,7 @@ package app.model.event;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
+import app.model.event.EnumTipos.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ public abstract class Modalidad implements Serializable {
 
 	@OneToOne(cascade=CascadeType.ALL)
 	protected Dinero costoUsuario;
+
+	@Enumerated(EnumType.STRING)
+	protected TipoModalidad tipoModalidad;
 
 	public Modalidad(){}
 
@@ -126,5 +130,13 @@ public abstract class Modalidad implements Serializable {
 
 	public void setCostoUsuario(Dinero costoUsuario) {
 		this.costoUsuario = costoUsuario;
+	}
+
+	public TipoModalidad getTipoModalidad() {
+		return tipoModalidad;
+	}
+
+	public void setTipoModalidad(TipoModalidad tipoModalidad) {
+		this.tipoModalidad = tipoModalidad;
 	}
 }

@@ -2,6 +2,7 @@ package app.model.event;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
+import app.model.event.EnumTipos.*;
 
 import javax.persistence.Entity;
 import java.util.Date;
@@ -22,8 +23,9 @@ public class BaquitaRecoleccionPrevia extends Baquita {
 
 	public BaquitaRecoleccionPrevia() {	}
 
-	public BaquitaRecoleccionPrevia(Date fechaLimite) {
+	public BaquitaRecoleccionPrevia(Date fechaLimite){
 		super(fechaLimite);
+		this.tipoModalidad = TipoModalidad.BAQUITA_RECOLECCION;
 	}
 
 	public void pagarDeuda(Usuario deudor, Dinero monto){

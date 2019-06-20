@@ -25,8 +25,8 @@ insert into cuenta (situacion_deuda, saldo_id, tarjeta_credito_id, usuario_id) v
 insert into dinero (id, aux, monto) values (5,0,0);
 insert into dinero (id, aux, monto) values (6,0,0);
 -- Modalidad Fiesta
-insert into modalidad (DTYPE, id, costo_total_id, costo_usuario_id, organizador_id, fecha_limite) values
-('Fiesta', 1, 5, 6, 1, TO_DATE('20/12/2019', 'DD/MM/YYYY'));
+insert into modalidad (DTYPE, id, costo_total_id, costo_usuario_id, organizador_id, fecha_limite, tipo_modalidad) values
+('Fiesta', 1, 5, 6, 1, TO_DATE('20/12/2019', 'DD/MM/YYYY'),'FIESTA');
 -- Template vacio
 insert into e_template (id, descripcion, nombre, visibilidad, modalidad_id, organizador_id) values
 (1, 'Primer template vacio', 'Evento Template', 'PUBLICA', 1, 1);
@@ -52,8 +52,8 @@ insert into cuenta_invitaciones (cuenta_id, invitaciones_id) values
 insert into dinero (id, aux, monto) values (7,0,0);
 insert into dinero (id, aux, monto) values (8,0,0);
 -- Modalidad Fiesta
-insert into modalidad (DTYPE, id, costo_total_id, costo_usuario_id, organizador_id, fecha_limite) values
-('Fiesta', 2, 7, 8, 2, TO_DATE('20/12/2019', 'DD/MM/YYYY'));
+insert into modalidad (DTYPE, id, costo_total_id, costo_usuario_id, organizador_id, fecha_limite, tipo_modalidad) values
+('Fiesta', 2, 7, 8, 2, TO_DATE('20/12/2019', 'DD/MM/YYYY'),'FIESTA');
 -- Template vacio
 insert into e_template (id, descripcion, nombre, visibilidad, modalidad_id, organizador_id) values
 (2, 'Segundo template vacio', 'Evento Template', 'PRIVADA', 2, 2);
@@ -70,8 +70,8 @@ insert into cuenta_templates (cuenta_id, templates_id) values (2, 2)
 insert into dinero (id, aux, monto) values (9,0,0);
 insert into dinero (id, aux, monto) values (10,0,0);
 -- Modalidad Fiesta (ya esta vencida)
-insert into modalidad (DTYPE, id, costo_total_id, costo_usuario_id, organizador_id, fecha_limite) values
-('Fiesta', 3, 9, 10, 1, TO_DATE('10/02/2019', 'DD/MM/YYYY'));
+insert into modalidad (DTYPE, id, costo_total_id, costo_usuario_id, organizador_id, fecha_limite, tipo_modalidad) values
+('Fiesta', 3, 9, 10, 1, TO_DATE('10/02/2019', 'DD/MM/YYYY'),'FIESTA');
 -- Template vacio
 insert into e_template (id, descripcion, nombre, visibilidad, modalidad_id, organizador_id) values
 (3, 'Primer template vacio', 'Evento Template', 'PUBLICA', 3, 1);

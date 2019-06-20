@@ -2,6 +2,7 @@ package app.model.event;
 
 import app.model.account.Dinero;
 import app.model.account.Usuario;
+import app.model.event.EnumTipos.*;
 
 import javax.persistence.Entity;
 import java.util.Date;
@@ -18,6 +19,7 @@ public class Canasta extends Modalidad {
 
 	public Canasta(Date fechaLimite) {
 		super(fechaLimite);
+		this.tipoModalidad = TipoModalidad.CANASTA;
 	}
 
 	@Override
