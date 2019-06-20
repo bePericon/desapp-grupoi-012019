@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TemplateEvento } from '../model/templateEvento.model';
 
 @Component({
   selector: 'app-mostrar-template',
@@ -6,15 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mostrar-template.component.scss']
 })
 export class MostrarTemplateComponent implements OnInit {
-  templates;
+  
+  
+  @Input() templates: TemplateEvento[];
+  
+
+
   constructor() {
     //esto deberia venir desde un servicio
-    this.templates = [
-    { nombre: "Template uno", descripcion: "Este es un template loco",modalidad:"Fiesta" },
-    { nombre: "Otro loco", descripcion: "Este es otro template loco",modalidad:"Canasta" },
-    { nombre: "Locochón", descripcion: "Template locochón",modalidad:"Baquita con recoleccion previa" },
-    { nombre: "Nombre de tempalte", descripcion: "un cuarto template",modalidad:"Fiesta" },
-    { nombre: "aaaa", descripcion: "sarlanga",modalidad:"Canasta" }]
+    // this.templates = [
+    // { nombre: "Template uno", descripcion: "Este es un template loco",modalidad:"Fiesta" },
+    // { nombre: "Otro loco", descripcion: "Este es otro template loco",modalidad:"Canasta" },
+    // { nombre: "Locochón", descripcion: "Template locochón",modalidad:"Baquita con recoleccion previa" },
+    // { nombre: "Nombre de tempalte", descripcion: "un cuarto template",modalidad:"Fiesta" },
+    // { nombre: "aaaa", descripcion: "sarlanga",modalidad:"Canasta" }]
   }
 
   ngOnInit() {
@@ -26,6 +32,7 @@ export class MostrarTemplateComponent implements OnInit {
 
 
   esMiTemplate(){
+    // le pasa el tempalte y compara el id de usuario con el de session y elige
     return true;  
   }
 

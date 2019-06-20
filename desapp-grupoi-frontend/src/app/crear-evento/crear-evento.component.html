@@ -152,12 +152,12 @@
               <mat-panel-title>
                 <i class="fas fa-book"></i>
               </mat-panel-title>
-              <mat-panel-description>
+              <mat-panel-description >
                 Mis templates
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <app-mostrar-template></app-mostrar-template>
+            <app-mostrar-template templates={{templatesPrivados}}></app-mostrar-template>
 
           </mat-expansion-panel>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -170,7 +170,7 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <app-mostrar-template></app-mostrar-template>
+            <app-mostrar-template templates={{templatesPublicos}}></app-mostrar-template>
 
           </mat-expansion-panel>
         </mat-accordion>

@@ -1,7 +1,8 @@
 import { AgregarItemsComponent } from './../agregar-items/agregar-items.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EventoService } from './../services/evento.service';
+import { TemplateEvento } from '../model/templateEvento.model';
 
 export interface Combo {
   nombre: string;
@@ -29,13 +30,16 @@ export class CrearEventoComponent implements OnInit {
   infoBaquitav2: String;
   modalidad: String;
 
+  templatesPublicos: TemplateEvento
+  templatesPrivados: TemplateEvento
+
   panelOpenState = false;
-  // invitado:string;
+
   invitados;
 
   @ViewChild(AgregarItemsComponent) agregarItemsComponent: AgregarItemsComponent;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private eventoService: EventoService) {
     this.invitados = [];
   }
 
@@ -64,6 +68,11 @@ export class CrearEventoComponent implements OnInit {
     this.emailForm = this._formBuilder.group({
       emailCtrl: ['', [Validators.email]]
     });
+
+
+    this.getTemplatesPublicos();
+    this.getTemplatesPrivados();
+
   }
 
   invitar() {
@@ -94,9 +103,22 @@ export class CrearEventoComponent implements OnInit {
     this.modalidad = null;
   }
 
-  //agregar validacion sobre mails que ya existen?
   emailInvalido() {
     return this.emailForm.get('emailCtrl').errors || this.emailForm.get('emailCtrl').pristine
+  }
+
+  getTemplatesPublicos(){
+    this.eventoService.getTemplatesPublicos()
+    .subscribe(res => {
+      this.templatesPublicos = res.result as TemplateEvento[];
+    });
+  }
+
+  getTemplatesPrivados(){
+    this.eventoService.getTemplatesPrivados()
+    .subscribe(res => {
+      this.templatesPrivados = res.result as TemplateEvento[];
+    });
   }
 
 }

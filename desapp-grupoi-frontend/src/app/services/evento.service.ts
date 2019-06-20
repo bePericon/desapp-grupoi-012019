@@ -63,4 +63,14 @@ export class EventoService {
   //http://localhost:8080/app/evento/template/idTemplate --get
   //http://localhost:8080/app/evento/template/usuario/idUsuario --get
 
+
+
+  getTemplatesPublicos(): Observable<Session>{
+    return this.http.get<Session>(this.URL_API+ '/template/publico'); 
+  };
+
+  getTemplatesPrivados(): Observable<Session>{
+    return this.http.get<Session>(this.URL_API+ '/template/privado'); 
+  };
+
 }

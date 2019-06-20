@@ -17,7 +17,6 @@ export class MostrarEventosComponent implements OnInit {
   ngOnInit() {
   }
 
-  //TODO: estos llamados tienen que estar en los servicios mepa
 
   getMasPopulares(){
     this.eventoService.getEventosPopulares()
