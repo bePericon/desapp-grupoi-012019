@@ -28,12 +28,10 @@ public class TemplateDao extends GenericDao<Template> {
 		CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<Template> cq = cb.createQuery(Template.class);
         Root<Template> template= cq.from(Template.class);
-        Join<Evento, Template> eventoTemplateJoin = template.join("template", JoinType.LEFT);
-        cq.where(cb.equal(eventoTemplateJoin.get("visibilidad"), EnumTipos.TipoVisibilidad.PUBLICA));
+        cq.where(cb.equal(template.get("visibilidad"), EnumTipos.TipoVisibilidad.PUBLICA));
         cq.select(template);
         List<Template> templatesPublicos = this.entityManager.createQuery(cq).getResultList();
 
-//      List<Template> templatesPublicos = new ArrayList<Template>();
         return templatesPublicos;
 	}
 }

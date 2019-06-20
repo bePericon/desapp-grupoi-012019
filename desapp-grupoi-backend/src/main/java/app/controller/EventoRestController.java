@@ -89,9 +89,8 @@ public class EventoRestController {
     }
     
     
-    @GetMapping("/pasados/template/publicos") //todos los templates publicos
+    @GetMapping("/template/publicos") //todos los templates publicos
     public ApiResponse<List<Template>> getTemplatesPublicos() {
-
     	List<Template> templates = this.templateService.getTemplatesPublicos();
         return new ApiResponse<List<Template>>(HttpStatus.OK.value(),"", templates);
     }

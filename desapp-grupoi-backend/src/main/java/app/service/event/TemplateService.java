@@ -102,11 +102,7 @@ public class TemplateService extends GenericService<Template> {
     }
 
 	public  List<Template>  getTemplatesPublicos() {
-		
 		List<Template> templates = this.getDao().getTemplatesPublicos();
-		
-	
-
         return templates;
 	}
 }
