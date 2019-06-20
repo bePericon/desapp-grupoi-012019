@@ -157,7 +157,7 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <app-mostrar-template [templates]=templatesPrivados></app-mostrar-template>
+            <app-mostrar-template [esPublico]=false [templates]=templatesPrivados></app-mostrar-template>
 
           </mat-expansion-panel>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -170,7 +170,7 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <!-- <app-mostrar-template templates={{templatesPublicos}}></app-mostrar-template> -->
+            <app-mostrar-template [esPublico]=true [templates]=templatesPublicos></app-mostrar-template>
 
           </mat-expansion-panel>
         </mat-accordion>

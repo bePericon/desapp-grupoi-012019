@@ -41,7 +41,7 @@ export class CrearEventoComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private eventoService: EventoService) {
     this.invitados = [];
-     
+
   }
 
   ngOnInit() {
@@ -67,14 +67,14 @@ export class CrearEventoComponent implements OnInit {
       emailCtrl: ['', [Validators.email]]
     });
 
-    this.templatesPrivados=[]
-   
-  // this.getTemplatesPublicos();
-  this.getTemplatesPrivados();
+    this.templatesPrivados = []
+    this.templatesPublicos = []
+
+    this.getTemplatesPublicos();
+    this.getTemplatesPrivados();
   }
 
   invitar() {
-
     let invitado = this.emailForm.value.emailCtrl; //agarra el dato
     this.invitados.push(invitado);  //agrega a una lista
 
@@ -108,23 +108,22 @@ export class CrearEventoComponent implements OnInit {
   getTemplatesPublicos() {
     this.eventoService.getTemplatesPublicos()
       .subscribe(res => {
-        console.log("PUBLICOS");
-        console.log(res.result)
-        this.templatesPublicos = res.result as TemplateEvento[];
-        // this.templatesPublicos = [];
+        for (let t of res.result) {
+          let tNuevo = new TemplateEvento(t.descripcion, t.items, 'hardcodeada', t.nombre,
+            (t.organizador.nombre + " " + t.organizador.apellido), t.visibilidad);
+          this.templatesPublicos.push(tNuevo);
+        }
       });
   }
 
   getTemplatesPrivados() {
     this.eventoService.getTemplatesPrivados().subscribe(res => {
-        for (let t of res.result) {
-          let tNuevo = new TemplateEvento(t.descripcion, t.items,'hardcodeada', t.nombre, 
-          (t.organizador.nombre+ " " +t.organizador.apellido), t.visibilidad);
-          this.templatesPrivados.push(tNuevo);
-        }
-      });
-      console.log("LISTA CON OBJETO CONSTRUIDO")
-      console.log( this.templatesPrivados)
+      for (let t of res.result) {
+        let tNuevo = new TemplateEvento(t.descripcion, t.items, 'hardcodeada', t.nombre,
+          (t.organizador.nombre + " " + t.organizador.apellido), t.visibilidad);
+        this.templatesPrivados.push(tNuevo);
+      }
+    });
   }
 
 }

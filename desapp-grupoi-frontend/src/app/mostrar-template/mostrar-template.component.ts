@@ -10,28 +10,21 @@ export class MostrarTemplateComponent implements OnInit {
   
   
   @Input() templates: TemplateEvento[];
-  // templates
+  @Input() esPublico: Boolean
 
   constructor() {
 
   }
 
   ngOnInit() {
-    // this.templates = [];
   }
 
   elegirTemplate(t){
-    console.log("Esto no le gusta al profe, pero: Felicitaciones, elegiste el template "+ t.nombre+ "que es "+ t.descripcion)
+    alert("implementar elegir template")
+    
   }
 
-  mostrarTemplates(){
-    console.log("MOSTRAR:")
-    console.log(this.templates)
-  }
 
-  esMiTemplate(){
-    // le pasa el tempalte y compara el id de usuario con el de session y elige
-    return true;  
-  }
+
 
 }
