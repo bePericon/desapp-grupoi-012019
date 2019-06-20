@@ -11,7 +11,7 @@ export class UtilsService {
 
   notificacion(mensaje, accion) {
     this._snackBar.open(mensaje, accion, {
-      duration: 2000,
+      duration: 3500,
     });
   }
 

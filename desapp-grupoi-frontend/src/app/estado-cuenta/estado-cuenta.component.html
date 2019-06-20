@@ -1,72 +1,72 @@
 <div class="container-fluid mt-3">
   <div class="row">
 
-        
-        <div class="col-sm-3">
 
-          <div class="p-2 bd-highlight">
-            <h3 class="cabecera-item">Saldo total</h3>
-            <p class="valor-item">
-              <span>$</span>
-              {{saldo}}
-            </p>
-          </div>
-        </div>
+    <div class="col-sm-3">
 
-        <div class="col-sm-3">
-          <div class="p-2 bd-highlight">
-            <h3 class="cabecera-item">Situación actual</h3>
-            <p class="valor-item">
-              {{situacion}}
-            </p>
-          </div>
-        </div>
+      <div class="p-2 bd-highlight">
+        <h3 class="cabecera-item">Saldo total</h3>
+        <p class="valor-item">
+          <span>$</span>
+          {{saldo}}
+        </p>
+      </div>
+    </div>
 
-        <div class="col-sm-5">
-          <div class="p-2 bd-highlight">
-            <h3 class="cabecera-item">Tarjeta de crédito</h3>
-            <!-- <div class="d-flex justify-content-around"> -->
-              <p class="valor-item">
-                {{tarjetaCredito.numeroTarjeta}}
-              </p>
-            </div>
-          </div>
-              <div class="col-1">
-              <button class="btn btn-outline-success edit-button mt-4" matTooltip="Editar tarjeta"
-                (click)="editarTarjeta()" matTooltipPosition="right">
-                <i class="far fa-edit"></i>
-              </button>
-            </div>
-           
+    <div class="col-sm-3">
+      <div class="p-2 bd-highlight">
+        <h3 class="cabecera-item">Situación actual</h3>
+        <p class="valor-item">
+          {{situacion}}
+        </p>
+      </div>
+    </div>
+
+    <div class="col-sm-5">
+      <div class="p-2 bd-highlight">
+        <h3 class="cabecera-item">Tarjeta de crédito</h3>
+        <!-- <div class="d-flex justify-content-around"> -->
+        <p class="valor-item">
+          {{tarjetaCredito.numeroTarjeta}}
+        </p>
+      </div>
+    </div>
+    <div class="col-1">
+      <button class="btn btn-outline-success edit-button mt-4" matTooltip="Editar tarjeta" (click)="editarTarjeta()"
+        matTooltipPosition="right">
+        <i class="far fa-edit"></i>
+      </button>
+    </div>
+
   </div>
 
   <hr>
-<div class="row">
-  <div class="col-sm-12">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <div class="row">
+    <div class="col-sm-12">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-      <ng-container matColumnDef="tipoMovimiento">
-        <th mat-header-cell *matHeaderCellDef> Tipo de movimiento </th>
-        <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento}} </td>
-      </ng-container>
+        <ng-container matColumnDef="tipoMovimiento">
+          <th mat-header-cell *matHeaderCellDef> Tipo de movimiento </th>
+          <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="fecha">
-        <th mat-header-cell *matHeaderCellDef> Fecha </th>
-        <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'dd/MM/yyyy'}} </td>
-      </ng-container>
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="monto.monto">
-        <th mat-header-cell *matHeaderCellDef> Monto </th>
-        <td mat-cell *matCellDef="let element">$ {{element.monto.monto}} </td>
-      </ng-container>
+        <ng-container matColumnDef="monto.monto">
+          <th mat-header-cell *matHeaderCellDef> Monto </th>
+          <td mat-cell *matCellDef="let element">$ {{element.monto.monto}} </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-    </table>
+      </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
 
+    </div>
   </div>
-</div>
 </div>

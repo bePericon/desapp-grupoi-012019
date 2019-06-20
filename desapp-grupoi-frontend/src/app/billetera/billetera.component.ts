@@ -10,7 +10,14 @@ export class BilleteraComponent implements OnInit {
 
   @ViewChild(EstadoCuentaComponent) estadoCuentaComp: EstadoCuentaComponent;
 
-  constructor() { }
+  sarasa:string
+
+
+  constructor() {
+    
+    this.sarasa = "esto es una prueba de databinding"
+
+  }
 
   ngOnInit() {
   }

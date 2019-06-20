@@ -1,0 +1,66 @@
+<div class="container-fluid mt-5">
+
+  <div class="row">
+
+    <div class="col">
+      <button class="btn btn-outline-success" (click)="pedirCredito()">
+        Pedir credito <i class="fas fa-comment-dollar"></i> 
+      </button>
+
+    </div>
+
+    <div class="col-sm-5">
+
+        <div class="card text-center">
+            <!-- <div class="card-header">
+              Crédito actual
+            </div> -->
+            <div class="card-body">
+              DESHARDCODEAR
+              <h5 class="card-title">Credito actual</h5>
+              <p class="card-text">{{monto}}</p>
+              <p class="card-text">{{cuotas}}</p>
+              <p class="card-text">{{restante}}</p>
+              
+              <p class="card-text">valor cuota</p>
+              <a href="#" class="btn btn-outline-primary">Pagar!</a>
+            </div>
+            <div class="card-footer text-muted">
+              Estado:{{estado}}
+            </div>
+          </div>
+
+    </div>
+
+  </div>
+<hr>
+  <div class="row">
+      <div class="col-sm-12">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+          <ng-container matColumnDef="tipoMovimiento">
+            <th mat-header-cell *matHeaderCellDef> Tipo de movimiento </th>
+            <!-- <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento}} </td> -->
+          </ng-container>
+  
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <!-- <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'dd/MM/yyyy'}} </td> -->
+          </ng-container>
+  
+          <ng-container matColumnDef="monto.monto">
+            <th mat-header-cell *matHeaderCellDef> Monto </th>
+            <!-- <td mat-cell *matCellDef="let element">$ {{element.monto.monto}} </td> -->
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+        </table>
+  
+        <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+  
+      </div>
+    </div>
+
+</div>

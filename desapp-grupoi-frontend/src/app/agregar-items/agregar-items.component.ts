@@ -4,7 +4,6 @@ import { ItemService } from '../services/item.service';
 import { Item } from '../model/Item.model';
 import { UtilsService } from '../services/utils.service';
 
-
 @Component({
   selector: 'app-agregar-items',
   templateUrl: './agregar-items.component.html',
@@ -46,12 +45,15 @@ export class AgregarItemsComponent implements OnInit {
 
   crearItemNuevo() {
     var item = new Item(this.nombreItemNuevo, this.rendimientoItemNuevo, this.montoItemNuevo);
-
+    let message = this.nombreItemNuevo + " creado. "
+    let action = "$"+ this.montoItemNuevo;
     this.itemService.crearItem(item.toJSON())
       .subscribe(res => {
         this.getItems();
         this.limpiarFormCreacion();
+        this.utilsService.notificacion(message, action);
       });
+
   }
 
   limpiarFormCreacion(){
