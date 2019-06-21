@@ -9,6 +9,10 @@ export interface Combo {
   desc: string;
 }
 
+export interface ParentComponentApi {
+  callParentMethod: () => void
+}
+
 @Component({
   selector: 'app-crear-evento',
   templateUrl: './crear-evento.component.html',
@@ -109,8 +113,8 @@ export class CrearEventoComponent implements OnInit {
     this.eventoService.getTemplatesPublicos()
       .subscribe(res => {
         for (let t of res.result) {
-          let tNuevo = new TemplateEvento(t.descripcion, t.items, 'hardcodeada', t.nombre,
-            (t.organizador.nombre + " " + t.organizador.apellido), t.visibilidad);
+          let tNuevo = new TemplateEvento(t.descripcion, t.items, t.modalidad.tipoModalidad, t.nombre,
+            t.organizador, t.visibilidad);
           this.templatesPublicos.push(tNuevo);
         }
       });
@@ -119,11 +123,26 @@ export class CrearEventoComponent implements OnInit {
   getTemplatesPrivados() {
     this.eventoService.getTemplatesPrivados().subscribe(res => {
       for (let t of res.result) {
-        let tNuevo = new TemplateEvento(t.descripcion, t.items, 'hardcodeada', t.nombre,
-          (t.organizador.nombre + " " + t.organizador.apellido), t.visibilidad);
+        let tNuevo = new TemplateEvento(t.descripcion, t.items, t.modalidad.tipoModalidad, t.nombre,
+        t.organizador, t.visibilidad);
         this.templatesPrivados.push(tNuevo);
       }
     });
+  }
+
+
+  getParentApi(): ParentComponentApi {
+    return {
+      callParentMethod: () => {
+        this.recargar()
+      }
+    }
+  }
+
+
+  recargar(){
+    this.getTemplatesPrivados();
+    this.getTemplatesPublicos();
   }
 
 }

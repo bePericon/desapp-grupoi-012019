@@ -66,13 +66,22 @@ export class EventoService {
 
 
   getTemplatesPublicos(): Observable<Session>{
-
     return this.http.get<Session>(this.URL_API+ '/template/publicos'); 
   };
 
   getTemplatesPrivados(): Observable<Session>{
-    // /template/usuario/{id}
     return this.http.get<Session>(`${this.URL_API}/template/usuario/${this.usuarioId}`); 
   };
+
+
+  hacerPublico(template): Observable<Session>{
+    return this.http.put<Session>(this.URL_API+ '/template/publico', template); 
+  };
+
+
+  // sacarTemplate(template): Observable<Session>{
+  //   return this.http.post<Session>(this.URL_API+ '/template/sacar/',template); 
+  // };
+
 
 }
