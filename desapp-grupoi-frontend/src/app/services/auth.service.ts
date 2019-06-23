@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../model/usuario.model';
 // import { Session } from '../model/session.model';
-// import { AUTH_CONFIG } from './auth0-variables';
 import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
+import { UtilsService } from './utils.service';
 
 interface AuthConfig {
   clientID: string;
@@ -14,9 +14,9 @@ interface AuthConfig {
 }
 
 export const AUTH_CONFIG: AuthConfig = {
-  clientID: 'hJiXVkFfvDpiYOM2nm0o7URHL1hlEyAS',
+  clientID: '4iURo14HZsM6u3ELPGDJTJ3650MwCql5',
   domain: 'dev-kgavav5n.auth0.com',
-  callbackURL: 'http://localhost:3000/callback'
+  callbackURL: 'http://localhost:4200/eventeando/miCuenta'
 };
 
 @Injectable({
@@ -24,23 +24,6 @@ export const AUTH_CONFIG: AuthConfig = {
 })
 
 export class AuthService {
-
-   // Variables
-  // URL of th Rest API server
-  readonly URL_API = 'http://localhost:8080/app';
-
-  // METHODS
-  // Register a user
-  registerUser(usuario): Observable<Usuario> {
-    return this.httpClient.post<Usuario>(`${this.URL_API}/usuario`, usuario);
-  }
-
-  // Sing in a user VAMOS A SACAR NUESTRO LOGIN
-  // singIn(usuario): Observable<Session> {
-  //   return this.httpClient.post<Session>(`${this.URL_API}/login`, usuario);
-  // }
-
-///////////////////////////////////////////////////////////
 
   private _idToken: string;
   private _accessToken: string;
@@ -53,7 +36,7 @@ export class AuthService {
     redirectUri: AUTH_CONFIG.callbackURL
   });
 
-  constructor(public router: Router, private httpClient: HttpClient) {
+  constructor(public router: Router, private httpClient: HttpClient, private utilsSrv: UtilsService) {
     this._idToken = '';
     this._accessToken = '';
     this._expiresAt = 0;
@@ -75,11 +58,11 @@ export class AuthService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.localLogin(authResult);
-        this.router.navigate(['/home']); //TODO:arreglar
+        this.router.navigate(['/eventeando/']); 
       } else if (err) {
-        this.router.navigate(['/home']); //TODO:arreglar
+        this.router.navigate(['/home']); 
         console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
+        this.utilsSrv.notificacion("Error al loguear, intente de nuevo","")
       }
     });
   }
@@ -119,5 +102,25 @@ export class AuthService {
     // access token's expiry time
     return this._accessToken && Date.now() < this._expiresAt;
   }
+
+//////////////////lo que estaba antes/////////////////////////////////////////
+
+   // Variables
+  // URL of th Rest API server
+  readonly URL_API = 'http://localhost:8080/app';
+
+  // METHODS
+  // Register a user
+  registerUser(usuario): Observable<Usuario> {
+    return this.httpClient.post<Usuario>(`${this.URL_API}/usuario`, usuario);
+  }
+
+  // Sing in a user VAMOS A SACAR NUESTRO LOGIN
+  // singIn(usuario): Observable<Session> {
+  //   return this.httpClient.post<Session>(`${this.URL_API}/login`, usuario);
+  // }
+
+
+
 
 }
