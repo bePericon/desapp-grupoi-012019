@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TemplateEvento } from '../model/templateEvento.model';
+import { TemplateEvento } from '../model/template-evento.model';
 import { MatDialog } from '@angular/material';
 import { EventoService } from '../services/evento.service';
 
@@ -21,11 +21,10 @@ export class MostrarTemplateComponent implements OnInit {
   ngOnInit() {
   }
 
-  hacerPublico(template){
-    this.eventoSrv.hacerPublico(template)
+  hacerPublico(template: TemplateEvento){
+    this.eventoSrv.hacerPublico(template.id)
       .subscribe(res => {
-        console.log(res)
-      // this.invitaciones = res.result as Invitacion[];
+        console.log(res.message);
     });
   }
 

@@ -2,7 +2,7 @@ import { AgregarItemsComponent } from './../agregar-items/agregar-items.componen
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventoService } from './../services/evento.service';
-import { TemplateEvento } from '../model/templateEvento.model';
+import { TemplateEvento } from '../model/template-evento.model';
 
 export interface Combo {
   nombre: string;
@@ -112,22 +112,28 @@ export class CrearEventoComponent implements OnInit {
   getTemplatesPublicos() {
     this.eventoService.getTemplatesPublicos()
       .subscribe(res => {
-        for (let t of res.result) {
-          let tNuevo = new TemplateEvento(t.descripcion, t.items, t.modalidad.tipoModalidad, t.nombre,
-            t.organizador, t.visibilidad);
-          this.templatesPublicos.push(tNuevo);
-        }
+        this.templatesPublicos = res.result as TemplateEvento[];
+
+        // for (let t of res.result) {
+        //   let tNuevo = new TemplateEvento(t.descripcion, t.items, t.modalidad.tipoModalidad, t.nombre,
+        //     t.organizador, t.visibilidad);
+        //   this.templatesPublicos.push(tNuevo);
+        // }
       });
   }
 
   getTemplatesPrivados() {
-    this.eventoService.getTemplatesPrivados().subscribe(res => {
-      for (let t of res.result) {
-        let tNuevo = new TemplateEvento(t.descripcion, t.items, t.modalidad.tipoModalidad, t.nombre,
-        t.organizador, t.visibilidad);
-        this.templatesPrivados.push(tNuevo);
-      }
-    });
+    this.eventoService.getTemplatesPrivados()
+      .subscribe(res => {
+        console.log(res.result);
+        
+        this.templatesPrivados = res.result as TemplateEvento[];
+        // for (let t of res.result) {
+        //   let tNuevo = new TemplateEvento(t.descripcion, t.items, t.modalidad.tipoModalidad, t.nombre,
+        //   t.organizador, t.visibilidad);
+        //   this.templatesPrivados.push(tNuevo);
+        // }
+      });
   }
 
 
