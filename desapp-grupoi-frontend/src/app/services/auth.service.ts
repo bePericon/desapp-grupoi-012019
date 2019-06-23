@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../model/usuario.model';
-// import { Session } from '../model/session.model';
+import { Session } from '../model/session.model';
 import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
 import { UtilsService } from './utils.service';
@@ -115,10 +115,10 @@ export class AuthService {
     return this.httpClient.post<Usuario>(`${this.URL_API}/usuario`, usuario);
   }
 
-  // Sing in a user VAMOS A SACAR NUESTRO LOGIN
-  // singIn(usuario): Observable<Session> {
-  //   return this.httpClient.post<Session>(`${this.URL_API}/login`, usuario);
-  // }
+  // Sing in a user VAMOS A SACAR NUESTRO LOGIN capaz
+  singIn(usuario): Observable<Session> {
+    return this.httpClient.post<Session>(`${this.URL_API}/login`, usuario);
+  }
 
 
 
