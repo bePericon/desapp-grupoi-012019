@@ -107,10 +107,10 @@ public class TemplateService extends GenericService<Template> {
 		return templates;
 	}
 
-	public Template updateTemplate(long templateId) {
-		Template tActual = this.getTemplateById(templateId);
+	public Template actualizarTemplateAPublico(long idTemplate) {
+		Template tActual = this.getTemplateById(idTemplate);
 		tActual.setVisibilidad(TipoVisibilidad.PUBLICA);
-		this.save(tActual);
+		this.update(tActual);
 		return tActual;
 	}
 }
