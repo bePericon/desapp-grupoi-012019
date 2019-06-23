@@ -1,8 +1,9 @@
 import { EventoService } from './../services/evento.service';
 import { AgregarItemsComponent } from './../agregar-items/agregar-items.component';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from '../services/utils.service';
+import { ParentComponentApi } from '../crear-evento/crear-evento.component';
 
 @Component({
   selector: 'app-crear-template',
@@ -11,30 +12,30 @@ import { UtilsService } from '../services/utils.service';
 })
 export class CrearTemplateComponent implements OnInit {
 
-  // Pasos
   nombreFormGroup: FormGroup;
   descripcionFormGroup: FormGroup;
   fechaFormGroup: FormGroup;
   modalidadFormGroup: FormGroup;
   visibilidad: boolean;
-
   modalidades: any[];
-
   estaTodoListo: boolean;
 
   @ViewChild(AgregarItemsComponent) agregarItemsComponent: AgregarItemsComponent;
 
-  constructor(
-    private _formBuilder: FormBuilder,
-    private eventoService: EventoService) { }
+  @Input() parentApi: ParentComponentApi
+
+  constructor(private _formBuilder: FormBuilder, private eventoService: EventoService,
+    private uService: UtilsService) {
+
+  }
 
   ngOnInit() {
-    
-    this.modalidades  = [
-      {value: 'FIESTA', viewValue: 'Fiesta'},
-      {value: 'CANASTA', viewValue: 'Canasta'},
-      {value: 'BAQUITA_COMPRA', viewValue: 'Baquita v1'},
-      {value: 'BAQUITA_RECOLECCION', viewValue: 'Baquita v2'},
+
+    this.modalidades = [
+      { value: 'FIESTA', viewValue: 'Fiesta' },
+      { value: 'CANASTA', viewValue: 'Canasta' },
+      { value: 'BAQUITA_COMPRA', viewValue: 'Baquita div. compras' },
+      { value: 'BAQUITA_RECOLECCION', viewValue: 'Baquita cuenta común' },
     ];
 
     this.nombreFormGroup = this._formBuilder.group({
@@ -50,17 +51,18 @@ export class CrearTemplateComponent implements OnInit {
       modalidadCtrl: ['', Validators.required]
     });
 
-    this.visibilidad = false;
   }
 
-  getNombre(){ return this.nombreFormGroup.value.nombreCtrl; }
-  getDescripcion(){ return this.descripcionFormGroup.value.descripcionCtrl; }
-  getFecha(){ return this.fechaFormGroup.value.fechaCtrl; }
-  getModalidad(){ return this.modalidadFormGroup.value.modalidadCtrl; }
+  getNombre() { return this.nombreFormGroup.value.nombreCtrl; }
+  getDescripcion() { return this.descripcionFormGroup.value.descripcionCtrl; }
+  getFecha() { return this.fechaFormGroup.value.fechaCtrl; }
+  getModalidad() { return this.modalidadFormGroup.value.modalidadCtrl; }
 
-  crearTemplate(){
+  crearTemplate(stepper) {
 
-    var template = {
+    //dejo esta creacion de template porque, pero tenemos una entidad para eso si algo rompe despues
+    var template =
+    {
       template: {
         nombre: this.getNombre(),
         descripcion: this.getDescripcion()
@@ -72,19 +74,28 @@ export class CrearTemplateComponent implements OnInit {
 
     this.eventoService.crearTemplate(template)
       .subscribe(res => {
-        console.log("Se guardo correctamente el template!");
-        
+        this.callParent();
+        this.uService.notificacion("Se creó correctamente el template!", "");
+        stepper.reset()
+        this.resetForm()
       });
 
   }
 
-  creacionValida(){
-    return !this.nombreFormGroup.invalid && !this.descripcionFormGroup.invalid 
-    && !this.fechaFormGroup.invalid && !this.modalidadFormGroup.invalid; //&& this.estaTodoListo;
+  creacionValida() {
+    return !this.nombreFormGroup.invalid && !this.descripcionFormGroup.invalid
+      && !this.fechaFormGroup.invalid && !this.modalidadFormGroup.invalid; //&& this.estaTodoListo;
   }
 
-  resetForm(){
+  resetForm() {
     this.estaTodoListo = false;
   }
+
+  callParent() {
+    this.parentApi.callParentMethod()
+  }
+
+
+
 
 }

@@ -7,10 +7,10 @@ export class TemplateEvento {
   items: []
   modalidad: string
   nombre: string
-  organizador: string
+  organizador: Usuario
   visibilidad: string
 
-  constructor(descripcion: string, items: [], modalidad: string, nombre: string, organizador: string, visibilidad) {
+  constructor(descripcion: string, items: [], modalidad: string, nombre: string, organizador: Usuario, visibilidad) {
     this.descripcion = descripcion
     this.items = items
     this.modalidad = modalidad

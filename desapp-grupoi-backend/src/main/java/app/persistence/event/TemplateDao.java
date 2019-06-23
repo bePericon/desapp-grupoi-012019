@@ -1,17 +1,15 @@
 package app.persistence.event;
 
 import app.model.event.EnumTipos;
-import app.model.event.Evento;
+
 import app.model.event.Template;
 import app.persistence.GenericDao;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;

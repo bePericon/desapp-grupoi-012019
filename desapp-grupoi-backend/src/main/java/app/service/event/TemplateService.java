@@ -6,6 +6,7 @@ import app.model.web.NewTemplate;
 import app.model.account.Cuenta;
 import app.model.account.Usuario;
 import app.model.event.*;
+import app.model.event.EnumTipos.TipoVisibilidad;
 import app.persistence.event.TemplateDao;
 import app.service.GenericService;
 import app.service.account.CuentaService;
@@ -16,11 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
+//import javax.persistence.criteria.CriteriaBuilder;
+//import javax.persistence.criteria.CriteriaQuery;
+//import javax.persistence.criteria.Join;
+//import javax.persistence.criteria.JoinType;
+//import javax.persistence.criteria.Root;
 
 @Service
 @Transactional
@@ -103,6 +104,13 @@ public class TemplateService extends GenericService<Template> {
 
 	public  List<Template>  getTemplatesPublicos() {
 		List<Template> templates = this.getDao().getTemplatesPublicos();
-        return templates;
+		return templates;
+	}
+
+	public Template updateTemplate(long templateId) {
+		Template tActual = this.getTemplateById(templateId);
+		tActual.setVisibilidad(TipoVisibilidad.PUBLICA);
+		this.save(tActual);
+		return tActual;
 	}
 }
