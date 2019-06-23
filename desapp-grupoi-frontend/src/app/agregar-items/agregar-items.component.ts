@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ItemService } from '../services/item.service';
 import { Item } from '../model/Item.model';
 import { UtilsService } from '../services/utils.service';
+import { TemplateItem } from '../model/template-item.model';
 
 @Component({
   selector: 'app-agregar-items',
@@ -21,7 +22,7 @@ export class AgregarItemsComponent implements OnInit {
   rendimientoItemNuevo: number
   montoItemNuevo: number
 
-  itemsParaUsar: Item[];
+  itemsParaUsar: TemplateItem[];
 
   constructor(
     private itemService: ItemService, 
@@ -67,9 +68,8 @@ export class AgregarItemsComponent implements OnInit {
   agregarAlEvento() {
     // Agregamos a la lista
     var i = this.cantidadItemModel;
-    for(i; i>=1; i--) {
-      this.itemsParaUsar.push(this.itemModel)
-    }
+    var templateItem = new TemplateItem(this.itemModel, i);
+    this.itemsParaUsar.push(templateItem);
     // Mostramos notificacion
     let message = this.itemModel.nombreItem + " agregado "
     let action = this.cantidadItemModel+" unidades"

@@ -69,15 +69,6 @@ export class CrearTemplateComponent implements OnInit {
       tipoModalidad: this.getModalidad(),
       items: this.agregarItemsComponent.itemsParaUsar
     }
-    // {
-    //   "template":	{
-    //     "nombre": "Nuevo template",
-    //     "descripcion": "La descripcion del template"
-    //   },
-    //   "fechaLimite": "2019-11-27T02:00:00.000+0000",
-    //   "tipoModalidad": "FIESTA",
-    //   "items": []
-    // }
 
     this.eventoService.crearTemplate(template)
       .subscribe(res => {

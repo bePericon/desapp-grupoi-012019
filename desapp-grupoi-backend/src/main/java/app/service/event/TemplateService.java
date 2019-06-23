@@ -81,8 +81,8 @@ public class TemplateService extends GenericService<Template> {
                 newT.getTemplate().getDescripcion(),
                 organizador);
 
-        if(newT.getItems().size() > 0)
-            template.setItems(newT.getItems());
+        if(newT.getTemplateItems().size() > 0)
+            template.setTemplateItems(newT.getTemplateItems());
 
         switch (newT.getTipoModalidad()){
             case FIESTA:

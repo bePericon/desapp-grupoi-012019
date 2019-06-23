@@ -33,17 +33,17 @@ public class Fiesta extends Modalidad {
 		this.itemsComprados.clear();
 		this.costoTotal = new Dinero(0);
 		
-		for (Item i : this.itemsAComprar) {
-			ItemUsuario itemUsuario = new ItemUsuario(i, this.organizador);
-			int cantItems = cantAsistentes / i.getPersonasPorUnidad(); //se fija la cantidad de cada uno y los agrega
+		for (TemplateItem ti : this.itemsAComprar) {
+			ItemUsuario itemUsuario = new ItemUsuario(ti.getItem(), this.organizador);
+			int cantItems = ti.getCantidad();//cantAsistentes / ti.getItem().getPersonasPorUnidad(); //se fija la cantidad de cada uno y los agrega
 
 			while(cantItems > 0) {
 				this.agregarItemUsuario(itemUsuario);
 				cantItems--;
 			}
 			
-			if (cantAsistentes % i.getPersonasPorUnidad() > 0) //si no era un numero justo, agrega uno mas para no quedarse corto
-				this.agregarItemUsuario(itemUsuario);
+//			if (cantAsistentes % ti.getItem().getPersonasPorUnidad() > 0) //si no era un numero justo, agrega uno mas para no quedarse corto
+//				this.agregarItemUsuario(itemUsuario);
 		}
 	}
 }

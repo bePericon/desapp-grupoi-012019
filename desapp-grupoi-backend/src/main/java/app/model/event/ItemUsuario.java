@@ -26,6 +26,7 @@ public class ItemUsuario {
 		this.item = item;
 		this.usuario = user;
 	}
+
 	public Item getItem() {
 		return item;
 	}

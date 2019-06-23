@@ -80,8 +80,8 @@ public class EventoTest {
         Item idos = Mockito.mock(Item.class);
 
         // STIMULUS
-        this.evento.agregarItem(iuno);
-        this.evento.agregarItem(idos);
+        this.evento.agregarItem(iuno, 1);
+        this.evento.agregarItem(idos, 1);
 
         // ASSERT
         assertEquals(2, this.evento.getCantidadItems());
@@ -96,8 +96,8 @@ public class EventoTest {
 
     private void setTemplateSinModalidadConDosItems() {
         this.template = new Template("Nuevo template", "Descripcion", this.organizador);
-        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
-        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
+        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2),1);
+        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2),1);
     }
 
     private Dinero getCosto(int costo){
