@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -8,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(public auth: AuthService) { 
+    auth.handleAuthentication();
+   }
 
   ngOnInit() {
+    if (this.auth.isAuthenticated()) {
+      this.auth.renewTokens();
+    }
   }
 
   

@@ -1,15 +1,3 @@
-
-
-      <button
-        class="btn btn-primary btn-margin"
-        *ngIf="!auth.isAuthenticated()"
-        (click)="auth.login()">
-          Log In
-      </button>
-
-      <button
-        class="btn btn-primary btn-margin"
-        *ngIf="auth.isAuthenticated()"
-        (click)="auth.logout()">
-          Log Out
-      </button>
+<button class="btn btn-outline-light btn-margin" (click)="auth.login()">
+  Log In
+</button>

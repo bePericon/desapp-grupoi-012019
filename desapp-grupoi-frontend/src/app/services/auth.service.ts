@@ -16,7 +16,7 @@ interface AuthConfig {
 export const AUTH_CONFIG: AuthConfig = {
   clientID: '4iURo14HZsM6u3ELPGDJTJ3650MwCql5',
   domain: 'dev-kgavav5n.auth0.com',
-  callbackURL: 'http://localhost:4200/eventeando/miCuenta'
+  callbackURL: 'http://localhost:4200/eventeando'
 };
 
 @Injectable({
@@ -58,7 +58,7 @@ export class AuthService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.localLogin(authResult);
-        this.router.navigate(['/eventeando/']); 
+        this.router.navigate(['/eventeando']); 
       } else if (err) {
         this.router.navigate(['/home']); 
         console.log(err);
