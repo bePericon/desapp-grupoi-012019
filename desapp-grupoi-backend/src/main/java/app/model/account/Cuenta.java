@@ -93,18 +93,24 @@ public class Cuenta implements Serializable {
     }
 
     private EstadoCredito estadoUltimoCredito() {
-        return this.creditos.get(this.creditos.size()-1).getEstado();
+        return this.obtenerUltimoCredito().getEstado();
     }
 
     public void debitarCuotaCredito() {
-        Dinero cuota = this.creditos.get(this.creditos.size()-1).getMontoCuota();
+        Dinero cuota = this.obtenerUltimoCredito().getMontoCuota();
         if(this.haySaldoSuficiente(cuota)){
             this.saldo.restar(cuota);
             this.agregarMovimiento(EnumTipos.TipoMovimiento.PAGARCUOTA, new Date(), cuota);
-            this.creditos.get(this.creditos.size()-1).saldarMonto(cuota);
+            obtenerUltimoCredito().saldarMonto(cuota);
+            if(this.situacionDeuda.esMoroso())
+                this.setSituacionDeuda(EstadoSituacionDeuda.NORMAL);
         }else {
             this.setSituacionDeuda(EstadoSituacionDeuda.MOROSO);
         }
+    }
+
+    public Credito obtenerUltimoCredito() {
+        return this.creditos.get(this.creditos.size() - 1);
     }
 
     public void agregarInvitacion(Invitacion invitacion) {

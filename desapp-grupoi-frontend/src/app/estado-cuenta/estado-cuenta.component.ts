@@ -2,7 +2,7 @@ import { Tarjeta } from 'src/app/model/tarjeta.model';
 import { CuentaService } from './../services/cuenta.service';
 import { Cuenta } from './../model/cuenta.model';
 import { Movimiento } from './../model/movimiento.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 import { EditTarjetaComponent } from '../edit-tarjeta/edit-tarjeta.component';
 
@@ -18,7 +18,6 @@ export class EstadoCuentaComponent implements OnInit {
   situacion: string;
   tarjetaCredito: Tarjeta;
   movimientos: Movimiento[];
-  opcionesExpandidas: Boolean;
 
   //Table
   @ViewChild (MatPaginator) paginator: MatPaginator;
@@ -34,30 +33,24 @@ export class EstadoCuentaComponent implements OnInit {
     //crear inicializacion para el update
     this.tarjetaCredito = new Tarjeta("",0);
 
-    this.loadData();
-    this.opcionesExpandidas = false;
+    this.loadCuenta();
   }
 
-  loadData(){
+  loadCuenta(){
     this.cuentaService.getCuenta()
       .subscribe(res => {
-        this.cargarCuenta(res);
+        this.cuenta = res.result as Cuenta;
+        this.saldo = this.cuenta.saldo.monto;
+        this.situacion = this.cuenta.situacionDeuda;
+        this.movimientos = this.cuenta.movimientos;
+        this.tarjetaCredito = this.cuenta.tarjetaCredito;
+      
+        //Table
+        this.dataSource = new MatTableDataSource<Movimiento>(this.movimientos);
+        this.dataSource.paginator = this.paginator;
       });
   }
 
-  private cargarCuenta(res){
-    this.cuenta = res.result as Cuenta;
-    this.saldo = this.cuenta.saldo.monto;
-    this.situacion = this.cuenta.situacionDeuda;
-    this.movimientos = this.cuenta.movimientos;
-    this.tarjetaCredito = this.cuenta.tarjetaCredito;
-
-    //Table
-    this.dataSource = new MatTableDataSource<Movimiento>(this.movimientos);
-    this.dataSource.paginator = this.paginator;
-
-  }
-  
   editarTarjeta(){
     const dialogRef = this.dialog.open(EditTarjetaComponent, {
       width: '250px',

@@ -125,8 +125,6 @@ export class CrearEventoComponent implements OnInit {
   getTemplatesPrivados() {
     this.eventoService.getTemplatesPrivados()
       .subscribe(res => {
-        console.log(res.result);
-        
         this.templatesPrivados = res.result as TemplateEvento[];
         // for (let t of res.result) {
         //   let tNuevo = new TemplateEvento(t.descripcion, t.items, t.modalidad.tipoModalidad, t.nombre,

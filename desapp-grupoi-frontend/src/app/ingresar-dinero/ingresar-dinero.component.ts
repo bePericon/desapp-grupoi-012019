@@ -2,7 +2,7 @@ import { ErrorResponse } from './../model/error-response.model';
 import { Cuenta } from './../model/cuenta.model';
 import { CuentaService } from './../services/cuenta.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-ingresar-dinero',
@@ -28,6 +28,7 @@ export class IngresarDineroComponent implements OnInit {
 
   // Notificacion para poder actualizar el estado de cuenta.
   @Output() notifyActualizarEstadoCuenta: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() notifyActualizarCreditos: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private fb: FormBuilder,
@@ -87,15 +88,25 @@ export class IngresarDineroComponent implements OnInit {
     this.cuentaService.putMovimientoIngresar(this.getMonto(), this.getCodigo())
     .subscribe(res => {
       this.success('ingreso');
+      this.actualizar();
     },error => {
-      this.failure(error);
+      var e = error as ErrorResponse;
+      this.failure(e);
     });
   }
   
+  actualizar() {
+    this.loadCuenta();
+    
+    // Notificamos para actualizar el estado de cuenta
+    this.notifyActualizarEstadoCuenta.emit(true);
+    // Notificamos para actualizar los creditos
+    this.notifyActualizarCreditos.emit(true);
+  }
+
   private failure(error: any) {
-    var e = error as ErrorResponse;
     this.textoCardTitulo = "Que mal!";
-    this.textoCard = e.error.message;
+    this.textoCard = error.message;
     this.switchIcon('failure');
   }
 
@@ -103,11 +114,6 @@ export class IngresarDineroComponent implements OnInit {
     this.textoCardTitulo = "Perfecto!";
     this.textoCard = `El ${accion} fue correcto!`;
     this.switchIcon('success');
-
-    // Notificamos para actualizar el estado de cuenta
-    this.notifyActualizarEstadoCuenta.emit(true);
-
-    this.loadCuenta();
   }
 
   ingresarMas(){
