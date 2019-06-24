@@ -15,7 +15,7 @@
     <div style="cursor:pointer">
       <a class="ml-1" routerLink="/eventeando/miCuenta" routerLinkActive="activo"
         [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-user-cog"></i> Mi perfil</a>
-      / <a routerLink="#">Salir</a>
+      / <a routerLink="#"  (click)="auth.logout()">Salir</a>
     </div>
   </div>
 </nav>

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { EventosComponent } from './eventos/eventos.component';
 import { NosotrosComponent } from './nosotros/nosotros.component';
@@ -22,29 +22,31 @@ import { Routes, RouterModule } from '@angular/router';
 import { EventeandoComponent } from './eventeando/eventeando.component';
 import { MostrarEventosComponent } from './mostrar-eventos/mostrar-eventos.component';
 import { CrearEventoComponent } from './crear-evento/crear-evento.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { InvitacionesComponent } from './invitaciones/invitaciones.component';
 import { BilleteraComponent } from './billetera/billetera.component';
 import { MostrarInvitacionesComponent } from './mostrar-invitaciones/mostrar-invitaciones.component';
-import {MatDatepickerModule,} from '@angular/material/datepicker';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatDatepickerModule, } from '@angular/material/datepicker';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
 import { CrearTemplateComponent } from './crear-template/crear-template.component';
 import { MostrarTemplateComponent } from './mostrar-template/mostrar-template.component';
 import { EstadoCuentaComponent } from './estado-cuenta/estado-cuenta.component';
-import {MatListModule} from '@angular/material/list';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AgregarItemsComponent } from './agregar-items/agregar-items.component';
 import { IngresarDineroComponent } from './ingresar-dinero/ingresar-dinero.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EditTarjetaComponent } from './edit-tarjeta/edit-tarjeta.component';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { registerLocaleData } from '@angular/common';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreditoComponent } from './credito/credito.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -70,7 +72,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     AgregarItemsComponent,
     EditTarjetaComponent,
     IngresarDineroComponent,
-    CreditoComponent
+    CreditoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -130,8 +133,10 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatSnackBarModule
   ],
   entryComponents: [RegisterComponent, EditTarjetaComponent],
-  providers: [{ provide: LOCALE_ID, useValue: 'es-Ar' },
-],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-Ar' },
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 

@@ -51,32 +51,32 @@ export class LandingComponent implements OnInit {
   get getEmail() { return this.myForm.get('emailCtrl'); }
   get getContrasenia() { return this.myForm.get('contraseniaCtrl'); }
 
-  signIn() {
-    this.submitted = true;
+  // signIn() {
+  //   this.submitted = true;
 
-    if (this.myForm.invalid) { return; }
+  //   if (this.myForm.invalid) { return; }
 
-    var usuario = {
-      email: this.myForm.controls['emailCtrl'].value,
-      contrasenia: this.myForm.controls['contraseniaCtrl'].value,
-    }
+  //   var usuario = {
+  //     email: this.myForm.controls['emailCtrl'].value,
+  //     contrasenia: this.myForm.controls['contraseniaCtrl'].value,
+  //   }
 
-    this.authService.singIn(usuario)
-      .subscribe(
-        res => {
-          this.storageService.setCurrentSession(res);
-          this.goto('eventos');
-        },
-        error => {
-          if(error.error.status == 404)
-            this.error_not_found = true;
-          else if (error.error.status == 400)
-            this.error_password = true;
+  //   this.authService.singIn(usuario)
+  //     .subscribe(
+  //       res => {
+  //         this.storageService.setCurrentSession(res);
+  //         this.goto('eventos');
+  //       },
+  //       error => {
+  //         if(error.error.status == 404)
+  //           this.error_not_found = true;
+  //         else if (error.error.status == 400)
+  //           this.error_password = true;
             
-          console.log('Error: '+ error.error.message);
-        }
-      );
-  }
+  //         console.log('Error: '+ error.error.message);
+  //       }
+  //     );
+  // }
 
   goto(ruta){
     this.router.navigate(['eventeando/'+ruta]);
