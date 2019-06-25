@@ -25,8 +25,11 @@ public class Template implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL)
 	private Usuario organizador;
 
+//	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
+//	private List<Item> items;
+
 	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
-	private List<Item> items;
+	private List<TemplateItem> templateItems;
 
 	@OneToOne(cascade=CascadeType.ALL)
 	private Modalidad modalidad;
@@ -41,7 +44,8 @@ public class Template implements Serializable {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.organizador = organizador;
-		this.items = new ArrayList<Item>();
+//		this.items = new ArrayList<Item>();
+		this.templateItems = new ArrayList<>();
 		this.visibilidad = TipoVisibilidad.PRIVADA;
 	}
 
@@ -55,18 +59,20 @@ public class Template implements Serializable {
 		this.visibilidad = TipoVisibilidad.PUBLICA;
 	}
 
-	public void agregarItem(Item item) {
-		this.items.add(item);
+	public void agregarItem(Item item, int cantidad) {
+//		this.items.add(item);
+		this.templateItems.add(new TemplateItem(item, cantidad));
 	}
 
 	public void setModalidad(Modalidad modalidad) {
 		this.modalidad = modalidad;
-		this.modalidad.setItemsAComprar(this.items);
+		this.modalidad.setItemsAComprar(this.templateItems);
 		this.modalidad.setOrganizador(this.organizador);
 	}
 
 	public int obtenerCantidadItems() {
-		return this.items.size();
+//		return this.items.size();
+		return this.templateItems.size();
 	}
 
 	public void setOrganizador(Usuario usuario){
@@ -95,7 +101,7 @@ public class Template implements Serializable {
 	}
 
 	public void elegirItemPorIndice(Usuario usuario, int i) {
-		this.modalidad.agregarItemUsuario(this.items.get(i), usuario);
+		this.modalidad.agregarItemUsuario(this.templateItems.get(i), usuario);
 	}
 
 	public int obtenerCantidadItemsComprados() {
@@ -143,13 +149,13 @@ public class Template implements Serializable {
 		return organizador;
 	}
 
-	public List<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
+//	public List<Item> getItems() {
+//		return items;
+//	}
+//
+//	public void setItems(List<Item> items) {
+//		this.items = items;
+//	}
 
 	public Modalidad getModalidad() {
 		return modalidad;
@@ -161,5 +167,13 @@ public class Template implements Serializable {
 
 	public void setVisibilidad(TipoVisibilidad visibilidad) {
 		this.visibilidad = visibilidad;
+	}
+
+	public List<TemplateItem> getTemplateItems() {
+		return templateItems;
+	}
+
+	public void setTemplateItems(List<TemplateItem> templateItems) {
+		this.templateItems = templateItems;
 	}
 }

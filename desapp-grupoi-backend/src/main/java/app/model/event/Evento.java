@@ -85,16 +85,8 @@ public class Evento implements Serializable {
 		return this.template;
 	}
 
-//	public List<Invitacion> getInvitados() {
-//		return this.invitados;
-//	}
-
-//	public void agregarInvitado(String email) {
-//		this.invitados.add(new Invitacion(email, this));
-//	}
-
-	public void agregarItem(Item item) {
-		this.template.agregarItem(item);
+	public void agregarItem(Item item, int cant) {
+		this.template.agregarItem(item, cant);
 	}
 
 	public int getCantidadItems() {

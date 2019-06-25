@@ -7,4 +7,11 @@ export class Usuario {
   email: string;
   password: string;
   fechaNac: Date;
+
+
+  getNombreYApellido(){
+    return this.nombre+" "+this.apellido
+  }
+
+
 }

@@ -16,7 +16,9 @@
           <ng-template mat-tab-label>
               <i class="fas fa-dollar-sign mr-1"></i> Ingresar/ Retirar dinero
           </ng-template>
-          <app-ingresar-dinero (notifyActualizarEstadoCuenta)='onNotifyActualizarEstadoCuenta($event)'>
+          <app-ingresar-dinero 
+          (notifyActualizarEstadoCuenta)='onNotifyActualizarEstadoCuenta($event)'
+          (notifyActualizarCreditos)='onNotifyActualizarCreditos($event)'>
           </app-ingresar-dinero>
         </mat-tab>
 
@@ -24,7 +26,8 @@
           <ng-template mat-tab-label>
               <i class="fas fa-hand-holding-usd mr-1"></i> Creditos 
           </ng-template>
-          <app-credito prueba={{sarasa}}></app-credito>
+          <app-credito (notifyActualizarEstadoCuenta)='onNotifyActualizarEstadoCuenta($event)'>
+          </app-credito>
         </mat-tab>
       </mat-tab-group>
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -124,5 +125,19 @@ public class CuentaService extends GenericService<Cuenta> {
         this.getDao().update(cuenta);
 
         return this.getDao().getCuentaByIdUsuario(idCuenta);
+    }
+
+    public Credito getUltimoCredito(long idCuenta) {
+        Cuenta cuenta = this.getDao().getById(idCuenta);
+
+        if(! cuenta.hayCreditoEnCurso())
+            return null;
+
+        return cuenta.obtenerUltimoCredito();
+    }
+
+    public List<Credito> getAllCreditosFinalizados(long idCuenta) {
+        return this.getAllCreditosByIdCuenta(idCuenta).stream()
+            .filter(c -> c.getEstado().equals(EnumEstados.EstadoCredito.FINALIZADO)).collect(Collectors.toList());
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
 @RequestMapping(value = {"app/evento"})
 @EnableAutoConfiguration
 public class EventoRestController {
@@ -95,5 +95,10 @@ public class EventoRestController {
         return new ApiResponse<List<Template>>(HttpStatus.OK.value(),"", templates);
     }
     
+    @PutMapping("/template/publico/{idTemplate}")
+    public ApiResponse<Template> actualizarTemplateAPublico(@PathVariable String idTemplate) {
+        Template templateN = this.templateService.actualizarTemplateAPublico(Long.parseLong(idTemplate));
+        return new ApiResponse<Template>(HttpStatus.OK.value(), "El template ahora es Público.", templateN);
+    }
 
 }

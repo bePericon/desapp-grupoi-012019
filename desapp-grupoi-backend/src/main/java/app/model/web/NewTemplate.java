@@ -11,13 +11,13 @@ public class NewTemplate {
     private Template template;
     private Date fechaLimite;
     private TipoModalidad tipoModalidad;
-    private List<Item> items;
+    private List<TemplateItem> templateItems;
 
-    public NewTemplate(Template template, Date fechaLimite, TipoModalidad tipoModalidad, List<Item> items) {
+    public NewTemplate(Template template, Date fechaLimite, TipoModalidad tipoModalidad, List<TemplateItem> items) {
         this.template = template;
         this.fechaLimite = fechaLimite;
         this.tipoModalidad = tipoModalidad;
-        this.items = items;
+        this.templateItems = items;
     }
 
     //Getters y setters
@@ -45,11 +45,11 @@ public class NewTemplate {
         this.tipoModalidad = tipoModalidad;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<TemplateItem> getTemplateItems() {
+        return templateItems;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setTemplateItems(List<TemplateItem> templateItems) {
+        this.templateItems = templateItems;
     }
 }

@@ -18,7 +18,7 @@ public abstract class Modalidad implements Serializable {
 	private long id;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
-	protected List<Item> itemsAComprar;
+	protected List<TemplateItem> itemsAComprar;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch= FetchType.LAZY)
 	protected List<ItemUsuario> itemsComprados;
@@ -41,7 +41,7 @@ public abstract class Modalidad implements Serializable {
 	public Modalidad(){}
 
 	public Modalidad(Date fechaLimite) {
-		this.itemsAComprar = new ArrayList<Item>();
+		this.itemsAComprar = new ArrayList<>();
 		this.itemsComprados = new ArrayList<ItemUsuario>();
 		this.costoTotal = new Dinero(0);
 		this.fechaLimite = fechaLimite;
@@ -63,8 +63,11 @@ public abstract class Modalidad implements Serializable {
 		this.costoTotal.sumar(itemUsuario.getItem().getCosto());
 	}
 
-	public void agregarItemUsuario(Item item, Usuario usuario){
-		this.agregarItemUsuario(new ItemUsuario(item, usuario));
+	public void agregarItemUsuario(TemplateItem ti, Usuario usuario){
+		int i;
+		for (i = ti.getCantidad(); i > 0; i--){
+			this.agregarItemUsuario(new ItemUsuario(ti.getItem(), usuario));
+		}
 	}
 
 	public int obtenerCantidadItemsComprados(){
@@ -84,11 +87,11 @@ public abstract class Modalidad implements Serializable {
 		this.id = id;
 	}
 
-	public List<Item> getItemsAComprar() {
+	public List<TemplateItem> getItemsAComprar() {
 		return itemsAComprar;
 	}
 
-	public void setItemsAComprar(List<Item> itemsAComprar) {
+	public void setItemsAComprar(List<TemplateItem> itemsAComprar) {
 		this.itemsAComprar = itemsAComprar;
 	}
 

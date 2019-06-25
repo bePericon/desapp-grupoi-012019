@@ -183,9 +183,9 @@ public class EventoBaquitaTest {
 
     private void agregarTresItemsEnTemplate() {
         this.template = new Template("Nuevo template", "Descripcion", this.organizador);
-        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
-        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
-        this.template.agregarItem(new Item(this.getCosto(100), "Papas", 2));
+        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2),1);
+        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2),1);
+        this.template.agregarItem(new Item(this.getCosto(100), "Papas", 2),1);
     }
 
     private void setTemplateModalidadBaquitaRecoleccionPreviaConTresItems() {

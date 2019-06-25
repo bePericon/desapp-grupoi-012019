@@ -1,5 +1,9 @@
+import { CuentaService } from './../services/cuenta.service';
+import { CreditoComponent } from './../credito/credito.component';
 import { EstadoCuentaComponent } from './../estado-cuenta/estado-cuenta.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { IngresarDineroComponent } from '../ingresar-dinero/ingresar-dinero.component';
+import { Cuenta } from '../model/cuenta.model';
 
 @Component({
   selector: 'app-billetera',
@@ -9,21 +13,21 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class BilleteraComponent implements OnInit {
 
   @ViewChild(EstadoCuentaComponent) estadoCuentaComp: EstadoCuentaComponent;
-
-  sarasa:string
-
+  // @ViewChild(IngresarDineroComponent) ingresarDineroComp: IngresarDineroComponent;
+  @ViewChild(CreditoComponent) creditoComponent: CreditoComponent;
 
   constructor() {
-    
-    this.sarasa = "esto es una prueba de databinding"
-
   }
 
   ngOnInit() {
   }
 
   onNotifyActualizarEstadoCuenta(notifyActualizarEstadoCuenta: boolean){
-    if(notifyActualizarEstadoCuenta){ this.estadoCuentaComp.loadData(); }
+    if(notifyActualizarEstadoCuenta){ this.estadoCuentaComp.loadCuenta(); }
+  }
+
+  onNotifyActualizarCreditos(notifyActualizarEstadoCuenta: boolean){
+    if(notifyActualizarEstadoCuenta){ this.creditoComponent.actualizar(); }
   }
 
 }

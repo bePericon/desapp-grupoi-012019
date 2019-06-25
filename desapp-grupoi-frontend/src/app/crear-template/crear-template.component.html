@@ -83,19 +83,14 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Elegir visibilidad</ng-template>
+        <ng-template matStepLabel>Listo!</ng-template>
 
-        <h6>¿Hacerlo público?</h6>
-        <mat-checkbox  [(ngModel)]="visibilidad"> Hacer público </mat-checkbox>
-
-        <hr>
-        <div>
           <button mat-button matStepperPrevious>Atrás</button>
           <button mat-button (click)="stepper.reset() && resetForm()">Cancelar todo <i class="fas fa-redo"></i> </button>
           <hr>
-          <button class="btn btn-outline-success mt-1" (click)="crearTemplate()" 
-          [disabled]="!creacionValida()"> Crear! </button>
-        </div>
+          <button class="btn btn-outline-success mt-1" (click)="crearTemplate(stepper)" 
+          [disabled]="!creacionValida()" > Crear! </button>
+        
       </mat-step>
     
     </mat-vertical-stepper>

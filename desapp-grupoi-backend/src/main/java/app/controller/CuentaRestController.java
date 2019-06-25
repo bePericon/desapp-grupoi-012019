@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -63,4 +64,24 @@ public class CuentaRestController {
         return new ApiResponse<List<Credito>>(HttpStatus.OK.value(),"", creditos);
     }
 
+    @GetMapping("/cuenta/credito/finalizado/{idCuenta}")
+    public ApiResponse<?> getAllCreditosFinalizados(@PathVariable String idCuenta) {
+        List<Credito> creditos = this.cuentaService.getAllCreditosFinalizados(Long.parseLong(idCuenta));
+        return new ApiResponse<List<Credito>>(HttpStatus.OK.value(),"", creditos);
+    }
+
+    @GetMapping("/cuenta/credito/ultimo/{idCuenta}")
+    public ApiResponse<?> getUltimoCredito(@PathVariable String idCuenta) {
+        Credito credito = this.cuentaService.getUltimoCredito(Long.parseLong(idCuenta));
+        List<Credito> creditos = new ArrayList<>();
+        if(credito != null)
+            creditos.add(credito);
+        return new ApiResponse<List<Credito>>(HttpStatus.OK.value(),"", creditos);
+    }
+
+    @PutMapping("/cuenta/movimiento/pagarcuota/{idCuenta}")
+    public ApiResponse<?> nuevoMovimientoPagarCuota(@PathVariable String idCuenta) {
+        Cuenta cuenta = this.cuentaService.nuevoMovimiento(Long.parseLong(idCuenta), EnumTipos.TipoMovimiento.PAGARCUOTA, new NewMovimiento());
+        return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"",cuenta);
+    }
 }

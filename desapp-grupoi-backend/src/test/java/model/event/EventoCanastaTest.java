@@ -53,8 +53,8 @@ public class EventoCanastaTest {
         this.setNuevoEvento("Asado");
         this.modalidad = new Canasta(new Date(2030,11,27,10,10,00));
         this.evento.setModalidad(this.modalidad);
-        this.evento.agregarItem(new Item(this.getCosto(200), "Carne", 2));
-        this.evento.agregarItem(new Item(this.getCosto(180), "Coca", 2));
+        this.evento.agregarItem(new Item(this.getCosto(200), "Carne", 2),1);
+        this.evento.agregarItem(new Item(this.getCosto(180), "Coca", 2),1);
         this.seEnvianInvitaciones();
         this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
 
@@ -72,8 +72,8 @@ public class EventoCanastaTest {
         this.setNuevoEvento("Asado");
         this.modalidad = new Canasta(new Date(2030,11,27,10,10,00));
         this.evento.setModalidad(this.modalidad);
-        this.evento.agregarItem(new Item(this.getCosto(200), "Carne", 2));
-        this.evento.agregarItem(new Item(this.getCosto(180), "Coca", 2));
+        this.evento.agregarItem(new Item(this.getCosto(200), "Carne", 2),1);
+        this.evento.agregarItem(new Item(this.getCosto(180), "Coca", 2),1);
         this.seEnvianInvitaciones();
         this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
 

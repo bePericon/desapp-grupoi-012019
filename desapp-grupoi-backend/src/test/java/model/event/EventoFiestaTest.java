@@ -93,7 +93,7 @@ public class EventoFiestaTest {
         this.usuarioDosCuenta.getInvitaciones().get(0).confirmar(this.usuarioDos);
 
     	//ASSERT
-    	 assertEquals(505, this.evento.getCostoTotal().getMonto(), 0.0);
+    	 assertEquals(455, this.evento.getCostoTotal().getMonto(), 0.0);
 	}
 
     @Test
@@ -122,8 +122,8 @@ public class EventoFiestaTest {
     private void setTemplateModalidadFiestaConDosItems() {
         this.modalidad = new Fiesta(new Date(2019,11,27,10,10,00));
         this.template = new Template("Nuevo template", "Descripcion", this.organizador);
-        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
-        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
+        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2), 1);
+        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2), 1);
         this.template.setModalidad(this.modalidad);
     }
 
@@ -149,15 +149,15 @@ public class EventoFiestaTest {
         Item iuno = new Item(this.getCosto(50), "Cerveza", 1);
         Item idos = new Item(this.getCosto(25), "Biscochos", 4);
 
-        this.evento.agregarItem(iuno);
-        this.evento.agregarItem(idos);
+        this.evento.agregarItem(iuno,1 );
+        this.evento.agregarItem(idos, 1);
     }
 
     private void setTemplateModalidadFiestaConDosItemsFechaNoVigente() {
         this.modalidad = new Fiesta(new Date(System.currentTimeMillis()-1000));
         this.template = new Template("Nuevo template", "Descripcion", this.organizador);
-        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2));
-        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2));
+        this.template.agregarItem(new Item(this.getCosto(200), "Carne", 2),1);
+        this.template.agregarItem(new Item(this.getCosto(180), "Coca", 2),1);
         this.template.setModalidad(this.modalidad);
     }
 

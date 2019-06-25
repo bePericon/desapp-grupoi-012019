@@ -39,8 +39,8 @@ public abstract class Baquita extends Modalidad {
 	@Override
 	public void calcularCostos(List<Usuario> asistentes) {
 		this.costoTotal = new Dinero(0);
-		for (Item i : this.itemsAComprar)
-			this.costoTotal.sumar(i.getCosto());
+		for (TemplateItem ti : this.itemsAComprar)
+			this.costoTotal.sumar(ti.getItem().getCosto());
 
 		if(this.costoTotal.mayorACero())
 			this.costoUsuario = this.costoTotal.dividir(asistentes.size());

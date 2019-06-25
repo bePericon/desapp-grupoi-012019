@@ -6,6 +6,7 @@ import app.model.web.NewTemplate;
 import app.model.account.Cuenta;
 import app.model.account.Usuario;
 import app.model.event.*;
+import app.model.event.EnumTipos.TipoVisibilidad;
 import app.persistence.event.TemplateDao;
 import app.service.GenericService;
 import app.service.account.CuentaService;
@@ -76,8 +77,8 @@ public class TemplateService extends GenericService<Template> {
                 newT.getTemplate().getDescripcion(),
                 organizador);
 
-        if(newT.getItems().size() > 0)
-            template.setItems(newT.getItems());
+        if(newT.getTemplateItems().size() > 0)
+            template.setTemplateItems(newT.getTemplateItems());
 
         switch (newT.getTipoModalidad()){
             case FIESTA:
@@ -98,6 +99,13 @@ public class TemplateService extends GenericService<Template> {
 
 	public  List<Template>  getTemplatesPublicos() {
 		List<Template> templates = this.getDao().getTemplatesPublicos();
-        return templates;
+		return templates;
+	}
+
+	public Template actualizarTemplateAPublico(long idTemplate) {
+		Template tActual = this.getTemplateById(idTemplate);
+		tActual.setVisibilidad(TipoVisibilidad.PUBLICA);
+		this.update(tActual);
+		return tActual;
 	}
 }
