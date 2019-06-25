@@ -9,18 +9,14 @@ import app.model.event.*;
 import app.persistence.event.TemplateDao;
 import app.service.GenericService;
 import app.service.account.CuentaService;
-import app.service.account.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
+
 
 @Service
 @Transactional
@@ -30,8 +26,7 @@ public class TemplateService extends GenericService<Template> {
     private TemplateDao dao;
 
     // Services
-    @Autowired
-    private UsuarioService usuarioService;
+
     @Autowired
     private CuentaService cuentaService;
 

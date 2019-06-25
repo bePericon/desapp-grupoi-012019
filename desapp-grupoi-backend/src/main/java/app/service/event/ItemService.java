@@ -1,7 +1,6 @@
 package app.service.event;
 
-import app.error.exception.ExceptionNoContent;
-import app.model.event.Evento;
+
 import app.model.event.Item;
 import app.persistence.event.ItemDao;
 import app.service.GenericService;
