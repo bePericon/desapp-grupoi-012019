@@ -8,12 +8,12 @@ import app.model.web.Invitaciones;
 import app.persistence.event.InvitacionDao;
 import app.service.GenericService;
 import app.service.account.CuentaService;
-import app.service.account.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
