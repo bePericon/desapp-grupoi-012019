@@ -47,6 +47,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreditoComponent } from './credito/credito.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
+import { AdministracionComponent } from './administracion/administracion.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -73,7 +74,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     EditTarjetaComponent,
     IngresarDineroComponent,
     CreditoComponent,
-    LoginComponent
+    LoginComponent,
+    AdministracionComponent
   ],
   imports: [
     BrowserModule,
