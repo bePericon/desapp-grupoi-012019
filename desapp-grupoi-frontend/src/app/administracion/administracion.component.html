@@ -1,7 +1,31 @@
-<p>
- un ng for mostrando todos los creditos de los usuarios
 
- ordenarlos?
-</p>
 
+  <div class="row">
+    <div class="col-sm-12">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="tipoMovimiento">
+          <th mat-header-cell *matHeaderCellDef> Tipo de movimiento </th>
+          <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="monto.monto">
+          <th mat-header-cell *matHeaderCellDef> Monto </th>
+          <td mat-cell *matCellDef="let element">$ {{element.monto.monto}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+
+    </div>
+  </div>
 
