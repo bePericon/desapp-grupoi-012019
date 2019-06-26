@@ -28,6 +28,10 @@ export class CuentaService {
     return this.httpClient.get<Session>(this.URL_API+ '/usuario/'+ this.usuarioId);
   }
 
+  getCuentas(): Observable<Session> {
+    return this.httpClient.get<Session>(this.URL_API+ '/cuentas');
+  }
+
   // Guardamos la tarjeta de credito
   putTarjeta(tarjeta: Tarjeta): Observable<Session> {
     return this.httpClient.put<Session>(this.URL_API + `/tarjeta/${this.usuarioId}`, tarjeta);

@@ -140,4 +140,12 @@ public class CuentaService extends GenericService<Cuenta> {
         return this.getAllCreditosByIdCuenta(idCuenta).stream()
             .filter(c -> c.getEstado().equals(EnumEstados.EstadoCredito.FINALIZADO)).collect(Collectors.toList());
     }
+
+	public List<Cuenta> getAllCuentas() {
+		List<Cuenta> cuenta = this.getDao().getAllCuentas();
+        if (cuenta == null)
+            throw new ExceptionNotFound("No se encontraron cuentas");
+
+        return cuenta;
+	}
 }
