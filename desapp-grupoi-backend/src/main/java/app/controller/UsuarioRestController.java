@@ -1,12 +1,12 @@
 package app.controller;
 
 import app.model.account.Usuario;
+import app.model.account.UsuarioAuth;
 import app.model.web.ApiResponse;
 import app.service.account.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +21,10 @@ public class UsuarioRestController {
     @Autowired
     private UsuarioService usuarioService;
 
+    //para auth0
+    @PostMapping("/auth")
+    public Usuario auth(@RequestBody UsuarioAuth userAuth) { return usuarioService.autenticarUsuarioAuth(userAuth);}
+    
     @GetMapping("/usuario/{id}")
     public ApiResponse<Usuario> getUsuario(@PathVariable String id) {
         Usuario usuario = this.usuarioService.getByIdUsuario(Long.parseLong(id));

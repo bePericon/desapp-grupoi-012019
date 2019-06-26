@@ -47,6 +47,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreditoComponent } from './credito/credito.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
+import { AdministracionComponent } from './administracion/administracion.component';
+import { EventoFiestaComponent } from './evento-fiesta/evento-fiesta.component';
+import { EventoCanastaComponent } from './evento-canasta/evento-canasta.component';
+import { EventoBaquitaV1Component } from './evento-baquita-v1/evento-baquita-v1.component';
+import { EventoBaquitaV2Component } from './evento-baquita-v2/evento-baquita-v2.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -73,7 +78,12 @@ registerLocaleData(localeEsAr, 'es-Ar');
     EditTarjetaComponent,
     IngresarDineroComponent,
     CreditoComponent,
-    LoginComponent
+    LoginComponent,
+    AdministracionComponent,
+    EventoFiestaComponent,
+    EventoCanastaComponent,
+    EventoBaquitaV1Component,
+    EventoBaquitaV2Component
   ],
   imports: [
     BrowserModule,

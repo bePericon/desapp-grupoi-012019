@@ -5,6 +5,7 @@ import app.error.exception.ExceptionConflict;
 import app.error.exception.ExceptionNotFound;
 import app.model.account.Cuenta;
 import app.model.account.Usuario;
+import app.model.account.UsuarioAuth;
 import app.persistence.account.UsuarioDao;
 import app.service.GenericService;
 import org.apache.logging.log4j.LogManager;
@@ -117,4 +118,23 @@ public class UsuarioService extends GenericService<Usuario>{
         this.deleteById(idUsuario);
         return usuario;
     }
+    
+    
+    
+    //para Auth0!
+    public Usuario createUserDesdeAuth(UsuarioAuth profile) {
+    	Usuario user = new Usuario(profile.getNombre(), profile.getApellido());
+    	user.setEmail(profile.getEmail());
+        return this.createNuevoUsuario(user);
+    }
+
+    //para Auth0!
+    public Usuario autenticarUsuarioAuth(UsuarioAuth profile) {
+    	Usuario user = this.getByEmail(profile.getEmail());
+        if (user == null){
+            return this.createUserDesdeAuth(profile);
+        }
+        return user;
+    }
+    
 }

@@ -17,4 +17,8 @@ export class EventeandoComponent implements OnInit {
     this.router.navigate(['eventeando/crear-evento']);
   }
 
+  
+
+  
+
 }
