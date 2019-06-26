@@ -1,15 +1,19 @@
 package app.model.web;
 
+import app.model.event.Evento;
+
 import java.util.List;
 
 public class Invitaciones {
 
     List<String> emails;
-    long idEvento;
+//    long idEvento;
+    Evento evento;
 
-    public Invitaciones(List<String> emails, long idEvento) {
+    public Invitaciones(List<String> emails, Evento evento){ //, long idEvento) {
         this.emails = emails;
-        this.idEvento = idEvento;
+//        this.idEvento = idEvento;
+        this.evento = evento;
     }
 
     public List<String> getEmails() {
@@ -20,11 +24,19 @@ public class Invitaciones {
         this.emails = emails;
     }
 
-    public long getIdEvento() {
-        return idEvento;
+    public Evento getEvento() {
+        return evento;
     }
 
-    public void setIdEvento(long idEvento) {
-        this.idEvento = idEvento;
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
+
+//    public long getIdEvento() {
+//        return idEvento;
+//    }
+//
+//    public void setIdEvento(long idEvento) {
+//        this.idEvento = idEvento;
+//    }
 }

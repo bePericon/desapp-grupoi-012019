@@ -215,4 +215,8 @@ public class Cuenta implements Serializable {
     public void setTemplates(List<Template> templates) {
         this.templates = templates;
     }
+
+    public Evento obtenerUltimoEvento() {
+        return this.eventos.get(this.eventos.size() - 1);
+    }
 }

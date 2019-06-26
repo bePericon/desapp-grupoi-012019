@@ -78,7 +78,7 @@ public class InvitacionService extends GenericService<Invitacion> {
 
     public void guardarListaInvitaciones(Invitaciones invitaciones) {
         // TODO: envio de email reales.
-        Evento evento = this.eventoService.getById(invitaciones.getIdEvento());
+        Evento evento = invitaciones.getEvento();//this.eventoService.getById(invitaciones.getIdEvento());
         for (String email : invitaciones.getEmails()) {
             Cuenta cuenta =  this.cuentaService.getByUsuarioEmailWithException(email);
             if(cuenta != null){

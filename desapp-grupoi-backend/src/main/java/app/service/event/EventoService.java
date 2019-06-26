@@ -1,9 +1,14 @@
 package app.service.event;
 
 import app.error.exception.ExceptionNoContent;
+import app.model.CreadorInvitaciones;
 import app.model.account.Cuenta;
 import app.model.account.Usuario;
 import app.model.event.Evento;
+import app.model.event.Invitacion;
+import app.model.event.Template;
+import app.model.web.Invitaciones;
+import app.model.web.NewEvento;
 import app.persistence.event.EventoDao;
 import app.service.GenericService;
 import app.service.account.CuentaService;
@@ -27,6 +32,10 @@ public class EventoService extends GenericService<Evento> {
     private CuentaService cuentaService;
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private TemplateService templateService;
+    @Autowired
+    private InvitacionService invitacionService;
 
     @Override
     protected EventoDao getDao() {
@@ -93,5 +102,27 @@ public class EventoService extends GenericService<Evento> {
         Usuario usuario = this.usuarioService.getByIdUsuario(idUsuario);
         List<Evento> eventos = this.getDao().getEventosInvitadoEnCurso(usuario.getEmail());
         return eventos;
+    }
+
+    /*
+     * Crea un nuevo evento.
+     */
+    public Evento createNuevoEvento(long idUsuario, NewEvento nuevoEvento) {
+        Template template = this.templateService.createNuevoTemplate(idUsuario, nuevoEvento.getNuevoTemplate());
+        Usuario organizador = this.usuarioService.getByIdUsuario(idUsuario);
+        Evento evento = new Evento(organizador, nuevoEvento.getNombre());
+        Cuenta cuenta = this.cuentaService.getCuentaByIdUsuario(idUsuario);
+        evento.setTemplate(template);
+
+        cuenta.agregarEvento(evento);
+        this.cuentaService.update(cuenta);
+        cuenta = this.cuentaService.getCuentaByIdUsuario(idUsuario);
+        evento = cuenta.obtenerUltimoEvento();
+
+        Invitaciones invitaciones = new Invitaciones(nuevoEvento.getInvitados(), evento);
+        CreadorInvitaciones creador = new CreadorInvitaciones(this.invitacionService, invitaciones);
+        creador.start();
+
+        return evento;
     }
 }

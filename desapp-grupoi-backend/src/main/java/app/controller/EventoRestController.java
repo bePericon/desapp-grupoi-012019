@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.model.web.ApiResponse;
+import app.model.web.NewEvento;
 import app.model.web.NewTemplate;
 import app.model.event.Evento;
 import app.model.event.Template;
@@ -69,8 +70,14 @@ public class EventoRestController {
         return new ApiResponse<List<Evento>>(HttpStatus.OK.value(),"", eventos);
     }
 
+    @PostMapping("/{id}") //Crear evento para el usuario con Id
+    public ApiResponse nuevoEvento(@PathVariable String id, @RequestBody NewEvento nuevoEvento) {
+        Evento evento = this.eventoService.createNuevoEvento(Long.parseLong(id), nuevoEvento);
+        return new ApiResponse<Template>(HttpStatus.CREATED.value(),"",evento);
+    }
+
     // Api para Templates
-    @PostMapping("/template/{id}") //Crear template apara el usuario con Id
+    @PostMapping("/template/{id}") //Crear template para el usuario con Id
     public ApiResponse nuevoTemplate(@PathVariable String id, @RequestBody NewTemplate nuevoTemplate) {
         Template template = this.templateService.createNuevoTemplate(Long.parseLong(id), nuevoTemplate);
         return new ApiResponse<Template>(HttpStatus.CREATED.value(),"",template);
