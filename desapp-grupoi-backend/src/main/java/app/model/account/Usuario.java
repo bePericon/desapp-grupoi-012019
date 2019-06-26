@@ -1,12 +1,9 @@
 package app.model.account;
 
-import app.model.event.Invitacion;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Table(name = "usuario")

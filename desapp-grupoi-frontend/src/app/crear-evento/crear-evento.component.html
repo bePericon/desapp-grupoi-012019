@@ -2,144 +2,44 @@
   <br>
   <div class="row">
 
-    <div class="col-sm-6">
+    <div class="col-sm-6 shadow-sm p-4">
 
       <h3> Crear evento personalizado:</h3>
-      
-      <p class="mt-3 ">Primero elegí cualquiera de las modalidades.</p>
-      <!-- <br><br> -->
 
-      <button type="button" value="fiesta" (click)="elegirModalidad('fiesta')" class="btn btn-outline-dark rounded-pill  mb-1"
-        matTooltip="{{infoFiesta}}">Fiesta
-      </button>
-      <button type="button" class="btn btn-outline-dark ml-2 mb-1 rounded-pill" (click)="elegirModalidad('canasta')"
-        matTooltip="{{infoCanasta}}">Canasta</button>
-      <button type="button" class="btn btn-outline-dark ml-2 mb-1 rounded-pill" (click)="elegirModalidad('baquita-v1')"
-        matTooltip="{{infoBaquitav1}}">Baquita dividiendo compras</button>
-      <button type="button" class="btn btn-outline-dark ml-2 mb-1 rounded-pill" (click)="elegirModalidad('baquita-v2')"
-        matTooltip="{{infoBaquitav2}}">Baquita cunta en común</button>
+        <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
+          <mat-tab matTooltip="{{infoFiesta}}">
+            <ng-template mat-tab-label>
+             Fiesta
+            </ng-template>
+            <app-evento-fiesta></app-evento-fiesta>
+          </mat-tab>
+  
+          <mat-tab matTooltip="{{infoCanasta}}">
+            <ng-template mat-tab-label  >
+              Canasta
+            </ng-template>
+             <app-evento-canasta></app-evento-canasta>
+          </mat-tab>
+          <mat-tab matTooltip="{{infoBaquitav1}}">
+            <ng-template mat-tab-label >
+              Baquita div. de compras
+            </ng-template>
+            <app-evento-baquita-v1></app-evento-baquita-v1>
+          </mat-tab>
+          <mat-tab matTooltip="{{infoBaquitav2}}">
+            <ng-template mat-tab-label >
+              Baquita cunta común
+            </ng-template>
+            <app-evento-baquita-v2></app-evento-baquita-v2>
+          </mat-tab>
+        </mat-tab-group>
 
-      <mat-vertical-stepper *ngIf="modalidad" [linear]="false" #stepper>
-
-        <mat-step [stepControl]="nombreForm">
-          <form [formGroup]="nombreForm">
-            <ng-template matStepLabel>Nombre del evento</ng-template>
-            <mat-form-field>
-              <input matInput placeholder="Nombre del evento" formControlName="nombreCtrl" required>
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperNext>Siguiente
-                <i class="material-icons">
-                  chevron_right
-                </i>
-              </button>
-            </div>
-          </form>
-        </mat-step>
-
-        <mat-step [stepControl]="descripcionForm">
-          <form [formGroup]="descripcionForm">
-            <ng-template matStepLabel>Poné una descripción</ng-template>
-            <mat-form-field>
-              <textarea matInput placeholder="Descripción" formControlName="descripcionCtrl" required></textarea>
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>
-                <i class="material-icons">
-                  chevron_left
-                </i>Atrás
-              </button>
-              <button mat-button matStepperNext>Siguiente
-                <i class="material-icons">
-                  chevron_right
-                </i>
-              </button>
-            </div>
-          </form>
-        </mat-step>
-
-        <mat-step [stepControl]="fechaForm">
-          <form [formGroup]="fechaForm">
-            <ng-template matStepLabel>Fecha de Evento</ng-template>
-            <mat-form-field class="full-width">
-              <input matInput [matDatepicker]="picker" placeholder="Fecha del Evento" formControlName="fechaCtrl"
-                required>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-
-            <div>
-              <button mat-button matStepperPrevious><i class="material-icons">
-                  chevron_left
-                </i>Atrás</button>
-              <button mat-button matStepperNext>Siguiente<i class="material-icons">
-                  chevron_right
-                </i></button>
-            </div>
-          </form>
-        </mat-step>
-        <!-- AGREGAR ITEMS -->
-        <mat-step [stepControl]="itemForm">
-          <!-- <form [formGroup]="secondFormGroup"> -->
-          <ng-template matStepLabel>Agregar items</ng-template>
-
-          <app-agregar-items></app-agregar-items>
-
-          <div>
-            <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-button matStepperNext>Siguiente</button>
-          </div>
-          <!-- </form> -->
-        </mat-step>
-
-        <mat-step [stepControl]="emailForm">
-          <form [formGroup]="emailForm">
-            <ng-template matStepLabel>Invitar!</ng-template>
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Email" formControlName="emailCtrl">
-              <mat-hint>Recordá poner un mail válido</mat-hint>
-            </mat-form-field>
-
-            <button matTooltip="agregar a lista de invitados!" style="border-radius:50%; width:40px; height:40px"
-              class="btn btn-outline-success ml-4" (click)="invitar()" [disabled]="emailInvalido()"><i
-                class="fas fa-user-plus"></i></button>
-
-            <div>
-              <button mat-button matStepperPrevious>
-                <i class="material-icons">
-                  chevron_left
-                </i>
-                Atrás
-              </button>
-
-              <button matTooltip="Se perderán todos los datos cargados" (click)="cancelarCreacion(stepper)"
-                mat-button>Cancelar evento
-              </button>
-              <br>
-
-              <div *ngIf="invitados.length > 0">
-                <h4>Invitados:</h4>
-                <div *ngFor="let t of invitados" class="mt-1">
-                  <div>
-                    <span style="vertical-align: super;">{{t}} </span>
-                    <button (click)="removerInvitado(t)" class="btn btn-outline-danger btn-sm boton-cerrar"
-                      matTooltip="Remover invitado">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </mat-step>
-
-      </mat-vertical-stepper>
     </div>
 
     <!-- TEMPLATES************************************************************************************ -->
   
     
-    <div class="col-sm-6">
+    <div class="col-sm-6 shadow-sm p-4">
      
       <div class="row">
 

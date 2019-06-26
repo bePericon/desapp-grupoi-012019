@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -9,9 +10,9 @@ import { AuthService } from '../services/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(public auth: AuthService) { 
+  constructor(public auth: AuthService) {
     auth.handleAuthentication();
-   }
+  }
 
   ngOnInit() {
     if (this.auth.isAuthenticated()) {
@@ -19,7 +20,16 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  
- 
+  logout() {
+    // console.log(this.auth.isAuthenticated());
+    if (this.auth.isAuthenticated()) {
+      this.auth.logout()
+    } else {
+      this.auth.desloggear()
+    }
+
+  }
+
+
 
 }

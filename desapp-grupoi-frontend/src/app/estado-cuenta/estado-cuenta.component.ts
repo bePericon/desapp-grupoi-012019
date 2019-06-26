@@ -20,7 +20,7 @@ export class EstadoCuentaComponent implements OnInit {
   movimientos: Movimiento[];
 
   //Table
-  @ViewChild (MatPaginator) paginator: MatPaginator;
+  @ViewChild (MatPaginator) paginator: MatPaginator; //cambiar esto no hace falta
   displayedColumns: string[] = ['tipoMovimiento', 'fecha', 'monto.monto'];
   dataSource: MatTableDataSource<Movimiento>;
 

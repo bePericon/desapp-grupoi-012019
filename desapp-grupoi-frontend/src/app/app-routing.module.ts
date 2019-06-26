@@ -8,6 +8,7 @@ import { BilleteraComponent } from './billetera/billetera.component';
 import { InvitacionesComponent } from './invitaciones/invitaciones.component';
 import { CrearEventoComponent } from './crear-evento/crear-evento.component';
 import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
+import { AdministracionComponent } from './administracion/administracion.component';
 
 const routes: Routes = [
   {
@@ -34,7 +35,7 @@ const routes: Routes = [
       { path: 'crear-evento', component: CrearEventoComponent, pathMatch: 'full' },
       { path: 'invitaciones', component: InvitacionesComponent, pathMatch: 'full' },
       { path: 'billetera', component: BilleteraComponent, pathMatch: 'full' },
-      { path: 'miCuenta', component: MiCuentaComponent, pathMatch: 'full' }
+      { path: 'administracion', component: AdministracionComponent, pathMatch: 'full' }
     ]
   }
 

@@ -11,11 +11,16 @@
       class="fas fa-wallet"></i> Billetera
   </a>
 
-  <div style="color:white">
-    <div style="cursor:pointer">
-      <a class="ml-1" routerLink="/eventeando/miCuenta" routerLinkActive="activo"
-        [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-user-cog"></i> Mi perfil</a>
-      / <a routerLink="#"  (click)="auth.logout()">Salir</a>
-    </div>
-  </div>
+  <a class="" routerLink="/eventeando/administracion" *ngIf='auth.isAuthenticated()' routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}"> 
+    <i class="fas fa-users-cog"></i> Admin
+</a>
+
+  <!-- <div style="color:white"> -->
+    <!-- <div style="cursor:pointer"> -->
+      <!-- <a class="ml-1" routerLink="/eventeando/miCuenta" routerLinkActive="activo" -->
+        <!-- [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-user-cog"></i> Mi perfil</a> -->
+      <!-- /  -->
+      <span routerLink="#" (click)="logout()">Salir</span>
+    <!-- </div> -->
+  <!-- </div> -->
 </nav>

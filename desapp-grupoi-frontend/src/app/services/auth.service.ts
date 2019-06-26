@@ -7,17 +7,17 @@ import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
 import { UtilsService } from './utils.service';
 
-interface AuthConfig {
-  clientID: string;
-  domain: string;
-  callbackURL: string;
-}
+// interface AuthConfig {
+//   clientID: string;
+//   domain: string;
+//   callbackURL: string;
+// }
 
-export const AUTH_CONFIG: AuthConfig = {
-  clientID: '4iURo14HZsM6u3ELPGDJTJ3650MwCql5',
-  domain: 'dev-kgavav5n.auth0.com',
-  callbackURL: 'http://localhost:4200/eventeando'
-};
+// export const AUTH_CONFIG: AuthConfig = {
+//   clientID: '4iURo14HZsM6u3ELPGDJTJ3650MwCql5',
+//   domain: 'dev-kgavav5n.auth0.com',
+//   callbackURL: 'http://localhost:4200/eventeando'
+// };
 
 @Injectable({
   providedIn: 'root'
@@ -32,17 +32,18 @@ export class AuthService {
 
 
   auth0 = new auth0.WebAuth({
-    clientID: AUTH_CONFIG.clientID,
-    domain: AUTH_CONFIG.domain,
+    clientID: "4iURo14HZsM6u3ELPGDJTJ3650MwCql5",
+    domain: 'dev-kgavav5n.auth0.com',
     responseType: 'token id_token',
-    redirectUri: AUTH_CONFIG.callbackURL,
-    scope: 'openid profile' //para obtener info del usuario
+    redirectUri: 'http://localhost:4200/eventeando',
+    scope: 'openid profile email'
   });
 
   constructor(public router: Router, private httpClient: HttpClient, private utilsSrv: UtilsService) {
     this._idToken = '';
     this._accessToken = '';
     this._expiresAt = 0;
+    
   }
 
   get accessToken(): string {
@@ -130,12 +131,15 @@ export class AuthService {
     return this.httpClient.post<Usuario>(`${this.URL_API}/usuario`, usuario);
   }
 
-  // Sing in a user VAMOS A SACAR NUESTRO LOGIN capaz
+
   singIn(usuario): Observable<Session> {
     return this.httpClient.post<Session>(`${this.URL_API}/login`, usuario);
   }
 
 
+  desloggear(){
+    this.router.navigate(['/home']);
+  }
 
 
 }

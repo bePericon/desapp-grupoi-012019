@@ -2,7 +2,6 @@ package app.controller;
 
 import app.model.account.*;
 import app.model.web.ApiResponse;
-import app.model.web.NewCredito;
 import app.model.web.NewMovimiento;
 import app.service.account.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,13 @@ public class CuentaRestController {
         return new ApiResponse<Cuenta>(HttpStatus.OK.value(),"", cuenta);
     }
 
+    //todas las cuentas
+    @GetMapping("/cuenta/cuentas")
+    public ApiResponse<?> getAllCuentas() {
+        List<Cuenta> cuenta = (List<Cuenta>) this.cuentaService.getAllCuentas();
+        return new ApiResponse<List<Cuenta>>(HttpStatus.OK.value(),"", cuenta);
+    }
+    
     /*
     * Edicion de Tarjeta en Cuenta.
     */
