@@ -6,6 +6,7 @@ import app.model.event.Invitacion;
 
 import app.model.web.Invitaciones;
 import app.persistence.event.InvitacionDao;
+import app.service.EmailSenderService;
 import app.service.GenericService;
 import app.service.account.CuentaService;
 
@@ -29,6 +30,9 @@ public class InvitacionService extends GenericService<Invitacion> {
 
     @Autowired
     private EventoService eventoService;
+
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     @Override
     protected InvitacionDao getDao() {
@@ -77,13 +81,14 @@ public class InvitacionService extends GenericService<Invitacion> {
     }
 
     public void guardarListaInvitaciones(Invitaciones invitaciones) {
-        // TODO: envio de email reales.
-        Evento evento = invitaciones.getEvento();//this.eventoService.getById(invitaciones.getIdEvento());
+        Evento evento = invitaciones.getEvento();
+        String nombreApellido = evento.getOrganizador().getNombre()+" "+evento.getOrganizador().getApellido();
         for (String email : invitaciones.getEmails()) {
             Cuenta cuenta =  this.cuentaService.getByUsuarioEmailWithException(email);
             if(cuenta != null){
                 cuenta.agregarInvitacion(new Invitacion(email,evento));
                 this.cuentaService.update(cuenta);
+                this.emailSenderService.enviarEmailInvitacion(nombreApellido, email);
             }
         }
     }
