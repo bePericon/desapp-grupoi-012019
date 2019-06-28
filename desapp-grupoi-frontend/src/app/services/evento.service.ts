@@ -76,8 +76,6 @@ export class EventoService {
 
 
   hacerPublico(idTemplate): Observable<Session>{
-    console.log("El idTemplate: " +idTemplate);
-    
     return this.http.put<Session>(`${this.URL_API}/template/publico/${idTemplate}`, {}); 
   };
 
