@@ -42,8 +42,9 @@ export class EventoService {
     return this.http.get<Session>(this.URL_API+ '/cuenta/'+ this.usuarioId);
   };
 
-  postEvento(Evento: Evento){
-    
+  // http://localhost:8080/app/evento/{idUsuario} -- post
+  crearEvento(evento): Observable<Session>{
+    return this.http.post<Session>(`${this.URL_API}/${this.usuarioId}`, evento);
   };
 
   putEvento(Evento: Evento){
