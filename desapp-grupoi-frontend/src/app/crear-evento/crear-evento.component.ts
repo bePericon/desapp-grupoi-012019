@@ -1,5 +1,5 @@
 import { AgregarItemsComponent } from './../agregar-items/agregar-items.component';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventoService } from './../services/evento.service';
 import { TemplateEvento } from '../model/template-evento.model';
@@ -44,6 +44,8 @@ export class CrearEventoComponent implements OnInit {
   @ViewChild(AgregarItemsComponent) agregarItemsComponent: AgregarItemsComponent;
 
   panelOpenState = false;
+
+  @Input() parentApi: ParentComponentApi
 
   constructor(
     private _formBuilder: FormBuilder, 
@@ -162,7 +164,12 @@ export class CrearEventoComponent implements OnInit {
         this.uService.notificacion("Se creó correctamente el evento!", "");
         stepper.reset();
         this.recargar();
+        this.actualizarEventosEnPadre();
       });
+  }
+
+  actualizarEventosEnPadre() {
+    this.parentApi.callParentMethod()
   }
 
 }

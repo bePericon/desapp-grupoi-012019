@@ -2,6 +2,7 @@ package app.controller;
 
 import app.model.web.ApiResponse;
 import app.model.event.Invitacion;
+import app.model.web.InvitacionUsuario;
 import app.model.web.Invitaciones;
 import app.service.event.InvitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +45,15 @@ public class InvitacionController {
         return new ApiResponse<List<Invitacion>>(HttpStatus.OK.value(),"", invitaciones);
     }
 
-    @PostMapping("/nuevalista/")
-    public ApiResponse<?> guardarListaInvitaciones(@RequestBody Invitaciones invitaciones) {
-        this.invitacionService.guardarListaInvitaciones(invitaciones);
-        return new ApiResponse<Boolean>(HttpStatus.CREATED.value(),"", true);
+    @PutMapping("/confirmar")
+    public ApiResponse<Invitacion> confirmarInvitacion(@RequestBody InvitacionUsuario invitacionUsuario) {
+        Invitacion invitacion = this.invitacionService.confirmarInvitacion(invitacionUsuario);
+        return new ApiResponse<Invitacion>(HttpStatus.OK.value(), "La invitacion fue confirmada.", invitacion);
     }
 
+    @PutMapping("/rechazar")
+    public ApiResponse<Invitacion> rechazarInvitacion(@RequestBody InvitacionUsuario invitacionUsuario) {
+        Invitacion invitacion = this.invitacionService.rechazarInvitacion(invitacionUsuario);
+        return new ApiResponse<Invitacion>(HttpStatus.OK.value(), "La invitacion fue rechazada.", invitacion);
+    }
 }

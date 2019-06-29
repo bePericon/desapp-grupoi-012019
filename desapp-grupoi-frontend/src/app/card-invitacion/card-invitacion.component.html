@@ -1,0 +1,29 @@
+
+<div class="card mt-2 ml-2   shadow-sm">
+
+  <h5 class="text-center">{{invitacion.evento.nombre}}</h5>
+  <h6 class="text-center text-muted mt-1">{{invitacion.evento.nombre}}</h6>
+
+  <h6 class="card-subtitle mt-2 text-muted">
+    <i class="far fa-user mr-2"></i> Fuiste invitado por:
+    {{invitacion.evento.organizador.nombre}}, {{invitacion.evento.organizador.apellido}}
+  </h6>
+
+  <span><i class="fas fa-user-check mr-1"></i> {{invitacion.evento.asistentes.length}} asistentes confirmados</span>
+  <hr>
+  <p class="card-text">{{invitacion.evento.descripcion}}</p>
+
+  <hr>
+
+  <div class="d-flex justify-content-center ">
+    <button matTooltip="Confirmar asistencia" class="btn btn-outline-success"
+    (click)="confirmarAsistencia()">
+      <i class="fas fa-user-plus"></i>
+    </button>
+    <button matTooltip="Rechazar invitacion" class="btn btn-outline-danger ml-4"
+    (click)="rechazarInvitacion()">
+      <i class="fas fa-user-times"></i>
+    </button>
+  </div>
+
+</div>

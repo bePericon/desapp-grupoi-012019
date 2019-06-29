@@ -2,6 +2,7 @@ import { MostrarEventosComponent } from './../mostrar-eventos/mostrar-eventos.co
 import { EventoService } from './../services/evento.service';
 import { Evento } from './../model/evento.model';
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
+import { ParentComponentApi } from '../crear-evento/crear-evento.component';
 
 
 @Component({
@@ -21,12 +22,22 @@ export class EventosComponent implements OnInit {
   constructor(private eventoService: EventoService) { }
 
   ngOnInit() {
+    this.actualizar();
+  }
+
+  private actualizar() {
     this.ameMasPopulares.getMasPopulares();
     this.amePasados.getPasados();
     this.ameInvitaronEnCurso.getInvitaronEnCurso();
     this.ameCreadosPorMi.getCreadosPorMi();
   }
 
-
+  getParentApi(): ParentComponentApi {
+    return {
+      callParentMethod: () => {
+        this.actualizar()
+      }
+    }
+  }
 
 }

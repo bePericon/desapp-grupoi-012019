@@ -1,9 +1,12 @@
 package app.service.event;
 
+import app.error.exception.ExceptionConflict;
 import app.model.account.Cuenta;
+import app.model.account.Usuario;
 import app.model.event.Evento;
 import app.model.event.Invitacion;
 
+import app.model.web.InvitacionUsuario;
 import app.model.web.Invitaciones;
 import app.persistence.event.InvitacionDao;
 import app.service.EmailSenderService;
@@ -91,5 +94,36 @@ public class InvitacionService extends GenericService<Invitacion> {
                 this.emailSenderService.enviarEmailInvitacion(nombreApellido, email);
             }
         }
+    }
+
+    public Invitacion confirmarInvitacion(InvitacionUsuario invitacionUsuario) {
+        return this.ConfirmarRechazarInvitacion(invitacionUsuario, true);
+    }
+
+    public Invitacion rechazarInvitacion(InvitacionUsuario invitacionUsuario) {
+        return this.ConfirmarRechazarInvitacion(invitacionUsuario, false);
+    }
+
+    private Invitacion ConfirmarRechazarInvitacion(InvitacionUsuario invitacionUsuario, boolean accion) {
+        long idInvitacion = invitacionUsuario.getIdInvitacion();
+        long idUsuario = invitacionUsuario.getIdUsuario();
+
+        Invitacion invitacion = this.getDao().getById(idInvitacion);
+
+        // Validacion para los casos que no contemplamos.
+        if(!invitacion.estaPendiente())
+            throw new ExceptionConflict("Invitacion en estado incorrecto, estado actual: "+ invitacion.getEstadoInvitacion().toString());
+        /////////////////////////////////
+
+        Cuenta cuenta = this.cuentaService.getCuentaByIdUsuario(idUsuario);
+
+        if(accion)
+            invitacion.confirmar(cuenta.getUsuario());
+        else
+            invitacion.rechazar();
+
+        this.getDao().update(invitacion);
+
+        return invitacion;
     }
 }

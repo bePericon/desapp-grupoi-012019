@@ -52,6 +52,7 @@ import { EventoFiestaComponent } from './evento-fiesta/evento-fiesta.component';
 import { EventoCanastaComponent } from './evento-canasta/evento-canasta.component';
 import { EventoBaquitaV1Component } from './evento-baquita-v1/evento-baquita-v1.component';
 import { EventoBaquitaV2Component } from './evento-baquita-v2/evento-baquita-v2.component';
+import { CardInvitacionComponent } from './card-invitacion/card-invitacion.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -83,7 +84,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     EventoFiestaComponent,
     EventoCanastaComponent,
     EventoBaquitaV1Component,
-    EventoBaquitaV2Component
+    EventoBaquitaV2Component,
+    CardInvitacionComponent
   ],
   imports: [
     BrowserModule,

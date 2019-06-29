@@ -6,6 +6,7 @@ import { Session } from '../model/session.model';
 import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
 import { UtilsService } from './utils.service';
+import { StorageService } from './storage.service';
 
 // interface AuthConfig {
 //   clientID: string;
@@ -39,7 +40,11 @@ export class AuthService {
     scope: 'openid profile email'
   });
 
-  constructor(public router: Router, private httpClient: HttpClient, private utilsSrv: UtilsService) {
+  constructor(
+    public router: Router, 
+    private httpClient: HttpClient, 
+    private utilsSrv: UtilsService,
+    private storageService: StorageService) {
     this._idToken = '';
     this._accessToken = '';
     this._expiresAt = 0;
@@ -136,9 +141,8 @@ export class AuthService {
     return this.httpClient.post<Session>(`${this.URL_API}/login`, usuario);
   }
 
-
   desloggear(){
-    this.router.navigate(['/home']);
+    this.storageService.singOut();
   }
 
 

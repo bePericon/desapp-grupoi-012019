@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { Session } from '../model/session.model';
 import { Observable } from 'rxjs';
+import { Invitacion } from '../model/invitacion.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -35,5 +36,9 @@ export class InvitacionesService {
   getPasadas(): Observable<Session> {
     return this.http.get<Session>(this.URL_API+ '/pasada/'+ this.usuarioId);
   };
+
+  putAceptarInvitacion(inv: Invitacion): Observable<Session> {
+    return this.http.put<Session>(`${this.URL_API}/aceptar/${inv.id}`, { inv })
+  }
 
 }

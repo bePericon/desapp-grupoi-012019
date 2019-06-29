@@ -2,34 +2,10 @@
 
   <div class="row card-group">
     <div class="col-sm-3" *ngFor="let inv of invitaciones">
-
-      <div class="card mt-2 ml-2   shadow-sm">
-
-        <h5 class="text-center">{{inv.evento.nombre}}</h5>
-        <h6 class="text-center text-muted mt-1">{{inv.evento.nombre}}</h6>
-
-        <h6 class="card-subtitle mt-2 text-muted">
-          <i class="far fa-user mr-2"></i> Fuiste invitado por:
-          {{inv.evento.organizador.nombre}}, {{inv.evento.organizador.apellido}}
-        </h6>
-
-        <span><i class="fas fa-user-check mr-1"></i> {{inv.evento.asistentes.length}} asistentes confirmados</span>
-        <hr>
-        <p class="card-text">{{inv.evento.descripcion}}</p>
-
-        <hr>
-        <div class="d-flex justify-content-center ">
-          <button matTooltip="Confirmar asistencia" class="btn btn-outline-success">
-            <i class="fas fa-user-plus"></i>
-          </button>
-
-          <button matTooltip="Rechazar invitacion" class="btn btn-outline-danger ml-4">
-            <i class="fas fa-user-times"></i>
-          </button>
-
-        </div>
-      </div>
+      
+      <app-card-invitacion [invitacion]="inv"></app-card-invitacion>
 
     </div>
   </div>
+
 </div>

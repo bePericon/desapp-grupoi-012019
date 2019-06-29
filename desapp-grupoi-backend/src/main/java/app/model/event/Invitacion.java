@@ -36,6 +36,11 @@ public class Invitacion implements Serializable {
 			this.estadoInvitacion = EstadoInvitacion.ACEPTADA;
 	}
 
+	//TODO: falta caso en que ya seamos asistente
+	public void rechazar() {
+		this.estadoInvitacion = EstadoInvitacion.RECHAZADA;
+	}
+
 	public String getNombreEventoInvitacion() {
 		return this.evento.getNombre();
 	}

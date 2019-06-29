@@ -2,6 +2,8 @@
 -- Se elimina una FK de la tabla para poder tener para distintos eventos los mismos invitados.
 ALTER TABLE evento_asistentes DROP CONSTRAINT UK_RE4YATSY4AHR7LP6AV7GCNQ9J;
 
+ALTER TABLE evento_asistentes DROP CONSTRAINT UK_GRAUEQJ47VFAH4WGO86N1DG7C;
+
 -- Creacion de usuarios: (usuario, saldo, cuenta)
 -- Usuarios
 insert into usuario (id, nombre, apellido, email, contrasenia, fecha_nac) values
