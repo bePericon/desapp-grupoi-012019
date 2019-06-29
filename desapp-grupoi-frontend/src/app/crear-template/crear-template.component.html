@@ -8,7 +8,8 @@
         <form [formGroup]="nombreFormGroup">
           <ng-template matStepLabel>Nombre de Template</ng-template>
           <mat-form-field>
-            <input matInput placeholder="Nombre del Template" formControlName="nombreCtrl" required>
+            <input matInput #nombreT placeholder="Nombre del Template" maxlength="20" formControlName="nombreCtrl" required>
+            <mat-hint align="end">{{nombreT.value?.length || 0}}/20</mat-hint>
           </mat-form-field>
           <div>
             <button mat-button matStepperNext>Siguiente</button>
@@ -20,7 +21,8 @@
         <form [formGroup]="descripcionFormGroup">
           <ng-template matStepLabel>Descripción</ng-template>
           <mat-form-field>
-            <textarea  matInput placeholder="Descripción" formControlName="descripcionCtrl" required></textarea>
+            <textarea #descTemp maxlength="200" matInput placeholder="Descripción" formControlName="descripcionCtrl" required></textarea>
+            <mat-hint align="end">{{descTemp.value?.length || 0}}/200</mat-hint>
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Atrás</button>
@@ -50,7 +52,7 @@
         </form>
       </mat-step>
 
-      <!-- MODALIDAD, PONER UN SELECT -->
+      <!-- MODALIDAD -->
       <mat-step [stepControl]="modalidadFormGroup">
         <form [formGroup]="modalidadFormGroup">
           <ng-template matStepLabel>Modalidad</ng-template>

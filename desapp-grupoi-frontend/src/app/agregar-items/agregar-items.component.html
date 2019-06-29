@@ -22,19 +22,22 @@
 <h6> ¿No existe el item que querés en el listado?, no hay drama, podés agregarlo</h6>
 <form >
     <mat-form-field class="field-full-width" >
-        <input matInput placeholder="¿que item es?" value="{{nombreItem}}"
+        <input #itemN maxlength="20" matInput placeholder="¿que item es?" value="{{nombreItem}}"
         [(ngModel)]="nombreItemNuevo" [ngModelOptions]="{standalone: true}">
+        <mat-hint align="end">{{itemN.value?.length || 0}}/20</mat-hint>
     </mat-form-field>
     <br>
     <mat-form-field class="field-50-width" >
-        <input matInput placeholder="¿para cuantas personas alcanza?" type="number"value="{{personasPorUnidad}}"
+        <input matInput #itemRend max="200"  placeholder="¿para cuantas personas alcanza?" type="number"value="{{personasPorUnidad}}"
         [(ngModel)]="rendimientoItemNuevo" [ngModelOptions]="{standalone: true}">
+        <mat-hint align="end">{{itemRend.value?.length || 0}}/200</mat-hint>
     </mat-form-field>
     <br>
     <mat-form-field class="field-50-width" >
         <span matPrefix><i class="fas fa-dollar-sign"></i> &nbsp;</span>
-        <input type="number" matInput placeholder="¿cuanto cuesta?" value="{{monto}}"
-        [(ngModel)]="montoItemNuevo" [ngModelOptions]="{standalone: true}">
+        <input #itemPrecio type="number" matInput placeholder="¿cuanto cuesta?" value="{{monto}}"
+        [(ngModel)]="montoItemNuevo" max="9999" [ngModelOptions]="{standalone: true}">
+        <mat-hint align="end">{{itemPrecio.value?.length || 0}}/9999</mat-hint>
     </mat-form-field>
     <br>     
 </form>
