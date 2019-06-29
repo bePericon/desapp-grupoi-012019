@@ -8,7 +8,8 @@
     <form [formGroup]="nombreForm">
       <ng-template matStepLabel>Tu nombre</ng-template>
       <mat-form-field>
-        <input matInput placeholder="Nombre de pila" formControlName="nombreCtrl" required>
+        <input matInput #inputNombre  maxlength="30" placeholder="Nombre de pila" formControlName="nombreCtrl" required>
+         <mat-hint align="end">{{inputNombre.value?.length || 0}}/30</mat-hint>
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Siguiente <i class="material-icons">
@@ -22,7 +23,8 @@
     <form [formGroup]="apellidoForm">
       <ng-template matStepLabel>Tu apellido</ng-template>
       <mat-form-field>
-        <input matInput placeholder="Apellido" formControlName="apellidoCtrl" required>
+        <input matInput #inputApellido placeholder="Apellido" formControlName="apellidoCtrl" required>
+        <mat-hint align="end">{{inputApellido.value?.length || 0}}/30</mat-hint>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious><i class="material-icons">
@@ -57,15 +59,17 @@
     <form [formGroup]="contraseniaForm">
       <ng-template matStepLabel>Contraseña</ng-template>
       <mat-form-field>
-        <input matInput placeholder="Contraseña" type="password" formControlName="contraseniaCtrl" required>
+        <input matInput #inputContrasenia1 minlength="4"  maxlength="8" placeholder="Contraseña" type="password" formControlName="contraseniaCtrl" required>
+        <mat-hint align="end">{{inputContrasenia1.value?.length || 0}}/(4 a 8)</mat-hint>
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput placeholder="Repite la contraseña" type="password" formControlName="contraseniaDosCtrl" required>
-        <mat-error *ngIf="contraseniaForm.invalid">Las contraseñas no son iguales.</mat-error>
+        <input matInput #inputContrasenia2 placeholder="Repite la contraseña" type="password" minlength="4"  maxlength="8" formControlName="contraseniaDosCtrl" required>
+        <mat-hint align="end">{{inputContrasenia2.value?.length || 0}}/(4 a 8)</mat-hint>
+        <mat-error *ngIf="contraseniaForm.invalid">Las contraseñas deben ser iguales y de entre 4 y 8 caracteres.</mat-error>
       </mat-form-field>
 
-      <div>
+      <div class="mt-5">
         <button mat-button matStepperPrevious><i class="material-icons">
             chevron_left
           </i>Atrás</button>
