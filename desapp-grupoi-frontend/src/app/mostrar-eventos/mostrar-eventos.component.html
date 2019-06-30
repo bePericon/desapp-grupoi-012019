@@ -3,39 +3,7 @@
       <div class="row card-group">
         <div class="col-sm-3" *ngFor="let ev of eventos">
 
-          <div class="card mt-2 ml-2 shadow-sm">
-
-            <h5 class="text-center">{{ev.nombre}}</h5>
-            <hr>
-            <div class="col-12 justify-content-center mb-2 mx-auto">
-
-                <button matTooltip="Cant. Items: {{ev.cantidadItems}}" class="btn btn-outline-primary">
-                  <i class="fas fa-bars"></i>
-                </button>
-
-                <button matTooltip="Costo total: {{ev.costoTotal.monto}}" class="btn btn-outline-primary ml-2">
-                  <i class="fas fa-dollar-sign mx-auto"></i>
-                </button>
-
-                <button matTooltip="Asistentes: {{ev.totalAsistentes}}" class="btn btn-outline-primary ml-2"><i
-                    class="fas fa-users" style="margin-left: -3px;"></i></button>
-              </div>
-
-            <h6 class="card-subtitle mb-1 mt-2 text-muted"> <i class="far fa-user mr-2"></i>De:
-              {{ev.organizador.nombre}} {{ev.organizador.apellido}}</h6>
-            <p><i class="fas fa-user-check mr-1"></i> {{ev.cantidadAsistentes}} asistentes confirmados</p>
-
-            <div class="card-body">
-            
-              <p class="card-text">{{ev.descripcion}}</p>
-
-              <button matTooltip="copiar a mis templates" class="btn btn-outline-success float-right"><i
-                  class="far fa-copy"></i></button>
-
-            </div>
-
-          </div>
-
+          <app-card-evento [evento]="ev"></app-card-evento>
 
         </div>
       </div>

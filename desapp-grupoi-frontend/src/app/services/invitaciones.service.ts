@@ -9,36 +9,43 @@ import { Invitacion } from '../model/invitacion.model';
 })
 export class InvitacionesService {
 
-  invitaciones = [];
-  usuarioId: number;
-
   readonly URL_API = 'http://localhost:8080/app/invitacion';
 
   constructor(
     private http: HttpClient, 
     private storageService: StorageService) {
+  }
 
-    this.usuarioId = this.storageService.getCurrentUser().id;
+  getIdUsuario(): number{
+    return this.storageService.getCurrentUser().id;
   }
 
   getPendientes(): Observable<Session> {
-    return this.http.get<Session>(this.URL_API+ '/pendiente/'+ this.usuarioId);
+    return this.http.get<Session>(this.URL_API+ '/pendiente/'+ this.getIdUsuario());
   };
 
   getAceptadas(): Observable<Session> {
-    return this.http.get<Session>(this.URL_API+ '/aceptada/'+ this.usuarioId);
+    return this.http.get<Session>(this.URL_API+ '/aceptada/'+ this.getIdUsuario());
   };
 
   getRechazadas(){
-    return this.http.get<Session>(this.URL_API+ '/rechazada/'+ this.usuarioId);
+    return this.http.get<Session>(this.URL_API+ '/rechazada/'+ this.getIdUsuario());
   };
   
   getPasadas(): Observable<Session> {
-    return this.http.get<Session>(this.URL_API+ '/pasada/'+ this.usuarioId);
+    return this.http.get<Session>(this.URL_API+ '/pasada/'+ this.getIdUsuario());
   };
 
-  putAceptarInvitacion(inv: Invitacion): Observable<Session> {
-    return this.http.put<Session>(`${this.URL_API}/aceptar/${inv.id}`, { inv })
+  confirmarInvitacion(inv: Invitacion): Observable<Session> {
+    return this.http.put<Session>(
+      `${this.URL_API}/confirmar`, { idInvitacion: inv.id, idUsuario: this.getIdUsuario() }
+    );
+  }
+
+  rechazarInvitacion(inv: Invitacion): Observable<Session> {
+    return this.http.put<Session>(
+      `${this.URL_API}/rechazar`, { idInvitacion: inv.id, idUsuario: this.getIdUsuario() }
+    );
   }
 
 }

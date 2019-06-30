@@ -8,7 +8,7 @@
             <i class="material-icons"> fiber_new </i>
             Pendientes
           </ng-template>
-          <app-mostrar-invitaciones #aPendientes></app-mostrar-invitaciones>
+          <app-mostrar-invitaciones  [parentApi]="getParentApi()" [mostrarAcciones]="true" #aPendientes></app-mostrar-invitaciones>
         </mat-tab>
 
         <mat-tab>
@@ -17,7 +17,7 @@
             Aceptados en curso
           </ng-template>
 
-          <app-mostrar-invitaciones #aAceptados></app-mostrar-invitaciones>
+          <app-mostrar-invitaciones [mostrarAcciones]="false" #aAceptados></app-mostrar-invitaciones>
         </mat-tab>
 
         <mat-tab>
@@ -25,7 +25,7 @@
               <i class="fas fa-history mr-1"></i>
             Pasados
           </ng-template>
-          <app-mostrar-invitaciones #aPasados></app-mostrar-invitaciones>
+          <app-mostrar-invitaciones [mostrarAcciones]="false" #aPasados></app-mostrar-invitaciones>
         </mat-tab>
 
         <mat-tab>
@@ -33,7 +33,7 @@
               <i class="fas fa-times mr-1"></i>
             Rechazados
           </ng-template>
-          <app-mostrar-invitaciones #aRechazados></app-mostrar-invitaciones>
+          <app-mostrar-invitaciones [mostrarAcciones]="false" #aRechazados></app-mostrar-invitaciones>
         </mat-tab>
 
 

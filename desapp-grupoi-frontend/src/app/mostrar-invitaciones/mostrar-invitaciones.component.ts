@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { InvitacionesService } from './../services/invitaciones.service';
 import { Invitacion } from '../model/invitacion.model';
+import { ParentComponentApi } from '../crear-evento/crear-evento.component';
 @Component({
   selector: 'app-mostrar-invitaciones',
   templateUrl: './mostrar-invitaciones.component.html',
@@ -10,10 +11,22 @@ export class MostrarInvitacionesComponent implements OnInit {
 
   invitaciones: Invitacion[];
 
+  @Input() mostrarAcciones: boolean;
+
+  @Input() parentApi: ParentComponentApi
+
   constructor(private invitacionesService: InvitacionesService) {
   }
 
   ngOnInit() {
+  }
+
+  getParentApi(): ParentComponentApi {
+    return {
+      callParentMethod: () => {
+        this.parentApi.callParentMethod();
+      }
+    }
   }
 
   getPendientes(){

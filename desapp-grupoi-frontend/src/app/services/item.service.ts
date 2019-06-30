@@ -12,7 +12,6 @@ import { Item } from '../model/Item.model';
 export class ItemService {
 
   items: Item[];
-  usuarioId: number;
   itemSel : Item;
   // URL of th Rest API server
   readonly URL_API = 'http://localhost:8080/app/item';
@@ -21,9 +20,11 @@ export class ItemService {
   constructor(
     private httpClient: HttpClient,
     private storageService: StorageService) {
-    this.usuarioId = this.storageService.getCurrentUser().id;
   }
 
+  getIdUsuario(): number{
+    return this.storageService.getCurrentUser().id;
+  }
 
   getItemsDisponibles(): Observable<Session>{
     return this.httpClient.get<Session>(this.URL_API + '/all'); 

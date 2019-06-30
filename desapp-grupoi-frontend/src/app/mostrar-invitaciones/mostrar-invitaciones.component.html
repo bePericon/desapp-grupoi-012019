@@ -3,7 +3,10 @@
   <div class="row card-group">
     <div class="col-sm-3" *ngFor="let inv of invitaciones">
       
-      <app-card-invitacion [invitacion]="inv"></app-card-invitacion>
+      <app-card-invitacion 
+      [parentApi]="getParentApi()" 
+      [mostrarAcciones]="mostrarAcciones"
+      [invitacion]="inv"></app-card-invitacion>
 
     </div>
   </div>

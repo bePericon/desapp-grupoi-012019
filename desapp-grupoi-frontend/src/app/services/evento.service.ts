@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 export class EventoService {
 
   // Variables
-  usuarioId: number;
   selectedEvento : Evento;
   eventos: Evento[];
   // URL of th Rest API server
@@ -22,7 +21,10 @@ export class EventoService {
     private http: HttpClient,
     private storageService: StorageService) {
     this.selectedEvento = new Evento();
-    this.usuarioId = this.storageService.getCurrentUser().id;
+  }
+
+  getIdUsuario(): number{
+    return this.storageService.getCurrentUser().id;
   }
 
   // Methods
@@ -31,20 +33,20 @@ export class EventoService {
   };
 
   getEventosPasados(): Observable<Session>{
-    return this.http.get<Session>(this.URL_API+ '/pasados/cuenta/'+ this.usuarioId);
+    return this.http.get<Session>(this.URL_API+ '/pasados/cuenta/'+ this.getIdUsuario());
   };
 
   getEventosInvitaronEnCurso(): Observable<Session>{
-    return this.http.get<Session>(this.URL_API+ '/encurso/usuario/'+ this.usuarioId);
+    return this.http.get<Session>(this.URL_API+ '/encurso/usuario/'+ this.getIdUsuario());
   };
 
   getEventos(): Observable<Session>{
-    return this.http.get<Session>(this.URL_API+ '/cuenta/'+ this.usuarioId);
+    return this.http.get<Session>(this.URL_API+ '/cuenta/'+ this.getIdUsuario());
   };
 
   // http://localhost:8080/app/evento/{idUsuario} -- post
   crearEvento(evento): Observable<Session>{
-    return this.http.post<Session>(`${this.URL_API}/${this.usuarioId}`, evento);
+    return this.http.post<Session>(`${this.URL_API}/${this.getIdUsuario()}`, evento);
   };
 
   putEvento(Evento: Evento){
@@ -58,7 +60,7 @@ export class EventoService {
   // TEMPLATES
   //http://localhost:8080/app/evento/template/idUsuario --post
   crearTemplate(template): Observable<Session> {
-    return this.http.post<Session>(`${this.URL_API}/template/${this.usuarioId}`, template);
+    return this.http.post<Session>(`${this.URL_API}/template/${this.getIdUsuario()}`, template);
   }
 
   //http://localhost:8080/app/evento/template/idTemplate --get
@@ -71,7 +73,7 @@ export class EventoService {
   };
 
   getTemplatesPrivados(): Observable<Session>{
-    return this.http.get<Session>(`${this.URL_API}/template/usuario/${this.usuarioId}`); 
+    return this.http.get<Session>(`${this.URL_API}/template/usuario/${this.getIdUsuario()}`); 
   };
 
 

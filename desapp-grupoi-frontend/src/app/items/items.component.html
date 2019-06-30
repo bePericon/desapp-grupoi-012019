@@ -1,0 +1,18 @@
+<div class="">
+  <h1 mat-dialog-title>Items</h1>
+  <div mat-dialog-content>
+
+    <mat-list role="list" *ngFor="let templateItem of data">
+      <mat-list-item role="listitem">
+        {{templateItem.item.nombreItem}} ${{templateItem.item.costo.monto}} 
+        - Rinde: {{templateItem.item.personasPorUnidad}} pers. 
+      </mat-list-item>
+    </mat-list>
+    
+  </div>
+  <br>
+  <div mat-dialog-actions>
+    <button mat-button class="btn btn-success" 
+    [mat-dialog-close]="data" cdkFocusInitial>Cerrar</button>
+  </div>
+</div>

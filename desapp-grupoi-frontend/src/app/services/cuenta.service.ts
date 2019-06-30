@@ -11,7 +11,6 @@ import { StorageService } from './storage.service';
 })
 export class CuentaService {
 
-  usuarioId: number;
   cuentaActual: Cuenta;
 
   readonly URL_API = 'http://localhost:8080/app/cuenta';
@@ -19,13 +18,16 @@ export class CuentaService {
   constructor(
     private httpClient: HttpClient,
     private storageService: StorageService) {
-      this.usuarioId = this.storageService.getCurrentUser().id;
+  }
+
+  getIdUsuario(): number{
+    return this.storageService.getCurrentUser().id;
   }
 
   // METHODS
   // Obtener Cuenta del usuario actual
   getCuenta(): Observable<Session> {
-    return this.httpClient.get<Session>(this.URL_API+ '/usuario/'+ this.usuarioId);
+    return this.httpClient.get<Session>(this.URL_API+ '/usuario/'+ this.getIdUsuario());
   }
 
   getCuentas(): Observable<Session> {
@@ -34,13 +36,13 @@ export class CuentaService {
 
   // Guardamos la tarjeta de credito
   putTarjeta(tarjeta: Tarjeta): Observable<Session> {
-    return this.httpClient.put<Session>(this.URL_API + `/tarjeta/${this.usuarioId}`, tarjeta);
+    return this.httpClient.put<Session>(this.URL_API + `/tarjeta/${this.getIdUsuario()}`, tarjeta);
   };
 
   putMovimientoIngresar(monto: number, codigo: number): Observable<Session> {
     // En la vida real hay que pegarle a un servicio de acreditacion a cuentas bancarias
     return this.httpClient.put<Session>(
-      this.URL_API+ '/movimiento/deposito/'+ this.usuarioId, 
+      this.URL_API+ '/movimiento/deposito/'+ this.getIdUsuario(), 
       { codigoSeguridad: codigo, monto: { monto: monto } }
     );
   }
@@ -48,35 +50,35 @@ export class CuentaService {
   putMovimientoRetirar(monto: number, codigo: number): Observable<Session> {
     // En la vida real hay que pegarle a un servicio de acreditacion a cuentas bancarias
     return this.httpClient.put<Session>(
-      this.URL_API+ '/movimiento/retiro/'+ this.usuarioId, 
+      this.URL_API+ '/movimiento/retiro/'+ this.getIdUsuario(), 
       { codigoSeguridad: codigo, monto: { monto: monto } }
     );
   }
 
   // Metodo para crear el credito fijo de la app.
   putMovimientoCredito(): Observable<Session> {
-    return this.httpClient.put<Session>(`${this.URL_API}/movimiento/credito/${this.usuarioId}`, {});
+    return this.httpClient.put<Session>(`${this.URL_API}/movimiento/credito/${this.getIdUsuario()}`, {});
   }
 
   // Trae todos lo creditos del usuario, el historico.
   getCreditos(): Observable<Session> {
-    return this.httpClient.get<Session>(this.URL_API+ '/credito/'+ this.usuarioId);
+    return this.httpClient.get<Session>(this.URL_API+ '/credito/'+ this.getIdUsuario());
   }
 
   // Trae todos lo creditos del usuario finalizados.
   getCreditosFinalizados(): Observable<Session> {
-    return this.httpClient.get<Session>(this.URL_API+ '/credito/finalizado/'+ this.usuarioId);
+    return this.httpClient.get<Session>(this.URL_API+ '/credito/finalizado/'+ this.getIdUsuario());
   }
 
   // Obtener ultimo credito en curso, si no hay devuelve error con message.
   getUltimoCreditoEnCurso(): Observable<Session> {
-    return this.httpClient.get<Session>(this.URL_API+ '/credito/ultimo/'+ this.usuarioId);
+    return this.httpClient.get<Session>(this.URL_API+ '/credito/ultimo/'+ this.getIdUsuario());
   }
 
   // Pagar cuota de Credito.
   // TODO: hacer proceso en backend.
   putMovimientoPagarCuota(): Observable<Session> {
-    return this.httpClient.put<Session>(`${this.URL_API}/movimiento/pagarcuota/${this.usuarioId}`, {});
+    return this.httpClient.put<Session>(`${this.URL_API}/movimiento/pagarcuota/${this.getIdUsuario()}`, {});
   }
 
 }

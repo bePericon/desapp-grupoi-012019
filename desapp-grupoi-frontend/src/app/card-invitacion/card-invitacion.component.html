@@ -15,7 +15,7 @@
 
   <hr>
 
-  <div class="d-flex justify-content-center ">
+  <div *ngIf="mostrarAcciones" class="d-flex justify-content-center">
     <button matTooltip="Confirmar asistencia" class="btn btn-outline-success"
     (click)="confirmarAsistencia()">
       <i class="fas fa-user-plus"></i>

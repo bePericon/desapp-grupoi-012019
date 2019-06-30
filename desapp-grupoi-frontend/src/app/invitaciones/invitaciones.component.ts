@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { InvitacionesService } from './../services/invitaciones.service';
 import { MostrarInvitacionesComponent } from './../mostrar-invitaciones/mostrar-invitaciones.component';
+import { ParentComponentApi } from '../crear-evento/crear-evento.component';
 
 @Component({
   selector: 'app-invitaciones',
@@ -10,8 +11,6 @@ import { MostrarInvitacionesComponent } from './../mostrar-invitaciones/mostrar-
 
 export class InvitacionesComponent implements OnInit {
 
-  variable: any;
-
   @ViewChild('aPendientes') aPendientes: MostrarInvitacionesComponent;
   @ViewChild('aAceptados') aAceptados: MostrarInvitacionesComponent;
   @ViewChild('aPasados') aPasados: MostrarInvitacionesComponent;
@@ -20,12 +19,21 @@ export class InvitacionesComponent implements OnInit {
   constructor(private invitacionesService: InvitacionesService) { }
 
   ngOnInit() {
-
+    this.actualizar();
+  }
+  
+  actualizar(){
     this.aPendientes.getPendientes();
     this.aAceptados.getAceptadas();
     this.aPasados.getPasadas();
     this.aRechazados.getRechazadas();
   }
 
-
+  getParentApi(): ParentComponentApi {
+    return {
+      callParentMethod: () => {
+        this.actualizar()
+      }
+    }
+  }
 }
