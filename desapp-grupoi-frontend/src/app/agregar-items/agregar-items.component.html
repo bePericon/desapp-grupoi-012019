@@ -9,7 +9,7 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-        <input type="number" matInput placeholder="Cantidad" value="{{cantidadItems}}" 
+        <input type="number" matInput placeholder="Cantidad" value="{{cantidadItemModel}}" 
         [(ngModel)]="cantidadItemModel" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
 </form>
@@ -22,7 +22,7 @@
 <h6> ¿No existe el item que querés en el listado?, no hay drama, podés agregarlo</h6>
 <form >
     <mat-form-field class="field-full-width" >
-        <input #itemN maxlength="20" matInput placeholder="¿que item es?" value="{{nombreItem}}"
+        <input #itemN maxlength="20" matInput placeholder="¿que item es?" value="{{nombreItemNuevo}}"
         [(ngModel)]="nombreItemNuevo" [ngModelOptions]="{standalone: true}">
         <mat-hint align="end">{{itemN.value?.length || 0}}/20</mat-hint>
     </mat-form-field>
@@ -35,7 +35,7 @@
     <br>
     <mat-form-field class="field-50-width" >
         <span matPrefix><i class="fas fa-dollar-sign"></i> &nbsp;</span>
-        <input #itemPrecio type="number" matInput placeholder="¿cuanto cuesta?" value="{{monto}}"
+        <input #itemPrecio type="number" matInput placeholder="¿cuanto cuesta?" value="{{montoItemNuevo}}"
         [(ngModel)]="montoItemNuevo" max="9999" [ngModelOptions]="{standalone: true}">
         <mat-hint align="end">{{itemPrecio.value?.length || 0}}/9999</mat-hint>
     </mat-form-field>

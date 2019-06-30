@@ -4,6 +4,8 @@ import { ItemsComponent } from './../items/items.component';
 import { UtilsService } from './../services/utils.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Evento } from '../model/evento.model';
+import { Usuario } from '../model/usuario.model';
+import { InvitadosComponent } from '../invitados/invitados.component';
 
 @Component({
   selector: 'app-card-evento',
@@ -28,8 +30,18 @@ export class CardEventoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("Se cerro la info!");
-      
     });
+  }
+
+  verAsistentes(){
+    var asistentes: Usuario[] = this.evento.asistentes;
+
+    const dialogRef = this.uService.getDialog(InvitadosComponent, asistentes, "400px");
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Se cerro la info!");
+    });
+
   }
   
 

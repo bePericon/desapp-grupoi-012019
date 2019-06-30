@@ -12,8 +12,9 @@
       <i class="fas fa-dollar-sign mx-auto"></i>
     </button>
 
-    <button matTooltip="Asistentes: {{evento.totalAsistentes}}" class="btn btn-outline-primary ml-2"><i
-      class="fas fa-users" style="margin-left: -3px;"></i>
+    <button matTooltip="Asistentes: {{evento.totalAsistentes}}" class="btn btn-outline-primary ml-2"
+    (click)="verAsistentes()">
+      <i class="fas fa-users" style="margin-left: -3px;"></i>
     </button>
   </div>
 

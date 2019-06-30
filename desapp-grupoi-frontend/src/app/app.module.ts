@@ -55,6 +55,7 @@ import { EventoBaquitaV2Component } from './evento-baquita-v2/evento-baquita-v2.
 import { CardInvitacionComponent } from './card-invitacion/card-invitacion.component';
 import { CardEventoComponent } from './card-evento/card-evento.component';
 import { ItemsComponent } from './items/items.component';
+import { InvitadosComponent } from './invitados/invitados.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -89,7 +90,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     EventoBaquitaV2Component,
     CardInvitacionComponent,
     CardEventoComponent,
-    ItemsComponent
+    ItemsComponent,
+    InvitadosComponent
   ],
   imports: [
     BrowserModule,
@@ -148,7 +150,12 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MatProgressSpinnerModule,
     MatSnackBarModule
   ],
-  entryComponents: [RegisterComponent, EditTarjetaComponent, ItemsComponent],
+  entryComponents: [
+    RegisterComponent, 
+    EditTarjetaComponent, 
+    ItemsComponent, 
+    InvitadosComponent
+  ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es-Ar' },
     AuthService

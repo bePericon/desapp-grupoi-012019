@@ -5,7 +5,8 @@
     <mat-list role="list" *ngFor="let templateItem of data">
       <mat-list-item role="listitem">
         {{templateItem.item.nombreItem}} ${{templateItem.item.costo.monto}} 
-        - Rinde: {{templateItem.item.personasPorUnidad}} pers. 
+        - <b>Rinde:&nbsp;</b>{{templateItem.item.personasPorUnidad}} pers. 
+        - <b>Cant.:&nbsp;</b>{{templateItem.cantidad}}
       </mat-list-item>
     </mat-list>
     

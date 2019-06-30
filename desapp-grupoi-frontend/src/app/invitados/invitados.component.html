@@ -1,0 +1,17 @@
+<div class="">
+    <h1 mat-dialog-title>Invitados</h1>
+    <div mat-dialog-content>
+  
+      <mat-list role="list" *ngFor="let invitado of data">
+        <mat-list-item role="listitem">
+          {{invitado.nombre}}&nbsp;{{invitado.apellido}}
+        </mat-list-item>
+      </mat-list>
+      
+    </div>
+    <br>
+    <div mat-dialog-actions>
+      <button mat-button class="btn btn-success" 
+      [mat-dialog-close]="data" cdkFocusInitial>Cerrar</button>
+    </div>
+  </div>
