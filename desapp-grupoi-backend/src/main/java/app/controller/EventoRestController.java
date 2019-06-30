@@ -5,7 +5,6 @@ import app.model.web.NewEvento;
 import app.model.web.NewTemplate;
 import app.model.event.Evento;
 import app.model.event.Template;
-import app.service.account.CuentaService;
 import app.service.event.EventoService;
 import app.service.event.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ public class EventoRestController {
 
     @Autowired
     private EventoService eventoService;
-
-    @Autowired
-    private CuentaService cuentaService;
 
     @Autowired
     private TemplateService templateService;

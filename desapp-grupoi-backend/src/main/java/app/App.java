@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@ComponentScan({"/app/controller","/app/service", "/app/persistence", "/app/model"})
+@ComponentScan({"/app/controller","/app/service", "/app/persistence", "/app/model", "/app/aspect"})
 public class App {
 
     private static final Logger logger = LogManager.getLogger(App.class);

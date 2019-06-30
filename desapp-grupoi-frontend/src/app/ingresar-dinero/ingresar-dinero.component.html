@@ -8,7 +8,7 @@
   [ngClass]="{ 'active': mostrarRetirar }">Retirar dinero</button>
 </div>
 
-<mat-horizontal-stepper *ngIf="mostrarIngresar" [linear]="true" #stepperIngresar>
+<mat-horizontal-stepper class="mt-3" *ngIf="mostrarIngresar" [linear]="true" #stepperIngresar>
   <!-- Paso 1: ingresar dinero -->
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
@@ -55,7 +55,7 @@
   </mat-step>
 </mat-horizontal-stepper>
 
-<mat-horizontal-stepper *ngIf="mostrarRetirar" [linear]="true" #stepperRetirar>
+<mat-horizontal-stepper class="mt-3" *ngIf="mostrarRetirar" [linear]="true" #stepperRetirar>
   <!-- Paso 1: retirar dinero -->
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">

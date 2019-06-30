@@ -3,7 +3,7 @@ package app.controller;
 import app.model.web.ApiResponse;
 import app.model.event.Invitacion;
 import app.model.web.InvitacionUsuario;
-import app.model.web.Invitaciones;
+
 import app.service.event.InvitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
