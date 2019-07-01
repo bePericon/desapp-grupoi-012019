@@ -28,7 +28,7 @@
     </mat-form-field>
     <br>
     <mat-form-field class="field-50-width" >
-        <input matInput #itemRend max="200"  placeholder="¿para cuantas personas alcanza?" type="number"value="{{personasPorUnidad}}"
+        <input matInput #itemRend max="200"  placeholder="¿para cuantas personas alcanza?" type="number"value="{{rendimientoItemNuevo}}"
         [(ngModel)]="rendimientoItemNuevo" [ngModelOptions]="{standalone: true}">
         <mat-hint align="end">{{itemRend.value?.length || 0}}/200</mat-hint>
     </mat-form-field>

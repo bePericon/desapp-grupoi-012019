@@ -68,7 +68,7 @@ export class AgregarItemsComponent implements OnInit {
   agregarAlEvento() {
     // Agregamos a la lista
     var i = this.cantidadItemModel;
-    var templateItem = new TemplateItem(this.itemModel, i);
+    var templateItem = new TemplateItem(0,this.itemModel, i);
     this.itemsParaUsar.push(templateItem);
     // Mostramos notificacion
     let message = this.itemModel.nombreItem + " agregado "

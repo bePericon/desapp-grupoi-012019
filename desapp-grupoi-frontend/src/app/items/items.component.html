@@ -1,19 +1,55 @@
-<div class="">
+<div>
   <h1 mat-dialog-title>Items</h1>
   <div mat-dialog-content>
 
-    <mat-list role="list" *ngFor="let templateItem of data">
-      <mat-list-item role="listitem">
-        {{templateItem.item.nombreItem}} ${{templateItem.item.costo.monto}} 
-        - <b>Rinde:&nbsp;</b>{{templateItem.item.personasPorUnidad}} pers. 
-        - <b>Cant.:&nbsp;</b>{{templateItem.cantidad}}
-      </mat-list-item>
-    </mat-list>
+    <table width="100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="item.nombreItem">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.item.nombreItem}} </td>
+      </ng-container>
     
+      <ng-container matColumnDef="item.costo.monto">
+        <th mat-header-cell *matHeaderCellDef> Costo </th>
+        <td mat-cell *matCellDef="let element">$ {{element.item.costo.monto}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="item.personasPorUnidad">
+        <th mat-header-cell *matHeaderCellDef> Personas por unidad </th>
+        <td mat-cell *matCellDef="let element"> {{element.item.personasPorUnidad}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="cantidad">
+        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+        <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="seleccionar" *ngIf="data.mostrarSeleccionar">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="selection.toggle(row)">
+      </tr>
+    </table>
+
   </div>
   <br>
   <div mat-dialog-actions>
-    <button mat-button class="btn btn-success" 
-    [mat-dialog-close]="data" cdkFocusInitial>Cerrar</button>
+    <button mat-button class="btn btn-danger" [mat-dialog-close]="null">Cancelar</button>
+    <button mat-button class="btn btn-success" [mat-dialog-close]="data" (click)="aceptar()"
+    cdkFocusInitial>Aceptar</button>
   </div>
 </div>

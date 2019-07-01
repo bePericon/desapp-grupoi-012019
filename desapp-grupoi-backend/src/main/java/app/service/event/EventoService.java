@@ -7,6 +7,8 @@ import app.model.account.Usuario;
 import app.model.event.Evento;
 import app.model.event.Invitacion;
 import app.model.event.Template;
+import app.model.event.TemplateItem;
+import app.model.web.EventoData;
 import app.model.web.Invitaciones;
 import app.model.web.NewEvento;
 import app.persistence.event.EventoDao;
@@ -124,5 +126,27 @@ public class EventoService extends GenericService<Evento> {
         creador.start();
 
         return evento;
+    }
+
+    public Evento setItemsElegidos(long idUsuario, EventoData eventoData) {
+        Usuario usuario = this.usuarioService.getByIdUsuario(idUsuario);
+        Evento evento = this.getById(eventoData.getIdEvento());
+
+        int i;
+        for(i = 0; i < evento.getModalidad().getItemsAComprar().size(); i++)
+        {
+            TemplateItem ti = evento.getModalidad().getItemsAComprar().get(i);
+
+            for (TemplateItem tiRecibido: eventoData.getTemplateItems()) {
+                if(ti.getId() == tiRecibido.getId()){
+                    evento.elegirItemPorIndice(usuario, i);
+                }
+            }
+
+        }
+
+        this.update(evento);
+
+        return this.getById(eventoData.getIdEvento());
     }
 }

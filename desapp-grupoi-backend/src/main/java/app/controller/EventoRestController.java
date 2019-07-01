@@ -1,6 +1,8 @@
 package app.controller;
 
+import app.model.event.TemplateItem;
 import app.model.web.ApiResponse;
+import app.model.web.EventoData;
 import app.model.web.NewEvento;
 import app.model.web.NewTemplate;
 import app.model.event.Evento;
@@ -102,6 +104,17 @@ public class EventoRestController {
     public ApiResponse<Template> actualizarTemplateAPublico(@PathVariable String idTemplate) {
         Template templateN = this.templateService.actualizarTemplateAPublico(Long.parseLong(idTemplate));
         return new ApiResponse<Template>(HttpStatus.OK.value(), "El template ahora es Público.", templateN);
+    }
+
+
+    ////////////////////////////
+    /*
+    * Metodo para elegir los items que va a comprar un usuario.
+    */
+    @PutMapping("/item/{idUsuario}")
+    public ApiResponse<Evento> setItemsElegidos(@PathVariable String idUsuario,@RequestBody EventoData eventoData) {
+        Evento evento = this.eventoService.setItemsElegidos(Long.parseLong(idUsuario), eventoData);
+        return new ApiResponse<Evento>(HttpStatus.OK.value(), "El template ahora es Público.", evento);
     }
 
 }

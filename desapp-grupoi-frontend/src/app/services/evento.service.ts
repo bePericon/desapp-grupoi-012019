@@ -1,3 +1,4 @@
+import { TemplateItem } from './../model/template-item.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Evento } from '../model/evento.model';
@@ -86,5 +87,8 @@ export class EventoService {
   //   return this.http.post<Session>(this.URL_API+ '/template/sacar/',template); 
   // };
 
+  setItemsElegidos(eventoData): Observable<Session>{
+    return this.http.put<Session>(`${this.URL_API}/item/${this.getIdUsuario()}`, eventoData)
+  }
 
 }

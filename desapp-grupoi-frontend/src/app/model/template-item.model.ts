@@ -4,8 +4,9 @@ import { Item } from './Item.model';
 
 export class TemplateItem extends JSONclass {
 
-  constructor(item, cantidad){
+  constructor(id, item, cantidad){
     super();
+    this.id = id;
     this.item = item;
     this.cantidad = cantidad;
   }

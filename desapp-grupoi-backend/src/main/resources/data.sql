@@ -9,7 +9,7 @@ ALTER TABLE evento_asistentes DROP CONSTRAINT UK_GRAUEQJ47VFAH4WGO86N1DG7C;
 insert into usuario (id, nombre, apellido, email, contrasenia, fecha_nac) values
 (1, 'Emmanuel', 'Pericon','brianpericon.e92@gmail.com','$2a$04$CjttILdAPP0k.yduBaoM6erI/sf/w2H1fXjXUDbsO3MTkP2nvtST.',TO_DATE('27/11/1992', 'DD/MM/YYYY')),
 (2, 'Brian', 'Pericon','brian@email.com','$2a$04$CjttILdAPP0k.yduBaoM6erI/sf/w2H1fXjXUDbsO3MTkP2nvtST.',TO_DATE('27/11/1992', 'DD/MM/YYYY')),
-(3, 'Alejandro', 'Rossi','ale.h90@gmail.com','$2a$04$CjttILdAPP0k.yduBaoM6erI/sf/w2H1fXjXUDbsO3MTkP2nvtST.',TO_DATE('10/08/1992', 'DD/MM/YYYY')),
+(3, 'Alejandro', 'Rossi','ale@email.com','$2a$04$CjttILdAPP0k.yduBaoM6erI/sf/w2H1fXjXUDbsO3MTkP2nvtST.',TO_DATE('10/08/1992', 'DD/MM/YYYY')),
 (4, 'Homero', 'Simpson','homero@email.com','$2a$04$CjttILdAPP0k.yduBaoM6erI/sf/w2H1fXjXUDbsO3MTkP2nvtST.',TO_DATE('12/05/1956', 'DD/MM/YYYY'));
 -- Saldos
 insert into dinero (id, aux, monto) values

@@ -8,7 +8,7 @@ export class Evento {
   constructor() {
   };
 
-  _id: string;
+  id: string;
   nombre: String;
   organizador: Usuario;
   template: TemplateEvento;

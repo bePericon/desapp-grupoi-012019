@@ -155,4 +155,16 @@ public class Evento implements Serializable {
 	public boolean fechaVigente() {
 		return this.template.fechaVigente(this.hoy());
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setOrganizador(Usuario organizador) {
+		this.organizador = organizador;
+	}
 }
