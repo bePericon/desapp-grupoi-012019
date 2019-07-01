@@ -49,9 +49,6 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { AdministracionComponent } from './administracion/administracion.component';
 import { EventoFiestaComponent } from './evento-fiesta/evento-fiesta.component';
-import { EventoCanastaComponent } from './evento-canasta/evento-canasta.component';
-import { EventoBaquitaV1Component } from './evento-baquita-v1/evento-baquita-v1.component';
-import { EventoBaquitaV2Component } from './evento-baquita-v2/evento-baquita-v2.component';
 import { CardInvitacionComponent } from './card-invitacion/card-invitacion.component';
 import { CardEventoComponent } from './card-evento/card-evento.component';
 import { ItemsComponent } from './items/items.component';
@@ -85,9 +82,6 @@ registerLocaleData(localeEsAr, 'es-Ar');
     LoginComponent,
     AdministracionComponent,
     EventoFiestaComponent,
-    EventoCanastaComponent,
-    EventoBaquitaV1Component,
-    EventoBaquitaV2Component,
     CardInvitacionComponent,
     CardEventoComponent,
     ItemsComponent,

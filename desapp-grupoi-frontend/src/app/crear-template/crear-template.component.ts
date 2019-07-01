@@ -60,7 +60,7 @@ export class CrearTemplateComponent implements OnInit {
 
   crearTemplate(stepper) {
 
-    //dejo esta creacion de template porque, pero tenemos una entidad para eso si algo rompe despues
+    
     var template =
     {
       template: {

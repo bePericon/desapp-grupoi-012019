@@ -187,7 +187,7 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <app-mostrar-template [esPublico]=true [templates]=templatesPublicos></app-mostrar-template>
+            <app-mostrar-template [templateApi]="getApiTemplate()" [esPublico]=true [templates]=templatesPublicos></app-mostrar-template>
 
           </mat-expansion-panel>
         </mat-accordion>

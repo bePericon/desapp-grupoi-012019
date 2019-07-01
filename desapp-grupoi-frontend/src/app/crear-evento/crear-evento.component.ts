@@ -11,7 +11,13 @@ export interface Combo {
 }
 
 export interface ParentComponentApi {
-  callParentMethod: () => void
+  callParentMethod: () => void;
+ 
+}
+
+export interface ApiCargaTemplate {
+  
+  cargarTemplate: (t) => void;
 }
 
 @Component({
@@ -103,10 +109,28 @@ export class CrearEventoComponent implements OnInit {
     }
   }
 
+  getApiTemplate(): ApiCargaTemplate {
+    return {
+     
+      cargarTemplate:(t)=> {
+        this.cargarT(t)
+      }
+    }
+  }
+
+
+
   recargar(){
     this.getTemplatesPrivados();
     this.getTemplatesPublicos();
   }
+
+
+  cargarT(t){
+    alert(t)
+  }
+
+
 
   ////////////////////////////////////////
   ///////// Creacion de Eventos //////////
