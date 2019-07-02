@@ -1,18 +1,18 @@
-<div class="container-fluid mt-3" style="min-height: 100vh">
+<div class="container-fluid mt-3">
 
   <div class="row card-group">
-    <div class="col-sm-5" *ngFor="let t of templates">
+    <div class="col-sm-5" *ngFor="let tem of templates">
 
       <div class="card mt-2 ml-2 p-2 shadow-sm">
-        <span class="titulo ">{{t.nombre}} - <span
-            class="mb-2 text-muted text-center">{{t.modalidad.tipoModalidad}}</span></span>
+        <span class="titulo">{{tem.nombre}} - <span
+            class="mb-2 text-muted text-center">{{tem.modalidad.tipoModalidad}}</span></span>
 
         <hr>
-        <p>{{t.descripcion}}</p>
-        <hr>
+        <p>{{tem.descripcion}}</p>
+        <!-- <hr> -->
         <div *ngIf="!esPublico">
 
-          <button class="btn btn-outline-primary btn-sm text-center" (click)="hacerPublico(t)"
+          <button class="btn btn-outline-primary btn-sm text-center" (click)="hacerPublico(tem)"
             matTooltip="Tras hacerlo publico, no podrás deshacer esta acción">
             <i class="fas fa-globe mr-1"></i>
             Hacer público
@@ -20,8 +20,8 @@
 
         </div>
         <hr *ngIf="!esPublico">
-        <button matTooltip="Elegir {{t.nombre}}" class="btn btn-outline-success float-right boton"
-          (click)="elegirTemplate(t)"> <i class="fas fa-check"></i>
+        <button matTooltip="Elegir {{tem.nombre}}" class="btn btn-outline-success float-right boton"
+          (click)="elegirTemplate(tem)"> <i class="fas fa-check"></i>
         </button>
 
 

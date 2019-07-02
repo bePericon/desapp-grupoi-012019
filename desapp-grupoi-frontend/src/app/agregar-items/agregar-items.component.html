@@ -15,7 +15,13 @@
 </form>
 <br>
 <button [disabled]="!isItemValido()" class="btn btn-outline-success"
-    (click)="agregarAlEvento()">Agregar al evento<i class="fas fa-cart-plus"></i></button>
+    (click)="agregarAlEvento()">Agregar al evento<i class="fas fa-cart-plus"></i>
+</button>
+
+<!-- VER ITEMS -->
+<button class="btn btn-primary pull-right" [matTooltip]="nombresItems()">
+    ver items <i class="far fa-question-circle"></i>
+</button>
 
 
 <hr>
