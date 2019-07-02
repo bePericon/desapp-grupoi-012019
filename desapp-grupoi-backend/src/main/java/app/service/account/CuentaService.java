@@ -148,4 +148,8 @@ public class CuentaService extends GenericService<Cuenta> {
 
         return cuenta;
 	}
+
+	public List<Cuenta> getAllCuentasConCreditosEnCurso(){
+        return this.getDao().getAllCuentasConCreditosEnCurso();
+    }
 }

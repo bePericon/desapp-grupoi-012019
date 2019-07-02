@@ -1,6 +1,8 @@
 package app.persistence.account;
 
+import app.model.account.Credito;
 import app.model.account.Cuenta;
+import app.model.account.EnumEstados;
 import app.model.account.Usuario;
 import app.persistence.GenericDao;
 import org.springframework.stereotype.Repository;
@@ -54,4 +56,21 @@ public class CuentaDao extends GenericDao<Cuenta> {
 //	        return cuentas.get(0);
 	        return this.getAll();
 	}
+
+    public List<Cuenta> getAllCuentasConCreditosEnCurso() {
+        CriteriaBuilder cb = this.entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cuenta> cq = cb.createQuery(Cuenta.class);
+        Root<Cuenta> cuenta = cq.from(Cuenta.class);
+        Join<Cuenta, Credito> cuentaCreditoJoin = cuenta.join("creditos", JoinType.LEFT);
+        cq.where(
+            cb.or(
+                cb.equal(cuentaCreditoJoin.get("estado"), EnumEstados.EstadoCredito.GUARDADO),
+                cb.equal(cuentaCreditoJoin.get("estado"), EnumEstados.EstadoCredito.ENCURSO)
+            )
+        );
+        cq.select(cuenta);
+        List<Cuenta> cuentasConCreditosEnCurso = this.entityManager.createQuery(cq).getResultList();
+
+        return cuentasConCreditosEnCurso;
+    }
 }
