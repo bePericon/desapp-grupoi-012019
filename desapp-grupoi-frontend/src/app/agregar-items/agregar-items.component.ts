@@ -21,6 +21,7 @@ export class AgregarItemsComponent implements OnInit {
   nombreItemNuevo: string
   rendimientoItemNuevo: number
   montoItemNuevo: number
+  
 
   itemsParaUsar: TemplateItem[];
 
@@ -31,6 +32,17 @@ export class AgregarItemsComponent implements OnInit {
     this.getItems();
 
     this.itemsParaUsar = []
+   
+  }
+
+  nombresItems(){
+    let a=[];
+
+    this.itemsParaUsar.forEach(function (value) {
+      a.push(value.item.nombreItem +" "+value.cantidad+"unidades "+"\n");
+    });
+
+    return a.join();
   }
 
 //esto en un servicio
@@ -58,13 +70,12 @@ export class AgregarItemsComponent implements OnInit {
   }
 
   limpiarFormCreacion(){
-    this.nombreItemNuevo = undefined;
-    this.rendimientoItemNuevo = undefined;
-    this.montoItemNuevo = undefined;
+    this.nombreItemNuevo = null;
+    this.rendimientoItemNuevo = null;
+    this.montoItemNuevo = null;
   }
 
-  //guarda en una lista para que sea tomado por componente padre
-  //TODO: implementar databinding
+
   agregarAlEvento() {
     // Agregamos a la lista
     var i = this.cantidadItemModel;
