@@ -132,11 +132,8 @@ export class CrearEventoComponent implements OnInit {
 
 
   cargarT(t) {
-    // console.log('cargando desde crear evento')
-    console.log(t)
     this.name = "Copia - " + t.nombre
     this.desc = "Copia - " + t.descripcion
-    console.log(t.templateItems)
      
     this.agregarItemsComponent.itemsParaUsar = t.templateItems;
 
