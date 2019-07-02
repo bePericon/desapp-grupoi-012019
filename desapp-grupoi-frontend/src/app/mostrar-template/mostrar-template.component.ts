@@ -31,8 +31,7 @@ export class MostrarTemplateComponent implements OnInit {
 
 
   elegirTemplate(t){
-    console.log('cargando desde mostrar template')
-    console.log(t)
+
     this.templateApi.cargarTemplate(t);
   }
 
