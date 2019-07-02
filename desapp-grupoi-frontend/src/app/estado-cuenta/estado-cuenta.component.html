@@ -24,9 +24,9 @@
     <div class="col-sm-5">
       <div class="p-2 bd-highlight">
         <h3 class="cabecera-item">Tarjeta de crédito</h3>
-        <!-- <div class="d-flex justify-content-around"> -->
         <p class="valor-item">
-          {{tarjetaCredito.numeroTarjeta}}
+          <ng-container *ngIf="sinTarjeta()">{{infoSinTarjeta}}</ng-container>
+          <ng-container *ngIf="!sinTarjeta()">{{tarjetaCredito.numeroTarjeta}}</ng-container>
         </p>
       </div>
     </div>

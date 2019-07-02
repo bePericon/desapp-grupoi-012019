@@ -19,6 +19,8 @@ export class EstadoCuentaComponent implements OnInit {
   tarjetaCredito: Tarjeta;
   movimientos: Movimiento[];
 
+  infoSinTarjeta: string = "N/A";
+
   //Table
   @ViewChild (MatPaginator) paginator: MatPaginator; //cambiar esto no hace falta
   displayedColumns: string[] = ['tipoMovimiento', 'fecha', 'monto.monto'];
@@ -43,7 +45,7 @@ export class EstadoCuentaComponent implements OnInit {
         this.saldo = this.cuenta.saldo.monto;
         this.situacion = this.cuenta.situacionDeuda;
         this.movimientos = this.cuenta.movimientos;
-        this.tarjetaCredito = this.cuenta.tarjetaCredito;
+        this.tarjetaCredito = (this.cuenta.tarjetaCredito)? this.cuenta.tarjetaCredito : new Tarjeta("",0);
       
         //Table
         this.dataSource = new MatTableDataSource<Movimiento>(this.movimientos);
@@ -70,5 +72,9 @@ export class EstadoCuentaComponent implements OnInit {
       .subscribe(res => {
         console.log("Se actualizo la tarjeta! ");
       });
+  }
+
+  sinTarjeta(){
+    return this.tarjetaCredito.numeroTarjeta == "";
   }
 }
