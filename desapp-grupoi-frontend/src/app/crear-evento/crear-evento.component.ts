@@ -17,7 +17,7 @@ export interface ParentComponentApi {
 
 export interface ApiCargaTemplate {
 
-  cargarTemplate: (t) => void;
+  cargarTemplate: (t:TemplateEvento) => void;
 }
 
 @Component({
@@ -58,7 +58,9 @@ export class CrearEventoComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private eventoService: EventoService,
-    private uService: UtilsService) { }
+    private uService: UtilsService) {
+      this.itemsEvento =[];
+     }
 
   ngOnInit() {
     this.infoFiesta = "Los gastos corren por cuenta del organizador.";
@@ -130,16 +132,13 @@ export class CrearEventoComponent implements OnInit {
 
 
   cargarT(t) {
-    console.log('cargando desde crear evento')
+    // console.log('cargando desde crear evento')
     console.log(t)
     this.name = "Copia - " + t.nombre
     this.desc = "Copia - " + t.descripcion
     console.log(t.templateItems)
      
-    
-    t.templateItems.forEach(function (value) {
-      this.itemsEvento.push(value);
-    });
+    this.agregarItemsComponent.itemsParaUsar = t.templateItems;
 
     this.modalidadSeleccionada = t.modalidad.tipoModalidad
 
