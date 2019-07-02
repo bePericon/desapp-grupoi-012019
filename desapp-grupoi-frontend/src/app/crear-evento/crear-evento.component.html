@@ -24,7 +24,7 @@
           <form [formGroup]="nombreForm">
             <ng-template matStepLabel>Nombre del evento</ng-template>
             <mat-form-field>
-              <input matInput #nombreE maxlength="20" placeholder="Nombre del evento" formControlName="nombreCtrl" required>
+              <input matInput [(ngModel)]="name" #nombreE maxlength="20" placeholder="Nombre del evento" formControlName="nombreCtrl" required>
               <mat-hint align="end">{{nombreE.value?.length || 0}}/20</mat-hint>
             </mat-form-field>
             <div>
@@ -41,7 +41,9 @@
           <form [formGroup]="descripcionForm">
             <ng-template matStepLabel>Poné una descripción</ng-template>
             <mat-form-field>
-              <textarea matInput #descE maxlength="200" placeholder="Descripción" formControlName="descripcionCtrl" required></textarea>
+              <textarea [(ngModel)]="desc" matInput #descE maxlength="200" placeholder="Descripción" 
+                        formControlName="descripcionCtrl" required>
+              </textarea>
               <mat-hint align="end">{{descE.value?.length || 0}}/200</mat-hint>
             </mat-form-field>
             <div>
@@ -174,7 +176,7 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <app-mostrar-template [esPublico]=false [templates]=templatesPrivados></app-mostrar-template>
+            <app-mostrar-template  [parentApi]="getParentApi()" [esPublico]=false [templates]=templatesPrivados></app-mostrar-template>
 
           </mat-expansion-panel>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -187,7 +189,7 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <app-mostrar-template [esPublico]=true [templates]=templatesPublicos></app-mostrar-template>
+            <app-mostrar-template  [parentApi]="getParentApi()" [templateApi]="getApiTemplate()" [esPublico]=true [templates]=templatesPublicos></app-mostrar-template>
 
           </mat-expansion-panel>
         </mat-accordion>

@@ -11,7 +11,13 @@ export interface Combo {
 }
 
 export interface ParentComponentApi {
-  callParentMethod: () => void
+  callParentMethod: () => void;
+
+}
+
+export interface ApiCargaTemplate {
+
+  cargarTemplate: (t) => void;
 }
 
 @Component({
@@ -36,8 +42,10 @@ export class CrearEventoComponent implements OnInit {
   fechaForm: FormGroup;
   itemForm: FormGroup;
   emailForm: FormGroup;
-
+  itemsEvento;
   invitados: string[];
+  name;
+  desc;
 
   modalidadSeleccionada: string;
 
@@ -48,7 +56,7 @@ export class CrearEventoComponent implements OnInit {
   @Input() parentApi: ParentComponentApi
 
   constructor(
-    private _formBuilder: FormBuilder, 
+    private _formBuilder: FormBuilder,
     private eventoService: EventoService,
     private uService: UtilsService) { }
 
@@ -78,6 +86,7 @@ export class CrearEventoComponent implements OnInit {
     });
 
     this.invitados = [];
+    this.itemsEvento =[];
   }
 
   getTemplatesPublicos() {
@@ -103,17 +112,47 @@ export class CrearEventoComponent implements OnInit {
     }
   }
 
-  recargar(){
+  getApiTemplate(): ApiCargaTemplate {
+    return {
+
+      cargarTemplate: (t) => {
+        this.cargarT(t)
+      }
+    }
+  }
+
+
+
+  recargar() {
     this.getTemplatesPrivados();
     this.getTemplatesPublicos();
   }
+
+
+  cargarT(t) {
+    console.log('cargando desde crear evento')
+    console.log(t)
+    this.name = "Copia - " + t.nombre
+    this.desc = "Copia - " + t.descripcion
+    console.log(t.templateItems)
+     
+    
+    t.templateItems.forEach(function (value) {
+      this.itemsEvento.push(value);
+    });
+
+    this.modalidadSeleccionada = t.modalidad.tipoModalidad
+
+    this.uService.notificacion("Template copiado", "")
+  }
+
 
   ////////////////////////////////////////
   ///////// Creacion de Eventos //////////
   getNombre() { return this.nombreForm.value.nombreCtrl; }
   getDescripcion() { return this.descripcionForm.value.descripcionCtrl; }
   getFecha() { return this.fechaForm.value.fechaCtrl; }
-  
+
   invitar() {
     let invitado = this.emailForm.value.emailCtrl; //agarra el dato
     this.invitados.push(invitado);  //agrega a una lista
@@ -145,7 +184,8 @@ export class CrearEventoComponent implements OnInit {
       && !this.fechaForm.invalid && (this.invitados.length > 0);
   }
 
-  crearEvento(stepper){
+  crearEvento(stepper) {
+    this.itemsEvento = this.agregarItemsComponent.itemsParaUsar
     var evento = {
       nuevoTemplate: {
         template: {
@@ -154,7 +194,7 @@ export class CrearEventoComponent implements OnInit {
         },
         fechaLimite: this.getFecha(),
         tipoModalidad: this.modalidadSeleccionada,
-        items: this.agregarItemsComponent.itemsParaUsar
+        items: this.itemsEvento
       },
       invitados: this.invitados
     }
